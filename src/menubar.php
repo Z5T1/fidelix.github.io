@@ -1,13 +1,4 @@
-<!DOCTYPE HTML>
-<head>
-	<title>Fidelix Linux</title>
-	<link rel="stylesheet" href="style.css" />
-</head>
-<body>
-	<div class=contents>
-		<h1>The Fidelix Linux Distribution</h1>
-		<h2>Simple, Stable, and Secure</h2>
-		<div class=menubar>
+<div class=menubar>
 	<ul>
 		<li><a href=/>News</a></li>
 		<li><a href=about.html>About</a></li>
@@ -27,8 +18,4 @@
 		</div>
 	</ul>
 </div>
-
-		<p>foobar</p>
-	</div>
-</body>
 
