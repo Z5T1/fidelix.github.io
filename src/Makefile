@@ -2,7 +2,7 @@ DOCDIR=$(CURDIR)/../docs
 PHP=php
 
 PAGES=index.html
-INCLUDES=menubar.php
+INCLUDES=menubar.php util.php
 
 .PHONY: build clean
 build: $(addprefix $(DOCDIR)/,$(PAGES))

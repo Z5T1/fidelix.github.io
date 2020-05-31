@@ -3,7 +3,7 @@ include "util.php";
 do_header("Fidelix Linux");
 ?>
 
-<p>foobar</p>
+<!-- INSERT CONTENT HERE -->
 
 <?php do_footer(); ?>
 
