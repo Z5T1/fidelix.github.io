@@ -12,8 +12,10 @@ function do_header($title, $man=FALSE) {
 </head>
 <body>
 	<div class=contents>
+	<div class=header>
 	<h1>The Fidelix Linux Distribution</h1>
 	<h2>Simple, Stable, and Secure</h2>
+	</div>
 ");
 	include("menubar.php");
 }

@@ -15,10 +15,31 @@ clean:
 $(DOCDIR)/%.html: %.php $(INCLUDES)
 	$(PHP) $< > $@
 
-$(MANDIR) $(MANDIR)/%:
+$(MANDIR):
+	mkdir -p $@
+
+$(MANDIR)/%:
 	mkdir -p $@
 
 .PHONY: $(MAN)
+man1: $(MANDIR)/man1 $(addsuffix .html,\
+	$(addprefix $(MANDIR)/man1/,$(shell ls /usr/share/man/man1)))
+
+$(MANDIR)/man1/%.html: /usr/share/man/man1/% $(INCLUDES) $(MANDIR)
+	php man.php $< > $@
+
+man4: $(MANDIR)/man4 $(addsuffix .html,\
+	$(addprefix $(MANDIR)/man4/,$(shell ls /usr/share/man/man4)))
+
+$(MANDIR)/man4/%.html: /usr/share/man/man4/% $(INCLUDES) $(MANDIR)
+	php man.php $< > $@
+
+man5: $(MANDIR)/man5 $(addsuffix .html,\
+	$(addprefix $(MANDIR)/man5/,$(shell ls /usr/share/man/man5)))
+
+$(MANDIR)/man5/%.html: /usr/share/man/man5/% $(INCLUDES) $(MANDIR)
+	php man.php $< > $@
+
 man1: $(MANDIR)/man1 $(addsuffix .html,\
 	$(addprefix $(MANDIR)/man1/,$(shell ls /usr/share/man/man1)))
 

@@ -8,11 +8,11 @@ do_header("Fidelix Linux");
 <h1>2020-05-31: nginx has Landed in Master; i686 Port is Underway</h1>
 
 <p>
-I am please to announce that <a href=http://nginx.org/>nginx</a> 1.18.0 is now available in the master branch under daemon/nginx. This marks another daemon down. As an added bonus, tab complete and line editing history work on the sftp client now. In the near future, we are currently planning to add Exim, OpenNTPD, a DNS server (which one is TBD), and MariaDB.
+I am please to announce that <a href=http://nginx.org/>nginx</a> 1.18.0 is now available in the master branch under daemon/nginx. This marks another daemon down. As an added bonus, tab complete and line editing history work on the sftp client now. We are currently planning to add Exim, OpenNTPD, a DNS server (which one is TBD), and MariaDB in the near future.
 </p>
 
 <p>
-A port of Fidelix to the i686 architecture is under way.
+A port of Fidelix to the i686 architecture is under way. I am currently in the middle of the adruous process of porting the bootstrap tools. You can check out the current progress on ths <a href=https://github.com/Z5T1/fidelix/tree/i686>i686 branch</a>.
 <p>
 
 <p>
