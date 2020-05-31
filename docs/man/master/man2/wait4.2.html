@@ -1,0 +1,182 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/wait4.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">WAIT4(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">WAIT4(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+wait3, wait4 - wait for process to change state, BSD style
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>#include &lt;sys/types.h&gt;</b>
+<b>#include &lt;sys/time.h&gt;</b>
+<b>#include &lt;sys/resource.h&gt;</b>
+<b>#include &lt;sys/wait.h&gt;</b>
+</pre>
+<pre>
+<b>pid_t wait3(int *</b><i>wstatus</i><b>, int </b><i>options</i><b>,</b>
+<b>            struct rusage *</b><i>rusage</i><b>);</b>
+</pre>
+<pre>
+<b>pid_t wait4(pid_t </b><i>pid</i><b>, int *</b><i>wstatus</i><b>, int </b><i>options</i><b>,</b>
+<b>            struct rusage *</b><i>rusage</i><b>);</b>
+</pre>
+<p class="Pp">
+  <br/>
+  Feature Test Macro Requirements for glibc (see <b>feature_test_macros</b>(7)):
+  <br/>
+</p>
+<p class="Pp"><b>wait3</b>():
+   Since glibc 2.19:
+   _DEFAULT_SOURCE || _XOPEN_SOURCE&#x00A0;&gt;=&#x00A0;500
+   Glibc 2.19 and earlier:
+   _BSD_SOURCE || _XOPEN_SOURCE&#x00A0;&gt;=&#x00A0;500
+  <br/>
+  <b>wait4</b>():
+   Since glibc 2.19:
+   _DEFAULT_SOURCE
+   Glibc 2.19 and earlier:
+   _BSD_SOURCE</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+These functions are nonstandard; in new programs, the use of <b>waitpid</b>(2)
+  or <b>waitid</b>(2) is preferable.
+<p class="Pp">The <b>wait3</b>() and <b>wait4</b>() system calls are similar to
+    <b>waitpid</b>(2), but additionally return resource usage information about
+    the child in the structure pointed to by <i>rusage</i>.</p>
+<p class="Pp">Other than the use of the <i>rusage</i> argument, the following
+    <b>wait3</b>() call:</p>
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+wait3(wstatus, options, rusage);
+
+</pre>
+<br/>
+<p class="Pp">is equivalent to:</p>
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+waitpid(-1, wstatus, options);
+
+</pre>
+<br/>
+<p class="Pp">Similarly, the following <b>wait4</b>() call:</p>
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+wait4(pid, wstatus, options, rusage);
+
+</pre>
+<br/>
+<p class="Pp">is equivalent to:</p>
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+waitpid(pid, wstatus, options);
+
+</pre>
+<br/>
+<p class="Pp">In other words, <b>wait3</b>() waits of any child, while
+    <b>wait4</b>() can be used to select a specific child, or children, on which
+    to wait. See <b>wait</b>(2) for further details.</p>
+<p class="Pp">If <i>rusage</i> is not NULL, the <i>struct rusage</i> to which it
+    points will be filled with accounting information about the child. See
+    <b>getrusage</b>(2) for details.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+As for <b>waitpid</b>(2).
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+As for <b>waitpid</b>(2).
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+4.3BSD.
+<p class="Pp">SUSv1 included a specification of <b>wait3</b>(); SUSv2 included
+    <b>wait3</b>(), but marked it LEGACY; SUSv3 removed it.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+Including <i>&lt;sys/time.h&gt;</i> is not required these days, but increases
+  portability. (Indeed, <i>&lt;sys/resource.h&gt;</i> defines the <i>rusage</i>
+  structure with fields of type <i>struct timeval</i> defined in
+  <i>&lt;sys/time.h&gt;</i>.)
+<section class="Ss">
+<h2 class="Ss" id="C_library/kernel_differences"><a class="permalink" href="#C_library/kernel_differences">C
+  library/kernel differences</a></h2>
+On Linux, <b>wait3</b>() is a library function implemented on top of the
+  <b>wait4</b>() system call.
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>fork</b>(2), <b>getrusage</b>(2), <b>sigaction</b>(2), <b>signal</b>(2),
+  <b>wait</b>(2), <b>signal</b>(7)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2018-04-30</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

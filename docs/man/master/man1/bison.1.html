@@ -1,0 +1,280 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/bison.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">BISON(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">BISON(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+bison - GNU Project parser generator (yacc replacement)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>bison</b> [<i>OPTION</i>]... <i>FILE</i>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<i>Bison</i> is a parser generator in the style of <i>yacc</i>(1). It should be
+  upwardly compatible with input files designed for <i>yacc</i>.
+<p class="Pp">Input files should follow the <i>yacc</i> convention of ending in
+    <b>.y</b>. Unlike <i>yacc</i>, the generated files do not have fixed names,
+    but instead use the prefix of the input file. Moreover, if you need to put
+    <i>C++</i> code in the input file, you can end his name by a C++-like
+    extension (.ypp or .y++), then bison will follow your extension to name the
+    output file (.cpp or .c++). For instance, a grammar description file named
+    <b>parse.yxx</b> would produce the generated parser in a file named
+    <b>parse.tab.cxx</b>, instead of <i>yacc</i>'s <b>y.tab.c</b> or old
+    <i>Bison</i> version's <b>parse.tab.c</b>.</p>
+<p class="Pp">This description of the options that can be given to <i>bison</i>
+    is adapted from the node <b>Invocation</b> in the <b>bison.texi</b> manual,
+    which should be taken as authoritative.</p>
+<p class="Pp"><i>Bison</i> supports both traditional single-letter options and
+    mnemonic long option names. Long option names are indicated with <b>--</b>
+    instead of <b>-</b>. Abbreviations for option names are allowed as long as
+    they are unique. When a long option takes an argument, like
+    <b>--file-prefix</b>, connect the option name and the argument with
+    <b>=</b>.</p>
+<p class="Pp">Generate a deterministic LR or generalized LR (GLR) parser
+    employing LALR(1), IELR(1), or canonical LR(1) parser tables.</p>
+<p class="Pp">Mandatory arguments to long options are mandatory for short
+    options too. The same is true for optional arguments.</p>
+<section class="Ss">
+<h2 class="Ss" id="Operation_Modes:"><a class="permalink" href="#Operation_Modes:">Operation
+  Modes:</a></h2>
+<dl class="Bl-tag">
+  <dt><b>-h</b>, <b>--help</b></dt>
+  <dd>display this help and exit</dd>
+  <dt><b>-V</b>, <b>--version</b></dt>
+  <dd>output version information and exit</dd>
+  <dt><b>--print-localedir</b></dt>
+  <dd>output directory containing locale-dependent data and exit</dd>
+  <dt><b>--print-datadir</b></dt>
+  <dd>output directory containing skeletons and XSLT and exit</dd>
+  <dt><b>-u</b>, <b>--update</b></dt>
+  <dd>apply fixes to the source grammar file and exit</dd>
+  <dt><b>-f</b>, <b>--feature</b>[=<i>FEATURES</i>]</dt>
+  <dd>activate miscellaneous features</dd>
+</dl>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="FEATURES_is_a_list_of_comma_separated_words_that_can_include:"><a class="permalink" href="#FEATURES_is_a_list_of_comma_separated_words_that_can_include:">FEATURES
+  is a list of comma separated words that can include:</a></h2>
+<dl class="Bl-tag">
+  <dt>caret, diagnostics-show-caret</dt>
+  <dd>show errors with carets</dd>
+  <dt>fixit, diagnostics-parseable-fixits</dt>
+  <dd>show machine-readable fixes</dd>
+  <dt>syntax-only</dt>
+  <dd>do not generate any file</dd>
+  <dt>all</dt>
+  <dd>all of the above</dd>
+  <dt>none</dt>
+  <dd>disable all of the above</dd>
+</dl>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Diagnostics:"><a class="permalink" href="#Diagnostics:">Diagnostics:</a></h2>
+<dl class="Bl-tag">
+  <dt><b>-W</b>, <b>--warnings</b>[=<i>CATEGORY</i>]</dt>
+  <dd>report the warnings falling in CATEGORY</dd>
+  <dt><b>--color</b>[=<i>WHEN</i>]</dt>
+  <dd>whether to colorize the diagnostics</dd>
+  <dt><b>--style</b>=<i>FILE</i></dt>
+  <dd>specify the CSS FILE for colorizer diagnostics</dd>
+</dl>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Warning_categories_include:"><a class="permalink" href="#Warning_categories_include:">Warning
+  categories include:</a></h2>
+<dl class="Bl-tag">
+  <dt>conflicts-sr</dt>
+  <dd>S/R conflicts (enabled by default)</dd>
+  <dt>conflicts-rr</dt>
+  <dd>R/R conflicts (enabled by default)</dd>
+  <dt>dangling-alias</dt>
+  <dd>string aliases not attached to a symbol</dd>
+  <dt>deprecated</dt>
+  <dd>obsolete constructs</dd>
+  <dt>empty-rule</dt>
+  <dd>empty rules without %empty</dd>
+  <dt>midrule-values</dt>
+  <dd>unset or unused midrule values</dd>
+  <dt>precedence</dt>
+  <dd>useless precedence and associativity</dd>
+  <dt>yacc</dt>
+  <dd>incompatibilities with POSIX Yacc</dd>
+  <dt>other</dt>
+  <dd>all other warnings (enabled by default)</dd>
+  <dt>all</dt>
+  <dd>all the warnings except 'dangling-alias' and 'yacc'</dd>
+  <dt>no-CATEGORY</dt>
+  <dd>turn off warnings in CATEGORY</dd>
+  <dt>none</dt>
+  <dd>turn off all the warnings</dd>
+  <dt>error[=CATEGORY]</dt>
+  <dd>treat warnings as errors</dd>
+</dl>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="WHEN_can_be_one_of_the_following:"><a class="permalink" href="#WHEN_can_be_one_of_the_following:">WHEN
+  can be one of the following:</a></h2>
+<dl class="Bl-tag">
+  <dt>always, yes</dt>
+  <dd>colorize the output</dd>
+  <dt>never, no</dt>
+  <dd>don't colorize the output</dd>
+  <dt>auto, tty</dt>
+  <dd>colorize if the output device is a tty</dd>
+</dl>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Tuning_the_Parser:"><a class="permalink" href="#Tuning_the_Parser:">Tuning
+  the Parser:</a></h2>
+<dl class="Bl-tag">
+  <dt><b>-L</b>, <b>--language</b>=<i>LANGUAGE</i></dt>
+  <dd>specify the output programming language</dd>
+  <dt><b>-S</b>, <b>--skeleton</b>=<i>FILE</i></dt>
+  <dd>specify the skeleton to use</dd>
+  <dt><b>-t</b>, <b>--debug</b></dt>
+  <dd>instrument the parser for tracing same as '-Dparse.trace'</dd>
+  <dt><b>--locations</b></dt>
+  <dd>enable location support</dd>
+  <dt><b>-D</b>, <b>--define=NAME</b>[=<i>VALUE</i>]</dt>
+  <dd>similar to '%define NAME VALUE'</dd>
+  <dt><b>-F</b>, <b>--force-define=NAME</b>[=<i>VALUE</i>]</dt>
+  <dd>override '%define NAME VALUE'</dd>
+  <dt><b>-p</b>, <b>--name-prefix</b>=<i>PREFIX</i></dt>
+  <dd>prepend PREFIX to the external symbols deprecated by
+      '-Dapi.prefix={PREFIX}'</dd>
+  <dt><b>-l</b>, <b>--no-lines</b></dt>
+  <dd>don't generate '#line' directives</dd>
+  <dt><b>-k</b>, <b>--token-table</b></dt>
+  <dd>include a table of token names</dd>
+  <dt><b>-y</b>, <b>--yacc</b></dt>
+  <dd>emulate POSIX Yacc</dd>
+</dl>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Output_Files:"><a class="permalink" href="#Output_Files:">Output
+  Files:</a></h2>
+<dl class="Bl-tag">
+  <dt><b>--defines</b>[=<i>FILE</i>]</dt>
+  <dd>also produce a header file</dd>
+  <dt><b>-d</b></dt>
+  <dd>likewise but cannot specify FILE (for POSIX Yacc)</dd>
+  <dt><b>-r</b>, <b>--report</b>=<i>THINGS</i></dt>
+  <dd>also produce details on the automaton</dd>
+  <dt><b>--report-file</b>=<i>FILE</i></dt>
+  <dd>write report to FILE</dd>
+  <dt><b>-v</b>, <b>--verbose</b></dt>
+  <dd>same as '--report=state'</dd>
+  <dt><b>-b</b>, <b>--file-prefix</b>=<i>PREFIX</i></dt>
+  <dd>specify a PREFIX for output files</dd>
+  <dt><b>-o</b>, <b>--output</b>=<i>FILE</i></dt>
+  <dd>leave output to FILE</dd>
+  <dt><b>-g</b>, <b>--graph</b>[=<i>FILE</i>]</dt>
+  <dd>also output a graph of the automaton</dd>
+  <dt><b>-x</b>, <b>--xml</b>[=<i>FILE</i>]</dt>
+  <dd>also output an XML report of the automaton</dd>
+</dl>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="THINGS_is_a_list_of_comma_separated_words_that_can_include:"><a class="permalink" href="#THINGS_is_a_list_of_comma_separated_words_that_can_include:">THINGS
+  is a list of comma separated words that can include:</a></h2>
+<dl class="Bl-tag">
+  <dt>states</dt>
+  <dd>describe the states</dd>
+  <dt>itemsets</dt>
+  <dd>complete the core item sets with their closure</dd>
+  <dt>lookaheads</dt>
+  <dd>explicitly associate lookahead tokens to items</dd>
+  <dt>solved</dt>
+  <dd>describe shift/reduce conflicts solving</dd>
+  <dt>all</dt>
+  <dd>include all the above information</dd>
+  <dt>none</dt>
+  <dd>disable the report</dd>
+</dl>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHOR"><a class="permalink" href="#AUTHOR">AUTHOR</a></h1>
+Written by Robert Corbett and Richard Stallman.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="REPORTING_BUGS"><a class="permalink" href="#REPORTING_BUGS">REPORTING
+  BUGS</a></h1>
+Report bugs to &lt;bug-bison@gnu.org&gt;.
+<br/>
+GNU Bison home page: &lt;https://www.gnu.org/software/bison/&gt;.
+<br/>
+General help using GNU software: &lt;http://www.gnu.org/gethelp/&gt;.
+<br/>
+For complete documentation, run: info bison.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COPYRIGHT"><a class="permalink" href="#COPYRIGHT">COPYRIGHT</a></h1>
+Copyright &#x00A9; 2020 Free Software Foundation, Inc.
+<br/>
+This is free software; see the source for copying conditions. There is NO
+  warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>lex</b>(1), <b>flex</b>(1), <b>yacc</b>(1).
+<p class="Pp">The full documentation for <b>bison</b> is maintained as a Texinfo
+    manual. If the <b>info</b> and <b>bison</b> programs are properly installed
+    at your site, the command</p>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd><b>info bison</b></dd>
+</dl>
+<p class="Pp">should give you access to the complete manual.</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">February 2020</td>
+    <td class="foot-os">bison 3.5.2</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

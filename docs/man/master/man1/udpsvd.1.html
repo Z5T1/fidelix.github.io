@@ -1,0 +1,90 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/udpsvd.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">UDPSVD(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">UDPSVD(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+udpsvd - manual page for udpsvd 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>udpsvd</b> [<i>-hEv</i>] [<i>-c N</i>] [<i>-u USER</i>] [<i>-l NAME</i>]
+  <i>IP PORT PROG</i>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">Create UDP socket, bind to IP:PORT and wait for incoming packets.
+    Run PROG for each packet, redirecting all further packets with same peer
+    ip:port to it.</p>
+<dl class="Bl-tag">
+  <dt>IP PORT</dt>
+  <dd>IP:PORT to listen on</dd>
+  <dt>PROG ARGS</dt>
+  <dd>Program to run</dd>
+  <dt><b>-u</b> USER[:GRP]</dt>
+  <dd>Change to user/group after bind</dd>
+  <dt><b>-c</b> N</dt>
+  <dd>Up to N connections simultaneously (default 30)</dd>
+  <dt><b>-E</b></dt>
+  <dd>Don't set up environment</dd>
+  <dt><b>-h</b></dt>
+  <dd>Look up peer's hostname</dd>
+  <dt><b>-l</b> NAME</dt>
+  <dd>Local hostname (else look up local hostname in DNS)</dd>
+  <dt><b>-v</b></dt>
+  <dd>Verbose</dd>
+</dl>
+<p class="Pp">Environment if no <b>-E</b>: PROTO='UDP' UDPREMOTEADDR='ip:port'
+    ('[ip]:port' for IPv6) UDPLOCALADDR='ip:port' If <b>-h</b>:
+    UDPLOCALHOST='hostname' (<b>-l</b> NAME is used if specified)
+    UDPREMOTEHOST='hostname'</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

@@ -1,0 +1,103 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/tcpsvd.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">TCPSVD(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">TCPSVD(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+tcpsvd - manual page for tcpsvd 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>tcpsvd</b> [<i>-hEv</i>] [<i>-c N</i>] [<i>-C N</i>[<i>:MSG</i>]] [<i>-b
+  N</i>] [<i>-u USER</i>] [<i>-l NAME</i>] <i>IP PORT PROG</i>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">Create TCP socket, bind to IP:PORT and listen for incoming
+    connections. Run PROG for each connection.</p>
+<dl class="Bl-tag">
+  <dt>IP PORT</dt>
+  <dd>IP:PORT to listen on</dd>
+  <dt>PROG ARGS</dt>
+  <dd>Program to run</dd>
+  <dt><b>-u</b> USER[:GRP]</dt>
+  <dd>Change to user/group after bind</dd>
+  <dt><b>-c</b> N</dt>
+  <dd>Up to N connections simultaneously (default 30)</dd>
+  <dt><b>-b</b> N</dt>
+  <dd>Allow backlog of approximately N TCP SYNs (default 20)</dd>
+  <dt><b>-C</b> N[:MSG]</dt>
+  <dd>Allow only up to N connections from the same IP: new connections from this
+      IP address are closed immediately, MSG is written to the peer before
+    close</dd>
+  <dt><b>-E</b></dt>
+  <dd>Don't set up environment</dd>
+  <dt><b>-h</b></dt>
+  <dd>Look up peer's hostname</dd>
+  <dt><b>-l</b> NAME</dt>
+  <dd>Local hostname (else look up local hostname in DNS)</dd>
+  <dt><b>-v</b></dt>
+  <dd>Verbose</dd>
+</dl>
+<p class="Pp">Environment if no <b>-E</b>: PROTO='TCP' TCPREMOTEADDR='ip:port'
+    ('[ip]:port' for IPv6) TCPLOCALADDR='ip:port' TCPORIGDSTADDR='ip:port' of
+    destination before firewall</p>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>Useful for REDIRECTed-to-local connections: iptables <b>-t</b> nat
+      <b>-A</b> PREROUTING <b>-p</b> tcp <b>--dport</b> 80 <b>-j</b> REDIRECT
+      <b>--to</b> 8080</dd>
+</dl>
+<p class="Pp">TCPCONCURRENCY=num_of_connects_from_this_ip If <b>-h</b>:
+    TCPLOCALHOST='hostname' (<b>-l</b> NAME is used if specified)
+    TCPREMOTEHOST='hostname'</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

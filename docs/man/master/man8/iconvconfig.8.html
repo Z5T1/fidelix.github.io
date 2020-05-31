@@ -1,0 +1,125 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man8/iconvconfig.8</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">ICONVCONFIG(8)</td>
+    <td class="head-vol">Linux System Administration</td>
+    <td class="head-rtitle">ICONVCONFIG(8)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+iconvconfig - create iconv module configuration cache
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>iconvconfig</b> [<i>options</i>] [<i>directory</i>]...
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+The <b>iconv</b>(3) function internally uses <i>gconv</i> modules to convert to
+  and from a character set. A configuration file is used to determine the needed
+  modules for a conversion. Loading and parsing such a configuration file would
+  slow down programs that use <b>iconv</b>(3), so a caching mechanism is
+  employed.
+<p class="Pp">The <b>iconvconfig</b> program reads iconv module configuration
+    files and writes a fast-loading gconv module configuration cache file.</p>
+<p class="Pp">In addition to the system provided gconv modules, the user can
+    specify custom gconv module directories with the environment variable
+    <b>GCONV_PATH</b>. However, iconv module configuration caching is used only
+    when the environment variable <b>GCONV_PATH</b> is not set.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>--nostdlib</b></dt>
+  <dd>Do not search the system default gconv directory, only the directories
+      provided on the command line.</dd>
+  <dt><b>-o</b><i> outputfile</i><b>, --output=</b><i>outputfile</i></dt>
+  <dd>Use <i>outputfile</i> for output instead of the system default cache
+      location.</dd>
+  <dt><b>--prefix=</b><i>pathname</i></dt>
+  <dd>Set the prefix to be prepended to the system pathnames. See FILES, below.
+      By default, the prefix is empty. Setting the prefix to <i>foo</i>, the
+      gconv module configuration would be read from
+      <i>foo/usr/lib/gconv/gconv-modules</i> and the cache would be written to
+      <i>foo/usr/lib/gconv/gconv-modules.cache</i>.</dd>
+  <dt><b>-?</b>, <b>--help</b></dt>
+  <dd>Print a usage summary and exit.</dd>
+  <dt><b>--usage</b></dt>
+  <dd>Print a short usage summary and exit.</dd>
+  <dt><b>-V</b>, <b>--version</b></dt>
+  <dd>Print the version number, license, and disclaimer of warranty for
+      <b>iconv</b>.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXIT_STATUS"><a class="permalink" href="#EXIT_STATUS">EXIT
+  STATUS</a></h1>
+Zero on success, nonzero on errors.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="FILES"><a class="permalink" href="#FILES">FILES</a></h1>
+<dl class="Bl-tag">
+  <dt><i>/usr/lib/gconv</i></dt>
+  <dd>Usual default gconv module path.</dd>
+  <dt><i>/usr/lib/gconv/gconv-modules</i></dt>
+  <dd>Usual system default gconv module configuration file.</dd>
+  <dt><i>/usr/lib/gconv/gconv-modules.cache</i></dt>
+  <dd>Usual system gconv module configuration cache.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>iconv</b>(1), <b>iconv</b>(3)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2018-02-02</td>
+    <td class="foot-os">GNU</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

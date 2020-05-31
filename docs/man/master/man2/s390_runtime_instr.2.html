@@ -1,0 +1,128 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/s390_runtime_instr.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">S390_RUNTIME_INSTR(2)</td>
+    <td class="head-vol">System Calls Manual</td>
+    <td class="head-rtitle">S390_RUNTIME_INSTR(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+s390_runtime_instr - enable/disable s390 CPU run-time instrumentation
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>#include &lt;asm/runtime_instr.h&gt;</b>
+</pre>
+<pre>
+<b>int s390_runtime_instr(int </b><i>command</i><b>, int </b><i>signum</i><b>);</b>
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+The <b>s390_runtime_instr</b>() system call starts or stops CPU run-time
+  instrumentation for the calling thread.
+<p class="Pp">The <i>command</i> argument controls whether run-time
+    instrumentation is started (<b>S390_RUNTIME_INSTR_START</b>, 1) or stopped
+    (<b>S390_RUNTIME_INSTR_STOP</b>, 2) for the calling thread.</p>
+<p class="Pp">The <i>signum</i> argument specifies the number of a real-time
+    signal. The real-time signal is sent to the thread if the run-time
+    instrumentation buffer is full or if the run-time-instrumentation-halted
+    interrupt occurred.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, <b>s390_runtime_instr</b>() returns 0 and enables the thread for
+  run-time instrumentation by assigning the thread a default run-time
+  instrumentation control block. The caller can then read and modify the control
+  block and start the run-time instrumentation. On error, -1 is returned and
+  <i>errno</i> is set to one of the error codes listed below.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EINVAL</b></dt>
+  <dd>The value specified in <i>command</i> is not a valid command or the value
+      specified in <i>signum</i> is not a real-time signal number.</dd>
+  <dt><b>ENOMEM</b></dt>
+  <dd>Allocating memory for the run-time instrumentation control block
+    failed.</dd>
+  <dt><b>EOPNOTSUPP</b></dt>
+  <dd>The run-time instrumentation facility is not available.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="VERSIONS"><a class="permalink" href="#VERSIONS">VERSIONS</a></h1>
+This system call is available since Linux 3.7.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+This Linux-specific system call is available only on the s390 architecture. The
+  run-time instrumentation facility is available beginning with System z EC12.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+Glibc does not provide a wrapper for this system call, use <b>syscall</b>(2) to
+  call it.
+<p class="Pp">The <i>asm/runtime_instr.h</i> header file is available since
+    Linux 4.16.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>syscall</b>(2), <b>signal</b>(7)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-03-06</td>
+    <td class="foot-os">Linux Programmer's Manual</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

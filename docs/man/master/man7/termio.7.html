@@ -1,0 +1,84 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man7/termio.7</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">TERMIO(7)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">TERMIO(7)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+termio - System V terminal driver interface
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>termio</b> is the name of the old System V terminal driver interface. This
+  interface defined a <i>termio</i> structure used to store terminal settings,
+  and a range of <b>ioctl</b>(2) operations to get and set terminal attributes.
+<p class="Pp">The <b>termio</b> interface is now obsolete: POSIX.1-1990
+    standardized a modified version of this interface, under the name
+    <b>termios</b>. The POSIX.1 data structure differs slightly from the System
+    V version, and POSIX.1 defined a suite of functions to replace the various
+    <b>ioctl</b>(2) operations that existed in System V. (This was done because
+    <b>ioctl</b>(2) was unstandardized, and its variadic third argument does not
+    allow argument type checking.)</p>
+<p class="Pp">If you're looking for a page called &quot;termio&quot;, then you
+    can probably find most of the information that you seek in either
+    <b>termios</b>(3) or <b>ioctl_tty</b>(2).</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>reset</b>(1), <b>setterm</b>(1), <b>stty</b>(1), <b>ioctl_tty</b>(2),
+  <b>termios</b>(3), <b>tty</b>(4)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2017-05-03</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

@@ -1,0 +1,92 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man5/ftpusers.5</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">FTPUSERS(5)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">FTPUSERS(5)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+ftpusers - list of users that may not log in via the FTP daemon
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+The text file <b>ftpusers</b> contains a list of users that may not log in using
+  the File Transfer Protocol (FTP) server daemon. This file is used not merely
+  for system administration purposes but also for improving security within a
+  TCP/IP networked environment.
+<p class="Pp">The <b>ftpusers</b> file will typically contain a list of the
+    users that either have no business using ftp or have too many privileges to
+    be allowed to log in through the FTP server daemon. Such users usually
+    include root, daemon, bin, uucp, and news.</p>
+<p class="Pp">If your FTP server daemon doesn't use <b>ftpusers</b>, then it is
+    suggested that you read its documentation to find out how to block access
+    for certain users. Washington University FTP server Daemon (wuftpd) and
+    Professional FTP Daemon (proftpd) are known to make use of
+  <b>ftpusers</b>.</p>
+<section class="Ss">
+<h2 class="Ss" id="Format"><a class="permalink" href="#Format">Format</a></h2>
+The format of <b>ftpusers</b> is very simple. There is one account name (or
+  username) per line. Lines starting with a # are ignored.
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="FILES"><a class="permalink" href="#FILES">FILES</a></h1>
+<i>/etc/ftpusers</i>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>passwd</b>(5), <b>proftpd</b>(8), <b>wuftpd</b>(8)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2000-08-27</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

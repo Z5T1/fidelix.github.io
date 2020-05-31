@@ -1,0 +1,84 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/slattach.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">SLATTACH(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">SLATTACH(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+slattach - manual page for slattach 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>slattach</b> [<i>-ehmLF</i>] [<i>-c SCRIPT</i>] [<i>-s BAUD</i>] [<i>-p
+  PROTOCOL</i>] <i>SERIAL_DEVICE</i>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">Configure serial line as SLIP network interface</p>
+<p class="Pp HP"><b>-p</b> PROT Protocol: slip, cslip (default), slip6, clisp6,
+    adaptive</p>
+<p class="Pp HP"><b>-s</b> BAUD Line speed</p>
+<dl class="Bl-tag">
+  <dt><b>-e</b></dt>
+  <dd>Exit after initialization</dd>
+  <dt><b>-h</b></dt>
+  <dd>Exit if carrier is lost (else never exits)</dd>
+</dl>
+<p class="Pp HP"><b>-c</b> PROG Run PROG on carrier loss</p>
+<dl class="Bl-tag">
+  <dt><b>-m</b></dt>
+  <dd>Do NOT set raw 8bit mode</dd>
+  <dt><b>-L</b></dt>
+  <dd>Enable 3-wire operation</dd>
+  <dt><b>-F</b></dt>
+  <dd>Disable RTS/CTS flow control</dd>
+</dl>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

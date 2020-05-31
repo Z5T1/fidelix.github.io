@@ -1,0 +1,113 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/getopt.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">GETOPT(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">GETOPT(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+getopt - manual page for getopt 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>getopt</b> [<i>OPTIONS</i>] [<i>--</i>] <i>OPTSTRING PARAMS</i>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<dl class="Bl-tag">
+  <dt><b>-a</b></dt>
+  <dd>Allow long options starting with single -</dd>
+  <dt><b>-l</b> LOPT[,...]</dt>
+  <dd>Long options to recognize</dd>
+  <dt><b>-n</b> PROGNAME</dt>
+  <dd>The name under which errors are reported</dd>
+  <dt><b>-o</b> OPTSTRING</dt>
+  <dd>Short options to recognize</dd>
+  <dt><b>-q</b></dt>
+  <dd>No error messages on unrecognized options</dd>
+  <dt><b>-Q</b></dt>
+  <dd>No normal output</dd>
+  <dt><b>-s</b> SHELL</dt>
+  <dd>Set shell quoting conventions</dd>
+  <dt><b>-T</b></dt>
+  <dd>Version test (exits with 4)</dd>
+  <dt><b>-u</b></dt>
+  <dd>Don't quote output</dd>
+</dl>
+<p class="Pp">Example:</p>
+<p class="Pp">O=`getopt <b>-l</b> bb: <b>--</b> ab:c:: &quot;$@&quot;` || exit 1
+    eval set <b>--</b> &quot;$O&quot; while true; do</p>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>case &quot;$1&quot; in <b>-a</b>) echo A; shift;; <b>-b</b>|--bb) echo
+      &quot;B:'$2'&quot;; shift 2;; <b>-c</b>) case &quot;$2&quot; in</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt>&quot;&quot;)</dt>
+  <dd>echo C; shift 2;;</dd>
+  <dt>*)</dt>
+  <dd>echo &quot;C:'$2'&quot;; shift 2;;</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>esac;;</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt><b>--</b>)</dt>
+  <dd>shift; break;;</dd>
+  <dt>*)</dt>
+  <dd>echo Error; exit 1;;</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>esac</dd>
+</dl>
+<p class="Pp">done</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

@@ -1,0 +1,182 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/install-info.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">INSTALL-INFO(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">INSTALL-INFO(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+install-info - update info/dir entries
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>install-info</b> [<i>OPTION</i>]... [<i>INFO-FILE </i>[<i>DIR-FILE</i>]]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+Add or remove entries in INFO-FILE from the Info directory DIR-FILE. INFO-FILE
+  and DIR-FILE are required unless the <b>--info-file</b> or <b>--dir-file</b>
+  (or <b>--info-dir</b>) options are given, respectively.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>--add-once</b></dt>
+  <dd>add only to first matching section, not all.</dd>
+  <dt><b>--align</b>=<i>COL</i></dt>
+  <dd>start description of new entries at column COL.</dd>
+  <dt><b>--calign</b>=<i>COL</i></dt>
+  <dd>format second and subsequent description lines to start at column
+    COL.</dd>
+  <dt><b>--debug</b></dt>
+  <dd>report what is being done.</dd>
+  <dt><b>--delete</b></dt>
+  <dd>delete existing entries for INFO-FILE from DIR-FILE; don't insert any new
+      entries.</dd>
+  <dt><b>--defsection</b>=<i>TEXT</i></dt>
+  <dd>like <b>--section</b>, but only use TEXT if no sections are present in
+      INFO-FILE (replacing &quot;Miscellaneous&quot;).</dd>
+  <dt><b>--description</b>=<i>TEXT</i></dt>
+  <dd>the description of the entry is TEXT; used with the <b>--name</b> option
+      to become synonymous with the <b>--entry</b> option.</dd>
+  <dt><b>--dir-file</b>=<i>NAME</i></dt>
+  <dd>specify file name of Info directory file; equivalent to using the DIR-FILE
+      argument.</dd>
+  <dt><b>--dry-run</b></dt>
+  <dd>same as <b>--test</b>.</dd>
+  <dt><b>--entry</b>=<i>TEXT</i></dt>
+  <dd>insert TEXT as an Info directory entry, overriding any corresponding entry
+      from DIR-FILE. TEXT is written as an Info menu item line followed</dd>
+  <dt>by zero or more extra lines starting with whitespace.</dt>
+  <dd>If you specify more than one entry, all are added. If you don't specify
+      any entries, they are determined</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>from information in the Info file itself.</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt><b>--help</b></dt>
+  <dd>display this help and exit.</dd>
+  <dt><b>--info-dir</b>=<i>DIR</i></dt>
+  <dd>same as <b>--dir-file</b>=<i>DIR</i>/dir.</dd>
+  <dt><b>--info-file</b>=<i>FILE</i></dt>
+  <dd>specify Info file to install in the directory; equivalent to using the
+      INFO-FILE argument.</dd>
+  <dt><b>--item</b>=<i>TEXT</i></dt>
+  <dd>same as <b>--entry</b>=<i>TEXT</i>.</dd>
+  <dt><b>--keep-old</b></dt>
+  <dd>do not replace entries, or remove empty sections.</dd>
+  <dt><b>--maxwidth</b>, <b>--max-width</b>=<i>COL</i></dt>
+  <dd>wrap description at column COL.</dd>
+  <dt><b>--menuentry</b>=<i>TEXT</i></dt>
+  <dd>same as <b>--name</b>=<i>TEXT</i>.</dd>
+  <dt><b>--name</b>=<i>TEXT</i></dt>
+  <dd>the name of the entry is TEXT; used with <b>--description</b> to become
+      synonymous with the <b>--entry</b> option.</dd>
+  <dt><b>--no-indent</b></dt>
+  <dd>do not format new entries in the DIR file.</dd>
+  <dt><b>--quiet</b></dt>
+  <dd>suppress warnings.</dd>
+  <dt><b>--regex</b>=<i>R</i></dt>
+  <dd>put this file's entries in all sections that match the regular expression
+      R (ignoring case).</dd>
+  <dt><b>--remove</b></dt>
+  <dd>same as <b>--delete</b>.</dd>
+  <dt><b>--remove-exactly</b></dt>
+  <dd>only remove if the info file name matches exactly; suffixes such as .info
+      and .gz are not ignored.</dd>
+  <dt><b>--section</b>=<i>SEC</i></dt>
+  <dd>put entries in section SEC of the directory. If you specify more than one
+      section, all the entries</dd>
+  <dt>are added in each of the sections.</dt>
+  <dd>If you don't specify any sections, they are determined</dd>
+  <dt>from information in the Info file itself;</dt>
+  <dd>if nothing is available there, the <b>--defsection</b> value is used; if
+      that is not specified, the final default is
+    &quot;Miscellaneous&quot;.</dd>
+  <dt><b>--section</b> R SEC</dt>
+  <dd>equivalent to <b>--regex</b>=<i>R</i> <b>--section</b>=<i>SEC</i>
+      <b>--add-once</b>.</dd>
+  <dt><b>--silent</b></dt>
+  <dd>suppress warnings.</dd>
+  <dt><b>--test</b></dt>
+  <dd>suppress updating of DIR-FILE.</dd>
+  <dt><b>--version</b></dt>
+  <dd>display version information and exit.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="REPORTING_BUGS"><a class="permalink" href="#REPORTING_BUGS">REPORTING
+  BUGS</a></h1>
+Email bug reports to bug-texinfo@gnu.org, general questions and discussion to
+  help-texinfo@gnu.org.
+<br/>
+Texinfo home page: http://www.gnu.org/software/texinfo/
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COPYRIGHT"><a class="permalink" href="#COPYRIGHT">COPYRIGHT</a></h1>
+Copyright &#x00A9; 2019 Free Software Foundation, Inc. License GPLv3+: GNU GPL
+  version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;
+<br/>
+This is free software: you are free to change and redistribute it. There is NO
+  WARRANTY, to the extent permitted by law.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+The full documentation for <b>install-info</b> is maintained as a Texinfo
+  manual. If the <b>info</b> and <b>install-info</b> programs are properly
+  installed at your site, the command
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd><b>info install-info</b></dd>
+</dl>
+<p class="Pp">should give you access to the complete manual.</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">September 2019</td>
+    <td class="foot-os">install-info 6.7</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

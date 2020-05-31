@@ -1,0 +1,155 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/brk.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">BRK(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">BRK(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+brk, sbrk - change data segment size
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>#include &lt;unistd.h&gt;</b>
+<p class="Pp"><b>int brk(void *</b><i>addr</i><b>);</b></p>
+<p class="Pp"><b>void *sbrk(intptr_t </b><i>increment</i><b>);</b></p>
+<p class="Pp">
+  <br/>
+  Feature Test Macro Requirements for glibc (see <b>feature_test_macros</b>(7)):
+  <br/>
+</p>
+<p class="Pp"><b>brk</b>(), <b>sbrk</b>():</p>
+<div class="Bd-indent">
+<dl class="Bl-tag">
+  <dt>Since glibc 2.19:</dt>
+  <dd>
+    <pre>
+_DEFAULT_SOURCE ||
+    (_XOPEN_SOURCE&#x00A0;&gt;=&#x00A0;500) &amp;&amp;
+    ! (_POSIX_C_SOURCE&#x00A0;&gt;=&#x00A0;200112L)
+    </pre>
+  </dd>
+  <dt>From glibc 2.12 to 2.19:</dt>
+  <dd>
+    <pre>
+_BSD_SOURCE || _SVID_SOURCE ||
+    (_XOPEN_SOURCE&#x00A0;&gt;=&#x00A0;500) &amp;&amp;
+    ! (_POSIX_C_SOURCE&#x00A0;&gt;=&#x00A0;200112L)
+    </pre>
+  </dd>
+  <dt>Before glibc 2.12:</dt>
+  <dd>_BSD_SOURCE || _SVID_SOURCE || _XOPEN_SOURCE&#x00A0;&gt;=&#x00A0;500</dd>
+</dl>
+</div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>brk</b>() and <b>sbrk</b>() change the location of the <i>program break</i>,
+  which defines the end of the process's data segment (i.e., the program break
+  is the first location after the end of the uninitialized data segment).
+  Increasing the program break has the effect of allocating memory to the
+  process; decreasing the break deallocates memory.
+<p class="Pp"><b>brk</b>() sets the end of the data segment to the value
+    specified by <i>addr</i>, when that value is reasonable, the system has
+    enough memory, and the process does not exceed its maximum data size (see
+    <b>setrlimit</b>(2)).</p>
+<p class="Pp"><b>sbrk</b>() increments the program's data space by
+    <i>increment</i> bytes. Calling <b>sbrk</b>() with an <i>increment</i> of 0
+    can be used to find the current location of the program break.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, <b>brk</b>() returns zero. On error, -1 is returned, and
+  <i>errno</i> is set to <b>ENOMEM</b>.
+<p class="Pp">On success, <b>sbrk</b>() returns the previous program break. (If
+    the break was increased, then this value is a pointer to the start of the
+    newly allocated memory). On error, <i>(void&#x00A0;*)&#x00A0;-1</i> is
+    returned, and <i>errno</i> is set to <b>ENOMEM</b>.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+4.3BSD; SUSv1, marked LEGACY in SUSv2, removed in POSIX.1-2001.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+Avoid using <b>brk</b>() and <b>sbrk</b>(): the <b>malloc</b>(3) memory
+  allocation package is the portable and comfortable way of allocating memory.
+<p class="Pp">Various systems use various types for the argument of
+    <b>sbrk</b>(). Common are <i>int</i>, <i>ssize_t</i>, <i>ptrdiff_t</i>,
+    <i>intptr_t</i>.</p>
+<section class="Ss">
+<h2 class="Ss" id="C_library/kernel_differences"><a class="permalink" href="#C_library/kernel_differences">C
+  library/kernel differences</a></h2>
+The return value described above for <b>brk</b>() is the behavior provided by
+  the glibc wrapper function for the Linux <b>brk</b>() system call. (On most
+  other implementations, the return value from <b>brk</b>() is the same; this
+  return value was also specified in SUSv2.) However, the actual Linux system
+  call returns the new program break on success. On failure, the system call
+  returns the current break. The glibc wrapper function does some work (i.e.,
+  checks whether the new break is less than <i>addr</i>) to provide the 0 and -1
+  return values described above.
+<p class="Pp">On Linux, <b>sbrk</b>() is implemented as a library function that
+    uses the <b>brk</b>() system call, and does some internal bookkeeping so
+    that it can return the old break value.</p>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>execve</b>(2), <b>getrlimit</b>(2), <b>end</b>(3), <b>malloc</b>(3)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2016-03-15</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

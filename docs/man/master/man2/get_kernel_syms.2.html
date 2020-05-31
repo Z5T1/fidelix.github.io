@@ -1,0 +1,149 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/get_kernel_syms.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">GET_KERNEL_SYMS(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">GET_KERNEL_SYMS(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+get_kernel_syms - retrieve exported kernel and module symbols
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>#include &lt;linux/module.h&gt;</b>
+</pre>
+<pre>
+<b>int get_kernel_syms(struct kernel_sym *</b><i>table</i><b>);</b>
+</pre>
+<p class="Pp"><i>Note</i>: No declaration of this system call is provided in
+    glibc headers; see NOTES.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>Note</b>: This system call is present only in kernels before Linux 2.6.
+<p class="Pp">If <i>table</i> is NULL, <b>get_kernel_syms</b>() returns the
+    number of symbols available for query. Otherwise, it fills in a table of
+    structures:</p>
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+struct kernel_sym {
+    unsigned long value;
+    char          name[60];
+};
+
+</pre>
+<br/>
+<p class="Pp">The symbols are interspersed with magic symbols of the form
+    <b>#</b><i>module-name</i> with the kernel having an empty name. The value
+    associated with a symbol of this form is the address at which the module is
+    loaded.</p>
+<p class="Pp">The symbols exported from each module follow their magic module
+    tag and the modules are returned in the reverse of the order in which they
+    were loaded.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, returns the number of symbols copied to <i>table</i>. On error, -1
+  is returned and <i>errno</i> is set appropriately.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+There is only one possible error return:
+<dl class="Bl-tag">
+  <dt><b>ENOSYS</b></dt>
+  <dd><b>get_kernel_syms</b>() is not supported in this version of the
+    kernel.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="VERSIONS"><a class="permalink" href="#VERSIONS">VERSIONS</a></h1>
+This system call is present on Linux only up until kernel 2.4; it was removed in
+  Linux 2.6.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+<b>get_kernel_syms</b>() is Linux-specific.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+This obsolete system call is not supported by glibc. No declaration is provided
+  in glibc headers, but, through a quirk of history, glibc versions before 2.23
+  did export an ABI for this system call. Therefore, in order to employ this
+  system call, it was sufficient to manually declare the interface in your code;
+  alternatively, you could invoke the system call using <b>syscall</b>(2).
+</section>
+<section class="Sh">
+<h1 class="Sh" id="BUGS"><a class="permalink" href="#BUGS">BUGS</a></h1>
+There is no way to indicate the size of the buffer allocated for <i>table</i>.
+  If symbols have been added to the kernel since the program queried for the
+  symbol table size, memory will be corrupted.
+<p class="Pp">The length of exported symbol names is limited to 59
+  characters.</p>
+<p class="Pp">Because of these limitations, this system call is deprecated in
+    favor of <b>query_module</b>(2) (which is itself nowadays deprecated in
+    favor of other interfaces described on its manual page).</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>create_module</b>(2), <b>delete_module</b>(2), <b>init_module</b>(2),
+  <b>query_module</b>(2)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2017-09-15</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

@@ -1,0 +1,230 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/addr2line.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">ADDR2LINE(1)</td>
+    <td class="head-vol">GNU Development Tools</td>
+    <td class="head-rtitle">ADDR2LINE(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<br/>
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+addr2line - convert addresses into file names and line numbers
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+addr2line [<b>-a</b>|<b>--addresses</b>]
+ [<b>-b</b> <i>bfdname</i>|<b>--target=</b><i>bfdname</i>]
+ [<b>-C</b>|<b>--demangle</b>[=<i>style</i>]]
+ [<b>-r</b>|<b>--no-recurse-limit</b>]
+ [<b>-R</b>|<b>--recurse-limit</b>]
+ [<b>-e</b> <i>filename</i>|<b>--exe=</b><i>filename</i>]
+ [<b>-f</b>|<b>--functions</b>] [<b>-s</b>|<b>--basename</b>]
+ [<b>-i</b>|<b>--inlines</b>]
+ [<b>-p</b>|<b>--pretty-print</b>]
+ [<b>-j</b>|<b>--section=</b><i>name</i>]
+ [<b>-H</b>|<b>--help</b>] [<b>-V</b>|<b>--version</b>]
+ [addr addr ...]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>addr2line</b> translates addresses into file names and line numbers. Given an
+  address in an executable or an offset in a section of a relocatable object, it
+  uses the debugging information to figure out which file name and line number
+  are associated with it.
+<p class="Pp">The executable or relocatable object to use is specified with the
+    <b>-e</b> option. The default is the file <i>a.out</i>. The section in the
+    relocatable object to use is specified with the <b>-j</b> option.</p>
+<p class="Pp"><b>addr2line</b> has two modes of operation.</p>
+<p class="Pp">In the first, hexadecimal addresses are specified on the command
+    line, and <b>addr2line</b> displays the file name and line number for each
+    address.</p>
+<p class="Pp">In the second, <b>addr2line</b> reads hexadecimal addresses from
+    standard input, and prints the file name and line number for each address on
+    standard output. In this mode, <b>addr2line</b> may be used in a pipe to
+    convert dynamically chosen addresses.</p>
+<p class="Pp">The format of the output is <b>FILENAME:LINENO</b>. By default
+    each input address generates one line of output.</p>
+<p class="Pp">Two options can generate additional lines before each
+    <b>FILENAME:LINENO</b> line (in that order).</p>
+<p class="Pp">If the <b>-a</b> option is used then a line with the input address
+    is displayed.</p>
+<p class="Pp">If the <b>-f</b> option is used, then a line with the
+    <b>FUNCTIONNAME</b> is displayed. This is the name of the function
+    containing the address.</p>
+<p class="Pp">One option can generate additional lines after the
+    <b>FILENAME:LINENO</b> line.</p>
+<p class="Pp">If the <b>-i</b> option is used and the code at the given address
+    is present there because of inlining by the compiler then additional lines
+    are displayed afterwards. One or two extra lines (if the <b>-f</b> option is
+    used) are displayed for each inlined function.</p>
+<p class="Pp">Alternatively if the <b>-p</b> option is used then each input
+    address generates a single, long, output line containing the address, the
+    function name, the file name and the line number. If the <b>-i</b> option
+    has also been used then any inlined functions will be displayed in the same
+    manner, but on separate lines, and prefixed by the text <b>(inlined
+  by)</b>.</p>
+<p class="Pp">If the file name or function name can not be determined,
+    <b>addr2line</b> will print two question marks in their place. If the line
+    number can not be determined, <b>addr2line</b> will print 0.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+The long and short forms of options, shown here as alternatives, are equivalent.
+<dl class="Bl-tag">
+  <dt><b>-a</b></dt>
+  <dd></dd>
+  <dt><b>--addresses</b></dt>
+  <dd>Display the address before the function name, file and line number
+      information. The address is printed with a <b>0x</b> prefix to easily
+      identify it.</dd>
+  <dt><b>-b</b> <i>bfdname</i></dt>
+  <dd></dd>
+  <dt><b>--target=</b><i>bfdname</i></dt>
+  <dd>Specify that the object-code format for the object files is
+      <i>bfdname</i>.</dd>
+  <dt><b>-C</b></dt>
+  <dd></dd>
+  <dt><b>--demangle[=</b><i>style</i><b>]</b></dt>
+  <dd>Decode (<i>demangle</i>) low-level symbol names into user-level names.
+      Besides removing any initial underscore prepended by the system, this
+      makes C++ function names readable. Different compilers have different
+      mangling styles. The optional demangling style argument can be used to
+      choose an appropriate demangling style for your compiler.</dd>
+  <dt><b>-e</b> <i>filename</i></dt>
+  <dd></dd>
+  <dt><b>--exe=</b><i>filename</i></dt>
+  <dd>Specify the name of the executable for which addresses should be
+      translated. The default file is <i>a.out</i>.</dd>
+  <dt><b>-f</b></dt>
+  <dd></dd>
+  <dt><b>--functions</b></dt>
+  <dd>Display function names as well as file and line number information.</dd>
+  <dt><b>-s</b></dt>
+  <dd></dd>
+  <dt><b>--basenames</b></dt>
+  <dd>Display only the base of each file name.</dd>
+  <dt><b>-i</b></dt>
+  <dd></dd>
+  <dt><b>--inlines</b></dt>
+  <dd>If the address belongs to a function that was inlined, the source
+      information for all enclosing scopes back to the first non-inlined
+      function will also be printed. For example, if
+      <span class="Li">&quot;main&quot;</span> inlines
+      <span class="Li">&quot;callee1&quot;</span> which inlines
+      <span class="Li">&quot;callee2&quot;</span>, and address is from
+      <span class="Li">&quot;callee2&quot;</span>, the source information for
+      <span class="Li">&quot;callee1&quot;</span> and
+      <span class="Li">&quot;main&quot;</span> will also be printed.</dd>
+  <dt><b>-j</b></dt>
+  <dd></dd>
+  <dt><b>--section</b></dt>
+  <dd>Read offsets relative to the specified section instead of absolute
+      addresses.</dd>
+  <dt><b>-p</b></dt>
+  <dd></dd>
+  <dt><b>--pretty-print</b></dt>
+  <dd>Make the output more human friendly: each location are printed on one
+      line. If option <b>-i</b> is specified, lines for all enclosing scopes are
+      prefixed with <b>(inlined by)</b>.</dd>
+  <dt><b>-r</b></dt>
+  <dd></dd>
+  <dt><b>-R</b></dt>
+  <dd></dd>
+  <dt><b>--recurse-limit</b></dt>
+  <dd></dd>
+  <dt><b>--no-recurse-limit</b></dt>
+  <dd></dd>
+  <dt><b>--recursion-limit</b></dt>
+  <dd></dd>
+  <dt><b>--no-recursion-limit</b></dt>
+  <dd>Enables or disables a limit on the amount of recursion performed whilst
+      demangling strings. Since the name mangling formats allow for an inifinite
+      level of recursion it is possible to create strings whose decoding will
+      exhaust the amount of stack space available on the host machine,
+      triggering a memory fault. The limit tries to prevent this from happening
+      by restricting recursion to 2048 levels of nesting.
+    <p class="Pp">The default is for this limit to be enabled, but disabling it
+        may be necessary in order to demangle truly complicated names. Note
+        however that if the recursion limit is disabled then stack exhaustion is
+        possible and any bug reports about such an event will be rejected.</p>
+    <p class="Pp">The <b>-r</b> option is a synonym for the
+        <b>--no-recurse-limit</b> option. The <b>-R</b> option is a synonym for
+        the <b>--recurse-limit</b> option.</p>
+    <p class="Pp">Note this option is only effective if the <b>-C</b> or
+        <b>--demangle</b> option has been enabled.</p>
+  </dd>
+  <dt><b>@</b><i>file</i></dt>
+  <dd>Read command-line options from <i>file</i>. The options read are inserted
+      in place of the original @<i>file</i> option. If <i>file</i> does not
+      exist, or cannot be read, then the option will be treated literally, and
+      not removed.
+    <p class="Pp">Options in <i>file</i> are separated by whitespace. A
+        whitespace character may be included in an option by surrounding the
+        entire option in either single or double quotes. Any character
+        (including a backslash) may be included by prefixing the character to be
+        included with a backslash. The <i>file</i> may itself contain additional
+        @<i>file</i> options; any such options will be processed
+      recursively.</p>
+  </dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+Info entries for <i>binutils</i>.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COPYRIGHT"><a class="permalink" href="#COPYRIGHT">COPYRIGHT</a></h1>
+Copyright (c) 1991-2020 Free Software Foundation, Inc.
+<p class="Pp">Permission is granted to copy, distribute and/or modify this
+    document under the terms of the GNU Free Documentation License, Version 1.3
+    or any later version published by the Free Software Foundation; with no
+    Invariant Sections, with no Front-Cover Texts, and with no Back-Cover Texts.
+    A copy of the license is included in the section entitled &quot;GNU Free
+    Documentation License&quot;.</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2020-03-30</td>
+    <td class="foot-os">binutils-2.34</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

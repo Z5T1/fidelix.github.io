@@ -1,0 +1,202 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/iconv.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">ICONV(1)</td>
+    <td class="head-vol">Linux User Manual</td>
+    <td class="head-rtitle">ICONV(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+iconv - convert text from one character encoding to another
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>iconv</b> [<i>options</i>] [-f <i>from-encoding</i>] [-t <i>to-encoding</i>]
+  [<i>inputfile</i>]...
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+The <b>iconv</b> program reads in text in one encoding and outputs the text in
+  another encoding. If no input files are given, or if it is given as a dash
+  (-), <b>iconv</b> reads from standard input. If no output file is given,
+  <b>iconv</b> writes to standard output.
+<p class="Pp">If no <i>from-encoding</i> is given, the default is derived from
+    the current locale's character encoding. If no <i>to-encoding</i> is given,
+    the default is derived from the current locale's character encoding.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>-f</b><i> from-encoding</i><b>,
+    --from-code=</b><i>from-encoding</i></dt>
+  <dd>Use <i>from-encoding</i> for input characters.</dd>
+  <dt><b>-t</b><i> to-encoding</i><b>, --to-code=</b><i>to-encoding</i></dt>
+  <dd>Use <i>to-encoding</i> for output characters.</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>If the string <b>//IGNORE</b> is appended to <i>to-encoding</i>,
+      characters that cannot be converted are discarded and an error is printed
+      after conversion.</dd>
+  <dt></dt>
+  <dd>If the string <b>//TRANSLIT</b> is appended to <i>to-encoding</i>,
+      characters being converted are transliterated when needed and possible.
+      This means that when a character cannot be represented in the target
+      character set, it can be approximated through one or several similar
+      looking characters. Characters that are outside of the target character
+      set and cannot be transliterated are replaced with a question mark (?) in
+      the output.</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt><b>-l</b>, <b>--list</b></dt>
+  <dd>List all known character set encodings.</dd>
+  <dt><b>-c</b></dt>
+  <dd>Silently discard characters that cannot be converted instead of
+      terminating when encountering such characters.</dd>
+  <dt><b>-o</b><i> outputfile</i><b>, --output=</b><i>outputfile</i></dt>
+  <dd>Use <i>outputfile</i> for output.</dd>
+  <dt><b>-s</b>, <b>--silent</b></dt>
+  <dd>This option is ignored; it is provided only for compatibility.</dd>
+  <dt><b>--verbose</b></dt>
+  <dd>Print progress information on standard error when processing multiple
+      files.</dd>
+  <dt><b>-?</b>, <b>--help</b></dt>
+  <dd>Print a usage summary and exit.</dd>
+  <dt><b>--usage</b></dt>
+  <dd>Print a short usage summary and exit.</dd>
+  <dt><b>-V</b>, <b>--version</b></dt>
+  <dd>Print the version number, license, and disclaimer of warranty for
+      <b>iconv</b>.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXIT_STATUS"><a class="permalink" href="#EXIT_STATUS">EXIT
+  STATUS</a></h1>
+Zero on success, nonzero on errors.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ENVIRONMENT"><a class="permalink" href="#ENVIRONMENT">ENVIRONMENT</a></h1>
+Internally, the <b>iconv</b> program uses the <b>iconv</b>(3) function which in
+  turn uses <i>gconv</i> modules (dynamically loaded shared libraries) to
+  convert to and from a character set. Before calling <b>iconv</b>(3), the
+  <b>iconv</b> program must first allocate a conversion descriptor using
+  <b>iconv_open</b>(3). The operation of the latter function is influenced by
+  the setting of the <b>GCONV_PATH</b> environment variable:
+<ul class="Bl-bullet">
+  <li>If <b>GCONV_PATH</b> is not set, <b>iconv_open</b>(3) loads the system
+      gconv module configuration cache file created by <b>iconvconfig</b>(8) and
+      then, based on the configuration, loads the gconv modules needed to
+      perform the conversion. If the system gconv module configuration cache
+      file is not available then the system gconv module configuration file is
+      used.</li>
+  <li>If <b>GCONV_PATH</b> is defined (as a colon-separated list of pathnames),
+      the system gconv module configuration cache is not used. Instead,
+      <b>iconv_open</b>(3) first tries to load the configuration files by
+      searching the directories in <b>GCONV_PATH</b> in order, followed by the
+      system default gconv module configuration file. If a directory does not
+      contain a gconv module configuration file, any gconv modules that it may
+      contain are ignored. If a directory contains a gconv module configuration
+      file and it is determined that a module needed for this conversion is
+      available in the directory, then the needed module is loaded from that
+      directory, the order being such that the first suitable module found in
+      <b>GCONV_PATH</b> is used. This allows users to use custom modules and
+      even replace system-provided modules by providing such modules in
+      <b>GCONV_PATH</b> directories.</li>
+</ul>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="FILES"><a class="permalink" href="#FILES">FILES</a></h1>
+<dl class="Bl-tag">
+  <dt><i>/usr/lib/gconv</i></dt>
+  <dd>Usual default gconv module path.</dd>
+  <dt><i>/usr/lib/gconv/gconv-modules</i></dt>
+  <dd>Usual system default gconv module configuration file.</dd>
+  <dt><i>/usr/lib/gconv/gconv-modules.cache</i></dt>
+  <dd>Usual system gconv module configuration cache.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+POSIX.1-2001.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXAMPLE"><a class="permalink" href="#EXAMPLE">EXAMPLE</a></h1>
+Convert text from the ISO 8859-15 character encoding to UTF-8:
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+$ <b>iconv -f ISO-8859-15 -t UTF-8 &lt; input.txt &gt; output.txt</b>
+
+</pre>
+<br/>
+<p class="Pp">The next example converts from UTF-8 to ASCII, transliterating
+    when possible:</p>
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+$ <b>echo abc &#x00DF; &#x03B1; &#x20AC; &#x00E0;&#x1E03;&#x00E7; | iconv -f UTF-8 -t ASCII//TRANSLIT</b>
+abc ss ? EUR abc
+
+</pre>
+<br/>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>locale</b>(1), <b>uconv</b>(1), <b>iconv</b>(3), <b>nl_langinfo</b>(3),
+  <b>charsets</b>(7), <b>iconvconfig</b>(8)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-03-06</td>
+    <td class="foot-os">GNU</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

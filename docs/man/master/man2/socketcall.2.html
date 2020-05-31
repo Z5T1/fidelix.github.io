@@ -1,0 +1,193 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/socketcall.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">SOCKETCALL(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">SOCKETCALL(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+socketcall - socket system calls
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>#include &lt;linux/net.h&gt;</b>
+<p class="Pp"><b>int socketcall(int </b><i>call</i><b>, unsigned long
+    *</b><i>args</i><b>);</b></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>socketcall</b>() is a common kernel entry point for the socket system calls.
+  <i>call</i> determines which socket function to invoke. <i>args</i> points to
+  a block containing the actual arguments, which are passed through to the
+  appropriate call.
+<p class="Pp">User programs should call the appropriate functions by their usual
+    names. Only standard library implementors and kernel hackers need to know
+    about <b>socketcall</b>().</p>
+<p class="Pp"></p>
+<table class="tbl">
+  <tr>
+    <td><i>call</i></td>
+    <td>Man page</td>
+  </tr>
+  <tr>
+    <td>SYS_SOCKET</td>
+    <td>socket (2)</td>
+  </tr>
+  <tr>
+    <td>SYS_BIND</td>
+    <td>bind (2)</td>
+  </tr>
+  <tr>
+    <td>SYS_CONNECT</td>
+    <td>connect (2)</td>
+  </tr>
+  <tr>
+    <td>SYS_LISTEN</td>
+    <td>listen (2)</td>
+  </tr>
+  <tr>
+    <td>SYS_ACCEPT</td>
+    <td>accept (2)</td>
+  </tr>
+  <tr>
+    <td>SYS_GETSOCKNAME</td>
+    <td>getsockname (2)</td>
+  </tr>
+  <tr>
+    <td>SYS_GETPEERNAME</td>
+    <td>getpeername (2)</td>
+  </tr>
+  <tr>
+    <td>SYS_SOCKETPAIR</td>
+    <td>socketpair (2)</td>
+  </tr>
+  <tr>
+    <td>SYS_SEND</td>
+    <td>send (2)</td>
+  </tr>
+  <tr>
+    <td>SYS_RECV</td>
+    <td>recv (2)</td>
+  </tr>
+  <tr>
+    <td>SYS_SENDTO</td>
+    <td>sendto (2)</td>
+  </tr>
+  <tr>
+    <td>SYS_RECVFROM</td>
+    <td>recvfrom (2)</td>
+  </tr>
+  <tr>
+    <td>SYS_SHUTDOWN</td>
+    <td>shutdown (2)</td>
+  </tr>
+  <tr>
+    <td>SYS_SETSOCKOPT</td>
+    <td>setsockopt (2)</td>
+  </tr>
+  <tr>
+    <td>SYS_GETSOCKOPT</td>
+    <td>getsockopt (2)</td>
+  </tr>
+  <tr>
+    <td>SYS_SENDMSG</td>
+    <td>sendmsg (2)</td>
+  </tr>
+  <tr>
+    <td>SYS_RECVMSG</td>
+    <td>recvmsg (2)</td>
+  </tr>
+  <tr>
+    <td>SYS_ACCEPT4</td>
+    <td>accept4 (2)</td>
+  </tr>
+  <tr>
+    <td>SYS_RECVMMSG</td>
+    <td>recvmmsg (2)</td>
+  </tr>
+  <tr>
+    <td>SYS_SENDMMSG</td>
+    <td>sendmmsg (2)</td>
+  </tr>
+</table>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+This call is specific to Linux, and should not be used in programs intended to
+  be portable.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+On a some architectures&#x2014;for example, x86-64 and ARM&#x2014;there is no
+  <b>socketcall</b>() system call; instead <b>socket</b>(2), <b>accept</b>(2),
+  <b>bind</b>(2), and so on really are implemented as separate system calls.
+<p class="Pp">On x86-32, <b>socketcall</b>() was historically the only entry
+    point for the sockets API. However, starting in Linux 4.3, direct system
+    calls are provided on x86-32 for the sockets API. This facilitates the
+    creation of <b>seccomp</b>(2) filters that filter sockets system calls (for
+    new user-space binaries that are compiled to use the new entry points) and
+    also provides a (very) small performance improvement.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>accept</b>(2), <b>bind</b>(2), <b>connect</b>(2), <b>getpeername</b>(2),
+  <b>getsockname</b>(2), <b>getsockopt</b>(2), <b>listen</b>(2), <b>recv</b>(2),
+  <b>recvfrom</b>(2), <b>recvmsg</b>(2), <b>send</b>(2), <b>sendmsg</b>(2),
+  <b>sendto</b>(2), <b>setsockopt</b>(2), <b>shutdown</b>(2), <b>socket</b>(2),
+  <b>socketpair</b>(2)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2017-09-15</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

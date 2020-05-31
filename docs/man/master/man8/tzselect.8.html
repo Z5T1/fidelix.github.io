@@ -1,0 +1,145 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man8/tzselect.8</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">TZSELECT(8)</td>
+    <td class="head-vol">System Manager's Manual</td>
+    <td class="head-rtitle">TZSELECT(8)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+tzselect - select a timezone
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>tzselect</b> [ <b><span class="Li">-</span>c</b> <i>coord</i> ] [
+  <b><span class="Li">-</span>n</b> <i>limit</i> ] [
+  <b><span class="Li">-</span><span class="Li">-</span>help</b> ] [
+  <b><span class="Li">-</span><span class="Li">-</span>version</b> ]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+The <b>tzselect</b> program asks the user for information about the current
+  location, and outputs the resulting timezone to standard output. The output is
+  suitable as a value for the TZ environment variable.
+<p class="Pp">All interaction with the user is done via standard input and
+    standard error.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+<dl class="Bl-tag">
+  <dt><b><span class="Li">-</span>c </b><i>coord</i></dt>
+  <dd>Instead of asking for continent and then country and then city, ask for
+      selection from time zones whose largest cities are closest to the location
+      with geographical coordinates <i>coord.</i> Use ISO 6709 notation for
+      <i>coord,</i> that is, a latitude immediately followed by a longitude. The
+      latitude and longitude should be signed integers followed by an optional
+      decimal point and fraction: positive numbers represent north and east,
+      negative south and west. Latitudes with two and longitudes with three
+      integer digits are treated as degrees; latitudes with four or six and
+      longitudes with five or seven integer digits are treated as <i>DDMM,
+      DDDMM, DDMMSS,</i> or <i>DDDMMSS</i> representing <i>DD</i> or <i>DDD</i>
+      degrees, <i>MM</i> minutes, and zero or <i>SS</i> seconds, with any
+      trailing fractions represent fractional minutes or (if <i>SS</i> is
+      present) seconds. The decimal point is that of the current locale. For
+      example, in the (default) C locale,
+      <b><span class="Li">-</span>c&#x00A0;+40.689<span class="Li">-</span>074.045</b>
+      specifies 40.689&#x00B0;N, 74.045&#x00B0;W,
+      <b><span class="Li">-</span>c&#x00A0;+4041.4<span class="Li">-</span>07402.7</b>
+      specifies 40&#x00B0;41.4&#x2032;N, 74&#x00B0;2.7&#x2032;W, and
+      <b><span class="Li">-</span>c&#x00A0;+404121<span class="Li">-</span>0740240</b>
+      specifies 40&#x00B0;41&#x2032;21&#x2033;N, 74&#x00B0;2&#x2032;40&#x2033;W.
+      If <i>coord</i> is not one of the documented forms, the resulting behavior
+      is unspecified.</dd>
+  <dt><b><span class="Li">-</span>n </b><i>limit</i></dt>
+  <dd>When <b><span class="Li">-</span>c</b> is used, display the closest
+      <i>limit</i> locations (default 10).</dd>
+  <dt><b><span class="Li">-</span><span class="Li">-</span>help</b></dt>
+  <dd>Output help information and exit.</dd>
+  <dt><b><span class="Li">-</span><span class="Li">-</span>version</b></dt>
+  <dd>Output version information and exit.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ENVIRONMENT_VARIABLES"><a class="permalink" href="#ENVIRONMENT_VARIABLES">ENVIRONMENT
+  VARIABLES</a></h1>
+<dl class="Bl-tag">
+  <dt><b>AWK</b></dt>
+  <dd>Name of a Posix-compliant <i>awk</i> program (default: <b>awk</b>).</dd>
+  <dt><b>TZDIR</b></dt>
+  <dd>Name of the directory containing timezone data files (default:
+      <b>/usr/share/zoneinfo</b>).</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="FILES"><a class="permalink" href="#FILES">FILES</a></h1>
+<dl class="Bl-tag">
+  <dt><i>TZDIR</i><b>/iso3166.tab</b></dt>
+  <dd>Table of ISO 3166 2-letter country codes and country names.</dd>
+  <dt><i>TZDIR</i><b>/zone1970.tab</b></dt>
+  <dd>Table of country codes, latitude and longitude, timezones, and descriptive
+      comments.</dd>
+  <dt><i>TZDIR</i><b>/</b><i>TZ</i></dt>
+  <dd>Timezone data file for timezone <i>TZ</i>.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXIT_STATUS"><a class="permalink" href="#EXIT_STATUS">EXIT
+  STATUS</a></h1>
+The exit status is zero if a timezone was successfully obtained from the user,
+  nonzero otherwise.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+newctime(3), tzfile(5), zdump(8), zic(8)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+Applications should not assume that <b>tzselect</b>'s output matches the user's
+  political preferences.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date"></td>
+    <td class="foot-os"></td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

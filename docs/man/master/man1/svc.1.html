@@ -1,0 +1,79 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/svc.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">SVC(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">SVC(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+svc - manual page for svc 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>svc</b> [<i>-udopchaitkx</i>] <i>SERVICE_DIR</i>...
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">Control services monitored by runsv supervisor</p>
+<dl class="Bl-tag">
+  <dt><b>-u</b></dt>
+  <dd>If service is not running, start it; restart if it stops</dd>
+  <dt><b>-d</b></dt>
+  <dd>If service is running, send TERM+CONT signals; do not restart it</dd>
+  <dt><b>-o</b></dt>
+  <dd>Once: if service is not running, start it; do not restart it</dd>
+</dl>
+<p class="Pp HP"><b>-pchaitk</b> Send STOP, CONT, HUP, ALRM, INT, TERM, KILL
+    signal to service</p>
+<dl class="Bl-tag">
+  <dt><b>-x</b></dt>
+  <dd>Exit: runsv will exit as soon as the service is down</dd>
+</dl>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

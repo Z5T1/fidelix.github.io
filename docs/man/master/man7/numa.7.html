@@ -1,0 +1,181 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man7/numa.7</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">NUMA(7)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">NUMA(7)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+numa - overview of Non-Uniform Memory Architecture
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+Non-Uniform Memory Access (NUMA) refers to multiprocessor systems whose memory
+  is divided into multiple memory nodes. The access time of a memory node
+  depends on the relative locations of the accessing CPU and the accessed node.
+  (This contrasts with a symmetric multiprocessor system, where the access time
+  for all of the memory is the same for all CPUs.) Normally, each CPU on a NUMA
+  system has a local memory node whose contents can be accessed faster than the
+  memory in the node local to another CPU or the memory on a bus shared by all
+  CPUs.
+<section class="Ss">
+<h2 class="Ss" id="NUMA_system_calls"><a class="permalink" href="#NUMA_system_calls">NUMA
+  system calls</a></h2>
+The Linux kernel implements the following NUMA-related system calls:
+  <b>get_mempolicy</b>(2), <b>mbind</b>(2), <b>migrate_pages</b>(2),
+  <b>move_pages</b>(2), and <b>set_mempolicy</b>(2). However, applications
+  should normally use the interface provided by <i>libnuma</i>; see
+  &quot;Library Support&quot; below.
+</section>
+<section class="Ss">
+<h2 class="Ss" id="/proc/_number_/numa_maps_(since_Linux_2.6.14)"><a class="permalink" href="#/proc/_number_/numa_maps_(since_Linux_2.6.14)">/proc/[number]/numa_maps
+  (since Linux 2.6.14)</a></h2>
+This file displays information about a process's NUMA memory policy and
+  allocation.
+<p class="Pp">Each line contains information about a memory range used by the
+    process, displaying&#x2014;among other information&#x2014;the effective
+    memory policy for that memory range and on which nodes the pages have been
+    allocated.</p>
+<p class="Pp"><i>numa_maps</i> is a read-only file. When
+    <i>/proc/&lt;pid&gt;/numa_maps</i> is read, the kernel will scan the virtual
+    address space of the process and report how memory is used. One line is
+    displayed for each unique memory range of the process.</p>
+<p class="Pp">The first field of each line shows the starting address of the
+    memory range. This field allows a correlation with the contents of the
+    <i>/proc/&lt;pid&gt;/maps</i> file, which contains the end address of the
+    range and other information, such as the access permissions and sharing.</p>
+<p class="Pp">The second field shows the memory policy currently in effect for
+    the memory range. Note that the effective policy is not necessarily the
+    policy installed by the process for that memory range. Specifically, if the
+    process installed a &quot;default&quot; policy for that range, the effective
+    policy for that range will be the process policy, which may or may not be
+    &quot;default&quot;.</p>
+<p class="Pp">The rest of the line contains information about the pages
+    allocated in the memory range, as follows:</p>
+<dl class="Bl-tag">
+  <dt><i>N&lt;node&gt;=&lt;nr_pages&gt;</i></dt>
+  <dd>The number of pages allocated on <i>&lt;node&gt;</i>.
+      <i>&lt;nr_pages&gt;</i> includes only pages currently mapped by the
+      process. Page migration and memory reclaim may have temporarily unmapped
+      pages associated with this memory range. These pages may show up again
+      only after the process has attempted to reference them. If the memory
+      range represents a shared memory area or file mapping, other processes may
+      currently have additional pages mapped in a corresponding memory
+    range.</dd>
+  <dt><i>file=&lt;filename&gt;</i></dt>
+  <dd>The file backing the memory range. If the file is mapped as private, write
+      accesses may have generated COW (Copy-On-Write) pages in this memory
+      range. These pages are displayed as anonymous pages.</dd>
+  <dt><i>heap</i></dt>
+  <dd>Memory range is used for the heap.</dd>
+  <dt><i>stack</i></dt>
+  <dd>Memory range is used for the stack.</dd>
+  <dt><i>huge</i></dt>
+  <dd>Huge memory range. The page counts shown are huge pages and not regular
+      sized pages.</dd>
+  <dt><i>anon=&lt;pages&gt;</i></dt>
+  <dd>The number of anonymous page in the range.</dd>
+  <dt><i>dirty=&lt;pages&gt;</i></dt>
+  <dd>Number of dirty pages.</dd>
+  <dt><i>mapped=&lt;pages&gt;</i></dt>
+  <dd>Total number of mapped pages, if different from <i>dirty</i> and
+      <i>anon</i> pages.</dd>
+  <dt><i>mapmax=&lt;count&gt;</i></dt>
+  <dd>Maximum mapcount (number of processes mapping a single page) encountered
+      during the scan. This may be used as an indicator of the degree of sharing
+      occurring in a given memory range.</dd>
+  <dt><i>swapcache=&lt;count&gt;</i></dt>
+  <dd>Number of pages that have an associated entry on a swap device.</dd>
+  <dt><i>active=&lt;pages&gt;</i></dt>
+  <dd>The number of pages on the active list. This field is shown only if
+      different from the number of pages in this range. This means that some
+      inactive pages exist in the memory range that may be removed from memory
+      by the swapper soon.</dd>
+  <dt><i>writeback=&lt;pages&gt;</i></dt>
+  <dd>Number of pages that are currently being written out to disk.</dd>
+</dl>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+No standards govern NUMA interfaces.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+The Linux NUMA system calls and <i>/proc</i> interface are available only if the
+  kernel was configured and built with the <b>CONFIG_NUMA</b> option.
+<section class="Ss">
+<h2 class="Ss" id="Library_support"><a class="permalink" href="#Library_support">Library
+  support</a></h2>
+Link with <i>-lnuma</i> to get the system call definitions. <i>libnuma</i> and
+  the required <i>&lt;numaif.h&gt;</i> header are available in the
+  <i>numactl</i> package.
+<p class="Pp">However, applications should not use these system calls directly.
+    Instead, the higher level interface provided by the <b>numa</b>(3) functions
+    in the <i>numactl</i> package is recommended. The <i>numactl</i> package is
+    available at
+    <a class="Lk" href="ftp://oss.sgi.com/www/projects/libnuma/download/">ftp://oss.sgi.com/www/projects/libnuma/download/</a>.
+    The package is also included in some Linux distributions. Some distributions
+    include the development library and header in the separate
+    <i>numactl-devel</i> package.</p>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>get_mempolicy</b>(2), <b>mbind</b>(2), <b>move_pages</b>(2),
+  <b>set_mempolicy</b>(2), <b>numa</b>(3), <b>cpuset</b>(7), <b>numactl</b>(8)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2012-08-05</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

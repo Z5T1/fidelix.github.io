@@ -1,0 +1,136 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man8/pkgtool.8</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">PKGTOOL(8)</td>
+    <td class="head-vol">Linux System Administrator's Manual</td>
+    <td class="head-rtitle">PKGTOOL(8)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+pkgtool - useful subcommands for package creation and management
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>pkgtool &lt;SUBCOMMAND&gt; [OPTIONS]</b>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+Provides several useful subcommand utilities for package creation and
+  management. Each subcommand is fully documented further down.
+<p class="Pp"></p>
+<p class="Pp">Subcommands:</p>
+<dl class="Bl-tag">
+  <dt><b>help</b></dt>
+  <dd>Displays a help message.</dd>
+  <dt><b>version</b></dt>
+  <dd>Displays the version of pkgtools.</dd>
+  <dt><b>preserve-file</b></dt>
+  <dd>Preserves a configuration file when making a packags so it is not
+      overwritten on package upgrades.</dd>
+  <dt><b>install-new-file</b></dt>
+  <dd>Installs a new file without blindly overwriting any prexisting old files.
+      This is most useful for prserving config files.
+    <p class="Pp"></p>
+  </dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SUBCOMMANDS"><a class="permalink" href="#SUBCOMMANDS">SUBCOMMANDS</a></h1>
+<section class="Ss">
+<h2 class="Ss" id="preserve-file"><a class="permalink" href="#preserve-file">preserve-file</a></h2>
+<b>Usage:</b> pkgtool preserve-file &lt;FILENAME&gt;
+<p class="Pp">FILENAME should be the name of the original file (without a .new
+    suffix).</p>
+<p class="Pp">Preserves a configuration file when making a packags so it is not
+    overwritten on package upgrades. It does this by adding a .new suffix to the
+    file. These files can then be installed using the <b>install-new-file</b>
+    subcommand, taking into account any prexisting files.</p>
+<p class="Pp"></p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="install-new-file"><a class="permalink" href="#install-new-file">install-new-file</a></h2>
+<b>Usage:</b> pkgtool install-new-file &lt;FILENAME&gt;
+<p class="Pp">FILENAME should be the name of the original file (without a .new
+    suffix).</p>
+<p class="Pp">Installs a new configuration file that was previously marked for
+    preservation with <b>preserve-file</b>. It does this by first checking if
+    there is a prexisting file. If there is not, it installs the .new file. If
+    there is, it checks if the files differ. If they do not, the .new file is
+    deleted. If they do, it proceeds differently depending on the value of the
+    NEW_FILE_ACTION environment variable:</p>
+<p class="Pp"></p>
+<dl class="Bl-tag">
+  <dt><b>KEEP</b></dt>
+  <dd>Keep the existing file in place and leave the .new file for consideration
+      later. This is the default if NEW_FILE_ACTION is not set.
+    <p class="Pp"></p>
+  </dd>
+  <dt><b>REPLACE</b></dt>
+  <dd>Replaces the existing file with the new one, saving the original file with
+      a .old suffix.
+    <p class="Pp"></p>
+  </dd>
+  <dt><b>OVERWRITE</b></dt>
+  <dd>Blindly overwrites the existing file without saving a copy of it.
+    <p class="Pp"></p>
+  </dd>
+</dl>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHOR"><a class="permalink" href="#AUTHOR">AUTHOR</a></h1>
+pkgtool was written by Scott Court (z5t1@z5t1.com).
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>makepkg(8)</b> <b>installpkg(8)</b> <b>removepkg(8)</b> <b>upgradepkg(8)</b>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2020-03-24</td>
+    <td class="foot-os">Fidelix 0.1</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

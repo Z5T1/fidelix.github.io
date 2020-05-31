@@ -1,0 +1,136 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/tkill.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">TKILL(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">TKILL(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+tkill, tgkill - send a signal to a thread
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>int tkill(int </b><i>tid</i><b>, int </b><i>sig</i><b>);</b>
+</pre>
+<pre>
+<b>int tgkill(int </b><i>tgid</i><b>, int </b><i>tid</i><b>, int </b><i>sig</i><b>);</b>
+</pre>
+<p class="Pp"><i>Note</i>: There is no glibc wrapper for <b>tkill</b>(); see
+    NOTES.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>tgkill</b>() sends the signal <i>sig</i> to the thread with the thread ID
+  <i>tid</i> in the thread group <i>tgid</i>. (By contrast, <b>kill</b>(2) can
+  be used to send a signal only to a process (i.e., thread group) as a whole,
+  and the signal will be delivered to an arbitrary thread within that process.)
+<p class="Pp"><b>tkill</b>() is an obsolete predecessor to <b>tgkill</b>(). It
+    allows only the target thread ID to be specified, which may result in the
+    wrong thread being signaled if a thread terminates and its thread ID is
+    recycled. Avoid using this system call.</p>
+<p class="Pp">These are the raw system call interfaces, meant for internal
+    thread library use.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, zero is returned. On error, -1 is returned, and <i>errno</i> is set
+  appropriately.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EAGAIN</b></dt>
+  <dd>The <b>RLIMIT_SIGPENDING</b> resource limit was reached and <i>sig</i> is
+      a real-time signal.</dd>
+  <dt><b>EAGAIN</b></dt>
+  <dd>Insufficient kernel memory was available and <i>sig</i> is a real-time
+      signal.</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd>An invalid thread ID, thread group ID, or signal was specified.</dd>
+  <dt><b>EPERM</b></dt>
+  <dd>Permission denied. For the required permissions, see <b>kill</b>(2).</dd>
+  <dt><b>ESRCH</b></dt>
+  <dd>No process with the specified thread ID (and thread group ID) exists.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="VERSIONS"><a class="permalink" href="#VERSIONS">VERSIONS</a></h1>
+<b>tkill</b>() is supported since Linux 2.4.19 / 2.5.4. <b>tgkill</b>() was
+  added in Linux 2.5.75.
+<p class="Pp">Library support for <b>tgkill</b>() was added to glibc in version
+    2.30.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+<b>tkill</b>() and <b>tgkill</b>() are Linux-specific and should not be used in
+  programs that are intended to be portable.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+See the description of <b>CLONE_THREAD</b> in <b>clone</b>(2) for an explanation
+  of thread groups.
+<p class="Pp">Glibc does not provide a wrapper for <b>tkill</b>(); call it using
+    <b>syscall</b>(2). Before glibc 2.30, there was also no wrapper function for
+    <b>tgkill</b>().</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>clone</b>(2), <b>gettid</b>(2), <b>kill</b>(2), <b>rt_sigqueueinfo</b>(2)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-08-02</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

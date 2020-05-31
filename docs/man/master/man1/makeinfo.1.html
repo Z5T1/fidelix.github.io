@@ -1,0 +1,304 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/makeinfo.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">TEXI2ANY(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">TEXI2ANY(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+texi2any - translate Texinfo documents
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>makeinfo</b> [<i>OPTION</i>]... <i>TEXINFO-FILE</i>...
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+Translate Texinfo source documentation to various other formats, by default Info
+  files suitable for reading online with Emacs or standalone GNU Info.
+<p class="Pp">This program is commonly installed as both `makeinfo' and
+    `texi2any'; the behavior is identical, and does not depend on the installed
+    name.</p>
+<section class="Ss">
+<h2 class="Ss" id="General_options:"><a class="permalink" href="#General_options:">General
+  options:</a></h2>
+<dl class="Bl-tag">
+  <dt><b>--document-language</b>=<i>STR</i> locale to use in translating Texinfo
+    keywords</dt>
+  <dd>for the output document (default C).</dd>
+  <dt><b>--error-limit</b>=<i>NUM</i></dt>
+  <dd>quit after NUM errors (default 100).</dd>
+  <dt><b>--force</b></dt>
+  <dd>preserve output even if errors.</dd>
+  <dt><b>--help</b></dt>
+  <dd>display this help and exit.</dd>
+  <dt><b>--no-validate</b></dt>
+  <dd>suppress node cross-reference validation.</dd>
+  <dt><b>--no-warn</b></dt>
+  <dd>suppress warnings (but not errors).</dd>
+  <dt><b>--conf-dir</b>=<i>DIR</i></dt>
+  <dd>search also for initialization files in DIR.</dd>
+  <dt><b>--init-file</b>=<i>FILE</i></dt>
+  <dd>load FILE to modify the default behavior.</dd>
+  <dt><b>-c</b>, <b>--set-customization-variable</b> VAR=VAL</dt>
+  <dd>set customization variable VAR to value VAL.</dd>
+  <dt><b>-v</b>, <b>--verbose</b></dt>
+  <dd>explain what is being done.</dd>
+  <dt><b>--version</b></dt>
+  <dd>display version information and exit.</dd>
+</dl>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Output_format_selection_(default_is_to_produce_Info):"><a class="permalink" href="#Output_format_selection_(default_is_to_produce_Info):">Output
+  format selection (default is to produce Info):</a></h2>
+<dl class="Bl-tag">
+  <dt><b>--docbook</b></dt>
+  <dd>output Docbook XML rather than Info.</dd>
+  <dt><b>--html</b></dt>
+  <dd>output HTML rather than Info.</dd>
+  <dt><b>--plaintext</b></dt>
+  <dd>output plain text rather than Info.</dd>
+  <dt><b>--xml</b></dt>
+  <dd>output Texinfo XML rather than Info.</dd>
+  <dt><b>--dvi</b>, <b>--dvipdf</b>, <b>--ps</b>, <b>--pdf</b></dt>
+  <dd>call texi2dvi to generate given output, after checking validity of
+      TEXINFO-FILE.</dd>
+</dl>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="General_output_options:"><a class="permalink" href="#General_output_options:">General
+  output options:</a></h2>
+<dl class="Bl-tag">
+  <dt><b>-E</b>, <b>--macro-expand</b>=<i>FILE</i></dt>
+  <dd>output macro-expanded source to FILE, ignoring any @setfilename.</dd>
+  <dt><b>--no-headers</b></dt>
+  <dd>suppress node separators, Node: lines, and menus from Info output (thus
+      producing plain text) or from HTML (thus producing shorter output). Also,
+      if producing Info, write to standard output by default.</dd>
+  <dt><b>--no-split</b></dt>
+  <dd>suppress any splitting of the output; generate only one output file.</dd>
+  <dt><b>--[no-]number-sections</b></dt>
+  <dd>output chapter and sectioning numbers; default is on.</dd>
+  <dt><b>-o</b>, <b>--output</b>=<i>DEST</i></dt>
+  <dd>output to DEST. With split output, create DEST as a directory</dd>
+  <dt>and put the output files there.</dt>
+  <dd>With non-split output, if DEST is already</dd>
+  <dt>a directory or ends with a /,</dt>
+  <dd>put the output file there.</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>Otherwise, DEST names the output file.</dd>
+</dl>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Options_for_Info_and_plain_text:"><a class="permalink" href="#Options_for_Info_and_plain_text:">Options
+  for Info and plain text:</a></h2>
+<dl class="Bl-tag">
+  <dt><b>--disable-encoding</b></dt>
+  <dd>do not output accented and special characters in Info output based on
+      @documentencoding.</dd>
+  <dt><b>--enable-encoding</b></dt>
+  <dd>override <b>--disable-encoding</b> (default).</dd>
+  <dt><b>--fill-column</b>=<i>NUM</i></dt>
+  <dd>break Info lines at NUM characters (default 72).</dd>
+  <dt><b>--footnote-style</b>=<i>STYLE</i></dt>
+  <dd>output footnotes in Info according to STYLE: `separate' to put them in
+      their own node; `end' to put them at the end of the node, in which they
+      are defined (this is the default).</dd>
+  <dt><b>--paragraph-indent</b>=<i>VAL</i></dt>
+  <dd>indent Info paragraphs by VAL spaces (default 3). If VAL is `none', do not
+      indent; if VAL is `asis', preserve existing indentation.</dd>
+  <dt><b>--split-size</b>=<i>NUM</i></dt>
+  <dd>split Info files at size NUM (default 300000).</dd>
+</dl>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Options_for_HTML:"><a class="permalink" href="#Options_for_HTML:">Options
+  for HTML:</a></h2>
+<dl class="Bl-tag">
+  <dt><b>--css-include</b>=<i>FILE</i></dt>
+  <dd>include FILE in HTML &lt;style&gt; output; read stdin if FILE is -.</dd>
+  <dt><b>--css-ref</b>=<i>URL</i></dt>
+  <dd>generate CSS reference to URL.</dd>
+  <dt><b>--internal-links</b>=<i>FILE</i></dt>
+  <dd>produce list of internal links in FILE.</dd>
+  <dt><b>--split</b>=<i>SPLIT</i></dt>
+  <dd>split at SPLIT, where SPLIT may be `chapter', `section' or `node'.</dd>
+  <dt><b>--transliterate-file-names</b></dt>
+  <dd>use file names in ASCII transliteration.</dd>
+  <dt><b>--node-files</b></dt>
+  <dd>produce redirection files for nodes and anchors; default is set only if
+      split.</dd>
+</dl>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Options_for_XML_and_Docbook:"><a class="permalink" href="#Options_for_XML_and_Docbook:">Options
+  for XML and Docbook:</a></h2>
+<dl class="Bl-tag">
+  <dt><b>--output-indent</b>=<i>VAL</i></dt>
+  <dd>does nothing, retained for compatibility.</dd>
+</dl>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Options_for_DVI/PS/PDF:"><a class="permalink" href="#Options_for_DVI/PS/PDF:">Options
+  for DVI/PS/PDF:</a></h2>
+<dl class="Bl-tag">
+  <dt><b>--Xopt</b>=<i>OPT</i></dt>
+  <dd>pass OPT to texi2dvi; can be repeated.</dd>
+</dl>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Input_file_options:"><a class="permalink" href="#Input_file_options:">Input
+  file options:</a></h2>
+<dl class="Bl-tag">
+  <dt><b>--commands-in-node-names</b></dt>
+  <dd>does nothing, retained for compatibility.</dd>
+  <dt><b>-D</b> VAR</dt>
+  <dd>define the variable VAR, as with @set.</dd>
+  <dt><b>-D</b> 'VAR VAL'</dt>
+  <dd>define VAR to VAL (one shell argument).</dd>
+  <dt><b>-I</b> DIR</dt>
+  <dd>append DIR to the @include search path.</dd>
+  <dt><b>-P</b> DIR</dt>
+  <dd>prepend DIR to the @include search path.</dd>
+  <dt><b>-U</b> VAR</dt>
+  <dd>undefine the variable VAR, as with @clear.</dd>
+</dl>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Conditional_processing_in_input:"><a class="permalink" href="#Conditional_processing_in_input:">Conditional
+  processing in input:</a></h2>
+<dl class="Bl-tag">
+  <dt><b>--ifdocbook</b></dt>
+  <dd>process @ifdocbook and @docbook even if not generating Docbook.</dd>
+  <dt><b>--ifhtml</b></dt>
+  <dd>process @ifhtml and @html even if not generating HTML.</dd>
+  <dt><b>--ifinfo</b></dt>
+  <dd>process @ifinfo even if not generating Info.</dd>
+  <dt><b>--ifplaintext</b></dt>
+  <dd>process @ifplaintext even if not generating plain text.</dd>
+  <dt><b>--iftex</b></dt>
+  <dd>process @iftex and @tex.</dd>
+  <dt><b>--ifxml</b></dt>
+  <dd>process @ifxml and @xml.</dd>
+  <dt><b>--no-ifdocbook</b></dt>
+  <dd>do not process @ifdocbook and @docbook text.</dd>
+  <dt><b>--no-ifhtml</b></dt>
+  <dd>do not process @ifhtml and @html text.</dd>
+  <dt><b>--no-ifinfo</b></dt>
+  <dd>do not process @ifinfo text.</dd>
+  <dt><b>--no-ifplaintext</b></dt>
+  <dd>do not process @ifplaintext text.</dd>
+  <dt><b>--no-iftex</b></dt>
+  <dd>do not process @iftex and @tex text.</dd>
+  <dt><b>--no-ifxml</b></dt>
+  <dd>do not process @ifxml and @xml text.</dd>
+</dl>
+<p class="Pp">Also, for the <b>--no-ifFORMAT</b> options, do process
+    @ifnotFORMAT text.</p>
+<p class="Pp">The defaults for the @if... conditionals depend on the output
+    format: if generating Docbook, <b>--ifdocbook</b> is on and the others are
+    off; if generating HTML, <b>--ifhtml</b> is on and the others are off; if
+    generating Info, <b>--ifinfo</b> is on and the others are off; if generating
+    plain text, <b>--ifplaintext</b> is on and the others are off; if generating
+    XML, <b>--ifxml</b> is on and the others are off.</p>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXAMPLES"><a class="permalink" href="#EXAMPLES">EXAMPLES</a></h1>
+<dl class="Bl-tag">
+  <dt>makeinfo foo.texi</dt>
+  <dd>write Info to foo's @setfilename</dd>
+  <dt>makeinfo --html foo.texi</dt>
+  <dd>write HTML to @setfilename</dd>
+  <dt>makeinfo --xml foo.texi</dt>
+  <dd>write Texinfo XML to @setfilename</dd>
+  <dt>makeinfo --docbook foo.texi</dt>
+  <dd>write Docbook XML to @setfilename</dd>
+  <dt>makeinfo --plaintext foo.texi</dt>
+  <dd>write plain text to standard output</dd>
+  <dt>makeinfo --pdf foo.texi</dt>
+  <dd>write PDF using texi2dvi</dd>
+  <dt>makeinfo --html --no-headers foo.texi</dt>
+  <dd>write html without node lines, menus</dd>
+  <dt>makeinfo --number-sections foo.texi</dt>
+  <dd>write Info with numbered sections</dd>
+  <dt>makeinfo --no-split foo.texi</dt>
+  <dd>write one Info file however big</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="REPORTING_BUGS"><a class="permalink" href="#REPORTING_BUGS">REPORTING
+  BUGS</a></h1>
+Email bug reports to bug-texinfo@gnu.org, general questions and discussion to
+  help-texinfo@gnu.org.
+<br/>
+Texinfo home page: http://www.gnu.org/software/texinfo/
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COPYRIGHT"><a class="permalink" href="#COPYRIGHT">COPYRIGHT</a></h1>
+Copyright &#x00A9; 2017 Free Software Foundation, Inc. License GPLv3+: GNU GPL
+  version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;
+<br/>
+This is free software: you are free to change and redistribute it. There is NO
+  WARRANTY, to the extent permitted by law.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+The full documentation for <b>texi2any</b> is maintained as a Texinfo manual. If
+  the <b>info</b> and <b>texi2any</b> programs are properly installed at your
+  site, the command
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd><b>info texi2any</b></dd>
+</dl>
+<p class="Pp">should give you access to the complete manual.</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">September 2019</td>
+    <td class="foot-os">texi2any 6.7</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

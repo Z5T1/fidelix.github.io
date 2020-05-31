@@ -1,0 +1,91 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man8/removepkg.8</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">REMOVEPKG(8)</td>
+    <td class="head-vol">Linux System Administrator's Manual</td>
+    <td class="head-rtitle">REMOVEPKG(8)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+removepkg - remove a package
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>removepkg [-h] [-d ROOT_DIR] &lt;PACKAGE_NAME&gt;</b>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+Uninstalls the package PACKAGE_NAME that was previously installed with
+  <b>installpkg(8)</b> This will remove all of the files provided by the
+  package, except for files that are also provided by one or more other
+  packages. It also removes any directories provided by the package that are
+  empty after the package is uninstalled.
+<p class="Pp"></p>
+<p class="Pp">Options:</p>
+<dl class="Bl-tag">
+  <dt><b>-d &lt;root directory&gt;</b></dt>
+  <dd>Causes the package to be removed from the specified root directory instead
+      of the default of /.</dd>
+  <dt><b>-h</b></dt>
+  <dd>Displays a help message.
+    <p class="Pp"></p>
+  </dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHOR"><a class="permalink" href="#AUTHOR">AUTHOR</a></h1>
+Removepkg was written by Scott Court (z5t1@z5t1.com).
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>makepkg(8)</b> <b>installpkg(8)</b> <b>upgradepkg(8)</b>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2020-03-24</td>
+    <td class="foot-os">Fidelix 0.1</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

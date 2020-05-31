@@ -1,0 +1,84 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/rtcwake.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">RTCWAKE(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">RTCWAKE(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+rtcwake - manual page for rtcwake 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>rtcwake</b> [<i>-a | -l | -u</i>] [<i>-d DEV</i>] [<i>-m MODE</i>] [<i>-s SEC
+  | -t TIME</i>]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">Enter a system sleep state until specified wakeup time</p>
+<dl class="Bl-tag">
+  <dt><b>-a</b>,--auto</dt>
+  <dd>Read clock mode from adjtime</dd>
+  <dt><b>-l</b>,--local</dt>
+  <dd>Clock is set to local time</dd>
+  <dt><b>-u</b>,--utc</dt>
+  <dd>Clock is set to UTC time</dd>
+</dl>
+<p class="Pp HP"><b>-d</b>,--device DEV Specify the RTC device</p>
+<dl class="Bl-tag">
+  <dt><b>-m</b>,--mode MODE</dt>
+  <dd>Set sleep state (default: standby)</dd>
+</dl>
+<p class="Pp HP"><b>-s</b>,--seconds SEC Set timeout in SEC seconds from now</p>
+<dl class="Bl-tag">
+  <dt><b>-t</b>,--time TIME</dt>
+  <dd>Set timeout to TIME seconds from epoch</dd>
+</dl>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

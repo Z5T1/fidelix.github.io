@@ -1,0 +1,328 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/man.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">MAN(1)</td>
+    <td class="head-vol">General Commands Manual</td>
+    <td class="head-rtitle">MAN(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<code class="Nm">man</code> &#x2014;
+<div class="Nd">display manual pages</div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<table class="Nm">
+  <tr>
+    <td><code class="Nm">man</code></td>
+    <td>[<code class="Fl">-acfhklw</code>] [<code class="Fl">-C</code>
+      <var class="Ar">file</var>] [<code class="Fl">-M</code>
+      <var class="Ar">path</var>] [<code class="Fl">-m</code>
+      <var class="Ar">path</var>] [<code class="Fl">-S</code>
+      <var class="Ar">subsection</var>] [[<code class="Fl">-s</code>]
+      <var class="Ar">section</var>] <var class="Ar">name ...</var></td>
+  </tr>
+</table>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+The <code class="Nm">man</code> utility displays the manual pages entitled
+  <var class="Ar">name</var>. Pages may be selected according to a specific
+  category (<var class="Ar">section</var>) or machine architecture
+  (<var class="Ar">subsection</var>).
+<p class="Pp">The options are as follows:</p>
+<dl class="Bl-tag">
+  <dt><a class="permalink" href="#a"><code class="Fl" id="a">-a</code></a></dt>
+  <dd>Display all matching manual pages. Normally, only the first page found is
+      displayed.</dd>
+  <dt><a class="permalink" href="#C"><code class="Fl" id="C">-C</code></a>
+    <var class="Ar">file</var></dt>
+  <dd>Use the specified <var class="Ar">file</var> instead of the default
+      configuration file. This permits users to configure their own manual
+      environment. See
+      <a class="Xr" href="../man5/man.conf.5.html">man.conf(5)</a> for a
+      description of the contents of this file.</dd>
+  <dt><a class="permalink" href="#c"><code class="Fl" id="c">-c</code></a></dt>
+  <dd>Copy the manual page to the standard output instead of using
+      <a class="Xr" href="../man1/more.1.html">more(1)</a> to paginate it. This
+      is done by default if the standard output is not a terminal device.
+    <p class="Pp">When using <code class="Fl">-c</code>, most terminal devices
+        are unable to show the markup. To print the output of
+        <code class="Nm">man</code> to the terminal with markup but without
+        using a pager, pipe it to
+        <a class="Xr" href="../man1/ul.1.html">ul(1)</a>. To remove the markup,
+        pipe the output to <a class="Xr" href="../man1/col.1.html">col(1)</a>
+        <code class="Fl">-b</code> instead.</p>
+  </dd>
+  <dt><a class="permalink" href="#f"><code class="Fl" id="f">-f</code></a></dt>
+  <dd>A synonym for <a class="Xr" href="../man1/whatis.1.html">whatis(1)</a>. It
+      searches for <var class="Ar">name</var> in manual page names and displays
+      the header lines from all matching pages. The search is case insensitive
+      and matches whole words only.</dd>
+  <dt><a class="permalink" href="#h"><code class="Fl" id="h">-h</code></a></dt>
+  <dd>Display only the SYNOPSIS lines of the requested manual pages. Implies
+      <code class="Fl">-a</code> and <code class="Fl">-c</code>.</dd>
+  <dt><a class="permalink" href="#k"><code class="Fl" id="k">-k</code></a></dt>
+  <dd>A synonym for <a class="Xr" href="../man1/apropos.1.html">apropos(1)</a>.
+      Instead of <var class="Ar">name</var>, an expression can be provided using
+      the syntax described in the
+      <a class="Xr" href="../man1/apropos.1.html">apropos(1)</a> manual. By
+      default, it displays the header lines of all matching pages.</dd>
+  <dt><a class="permalink" href="#l"><code class="Fl" id="l">-l</code></a></dt>
+  <dd>A synonym for <a class="Xr" href="../man1/mandoc.1.html">mandoc(1)</a>.
+      The <var class="Ar">name</var> arguments are interpreted as filenames. No
+      search is done and <var class="Ar">file</var>, <var class="Ar">path</var>,
+      <var class="Ar">section</var>, <var class="Ar">subsection</var>, and
+      <code class="Fl">-w</code> are ignored. This option implies
+      <code class="Fl">-a</code>.</dd>
+  <dt><a class="permalink" href="#M"><code class="Fl" id="M">-M</code></a>
+    <var class="Ar">path</var></dt>
+  <dd>Override the list of standard directories which
+      <code class="Nm">man</code> searches for manual pages. The supplied
+      <var class="Ar">path</var> must be a colon
+      (&#x2018;<code class="Li">:</code>&#x2019;) separated list of directories.
+      This search path may also be set using the environment variable
+      <code class="Ev">MANPATH</code>.</dd>
+  <dt><a class="permalink" href="#m"><code class="Fl" id="m">-m</code></a>
+    <var class="Ar">path</var></dt>
+  <dd>Augment the list of standard directories which <code class="Nm">man</code>
+      searches for manual pages. The supplied <var class="Ar">path</var> must be
+      a colon (&#x2018;<code class="Li">:</code>&#x2019;) separated list of
+      directories. These directories will be searched before the standard
+      directories or the directories specified using the
+      <code class="Fl">-M</code> option or the <code class="Ev">MANPATH</code>
+      environment variable.</dd>
+  <dt><a class="permalink" href="#S"><code class="Fl" id="S">-S</code></a>
+    <var class="Ar">subsection</var></dt>
+  <dd>Only show pages for the specified
+      <a class="Xr" href="../man1/machine.1.html">machine(1)</a> architecture.
+      <var class="Ar">subsection</var> is case insensitive.
+    <p class="Pp">By default manual pages for all architectures are installed.
+        Therefore this option can be used to view pages for one architecture
+        whilst using another.</p>
+    <p class="Pp">This option overrides the <code class="Ev">MACHINE</code>
+        environment variable.</p>
+  </dd>
+  <dt>[<code class="Fl">-s</code>] <var class="Ar">section</var></dt>
+  <dd>Only select manuals from the specified <var class="Ar">section</var>. The
+      currently available sections are:
+    <p class="Pp"></p>
+    <div class="Bd-indent">
+    <dl class="Bl-tag Bl-compact">
+      <dt>1</dt>
+      <dd>General commands (tools and utilities).</dd>
+      <dt>2</dt>
+      <dd>System calls and error numbers.</dd>
+      <dt>3</dt>
+      <dd>Library functions.</dd>
+      <dt>3p</dt>
+      <dd><a class="Xr" href="../man1/perl.1.html">perl(1)</a> programmer's
+          reference guide.</dd>
+      <dt>4</dt>
+      <dd>Device drivers.</dd>
+      <dt>5</dt>
+      <dd>File formats.</dd>
+      <dt>6</dt>
+      <dd>Games.</dd>
+      <dt>7</dt>
+      <dd>Miscellaneous information.</dd>
+      <dt>8</dt>
+      <dd>System maintenance and operation commands.</dd>
+      <dt>9</dt>
+      <dd>Kernel internals.</dd>
+    </dl>
+    </div>
+    <p class="Pp">If not specified and a match is found in more than one
+        section, the first match is selected from the following list: 1, 8, 6,
+        2, 3, 5, 7, 4, 9, 3p.</p>
+  </dd>
+  <dt><a class="permalink" href="#w"><code class="Fl" id="w">-w</code></a></dt>
+  <dd>List the pathnames of all matching manual pages instead of displaying any
+      of them.</dd>
+</dl>
+<p class="Pp">The options <code class="Fl">-IKOTW</code> are also supported and
+    are documented in <a class="Xr" href="../man1/mandoc.1.html">mandoc(1)</a>.
+    The options <code class="Fl">-fkl</code> are mutually exclusive and override
+    each other.</p>
+<p class="Pp">Guidelines for writing man pages can be found in
+    <a class="Xr" href="../man7/mdoc.7.html">mdoc(7)</a>.</p>
+<p class="Pp">The <a class="Xr" href="../man5/mandoc.db.5.html">mandoc.db(5)</a>
+    database is used for looking up manual page entries. In cases where the
+    database is absent, outdated, or corrupt, <code class="Nm">man</code> falls
+    back to looking for files called
+    <var class="Ar">name</var>.<var class="Ar">section</var>. If both a
+    formatted and an unformatted version of the same manual page, for example
+    <span class="Pa">cat1/foo.0</span> and <span class="Pa">man1/foo.1</span>,
+    exist in the same directory, only the unformatted version is used. The
+    database is kept up to date with
+    <a class="Xr" href="../man8/makewhatis.8.html">makewhatis(8)</a>, which is
+    run by the <a class="Xr" href="../man8/weekly.8.html">weekly(8)</a>
+    maintenance script.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ENVIRONMENT"><a class="permalink" href="#ENVIRONMENT">ENVIRONMENT</a></h1>
+<dl class="Bl-tag">
+  <dt><a class="permalink" href="#MACHINE"><code class="Ev" id="MACHINE">MACHINE</code></a></dt>
+  <dd>As some manual pages are intended only for specific architectures,
+      <code class="Nm">man</code> searches any subdirectories, with the same
+      name as the current architecture, in every directory which it searches.
+      Machine specific areas are checked before general areas. The current
+      machine type may be overridden by setting the environment variable
+      <code class="Ev">MACHINE</code> to the name of a specific architecture, or
+      with the <code class="Fl">-S</code> option.
+      <code class="Ev">MACHINE</code> is case insensitive.</dd>
+  <dt><a class="permalink" href="#MANPAGER"><code class="Ev" id="MANPAGER">MANPAGER</code></a></dt>
+  <dd>Any non-empty value of the environment variable
+      <code class="Ev">MANPAGER</code> is used instead of the standard
+      pagination program, <a class="Xr" href="../man1/more.1.html">more(1)</a>.
+      If <a class="Xr" href="../man1/less.1.html">less(1)</a> is used, the
+      interactive <code class="Ic">:t</code> command can be used to go to the
+      definitions of various terms, for example command line options, command
+      modifiers, internal commands, environment variables, function names,
+      preprocessor macros,
+      <a class="Xr" href="../man2/errno.2.html">errno(2)</a> values, and some
+      other emphasized words. Some terms may have defining text at more than one
+      place. In that case, the
+      <a class="Xr" href="../man1/less.1.html">less(1)</a> interactive commands
+      <code class="Ic">t</code> and <code class="Ic">T</code> can be used to
+      move to the next and to the previous place providing information about the
+      term last searched for with <code class="Ic">:t</code>. The
+      <code class="Fl">-O</code>
+      <code class="Cm">tag</code>[=<var class="Ar">term</var>] option documented
+      in the <a class="Xr" href="../man1/mandoc.1.html">mandoc(1)</a> manual
+      opens a manual page at the definition of a specific
+      <var class="Ar">term</var> rather than at the beginning.</dd>
+  <dt><a class="permalink" href="#MANPATH"><code class="Ev" id="MANPATH">MANPATH</code></a></dt>
+  <dd>The standard search path used by <code class="Nm">man</code> may be
+      changed by specifying a path in the <code class="Ev">MANPATH</code>
+      environment variable. The format of the path is a colon
+      (&#x2018;<code class="Li">:</code>&#x2019;) separated list of directories.
+      Invalid paths are ignored. Overridden by <code class="Fl">-M</code>,
+      ignored if <code class="Fl">-l</code> is specified.
+    <p class="Pp">If <code class="Ev">MANPATH</code> begins with a colon, it is
+        appended to the default list; if it ends with a colon, it is prepended
+        to the default list; or if it contains two adjacent colons, the standard
+        search path is inserted between the colons. If none of these conditions
+        are met, it overrides the standard search path.</p>
+  </dd>
+  <dt><a class="permalink" href="#PAGER"><code class="Ev" id="PAGER">PAGER</code></a></dt>
+  <dd>Specifies the pagination program to use when
+      <code class="Ev">MANPAGER</code> is not defined. If neither PAGER nor
+      MANPAGER is defined, <a class="Xr" href="../man1/more.1.html">more(1)</a>
+      <code class="Fl">-s</code> is used.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="FILES"><a class="permalink" href="#FILES">FILES</a></h1>
+<dl class="Bl-tag Bl-compact">
+  <dt><span class="Pa">/etc/man.conf</span></dt>
+  <dd>default man configuration file</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXIT_STATUS"><a class="permalink" href="#EXIT_STATUS">EXIT
+  STATUS</a></h1>
+The <code class="Nm">man</code> utility exits&#x00A0;0 on success,
+  and&#x00A0;&gt;0 if an error occurs. See
+  <a class="Xr" href="../man1/mandoc.1.html">mandoc(1)</a> for details.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXAMPLES"><a class="permalink" href="#EXAMPLES">EXAMPLES</a></h1>
+Format a page for pasting extracts into an email message &#x2014; avoid printing
+  any UTF-8 characters, reduce the width to ease quoting in replies, and remove
+  markup:
+<p class="Pp"></p>
+<div class="Bd Bd-indent"><code class="Li">$ man -T ascii -O width=65 pledge |
+  col -b</code></div>
+<p class="Pp">Read a typeset page in a PDF viewer:</p>
+<p class="Pp"></p>
+<div class="Bd Bd-indent"><code class="Li">$ MANPAGER=mupdf man -T pdf
+  lpd</code></div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<a class="Xr" href="../man1/apropos.1.html">apropos(1)</a>,
+  <a class="Xr" href="../man1/col.1.html">col(1)</a>,
+  <a class="Xr" href="../man1/mandoc.1.html">mandoc(1)</a>,
+  <a class="Xr" href="../man1/ul.1.html">ul(1)</a>,
+  <a class="Xr" href="../man1/whereis.1.html">whereis(1)</a>,
+  <a class="Xr" href="../man5/man.conf.5.html">man.conf(5)</a>,
+  <a class="Xr" href="../man7/mdoc.7.html">mdoc(7)</a>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="STANDARDS"><a class="permalink" href="#STANDARDS">STANDARDS</a></h1>
+The <code class="Nm">man</code> utility is compliant with the
+  <span class="St">IEEE Std 1003.1-2008 (&#x201C;POSIX.1&#x201D;)</span>
+  specification.
+<p class="Pp">The flags [<code class="Fl">-aCcfhIKlMmOSsTWw</code>], as well as
+    the environment variables <code class="Ev">MACHINE</code>,
+    <code class="Ev">MANPAGER</code>, and <code class="Ev">MANPATH</code>, are
+    extensions to that specification.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="HISTORY"><a class="permalink" href="#HISTORY">HISTORY</a></h1>
+A <code class="Nm">man</code> command first appeared in
+  <span class="Ux">Version&#x00A0;3 AT&amp;T UNIX</span>.
+<p class="Pp">The <code class="Fl">-w</code> option first appeared in
+    <span class="Ux">Version&#x00A0;7 AT&amp;T UNIX</span>;
+    <code class="Fl">-f</code> and <code class="Fl">-k</code> in
+    <span class="Ux">4BSD</span>; <code class="Fl">-M</code> in
+    <span class="Ux">4.3BSD</span>; <code class="Fl">-a</code> in
+    <span class="Ux">4.3BSD-Tahoe</span>; <code class="Fl">-c</code> and
+    <code class="Fl">-m</code> in <span class="Ux">4.3BSD-Reno</span>;
+    <code class="Fl">-h</code> in <span class="Ux">4.3BSD-Net/2</span>;
+    <code class="Fl">-C</code> in <span class="Ux">NetBSD 1.0</span>;
+    <code class="Fl">-s</code> and <code class="Fl">-S</code> in
+    <span class="Ux">OpenBSD 2.3</span>; and <code class="Fl">-I</code>,
+    <code class="Fl">-K</code>, <code class="Fl">-l</code>,
+    <code class="Fl">-O</code>, and <code class="Fl">-W</code> in
+    <span class="Ux">OpenBSD 5.7</span>. The <code class="Fl">-T</code> option
+    first appeared in <span class="Ux">AT&amp;T System&#x00A0;III UNIX</span>
+    and was also added in <span class="Ux">OpenBSD 5.7</span>.</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">March 9, 2019</td>
+    <td class="foot-os">Fidelix 0.1</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

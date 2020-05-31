@@ -1,0 +1,91 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man8/installpkg.8</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">INSTALLPKG(8)</td>
+    <td class="head-vol">Linux System Administrator's Manual</td>
+    <td class="head-rtitle">INSTALLPKG(8)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+installpkg - install a package
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>installpkg [-hvr] [-d ROOT_DIR] &lt;PACKAGE_FILE&gt;</b>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+Install a PACKAGE_FILE that was created with <b>makepkg(8)</b>
+<p class="Pp"></p>
+<p class="Pp">Options:</p>
+<dl class="Bl-tag">
+  <dt><b>-d &lt;root directory&gt;</b></dt>
+  <dd>Causes the package to be installed to the specified root directory instead
+      of the default of /.</dd>
+  <dt><b>-r</b></dt>
+  <dd>If the package is already installed, reinstall it.</dd>
+  <dt><b>-h</b></dt>
+  <dd>Displays a help message.</dd>
+  <dt><b>-v</b></dt>
+  <dd>Print version information.
+    <p class="Pp"></p>
+  </dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHOR"><a class="permalink" href="#AUTHOR">AUTHOR</a></h1>
+Installpkg was written by Scott Court (z5t1@z5t1.com).
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>makepkg(8)</b> <b>removepkg(8)</b> <b>upgradepkg(8)</b>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2020-03-24</td>
+    <td class="foot-os">Fidelix 0.1</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

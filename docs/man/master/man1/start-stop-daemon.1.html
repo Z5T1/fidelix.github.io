@@ -1,0 +1,124 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/start-stop-daemon.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">START-STOP-DAEMON(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">START-STOP-DAEMON(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+start-stop-daemon - manual page for start-stop-daemon 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>start-stop-daemon</b> [<i>OPTIONS</i>] [<i>-S|-K</i>] ... [<i>-- ARGS</i>...]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">Search for matching processes, and then <b>-K</b>: stop all
+    matching processes <b>-S</b>: start a process unless a matching process is
+    found</p>
+<section class="Ss">
+<h2 class="Ss" id="Process_matching:"><a class="permalink" href="#Process_matching:">Process
+  matching:</a></h2>
+<p class="Pp HP"><b>-u</b> USERNAME|UID Match only this user's processes</p>
+<dl class="Bl-tag">
+  <dt><b>-n</b> NAME</dt>
+  <dd>Match processes with NAME in comm field in <i>/proc/PID/stat</i></dd>
+  <dt><b>-x</b> EXECUTABLE</dt>
+  <dd>Match processes with this command in <i>/proc/PID/cmdline</i></dd>
+  <dt><b>-p</b> FILE</dt>
+  <dd>Match a process with PID from FILE</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>All specified conditions must match</dd>
+</dl>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="-S_only:"><a class="permalink" href="#-S_only:">-S
+  only:</a></h2>
+<dl class="Bl-tag">
+  <dt><b>-x</b> EXECUTABLE</dt>
+  <dd>Program to run</dd>
+  <dt><b>-a</b> NAME</dt>
+  <dd>Zeroth argument</dd>
+  <dt><b>-b</b></dt>
+  <dd>Background</dd>
+  <dt><b>-N</b> N</dt>
+  <dd>Change nice level</dd>
+</dl>
+<p class="Pp HP"><b>-c</b> USER[:[GRP]] Change user/group</p>
+<dl class="Bl-tag">
+  <dt><b>-m</b></dt>
+  <dd>Write PID to pidfile specified by <b>-p</b></dd>
+</dl>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="-K_only:"><a class="permalink" href="#-K_only:">-K
+  only:</a></h2>
+<dl class="Bl-tag">
+  <dt><b>-s</b> SIG</dt>
+  <dd>Signal to send</dd>
+  <dt><b>-t</b></dt>
+  <dd>Match only, exit with 0 if found</dd>
+</dl>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Other:"><a class="permalink" href="#Other:">Other:</a></h2>
+<dl class="Bl-tag">
+  <dt><b>-o</b></dt>
+  <dd>Exit with status 0 if nothing is done</dd>
+  <dt><b>-v</b></dt>
+  <dd>Verbose</dd>
+  <dt><b>-q</b></dt>
+  <dd>Quiet</dd>
+</dl>
+</section>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

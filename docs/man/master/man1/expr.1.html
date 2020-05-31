@@ -1,0 +1,98 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/expr.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">EXPR(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">EXPR(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+expr - manual page for expr 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>expr</b> <i>EXPRESSION</i>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">Print the value of EXPRESSION to stdout</p>
+<section class="Ss">
+<h2 class="Ss" id="EXPRESSION_may_be:"><a class="permalink" href="#EXPRESSION_may_be:">EXPRESSION
+  may be:</a></h2>
+<dl class="Bl-tag">
+  <dt>ARG1 | ARG2</dt>
+  <dd>ARG1 if it is neither null nor 0, otherwise ARG2</dd>
+  <dt>ARG1 &amp; ARG2</dt>
+  <dd>ARG1 if neither argument is null or 0, otherwise 0</dd>
+  <dt>ARG1 &lt; ARG2</dt>
+  <dd>1 if ARG1 is less than ARG2, else 0. Similarly:</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>ARG1 &lt;= ARG2 ARG1 = ARG2 ARG1 != ARG2 ARG1 &gt;= ARG2 ARG1 &gt; ARG2
+      ARG1 + ARG2 Sum of ARG1 and ARG2. Similarly: ARG1 - ARG2 ARG1 * ARG2 ARG1
+      / ARG2 ARG1 % ARG2 STRING : REGEXP Anchored pattern match of REGEXP in
+      STRING match STRING REGEXP Same as STRING : REGEXP substr STRING POS
+      LENGTH Substring of STRING, POS counted from 1 index STRING CHARS Index in
+      STRING where any CHARS is found, or 0 length STRING Length of STRING quote
+      TOKEN Interpret TOKEN as a string, even if</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt>it is a keyword like 'match' or an</dt>
+  <dd>operator like '/'</dd>
+  <dt>(EXPRESSION)</dt>
+  <dd>Value of EXPRESSION</dd>
+</dl>
+<p class="Pp">Beware that many operators need to be escaped or quoted for
+    shells. Comparisons are arithmetic if both ARGs are numbers, else
+    lexicographical. Pattern matches return the string matched between \( and \)
+    or null; if \( and \) are not used, they return the number of characters
+    matched or 0.</p>
+</section>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

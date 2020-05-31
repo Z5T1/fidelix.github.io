@@ -1,0 +1,254 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man7/address_families.7</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">ADDRESS_FAMILIES(7)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">ADDRESS_FAMILIES(7)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+address_families - socket address families (domains)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>#include &lt;sys/types.h&gt;</b> /* See NOTES */
+<br/>
+<b>#include &lt;sys/socket.h&gt;</b>
+<p class="Pp"><b>int socket(int </b><i>domain</i><b>, int </b><i>type</i><b>,
+    int </b><i>protocol</i><b>);</b></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+The <i>domain</i> argument of the <b>socket</b>(2) specifies a communication
+  domain; this selects the protocol family which will be used for communication.
+  These families are defined in <i>&lt;sys/socket.h&gt;</i>. The formats
+  currently understood by the Linux kernel include:
+<dl class="Bl-tag">
+  <dt><b>AF_UNIX</b>, <b>AF_LOCAL</b></dt>
+  <dd>Local communication For further information, see <b>unix</b>(7).</dd>
+  <dt><b>AF_INET</b></dt>
+  <dd>IPv4 Internet protocols. For further information, see <b>ip</b>(7).</dd>
+  <dt><b>AF_AX25</b></dt>
+  <dd>Amateur radio AX.25 protocol. For further information, see
+    <b>ax25</b>(4).</dd>
+  <dt><b>AF_IPX</b></dt>
+  <dd>IPX - Novell protocols.</dd>
+  <dt><b>AF_APPLETALK</b></dt>
+  <dd>AppleTalk For further information, see <b>ddp</b>(7).</dd>
+  <dt><b>AF_NETROM</b></dt>
+  <dd>AX.25 packet layer protocol. For further information, see
+      <b>netrom</b>(4),
+      <a class="Lk" href="https://www.tldp.org/HOWTO/AX25-HOWTO/x61.html"><i>The
+      Packet Radio Protocols and Linux</i></a> and the <i>AX.25</i>,
+      <i>NET/ROM</i>, and <i>ROSE network programming</i> chapters of the
+      <a class="Lk" href="https://www.tldp.org/HOWTO/AX25-HOWTO/x2107.html"><i>Linux
+      Amateur Radio AX.25 HOWTO</i></a>.</dd>
+  <dt><b>AF_BRIDGE</b></dt>
+  <dd>Can't be used for creating sockets; mostly used for bridge links in
+      <b>rtnetlink</b>(7) protocol commands.</dd>
+  <dt><b>AF_ATMPVC</b></dt>
+  <dd>Access to raw ATM Permanent Virtual Circuits (PVCs). For further
+      information, see the
+      <a class="Lk" href="https://www.tldp.org/HOWTO/text/ATM-Linux-HOWTO"><i>ATM
+      on Linux HOWTO</i></a>.</dd>
+  <dt><b>AF_X25</b></dt>
+  <dd>ITU-T X.25 / ISO-8208 protocol. For further information, see
+      <b>x25</b>(7).</dd>
+  <dt><b>AF_INET6</b></dt>
+  <dd>IPv6 Internet protocols. For further information, see <b>ipv6</b>(7).</dd>
+  <dt><b>AF_ROSE</b></dt>
+  <dd>RATS (Radio Amateur Telecommunications Society) Open Systems environment
+      (ROSE) AX.25 packet layer protocol. For further information, see the
+      resources listed for <b>AF_NETROM</b>.</dd>
+  <dt><b>AF_DECnet</b></dt>
+  <dd>DECet protocol sockets. See <i>Documentation/networking/decnet.txt</i> in
+      the Linux kernel source tree for details.</dd>
+  <dt><b>AF_NETBEUI</b></dt>
+  <dd>Reserved for &quot;802.2LLC project&quot;; never used.</dd>
+  <dt><b>AF_SECURITY</b></dt>
+  <dd>This was a short-lived (between Linux 2.1.30 and 2.1.99pre2) protocol
+      family for firewall upcalls.</dd>
+  <dt><b>AF_KEY</b></dt>
+  <dd>Key management protocol, originally developed for usage with IPsec (since
+      Linux 2.1.38). This has no relation to <b>keyctl</b>(2) and the in-kernel
+      key storage facility. See
+      <a class="Lk" href="https://tools.ietf.org/html/rfc2367">RFC 2367
+      <i>PF_KEY Key Management API, Version 2</i></a> for details.</dd>
+  <dt><b>AF_NETLINK</b></dt>
+  <dd>Kernel user interface device For further information, see
+      <b>netlink</b>(7).</dd>
+  <dt><b>AF_PACKET</b></dt>
+  <dd>Low-level packet interface. For further information, see
+    <b>packet</b>(7).</dd>
+  <dt><b>AF_ECONET</b></dt>
+  <dd>Acorn Econet protocol (removed in Linux 3.5). See the
+      <a class="Lk" href="http://www.8bs.com/othrdnld/manuals/econet.shtml">Econet
+      documentation</a> for details.</dd>
+  <dt><b>AF_ATMSVC</b></dt>
+  <dd>Access to ATM Switched Virtual Circuits (SVCs) See the
+      <a class="Lk" href="https://www.tldp.org/HOWTO/text/ATM-Linux-HOWTO"><i>ATM
+      on Linux HOWTO</i></a> for details.</dd>
+  <dt><b>AF_RDS</b></dt>
+  <dd>Reliable Datagram Sockets (RDS) protocol (since Linux 2.6.30). RDS over
+      RDMA has no relation to <b>AF_SMC</b> or <b>AF_XDP</b>. For further
+      information see <b>rds</b>(7), <b>rds-rdma</b>(7), and
+      <i>Documentation/networking/rds.txt</i> in the Linux kernel source
+    tree.</dd>
+  <dt><b>AF_IRDA</b></dt>
+  <dd>Socket interface over IrDA (moved to staging in Linux 4.14, removed in
+      Linux 4.17). For further information see <b>irda</b>(7).</dd>
+  <dt><b>AF_PPPOX</b></dt>
+  <dd>Generic PPP transport layer, for setting up L2 tunnels (L2TP and PPPoE).
+      See <i>Documentation/networking/l2tp.txt</i> in the Linux kernel source
+      tree for details.</dd>
+  <dt><b>AF_WANPIPE</b></dt>
+  <dd>Legacy protocol for wide area network (WAN) connectivity that was used by
+      Sangoma WAN cards (called &quot;WANPIPE&quot;); removed in Linux
+    2.6.21.</dd>
+  <dt><b>AF_LLC</b></dt>
+  <dd>Logical link control (IEEE 802.2 LLC) protocol, upper part of data link
+      layer of ISO/OSI networking protocol stack (since Linux 2.4); has no
+      relation to <b>AF_PACKET</b>. See chapter <i>13.5.3. Logical Link
+      Control</i> in <i>Understanding Linux Kernel Internals</i> (O'Reilly
+      Media, 2006) and <i>IEEE Standards for Local Area Networks: Logical Link
+      Control</i> (The Institute of Electronics and Electronics Engineers, Inc.,
+      New York, New York, 1985) for details. See also
+      <a class="Lk" href="https://wiki.linuxfoundation.org/networking/llc">some
+      historical notes</a> regarding its development.</dd>
+  <dt><b>AF_IB</b></dt>
+  <dd>InfiniBand native addressing (since Linux 3.11).</dd>
+  <dt><b>AF_MPLS</b></dt>
+  <dd>Multiprotocol Label Switching (since Linux 4.1); mostly used for
+      configuring MPLS routing via <b>netlink</b>(7), as it doesn't expose
+      ability to create sockets to user space.</dd>
+  <dt><b>AF_CAN</b></dt>
+  <dd>Controller Area Network automotive bus protocol (since Linux 2.6.25). See
+      <i>Documentation/networking/can.rst</i> in the Linux kernel source tree
+      for details.</dd>
+  <dt><b>AF_TIPC</b></dt>
+  <dd>TIPC, &quot;cluster domain sockets&quot; protocol (since Linux 2.6.16).
+      See <a class="Lk" href="http://tipc.io/programming.html"><i>TIPC
+      Programmer's Guide</i></a> and the
+      <a class="Lk" href="http://tipc.io/protocol.html">protocol description</a>
+      for details.</dd>
+  <dt><b>AF_BLUETOOTH</b></dt>
+  <dd>Bluetooth low-level socket protocol (since Linux 3.11). See
+      <a class="Lk" href="https://git.kernel.org/pub/scm/bluetooth/bluez.git/tree/doc/mgmt-api.txt"><i>Bluetooth
+      Management API overview</i></a> and
+      <a class="Lk" href="https://people.csail.mit.edu/albert/bluez-intro/"><i>An
+      Introduction to Bluetooth Programming</i> by Albert Huang</a> for
+    details.</dd>
+  <dt><b>AF_IUCV</b></dt>
+  <dd>IUCV (inter-user communication vehicle) z/VM protocol for hypervisor-guest
+      interaction (since Linux 2.6.21); has no relation to <b>AF_VSOCK</b>
+      and/or <b>AF_SMC</b> See
+      <a class="Lk" href="https://www.ibm.com/support/knowledgecenter/en/SSB27U_6.4.0/com.ibm.zvm.v640.hcpb4/iucv.htm"><i>IUCV
+      protocol overview</i></a> for details.</dd>
+  <dt><b>AF_RXRPC</b></dt>
+  <dd>Rx, Andrew File System remote procedure call protocol (since Linux
+      2.6.22). See <i>Documentation/networking/rxrpc.txt</i> in the Linux kernel
+      source tree for details.</dd>
+  <dt><b>AF_ISDN</b></dt>
+  <dd>New &quot;modular ISDN&quot; driver interface protocol (since Linux
+      2.6.27). See the
+      <a class="Lk" href="http://www.misdn.eu/wiki/Main_Page/">mISDN wiki</a>
+      for details.</dd>
+  <dt><b>AF_PHONET</b></dt>
+  <dd>Nokia cellular modem IPC/RPC interface (since Linux 2.6.31). See
+      <i>Documentation/networking/phonet.txt</i> in the Linux kernel source tree
+      for details.</dd>
+  <dt><b>AF_IEEE802154</b></dt>
+  <dd>IEEE 802.15.4 WPAN (wireless personal area network) raw packet protocol
+      (since Linux 2.6.31). See <i>Documentation/networking/ieee802154.txt</i>
+      in the Linux kernel source tree for details.</dd>
+  <dt><b>AF_CAIF</b></dt>
+  <dd>Ericsson's Communication CPU to Application CPU interface (CAIF) protocol
+      (since Linux 2.6.36). See
+      <i>Documentation/networking/caif/Linux-CAIF.txt</i> in the Linux kernel
+      source tree for details.</dd>
+  <dt><b>AF_ALG</b></dt>
+  <dd>Interface to kernel crypto API (since Linux 2.6.38). See
+      <i>Documentation/crypto/userspace-if.rst</i> in the Linux kernel source
+      tree for details.</dd>
+  <dt><b>AF_VSOCK</b></dt>
+  <dd>VMWare VSockets protocol for hypervisor-guest interaction (since Linux
+      3.9); has no relation to <b>AF_IUCV</b> and <b>AF_SMC</b>. For further
+      information, see <b>vsock</b>(7).</dd>
+  <dt><b>AF_KCM</b></dt>
+  <dd>KCM (kernel connection multiplexor) interface (since Linux 4.6). See
+      <i>Documentation/networking/kcm.txt</i> in the Linux kernel source tree
+      for details.</dd>
+  <dt><b>AF_QIPCRTR</b></dt>
+  <dd>Qualcomm IPC router interface protocol (since Linux 4.7).</dd>
+  <dt><b>AF_SMC</b></dt>
+  <dd>SMC-R (shared memory communications over RDMA) protocol (since Linux
+      4.11), and SMC-D (shared memory communications, direct memory access)
+      protocol for intra-node z/VM quest interaction (since Linux 4.19); has no
+      relation to <b>AF_RDS</b>, <b>AF_IUCV</b> or <b>AF_VSOCK</b>. See
+      <a class="Lk" href="https://tools.ietf.org/html/rfc7609">RFC 7609 <i>IBM's
+      Shared Memory Communications over RDMA (SMC-R) Protocol</i></a> for
+      details regarding SMC-R. See
+      <a class="Lk" href="https://www-01.ibm.com/software/network/commserver/SMC-D/index.html"><i>SMC-D
+      Reference Information</i></a> for details regarding SMC-D.</dd>
+  <dt><b>AF_XDP</b></dt>
+  <dd>XDP (express data path) interface (since Linux 4.18). See
+      <i>Documentation/networking/af_xdp.rst</i> in the Linux kernel source tree
+      for details.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>socket</b>(2), <b>socket</b>(7)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2018-10-16</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

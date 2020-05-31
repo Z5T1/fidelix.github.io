@@ -1,0 +1,124 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man8/modinfo.8</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">MODINFO(8)</td>
+    <td class="head-vol">modinfo</td>
+    <td class="head-rtitle">MODINFO(8)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+modinfo - Show information about a Linux Kernel module
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp HP"><b>modinfo</b> [<b>-0</b>]
+    [<b>-F&#x00A0;</b><b></b><i>field</i>]
+    [<b>-k&#x00A0;</b><b></b><i>kernel</i>] [modulename|filename...]</p>
+<p class="Pp HP"><b>modinfo -V</b></p>
+<p class="Pp HP"><b>modinfo -h</b></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>modinfo</b> extracts information from the Linux Kernel modules given on the
+  command line. If the module name is not a filename, then the
+  /lib/modules/<i>version</i> directory is searched, as is also done by
+  <b>modprobe</b>(8) when loading kernel modules.
+<p class="Pp"><b>modinfo</b> by default lists each attribute of the module in
+    form <i>fieldname</i> : <i>value</i>, for easy reading. The filename is
+    listed the same way (although it's not really an attribute).</p>
+<p class="Pp">This version of <b>modinfo</b> can understand modules of any Linux
+    Kernel architecture.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+<b>-V</b>, <b>--version</b>
+<div class="Bd-indent">Print the modinfo version.</div>
+<p class="Pp"><b>-F</b>, <b>--field</b></p>
+<div class="Bd-indent">Only print this field value, one per line. This is most
+  useful for scripts. Field names are case-insensitive. Common fields (which may
+  not be in every module) include author, description, license, parm, depends,
+  and alias. There are often multiple parm, alias and depends fields. The
+  special field filename lists the filename of the module.</div>
+<p class="Pp"><b>-b </b><b></b><i>basedir</i>, <b>--basedir
+    </b><b></b><i>basedir</i></p>
+<div class="Bd-indent">Root directory for modules, / by default.</div>
+<p class="Pp"><b>-k </b><b></b><i>kernel</i></p>
+<div class="Bd-indent">Provide information about a kernel other than the running
+  one. This is particularly useful for distributions needing to extract
+  information from a newly installed (but not yet running) set of kernel
+  modules. For example, you wish to find which firmware files are needed by
+  various modules in a new kernel for which you must make an initrd/initramfs
+  image prior to booting.</div>
+<p class="Pp"><b>-0</b>, <b>--null</b></p>
+<div class="Bd-indent">Use the ASCII zero character to separate field values,
+  instead of a new line. This is useful for scripts, since a new line can
+  theoretically appear inside a field.</div>
+<p class="Pp"><b>-a</b> <b>--author</b>, <b>-d</b> <b>--description</b>,
+    <b>-l</b> <b>--license</b>, <b>-p</b> <b>--parameters</b>, <b>-n</b>
+    <b>--filename</b></p>
+<div class="Bd-indent">These are shortcuts for the <b>--field</b> flag's author,
+  description, license, parm and filename arguments, to ease the transition from
+  the old modutils <b>modinfo</b>.</div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COPYRIGHT"><a class="permalink" href="#COPYRIGHT">COPYRIGHT</a></h1>
+This manual page originally Copyright 2003, Rusty Russell, IBM Corporation.
+  Maintained by Jon Masters and others.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>modprobe</b>(8)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHORS"><a class="permalink" href="#AUTHORS">AUTHORS</a></h1>
+<b>Jon Masters</b> &lt;jcm@jonmasters.org&gt;
+<div class="Bd-indent">Developer</div>
+<p class="Pp"><b>Lucas De Marchi</b> &lt;lucas.de.marchi@gmail.com&gt;</p>
+<div class="Bd-indent">Developer</div>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">02/07/2019</td>
+    <td class="foot-os">kmod</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

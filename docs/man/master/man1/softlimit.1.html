@@ -1,0 +1,107 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/softlimit.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">SOFTLIMIT(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">SOFTLIMIT(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+softlimit - manual page for softlimit 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>softlimit</b> [<i>-a BYTES</i>] [<i>-m BYTES</i>] [<i>-d BYTES</i>] [<i>-s
+  BYTES</i>] [<i>-l BYTES</i>]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>[-f BYTES] [-c BYTES] [-r BYTES] [-o N] [-p N] [-t N] PROG ARGS</dd>
+</dl>
+<p class="Pp">Set soft resource limits, then run PROG</p>
+<dl class="Bl-tag">
+  <dt><b>-a</b> BYTES</dt>
+  <dd>Limit total size of all segments</dd>
+  <dt><b>-m</b> BYTES</dt>
+  <dd>Same as <b>-d</b> BYTES <b>-s</b> BYTES <b>-l</b> BYTES <b>-a</b>
+    BYTES</dd>
+  <dt><b>-d</b> BYTES</dt>
+  <dd>Limit data segment</dd>
+  <dt><b>-s</b> BYTES</dt>
+  <dd>Limit stack segment</dd>
+  <dt><b>-l</b> BYTES</dt>
+  <dd>Limit locked memory size</dd>
+  <dt><b>-o</b> N</dt>
+  <dd>Limit number of open files per process</dd>
+  <dt><b>-p</b> N</dt>
+  <dd>Limit number of processes per uid</dd>
+</dl>
+<section class="Ss">
+<h2 class="Ss" id="Options_controlling_file_sizes:"><a class="permalink" href="#Options_controlling_file_sizes:">Options
+  controlling file sizes:</a></h2>
+<dl class="Bl-tag">
+  <dt><b>-f</b> BYTES</dt>
+  <dd>Limit output file sizes</dd>
+  <dt><b>-c</b> BYTES</dt>
+  <dd>Limit core file size</dd>
+</dl>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Efficiency_opts:"><a class="permalink" href="#Efficiency_opts:">Efficiency
+  opts:</a></h2>
+<dl class="Bl-tag">
+  <dt><b>-r</b> BYTES</dt>
+  <dd>Limit resident set size</dd>
+  <dt><b>-t</b> N</dt>
+  <dd>Limit CPU time, process receives a SIGXCPU after N seconds</dd>
+</dl>
+</section>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

@@ -1,0 +1,130 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/udhcpc.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">UDHCPC(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">UDHCPC(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+udhcpc - manual page for udhcpc 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>udhcpc</b> [<i>-fbqvRB</i>] [<i>-a</i>[<i>MSEC</i>]] [<i>-t N</i>] [<i>-T
+  SEC</i>] [<i>-A SEC/-n</i>]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>[-i IFACE] [-s PROG] [-p PIDFILE] [-oC] [-r IP] [-V VENDOR] [-F NAME] [-x
+      OPT:VAL]... [-O OPT]...</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt><b>-i</b> IFACE</dt>
+  <dd>Interface to use (default eth0)</dd>
+  <dt><b>-s</b> PROG</dt>
+  <dd>Run PROG at DHCP events (default
+    <i>/usr/share/udhcpc/default.script</i>)</dd>
+  <dt><b>-p</b> FILE</dt>
+  <dd>Create pidfile</dd>
+  <dt><b>-B</b></dt>
+  <dd>Request broadcast replies</dd>
+  <dt><b>-t</b> N</dt>
+  <dd>Send up to N discover packets (default 3)</dd>
+  <dt><b>-T</b> SEC</dt>
+  <dd>Pause between packets (default 3)</dd>
+  <dt><b>-A</b> SEC</dt>
+  <dd>Wait if lease is not obtained (default 20)</dd>
+  <dt><b>-b</b></dt>
+  <dd>Background if lease is not obtained</dd>
+  <dt><b>-n</b></dt>
+  <dd>Exit if lease is not obtained</dd>
+  <dt><b>-q</b></dt>
+  <dd>Exit after obtaining lease</dd>
+  <dt><b>-R</b></dt>
+  <dd>Release IP on exit</dd>
+  <dt><b>-f</b></dt>
+  <dd>Run in foreground</dd>
+  <dt><b>-S</b></dt>
+  <dd>Log to syslog too</dd>
+  <dt><b>-a[MSEC]</b></dt>
+  <dd>Validate offered address with ARP ping</dd>
+  <dt><b>-r</b> IP</dt>
+  <dd>Request this IP address</dd>
+  <dt><b>-o</b></dt>
+  <dd>Don't request any options (unless <b>-O</b> is given)</dd>
+  <dt><b>-O</b> OPT</dt>
+  <dd>Request option OPT from server (cumulative)</dd>
+  <dt><b>-x</b> OPT:VAL</dt>
+  <dd>Include option OPT in sent packets (cumulative) Examples of string,
+      numeric, and hex byte opts: <b>-x</b> hostname:bbox - option 12 <b>-x</b>
+      lease:3600 - option 51 (lease time) <b>-x</b> 0x3d:0100BEEFC0FFEE - option
+      61 (client id) <b>-x</b> 14:'&quot;dumpfile&quot;' - option 14
+      (shell-quoted)</dd>
+  <dt><b>-F</b> NAME</dt>
+  <dd>Ask server to update DNS mapping for NAME</dd>
+  <dt><b>-V</b> VENDOR</dt>
+  <dd>Vendor identifier (default 'udhcp VERSION')</dd>
+  <dt><b>-C</b></dt>
+  <dd>Don't send MAC as client identifier</dd>
+  <dt><b>-v</b></dt>
+  <dd>Verbose</dd>
+</dl>
+<section class="Ss">
+<h2 class="Ss" id="Signals:"><a class="permalink" href="#Signals:">Signals:</a></h2>
+<dl class="Bl-tag">
+  <dt>USR1</dt>
+  <dd>Renew lease</dd>
+  <dt>USR2</dt>
+  <dd>Release lease</dd>
+</dl>
+</section>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

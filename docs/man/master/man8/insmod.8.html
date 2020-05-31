@@ -1,0 +1,88 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man8/insmod.8</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">INSMOD(8)</td>
+    <td class="head-vol">insmod</td>
+    <td class="head-rtitle">INSMOD(8)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+insmod - Simple program to insert a module into the Linux Kernel
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp HP"><b>insmod</b> [<i>filename</i>]
+    [<i>module&#x00A0;options</i>...]</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>insmod</b> is a trivial program to insert a module into the kernel. Most
+  users will want to use <b>modprobe</b>(8) instead, which is more clever and
+  can handle module dependencies.
+<p class="Pp">Only the most general of error messages are reported: as the work
+    of trying to link the module is now done inside the kernel, the <b>dmesg</b>
+    usually gives more information about errors.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COPYRIGHT"><a class="permalink" href="#COPYRIGHT">COPYRIGHT</a></h1>
+This manual page originally Copyright 2002, Rusty Russell, IBM Corporation.
+  Maintained by Jon Masters and others.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>modprobe</b>(8), <b>rmmod</b>(8), <b>lsmod</b>(8), <b>modinfo</b>(8)
+  <b>depmod</b>(8)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHORS"><a class="permalink" href="#AUTHORS">AUTHORS</a></h1>
+<b>Jon Masters</b> &lt;jcm@jonmasters.org&gt;
+<div class="Bd-indent">Developer</div>
+<p class="Pp"><b>Lucas De Marchi</b> &lt;lucas.de.marchi@gmail.com&gt;</p>
+<div class="Bd-indent">Developer</div>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">02/07/2019</td>
+    <td class="foot-os">kmod</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

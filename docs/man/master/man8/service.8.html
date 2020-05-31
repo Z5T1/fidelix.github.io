@@ -1,0 +1,106 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man8/service.8</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">SERVICE(8)</td>
+    <td class="head-vol">Linux System Administrator's Manual</td>
+    <td class="head-rtitle">SERVICE(8)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+service - Utility for managing system services in /etc/init.d
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>service &lt;SERVICE-NAME&gt; &lt;COMMAND&gt;</b>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+Perform the specified command on a service in /etc/init.d. If service-name is
+  all, then the specified command will be run for all services in /etc/init.d.
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COMMANDS"><a class="permalink" href="#COMMANDS">COMMANDS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>start</b></dt>
+  <dd>Start the service</dd>
+  <dt><b>stop</b></dt>
+  <dd>Stop the service</dd>
+  <dt><b>restart</b></dt>
+  <dd>Restart the service</dd>
+  <dt><b>reload</b></dt>
+  <dd>Reload the service data (not supported by all services)</dd>
+  <dt><b>status</b></dt>
+  <dd>Show the status of a service along with other status related data</dd>
+  <dt><b>shortstatus</b></dt>
+  <dd>Show the short status of a service (only whether it is running or not;
+      omit any additional data)</dd>
+  <dt><b>terse</b></dt>
+  <dd>Show the terse (one line) status of a service along with other status
+    data</dd>
+  <dt><b>enable</b></dt>
+  <dd>Enable the service to start on boot</dd>
+  <dt><b>disable</b></dt>
+  <dd>Disable the serive from starting on boot</dd>
+  <dt><b>default</b></dt>
+  <dd>Set the service to its default enabled/disabled status
+    <p class="Pp"></p>
+  </dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHOR"><a class="permalink" href="#AUTHOR">AUTHOR</a></h1>
+Service was written by Scott Court (z5t1@z5t1.com).
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="HISTORY"><a class="permalink" href="#HISTORY">HISTORY</a></h1>
+Service first appeared in Fidelix 0.1
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2020-04-25</td>
+    <td class="foot-os">Fidelix</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

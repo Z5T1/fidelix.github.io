@@ -1,0 +1,182 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/sendfile.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">SENDFILE(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">SENDFILE(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+sendfile - transfer data between file descriptors
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>#include &lt;sys/sendfile.h&gt;</b>
+<p class="Pp"><b>ssize_t sendfile(int</b><i> out_fd</i><b>, int</b><i>
+    in_fd</i><b>, off_t *</b><i>offset</i><b>, size_t</b><i>
+  count</i><b>);</b></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>sendfile</b>() copies data between one file descriptor and another. Because
+  this copying is done within the kernel, <b>sendfile</b>() is more efficient
+  than the combination of <b>read</b>(2) and <b>write</b>(2), which would
+  require transferring data to and from user space.
+<p class="Pp"><i>in_fd</i> should be a file descriptor opened for reading and
+    <i>out_fd</i> should be a descriptor opened for writing.</p>
+<p class="Pp">If <i>offset</i> is not NULL, then it points to a variable holding
+    the file offset from which <b>sendfile</b>() will start reading data from
+    <i>in_fd</i>. When <b>sendfile</b>() returns, this variable will be set to
+    the offset of the byte following the last byte that was read. If
+    <i>offset</i> is not NULL, then <b>sendfile</b>() does not modify the file
+    offset of <i>in_fd</i>; otherwise the file offset is adjusted to reflect the
+    number of bytes read from <i>in_fd</i>.</p>
+<p class="Pp">If <i>offset</i> is NULL, then data will be read from <i>in_fd</i>
+    starting at the file offset, and the file offset will be updated by the
+    call.</p>
+<p class="Pp"><i>count</i> is the number of bytes to copy between the file
+    descriptors.</p>
+<p class="Pp">The <i>in_fd</i> argument must correspond to a file which supports
+    <b>mmap</b>(2)-like operations (i.e., it cannot be a socket).</p>
+<p class="Pp">In Linux kernels before 2.6.33, <i>out_fd</i> must refer to a
+    socket. Since Linux 2.6.33 it can be any file. If it is a regular file, then
+    <b>sendfile</b>() changes the file offset appropriately.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+If the transfer was successful, the number of bytes written to <i>out_fd</i> is
+  returned. Note that a successful call to <b>sendfile</b>() may write fewer
+  bytes than requested; the caller should be prepared to retry the call if there
+  were unsent bytes. See also NOTES.
+<p class="Pp">On error, -1 is returned, and <i>errno</i> is set
+  appropriately.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EAGAIN</b></dt>
+  <dd>Nonblocking I/O has been selected using <b>O_NONBLOCK</b> and the write
+      would block.</dd>
+  <dt><b>EBADF</b></dt>
+  <dd>The input file was not opened for reading or the output file was not
+      opened for writing.</dd>
+  <dt><b>EFAULT</b></dt>
+  <dd>Bad address.</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd>Descriptor is not valid or locked, or an <b>mmap</b>(2)-like operation is
+      not available for <i>in_fd</i>, or <i>count</i> is negative.</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd><i>out_fd</i> has the <b>O_APPEND</b> flag set. This is not currently
+      supported by <b>sendfile</b>().</dd>
+  <dt><b>EIO</b></dt>
+  <dd>Unspecified error while reading from <i>in_fd</i>.</dd>
+  <dt><b>ENOMEM</b></dt>
+  <dd>Insufficient memory to read from <i>in_fd</i>.</dd>
+  <dt><b>EOVERFLOW</b></dt>
+  <dd><i>count</i> is too large, the operation would result in exceeding the
+      maximum size of either the input file or the output file.</dd>
+  <dt><b>ESPIPE</b></dt>
+  <dd><i>offset</i> is not NULL but the input file is not
+    <b>seek</b>(2)-able.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="VERSIONS"><a class="permalink" href="#VERSIONS">VERSIONS</a></h1>
+<b>sendfile</b>() first appeared in Linux 2.2. The include file
+  <i>&lt;sys/sendfile.h&gt;</i> is present since glibc 2.1.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+Not specified in POSIX.1-2001, nor in other standards.
+<p class="Pp">Other UNIX systems implement <b>sendfile</b>() with different
+    semantics and prototypes. It should not be used in portable programs.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+<b>sendfile</b>() will transfer at most 0x7ffff000 (2,147,479,552) bytes,
+  returning the number of bytes actually transferred. (This is true on both
+  32-bit and 64-bit systems.)
+<p class="Pp">If you plan to use <b>sendfile</b>() for sending files to a TCP
+    socket, but need to send some header data in front of the file contents, you
+    will find it useful to employ the <b>TCP_CORK</b> option, described in
+    <b>tcp</b>(7), to minimize the number of packets and to tune
+  performance.</p>
+<p class="Pp">In Linux 2.4 and earlier, <i>out_fd</i> could also refer to a
+    regular file; this possibility went away in the Linux 2.6.x kernel series,
+    but was restored in Linux 2.6.33.</p>
+<p class="Pp">The original Linux <b>sendfile</b>() system call was not designed
+    to handle large file offsets. Consequently, Linux 2.4 added
+    <b>sendfile64</b>(), with a wider type for the <i>offset</i> argument. The
+    glibc <b>sendfile</b>() wrapper function transparently deals with the kernel
+    differences.</p>
+<p class="Pp">Applications may wish to fall back to
+    <b>read</b>(2)/<b>write</b>(2) in the case where <b>sendfile</b>() fails
+    with <b>EINVAL</b> or <b>ENOSYS</b>.</p>
+<p class="Pp">If <i>out_fd</i> refers to a socket or pipe with zero-copy
+    support, callers must ensure the transferred portions of the file referred
+    to by <i>in_fd</i> remain unmodified until the reader on the other end of
+    <i>out_fd</i> has consumed the transferred data.</p>
+<p class="Pp">The Linux-specific <b>splice</b>(2) call supports transferring
+    data between arbitrary file descriptors provided one (or both) of them is a
+    pipe.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>copy_file_range</b>(2), <b>mmap</b>(2), <b>open</b>(2), <b>socket</b>(2),
+  <b>splice</b>(2)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2017-09-15</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

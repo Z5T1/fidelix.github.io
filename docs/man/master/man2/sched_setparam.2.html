@@ -1,0 +1,139 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/sched_setparam.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">SCHED_SETPARAM(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">SCHED_SETPARAM(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+sched_setparam, sched_getparam - set and get scheduling parameters
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>#include &lt;sched.h&gt;</b>
+</pre>
+<pre>
+<b>int sched_setparam(pid_t </b><i>pid</i><b>, const struct sched_param *</b><i>param</i><b>);</b>
+</pre>
+<pre>
+<b>int sched_getparam(pid_t </b><i>pid</i><b>, struct sched_param *</b><i>param</i><b>);</b>
+</pre>
+<pre>
+<b>struct sched_param {</b>
+<b>    ...</b>
+<b>    int </b><i>sched_priority</i><b>;</b>
+<b>    ...</b>
+<b>};</b>
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>sched_setparam</b>() sets the scheduling parameters associated with the
+  scheduling policy for the thread whose thread ID is specified in <i>pid</i>.
+  If <i>pid</i> is zero, then the parameters of the calling thread are set. The
+  interpretation of the argument <i>param</i> depends on the scheduling policy
+  of the thread identified by <i>pid</i>. See <b>sched</b>(7) for a description
+  of the scheduling policies supported under Linux.
+<p class="Pp"><b>sched_getparam</b>() retrieves the scheduling parameters for
+    the thread identified by <i>pid</i>. If <i>pid</i> is zero, then the
+    parameters of the calling thread are retrieved.</p>
+<p class="Pp"><b>sched_setparam</b>() checks the validity of <i>param</i> for
+    the scheduling policy of the thread. The value
+    <i>param-&gt;sched_priority</i> must lie within the range given by
+    <b>sched_get_priority_min</b>(2) and <b>sched_get_priority_max</b>(2).</p>
+<p class="Pp">For a discussion of the privileges and resource limits related to
+    scheduling priority and policy, see <b>sched</b>(7).</p>
+<p class="Pp">POSIX systems on which <b>sched_setparam</b>() and
+    <b>sched_getparam</b>() are available define
+    <b>_POSIX_PRIORITY_SCHEDULING</b> in <i>&lt;unistd.h&gt;</i>.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, <b>sched_setparam</b>() and <b>sched_getparam</b>() return 0. On
+  error, -1 is returned, and <i>errno</i> is set appropriately.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EINVAL</b></dt>
+  <dd>Invalid arguments: <i>param</i> is NULL or <i>pid</i> is negative</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd>(<b>sched_setparam</b>()) The argument <i>param</i> does not make sense
+      for the current scheduling policy.</dd>
+  <dt><b>EPERM</b></dt>
+  <dd>(<b>sched_setparam</b>()) The caller does not have appropriate privileges
+      (Linux: does not have the <b>CAP_SYS_NICE</b> capability).</dd>
+  <dt><b>ESRCH</b></dt>
+  <dd>The thread whose ID is <i>pid</i> could not be found.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+POSIX.1-2001, POSIX.1-2008.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>getpriority</b>(2), <b>gettid</b>(2), <b>nice</b>(2),
+  <b>sched_get_priority_max</b>(2), <b>sched_get_priority_min</b>(2),
+  <b>sched_getaffinity</b>(2), <b>sched_getscheduler</b>(2),
+  <b>sched_setaffinity</b>(2), <b>sched_setattr</b>(2),
+  <b>sched_setscheduler</b>(2), <b>setpriority</b>(2), <b>capabilities</b>(7),
+  <b>sched</b>(7)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-10-10</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

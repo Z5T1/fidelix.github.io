@@ -1,0 +1,149 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/mincore.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">MINCORE(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">MINCORE(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+mincore - determine whether pages are resident in memory
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>#include &lt;unistd.h&gt;</b>
+<br/>
+<b>#include &lt;sys/mman.h&gt;</b>
+<p class="Pp"><b>int mincore(void *</b><i>addr</i><b>, size_t
+    </b><i>length</i><b>, unsigned char *</b><i>vec</i><b>);</b></p>
+<p class="Pp">
+  <br/>
+  Feature Test Macro Requirements for glibc (see <b>feature_test_macros</b>(7)):
+  <br/>
+</p>
+<p class="Pp"><b>mincore</b>():
+   Since glibc 2.19:
+   _DEFAULT_SOURCE
+   Glibc 2.19 and earlier:
+   _BSD_SOURCE || _SVID_SOURCE</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>mincore</b>() returns a vector that indicates whether pages of the calling
+  process's virtual memory are resident in core (RAM), and so will not cause a
+  disk access (page fault) if referenced. The kernel returns residency
+  information about the pages starting at the address <i>addr</i>, and
+  continuing for <i>length</i> bytes.
+<p class="Pp">The <i>addr</i> argument must be a multiple of the system page
+    size. The <i>length</i> argument need not be a multiple of the page size,
+    but since residency information is returned for whole pages, <i>length</i>
+    is effectively rounded up to the next multiple of the page size. One may
+    obtain the page size (<b>PAGE_SIZE</b>) using
+  <i>sysconf(_SC_PAGESIZE)</i>.</p>
+<p class="Pp">The <i>vec</i> argument must point to an array containing at least
+    <i>(length+PAGE_SIZE-1) / PAGE_SIZE</i> bytes. On return, the least
+    significant bit of each byte will be set if the corresponding page is
+    currently resident in memory, and be clear otherwise. (The settings of the
+    other bits in each byte are undefined; these bits are reserved for possible
+    later use.) Of course the information returned in <i>vec</i> is only a
+    snapshot: pages that are not locked in memory can come and go at any moment,
+    and the contents of <i>vec</i> may already be stale by the time this call
+    returns.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, <b>mincore</b>() returns zero. On error, -1 is returned, and
+  <i>errno</i> is set appropriately.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<b>EAGAIN</b> kernel is temporarily out of resources.
+<dl class="Bl-tag">
+  <dt><b>EFAULT</b></dt>
+  <dd><i>vec</i> points to an invalid address.</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd><i>addr</i> is not a multiple of the page size.</dd>
+  <dt><b>ENOMEM</b></dt>
+  <dd><i>length</i> is greater than (<i>TASK_SIZE</i> - <i>addr</i>). (This
+      could occur if a negative value is specified for <i>length</i>, since that
+      value will be interpreted as a large unsigned integer.) In Linux 2.6.11
+      and earlier, the error <b>EINVAL</b> was returned for this condition.</dd>
+  <dt><b>ENOMEM</b></dt>
+  <dd><i>addr</i> to <i>addr</i> + <i>length</i> contained unmapped memory.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="VERSIONS"><a class="permalink" href="#VERSIONS">VERSIONS</a></h1>
+Available since Linux 2.3.99pre1 and glibc 2.2.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+<b>mincore</b>() is not specified in POSIX.1, and it is not available on all
+  UNIX implementations.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="BUGS"><a class="permalink" href="#BUGS">BUGS</a></h1>
+Before kernel 2.6.21, <b>mincore</b>() did not return correct information for
+  <b>MAP_PRIVATE</b> mappings, or for nonlinear mappings (established using
+  <b>remap_file_pages</b>(2)).
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>fincore</b>(1), <b>madvise</b>(2), <b>mlock</b>(2), <b>mmap</b>(2),
+  <b>posix_fadvise</b>(2), <b>posix_madvise</b>(3)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2017-09-15</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

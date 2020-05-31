@@ -1,0 +1,208 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/personality.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">PERSONALITY(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">PERSONALITY(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+personality - set the process execution domain
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>#include &lt;sys/personality.h&gt;</b>
+<p class="Pp"><b>int personality(unsigned long </b><i>persona</i><b>);</b></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+Linux supports different execution domains, or personalities, for each process.
+  Among other things, execution domains tell Linux how to map signal numbers
+  into signal actions. The execution domain system allows Linux to provide
+  limited support for binaries compiled under other UNIX-like operating systems.
+<p class="Pp">If <i>persona</i> is not 0xffffffff, then <b>personality</b>()
+    sets the caller's execution domain to the value specified by <i>persona</i>.
+    Specifying <i>persona</i> as 0xffffffff provides a way of retrieving the
+    current persona without changing it.</p>
+<p class="Pp">A list of the available execution domains can be found in
+    <i>&lt;sys/personality.h&gt;</i>. The execution domain is a 32-bit value in
+    which the top three bytes are set aside for flags that cause the kernel to
+    modify the behavior of certain system calls so as to emulate historical or
+    architectural quirks. The least significant byte is value defining the
+    personality the kernel should assume. The flag values are as follows:</p>
+<dl class="Bl-tag">
+  <dt><b>ADDR_COMPAT_LAYOUT</b> (since Linux 2.6.9)</dt>
+  <dd>With this flag set, provide legacy virtual address space layout.</dd>
+  <dt><b>ADDR_NO_RANDOMIZE</b> (since Linux 2.6.12)</dt>
+  <dd>With this flag set, disable address-space-layout randomization.</dd>
+  <dt><b>ADDR_LIMIT_32BIT</b> (since Linux 2.2)</dt>
+  <dd>Limit the address space to 32 bits.</dd>
+  <dt><b>ADDR_LIMIT_3GB</b> (since Linux 2.4.0)</dt>
+  <dd>With this flag set, use 0xc0000000 as the offset at which to search a
+      virtual memory chunk on <b>mmap</b>(2); otherwise use 0xffffe000.</dd>
+  <dt><b>FDPIC_FUNCPTRS</b> (since Linux 2.6.11)</dt>
+  <dd>User-space function pointers to signal handlers point (on certain
+      architectures) to descriptors.</dd>
+  <dt><b>MMAP_PAGE_ZERO</b> (since Linux 2.4.0)</dt>
+  <dd>Map page 0 as read-only (to support binaries that depend on this SVr4
+      behavior).</dd>
+  <dt><b>READ_IMPLIES_EXEC</b> (since Linux 2.6.8)</dt>
+  <dd>With this flag set, <b>PROT_READ</b> implies <b>PROT_EXEC</b> for
+      <b>mmap</b>(2).</dd>
+  <dt><b>SHORT_INODE</b> (since Linux 2.4.0)</dt>
+  <dd>No effects(?).</dd>
+  <dt><b>STICKY_TIMEOUTS</b> (since Linux 1.2.0)</dt>
+  <dd>With this flag set, <b>select</b>(2), <b>pselect</b>(2), and
+      <b>ppoll</b>(2) do not modify the returned timeout argument when
+      interrupted by a signal handler.</dd>
+  <dt><b>UNAME26</b> (since Linux 3.1)</dt>
+  <dd>Have <b>uname</b>(2) report a 2.6.40+ version number rather than a 3.x
+      version number. Added as a stopgap measure to support broken applications
+      that could not handle the kernel version-numbering switch from 2.6.x to
+      3.x.</dd>
+  <dt><b>WHOLE_SECONDS</b> (since Linux 1.2.0)</dt>
+  <dd>No effects(?).</dd>
+</dl>
+<p class="Pp">The available execution domains are:</p>
+<dl class="Bl-tag">
+  <dt><b>PER_BSD</b> (since Linux 1.2.0)</dt>
+  <dd>BSD. (No effects.)</dd>
+  <dt><b>PER_HPUX</b> (since Linux 2.4)</dt>
+  <dd>Support for 32-bit HP/UX. This support was never complete, and was dropped
+      so that since Linux 4.0, this value has no effect.</dd>
+  <dt><b>PER_IRIX32</b> (since Linux 2.2)</dt>
+  <dd>IRIX 5 32-bit. Never fully functional; support dropped in Linux 2.6.27.
+      Implies <b>STICKY_TIMEOUTS</b>.</dd>
+  <dt><b>PER_IRIX64</b> (since Linux 2.2)</dt>
+  <dd>IRIX 6 64-bit. Implies <b>STICKY_TIMEOUTS</b>; otherwise no effects.</dd>
+  <dt><b>PER_IRIXN32</b> (since Linux 2.2)</dt>
+  <dd>IRIX 6 new 32-bit. Implies <b>STICKY_TIMEOUTS</b>; otherwise no
+    effects.</dd>
+  <dt><b>PER_ISCR4</b> (since Linux 1.2.0)</dt>
+  <dd>Implies <b>STICKY_TIMEOUTS</b>; otherwise no effects.</dd>
+  <dt><b>PER_LINUX</b> (since Linux 1.2.0)</dt>
+  <dd>Linux.</dd>
+  <dt><b>PER_LINUX32</b> (since Linux 2.2)</dt>
+  <dd>[To be documented.]</dd>
+  <dt><b>PER_LINUX32_3GB</b> (since Linux 2.4)</dt>
+  <dd>Implies <b>ADDR_LIMIT_3GB</b>.</dd>
+  <dt><b>PER_LINUX_32BIT</b> (since Linux 2.0)</dt>
+  <dd>Implies <b>ADDR_LIMIT_32BIT</b>.</dd>
+  <dt><b>PER_LINUX_FDPIC</b> (since Linux 2.6.11)</dt>
+  <dd>Implies <b>FDPIC_FUNCPTRS</b>.</dd>
+  <dt><b>PER_OSF4</b> (since Linux 2.4)</dt>
+  <dd>OSF/1 v4. On alpha, clear top 32 bits of iov_len in the user's buffer for
+      compatibility with old versions of OSF/1 where iov_len was defined as.
+      <i>int</i>.</dd>
+  <dt><b>PER_OSR5</b> (since Linux 2.4)</dt>
+  <dd>Implies <b>STICKY_TIMEOUTS</b> and <b>WHOLE_SECONDS</b>; otherwise no
+      effects.</dd>
+  <dt><b>PER_RISCOS</b> (since Linux 2.2)</dt>
+  <dd>[To be documented.]</dd>
+  <dt><b>PER_SCOSVR3</b> (since Linux 1.2.0)</dt>
+  <dd>Implies <b>STICKY_TIMEOUTS</b>, <b>WHOLE_SECONDS</b>, and
+      <b>SHORT_INODE</b>; otherwise no effects.</dd>
+  <dt><b>PER_SOLARIS</b> (since Linux 2.4)</dt>
+  <dd>Implies <b>STICKY_TIMEOUTS</b>; otherwise no effects.</dd>
+  <dt><b>PER_SUNOS</b> (since Linux 2.4.0)</dt>
+  <dd>Implies <b>STICKY_TIMEOUTS</b>. Divert library and dynamic linker searches
+      to <i>/usr/gnemul</i>. Buggy, largely unmaintained, and almost entirely
+      unused; support was removed in Linux 2.6.26.</dd>
+  <dt><b>PER_SVR3</b> (since Linux 1.2.0)</dt>
+  <dd>Implies <b>STICKY_TIMEOUTS</b> and <b>SHORT_INODE</b>; otherwise no
+      effects.</dd>
+  <dt><b>PER_SVR4</b> (since Linux 1.2.0)</dt>
+  <dd>Implies <b>STICKY_TIMEOUTS</b> and <b>MMAP_PAGE_ZERO</b>; otherwise no
+      effects.</dd>
+  <dt><b>PER_UW7</b> (since Linux 2.4)</dt>
+  <dd>Implies <b>STICKY_TIMEOUTS</b> and <b>MMAP_PAGE_ZERO</b>; otherwise no
+      effects.</dd>
+  <dt><b>PER_WYSEV386</b> (since Linux 1.2.0)</dt>
+  <dd>Implies <b>STICKY_TIMEOUTS</b> and <b>SHORT_INODE</b>; otherwise no
+      effects.</dd>
+  <dt><b>PER_XENIX</b> (since Linux 1.2.0)</dt>
+  <dd>Implies <b>STICKY_TIMEOUTS</b> and <b>SHORT_INODE</b>; otherwise no
+      effects.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, the previous <i>persona</i> is returned. On error, -1 is returned,
+  and <i>errno</i> is set appropriately.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EINVAL</b></dt>
+  <dd>The kernel was unable to change the personality.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="VERSIONS"><a class="permalink" href="#VERSIONS">VERSIONS</a></h1>
+This system call first appeared in Linux 1.1.20 (and thus first in a stable
+  kernel release with Linux 1.2.0); library support was added in glibc 2.3.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+<b>personality</b>() is Linux-specific and should not be used in programs
+  intended to be portable.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>setarch</b>(8)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2017-09-15</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

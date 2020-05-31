@@ -1,0 +1,94 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/perllinux.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">PERLLINUX(1)</td>
+    <td class="head-vol">Perl Programmers Reference Guide</td>
+    <td class="head-rtitle">PERLLINUX(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<br/>
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+perllinux - Perl version 5 on Linux systems
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+This document describes various features of Linux that will affect how Perl
+  version 5 (hereafter just Perl) is compiled and/or runs.
+<section class="Ss">
+<h2 class="Ss" id="Experimental_Support_for_Sun_Studio_Compilers_for_Linux__s-1OS_s0"><a class="permalink" href="#Experimental_Support_for_Sun_Studio_Compilers_for_Linux__s-1OS_s0">Experimental
+  Support for Sun Studio Compilers for Linux OS</a></h2>
+Sun Microsystems has released a port of their Sun Studio compilers for Linux. As
+  of November 2005, only an alpha version has been released. Until a release of
+  these compilers is made, support for compiling Perl with these compiler
+  experimental.
+<p class="Pp">Also, some special instructions for building Perl with Sun Studio
+    on Linux. Following the normal
+    <span class="Li">&quot;Configure&quot;</span>, you have to run make as
+    follows:</p>
+<p class="Pp"><span class="Li"></span></p>
+<pre>
+    LDLOADLIBS=-lc make
+</pre>
+<p class="Pp"><span class="Li">&quot;LDLOADLIBS&quot;</span> is an environment
+    variable used by the linker to link modules
+    <span class="Li">&quot;/ext&quot;</span> modules to glibc. Currently, that
+    environment variable is not getting populated by a combination of
+    <span class="Li">&quot;Config&quot;</span> entries and
+    <span class="Li">&quot;ExtUtil::MakeMaker&quot;</span>. While there may be a
+    bug somewhere in Perl's configuration or
+    <span class="Li">&quot;ExtUtil::MakeMaker&quot;</span> causing the problem,
+    the most likely cause is an incomplete understanding of Sun Studio by this
+    author. Further investigation is needed to get this working better.</p>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHOR"><a class="permalink" href="#AUTHOR">AUTHOR</a></h1>
+Steve Peters &lt;steve@fisharerojo.org&gt;
+<p class="Pp">Please report any errors, updates, or suggestions to
+    <i>perlbug@perl.org</i>.</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-10-24</td>
+    <td class="foot-os">perl v5.30.1</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

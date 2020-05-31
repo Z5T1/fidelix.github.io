@@ -1,0 +1,82 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/perlopenbsd.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">PERLOPENBSD(1)</td>
+    <td class="head-vol">Perl Programmers Reference Guide</td>
+    <td class="head-rtitle">PERLOPENBSD(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<br/>
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+perlopenbsd - Perl version 5 on OpenBSD systems
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+This document describes various features of OpenBSD that will affect how Perl
+  version 5 (hereafter just Perl) is compiled and/or runs.
+<section class="Ss">
+<h2 class="Ss" id="OpenBSD_core_dumps_from_getprotobyname_r_and_getservbyname_r_with_ithreads"><a class="permalink" href="#OpenBSD_core_dumps_from_getprotobyname_r_and_getservbyname_r_with_ithreads">OpenBSD
+  core dumps from getprotobyname_r and getservbyname_r with ithreads</a></h2>
+When Perl is configured to use ithreads, it will use re-entrant library calls in
+  preference to non-re-entrant versions. There is an incompatibility in
+  OpenBSD's <span class="Li">&quot;getprotobyname_r&quot;</span> and
+  <span class="Li">&quot;getservbyname_r&quot;</span> function in versions 3.7
+  and later that will cause a SEGV when called without doing a
+  <span class="Li">&quot;bzero&quot;</span> on their return structs prior to
+  calling these functions. Current Perl's should handle this problem correctly.
+  Older threaded Perls (5.8.6 or earlier) will run into this problem. If you
+  want to run a threaded Perl on OpenBSD 3.7 or higher, you will need to upgrade
+  to at least Perl 5.8.7.
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHOR"><a class="permalink" href="#AUTHOR">AUTHOR</a></h1>
+Steve Peters &lt;steve@fisharerojo.org&gt;
+<p class="Pp">Please report any errors, updates, or suggestions to
+    <i>perlbug@perl.org</i>.</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-10-24</td>
+    <td class="foot-os">perl v5.30.1</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

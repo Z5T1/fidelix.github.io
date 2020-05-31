@@ -1,0 +1,181 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/close.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">CLOSE(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">CLOSE(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+close - close a file descriptor
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>#include &lt;unistd.h&gt;</b>
+</pre>
+<pre>
+<b>int close(int </b><i>fd</i><b>);</b>
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>close</b>() closes a file descriptor, so that it no longer refers to any file
+  and may be reused. Any record locks (see <b>fcntl</b>(2)) held on the file it
+  was associated with, and owned by the process, are removed (regardless of the
+  file descriptor that was used to obtain the lock).
+<p class="Pp">If <i>fd</i> is the last file descriptor referring to the
+    underlying open file description (see <b>open</b>(2)), the resources
+    associated with the open file description are freed; if the file descriptor
+    was the last reference to a file which has been removed using
+    <b>unlink</b>(2), the file is deleted.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+<b>close</b>() returns zero on success. On error, -1 is returned, and
+  <i>errno</i> is set appropriately.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EBADF</b></dt>
+  <dd><i>fd</i> isn't a valid open file descriptor.</dd>
+  <dt><b>EINTR</b></dt>
+  <dd>The <b>close</b>() call was interrupted by a signal; see
+    <b>signal</b>(7).</dd>
+  <dt><b>EIO</b></dt>
+  <dd>An I/O error occurred.</dd>
+  <dt><b>ENOSPC</b>, <b>EDQUOT</b></dt>
+  <dd>On NFS, these errors are not normally reported against the first write
+      which exceeds the available storage space, but instead against a
+      subsequent <b>write</b>(2), <b>fsync</b>(2), or <b>close</b>().</dd>
+</dl>
+<p class="Pp">See NOTES for a discussion of why <b>close</b>() should not be
+    retried after an error.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+POSIX.1-2001, POSIX.1-2008, SVr4, 4.3BSD.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+A successful close does not guarantee that the data has been successfully saved
+  to disk, as the kernel uses the buffer cache to defer writes. Typically,
+  filesystems do not flush buffers when a file is closed. If you need to be sure
+  that the data is physically stored on the underlying disk, use
+  <b>fsync</b>(2). (It will depend on the disk hardware at this point.)
+<p class="Pp">The close-on-exec file descriptor flag can be used to ensure that
+    a file descriptor is automatically closed upon a successful
+    <b>execve</b>(2); see <b>fcntl</b>(2) for details.</p>
+<p class="Pp">It is probably unwise to close file descriptors while they may be
+    in use by system calls in other threads in the same process. Since a file
+    descriptor may be reused, there are some obscure race conditions that may
+    cause unintended side effects.</p>
+<section class="Ss">
+<h2 class="Ss" id="Dealing_with_error_returns_from_close()"><a class="permalink" href="#Dealing_with_error_returns_from_close()">Dealing
+  with error returns from close()</a></h2>
+A careful programmer will check the return value of <b>close</b>(), since it is
+  quite possible that errors on a previous <b>write</b>(2) operation are
+  reported only on the final <b>close</b>() that releases the open file
+  description. Failing to check the return value when closing a file may lead to
+  <i>silent</i> loss of data. This can especially be observed with NFS and with
+  disk quota.
+<p class="Pp">Note, however, that a failure return should be used only for
+    diagnostic purposes (i.e., a warning to the application that there may still
+    be I/O pending or there may have been failed I/O) or remedial purposes
+    (e.g., writing the file once more or creating a backup).</p>
+<p class="Pp">Retrying the <b>close</b>() after a failure return is the wrong
+    thing to do, since this may cause a reused file descriptor from another
+    thread to be closed. This can occur because the Linux kernel <i>always</i>
+    releases the file descriptor early in the close operation, freeing it for
+    reuse; the steps that may return an error, such as flushing data to the
+    filesystem or device, occur only later in the close operation.</p>
+<p class="Pp">Many other implementations similarly always close the file
+    descriptor (except in the case of <b>EBADF</b>, meaning that the file
+    descriptor was invalid) even if they subsequently report an error on return
+    from <b>close</b>(). POSIX.1 is currently silent on this point, but there
+    are plans to mandate this behavior in the next major release of the
+    standard.</p>
+<p class="Pp">A careful programmer who wants to know about I/O errors may
+    precede <b>close</b>() with a call to <b>fsync</b>(2).</p>
+<p class="Pp">The <b>EINTR</b> error is a somewhat special case. Regarding the
+    <b>EINTR</b> error, POSIX.1-2013 says:</p>
+<p class="Pp"></p>
+<div class="Bd-indent">If <b>close</b>() is interrupted by a signal that is to
+  be caught, it shall return -1 with <i>errno</i> set to <b>EINTR</b> and the
+  state of <i>fildes</i> is unspecified.</div>
+<p class="Pp">This permits the behavior that occurs on Linux and many other
+    implementations, where, as with other errors that may be reported by
+    <b>close</b>(), the file descriptor is guaranteed to be closed. However, it
+    also permits another possibility: that the implementation returns an
+    <b>EINTR</b> error and keeps the file descriptor open. (According to its
+    documentation, HP-UX's <b>close</b>() does this.) The caller must then once
+    more use <b>close</b>() to close the file descriptor, to avoid file
+    descriptor leaks. This divergence in implementation behaviors provides a
+    difficult hurdle for portable applications, since on many implementations,
+    <b>close</b>() must not be called again after an <b>EINTR</b> error, and on
+    at least one, <b>close</b>() must be called again. There are plans to
+    address this conundrum for the next major release of the POSIX.1
+  standard.</p>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>fcntl</b>(2), <b>fsync</b>(2), <b>open</b>(2), <b>shutdown</b>(2),
+  <b>unlink</b>(2), <b>fclose</b>(3)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-10-10</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

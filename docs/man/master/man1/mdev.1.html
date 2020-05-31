@@ -1,0 +1,92 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/mdev.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">MDEV(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">MDEV(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+mdev - manual page for mdev 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>mdev</b> [<i>-s</i>] <i>| </i>[<i>-df</i>]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">mdev <b>-s</b> is to be run during boot to scan <i>/sys</i> and
+    populate <i>/dev</i>. mdev <b>-d[f]</b>: daemon, listen on netlink.</p>
+<p class="Pp HP"><b>-f</b>: stay in foreground.</p>
+<section class="Ss">
+<h2 class="Ss" id="Bare_mdev_is_a_kernel_hotplug_helper._To_activate_it:"><a class="permalink" href="#Bare_mdev_is_a_kernel_hotplug_helper._To_activate_it:">Bare
+  mdev is a kernel hotplug helper. To activate it:</a></h2>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>echo <i>/sbin/mdev</i> &gt;/proc/sys/kernel/hotplug</dd>
+</dl>
+<p class="Pp">It uses <i>/etc/mdev.conf</i> with lines</p>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>[-][ENV=regex;]...DEVNAME UID:GID PERM [&gt;|=PATH]|[!] [@|$|*PROG]</dd>
+</dl>
+<p class="Pp">where DEVNAME is device name regex, @major,minor[-minor2], or
+    environment variable regex. A common use of the latter is to load modules
+    for hotplugged devices:</p>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>$MODALIAS=.* 0:0 660 @modprobe &quot;$MODALIAS&quot;</dd>
+</dl>
+<p class="Pp">If <i>/dev/mdev.seq</i> file exists, mdev will wait for its value
+    to match $SEQNUM variable. This prevents plug/unplug races. To activate this
+    feature, create empty <i>/dev/mdev.seq</i> at boot.</p>
+<p class="Pp">If <i>/dev/mdev.log</i> file exists, debug log will be appended to
+    it.</p>
+</section>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

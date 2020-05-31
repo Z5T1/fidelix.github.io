@@ -1,0 +1,90 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/arp.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">ARP(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">ARP(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+arp - manual page for arp 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>arp</b>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">[-vn] [-H HWTYPE] [-i IF] <b>-a</b> [HOSTNAME] [-v] [-i IF]
+    <b>-d</b> HOSTNAME [pub] [-v] [-H HWTYPE] [-i IF] <b>-s</b> HOSTNAME HWADDR
+    [temp] [-v] [-H HWTYPE] [-i IF] <b>-s</b> HOSTNAME HWADDR [netmask MASK] pub
+    [-v] [-H HWTYPE] [-i IF] <b>-Ds</b> HOSTNAME IFACE [netmask MASK] pub</p>
+<p class="Pp">Manipulate ARP cache</p>
+<dl class="Bl-tag">
+  <dt><b>-a</b></dt>
+  <dd>Display (all) hosts</dd>
+  <dt><b>-d</b></dt>
+  <dd>Delete ARP entry</dd>
+  <dt><b>-s</b></dt>
+  <dd>Set new entry</dd>
+  <dt><b>-v</b></dt>
+  <dd>Verbose</dd>
+  <dt><b>-n</b></dt>
+  <dd>Don't resolve names</dd>
+  <dt><b>-i</b> IF</dt>
+  <dd>Network interface</dd>
+  <dt><b>-D</b></dt>
+  <dd>Read HWADDR from IFACE</dd>
+  <dt><b>-A</b>,-p AF</dt>
+  <dd>Protocol family</dd>
+  <dt><b>-H</b> HWTYPE</dt>
+  <dd>Hardware address type</dd>
+</dl>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

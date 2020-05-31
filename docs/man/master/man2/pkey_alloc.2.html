@@ -1,0 +1,157 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/pkey_alloc.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">PKEY_ALLOC(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">PKEY_ALLOC(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+pkey_alloc, pkey_free - allocate or free a protection key
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>#define _GNU_SOURCE</b>             /* See feature_test_macros(7) */
+<b>#include &lt;sys/mman.h&gt;</b>
+</pre>
+<pre>
+<b>int pkey_alloc(unsigned int </b><i>flags</i><b>, unsigned int </b><i>access_rights</i><b>);</b>
+<b>int pkey_free(int </b><i>pkey</i><b>);</b>
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>pkey_alloc</b>() allocates a protection key (pkey) and allows it to be passed
+  to <b>pkey_mprotect</b>(2).
+<p class="Pp">The <b>pkey_alloc</b>() <i>flags</i> is reserved for future use
+    and currently must always be specified as 0.</p>
+<p class="Pp">The <b>pkey_alloc</b>() <i>access_rights</i> argument may contain
+    zero or more disable operations:</p>
+<dl class="Bl-tag">
+  <dt><b>PKEY_DISABLE_ACCESS</b></dt>
+  <dd>Disable all data access to memory covered by the returned protection
+    key.</dd>
+  <dt><b>PKEY_DISABLE_WRITE</b></dt>
+  <dd>Disable write access to memory covered by the returned protection
+    key.</dd>
+</dl>
+<p class="Pp"><b>pkey_free</b>() frees a protection key and makes it available
+    for later allocations. After a protection key has been freed, it may no
+    longer be used in any protection-key-related operations.</p>
+<p class="Pp">An application should not call <b>pkey_free</b>() on any
+    protection key which has been assigned to an address range by
+    <b>pkey_mprotect</b>(2) and which is still in use. The behavior in this case
+    is undefined and may result in an error.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, <b>pkey_alloc</b>() returns a positive protection key value. On
+  success, <b>pkey_free</b>() returns zero. On error, -1 is returned, and
+  <i>errno</i> is set appropriately.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EINVAL</b></dt>
+  <dd><i>pkey</i>, <i>flags</i>, or <i>access_rights</i> is invalid.</dd>
+  <dt><b>ENOSPC</b></dt>
+  <dd>(<b>pkey_alloc</b>()) All protection keys available for the current
+      process have been allocated. The number of keys available is
+      architecture-specific and implementation-specific and may be reduced by
+      kernel-internal use of certain keys. There are currently 15 keys available
+      to user programs on x86.</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>This error will also be returned if the processor or operating system does
+      not support protection keys. Applications should always be prepared to
+      handle this error, since factors outside of the application's control can
+      reduce the number of available pkeys.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="VERSIONS"><a class="permalink" href="#VERSIONS">VERSIONS</a></h1>
+<b>pkey_alloc</b>() and <b>pkey_free</b>() were added to Linux in kernel 4.9;
+  library support was added in glibc 2.27.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+The <b>pkey_alloc</b>() and <b>pkey_free</b>() system calls are Linux-specific.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+<b>pkey_alloc</b>() is always safe to call regardless of whether or not the
+  operating system supports protection keys. It can be used in lieu of any other
+  mechanism for detecting pkey support and will simply fail with the error
+  <b>ENOSPC</b> if the operating system has no pkey support.
+<p class="Pp">The kernel guarantees that the contents of the hardware rights
+    register (PKRU) will be preserved only for allocated protection keys. Any
+    time a key is unallocated (either before the first call returning that key
+    from <b>pkey_alloc</b>() or after it is freed via <b>pkey_free</b>()), the
+    kernel may make arbitrary changes to the parts of the rights register
+    affecting access to that key.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXAMPLE"><a class="permalink" href="#EXAMPLE">EXAMPLE</a></h1>
+See <b>pkeys</b>(7).
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>pkey_mprotect</b>(2), <b>pkeys</b>(7)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-08-02</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

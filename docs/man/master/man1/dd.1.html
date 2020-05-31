@@ -1,0 +1,109 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/dd.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">DD(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">DD(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+dd - manual page for dd 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>dd</b> [<i>if=FILE</i>] [<i>of=FILE</i>] [<i>ibs=N obs=N/bs=N</i>]
+  [<i>count=N</i>] [<i>skip=N</i>] [<i>seek=N</i>]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>[conv=notrunc|noerror|sync|fsync] [iflag=skip_bytes|fullblock]
+      [oflag=seek_bytes|append]</dd>
+</dl>
+<p class="Pp">Copy a file with converting and formatting</p>
+<dl class="Bl-tag">
+  <dt>if=FILE</dt>
+  <dd>Read from FILE instead of stdin</dd>
+  <dt>of=FILE</dt>
+  <dd>Write to FILE instead of stdout</dd>
+  <dt>bs=N</dt>
+  <dd>Read and write N bytes at a time</dd>
+  <dt>ibs=N</dt>
+  <dd>Read N bytes at a time</dd>
+  <dt>obs=N</dt>
+  <dd>Write N bytes at a time</dd>
+  <dt>count=N</dt>
+  <dd>Copy only N input blocks</dd>
+  <dt>skip=N</dt>
+  <dd>Skip N input blocks</dd>
+  <dt>seek=N</dt>
+  <dd>Skip N output blocks</dd>
+  <dt>conv=notrunc</dt>
+  <dd>Don't truncate output file</dd>
+  <dt>conv=noerror</dt>
+  <dd>Continue after read errors</dd>
+  <dt>conv=sync</dt>
+  <dd>Pad blocks with zeros</dd>
+  <dt>conv=fsync</dt>
+  <dd>Physically write data out before finishing</dd>
+  <dt>conv=swab</dt>
+  <dd>Swap every pair of bytes</dd>
+  <dt>iflag=skip_bytes</dt>
+  <dd>skip=N is in bytes</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>iflag=fullblock Read full blocks oflag=seek_bytes seek=N is in bytes
+      oflag=append Open output file in append mode status=noxfer Suppress rate
+      output status=none Suppress all output</dd>
+</dl>
+<p class="Pp">N may be suffixed by c (1), w (2), b (512), kB (1000), k (1024),
+    MB, M, GB, G</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

@@ -1,0 +1,120 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man7/complex.7</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">COMPLEX(7)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">COMPLEX(7)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+complex - basics of complex mathematics
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>#include &lt;complex.h&gt;</b>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+Complex numbers are numbers of the form z = a+b*i, where a and b are real
+  numbers and i = sqrt(-1), so that i*i = -1.
+<p class="Pp">There are other ways to represent that number. The pair (a,b) of
+    real numbers may be viewed as a point in the plane, given by X- and
+    Y-coordinates. This same point may also be described by giving the pair of
+    real numbers (r,phi), where r is the distance to the origin O, and phi the
+    angle between the X-axis and the line Oz. Now z = r*exp(i*phi) =
+    r*(cos(phi)+i*sin(phi)).</p>
+<p class="Pp">The basic operations are defined on z = a+b*i and w = c+d*i
+  as:</p>
+<dl class="Bl-tag">
+  <dt><b>addition: z+w = (a+c) + (b+d)*i</b></dt>
+  <dd></dd>
+  <dt><b>multiplication: z*w = (a*c - b*d) + (a*d + b*c)*i</b></dt>
+  <dd></dd>
+  <dt><b>division: z/w = ((a*c + b*d)/(c*c + d*d)) + ((b*c - a*d)/(c*c +
+    d*d))*i</b></dt>
+  <dd></dd>
+</dl>
+<p class="Pp">Nearly all math function have a complex counterpart but there are
+    some complex-only functions.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXAMPLE"><a class="permalink" href="#EXAMPLE">EXAMPLE</a></h1>
+Your C-compiler can work with complex numbers if it supports the C99 standard.
+  Link with <i>-lm</i>. The imaginary unit is represented by I.
+<p class="Pp"></p>
+<pre>
+/* check that exp(i * pi) == -1 */
+#include &lt;math.h&gt;        /* for atan */
+#include &lt;stdio.h&gt;
+#include &lt;complex.h&gt;
+int
+main(void)
+{
+    double pi = 4 * atan(1.0);
+    double complex z = cexp(I * pi);
+    printf(&quot;%f + %f * i\n&quot;, creal(z), cimag(z));
+}
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>cabs</b>(3), <b>cacos</b>(3), <b>cacosh</b>(3), <b>carg</b>(3),
+  <b>casin</b>(3), <b>casinh</b>(3), <b>catan</b>(3), <b>catanh</b>(3),
+  <b>ccos</b>(3), <b>ccosh</b>(3), <b>cerf</b>(3), <b>cexp</b>(3),
+  <b>cexp2</b>(3), <b>cimag</b>(3), <b>clog</b>(3), <b>clog10</b>(3),
+  <b>clog2</b>(3), <b>conj</b>(3), <b>cpow</b>(3), <b>cproj</b>(3),
+  <b>creal</b>(3), <b>csin</b>(3), <b>csinh</b>(3), <b>csqrt</b>(3),
+  <b>ctan</b>(3), <b>ctanh</b>(3)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-03-06</td>
+    <td class="foot-os"></td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

@@ -1,0 +1,692 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man7/rtnetlink.7</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">RTNETLINK(7)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">RTNETLINK(7)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+rtnetlink - Linux IPv4 routing socket
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>#include &lt;asm/types.h&gt;</b>
+<br/>
+<b>#include &lt;linux/netlink.h&gt;</b>
+<br/>
+<b>#include &lt;linux/rtnetlink.h&gt;</b>
+<br/>
+<b>#include &lt;sys/socket.h&gt;</b>
+<p class="Pp"><b>rtnetlink_socket = socket(AF_NETLINK, int
+    </b><i>socket_type</i><b>, NETLINK_ROUTE);</b></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+Rtnetlink allows the kernel's routing tables to be read and altered. It is used
+  within the kernel to communicate between various subsystems, though this usage
+  is not documented here, and for communication with user-space programs.
+  Network routes, IP addresses, link parameters, neighbor setups, queueing
+  disciplines, traffic classes and packet classifiers may all be controlled
+  through <b>NETLINK_ROUTE</b> sockets. It is based on netlink messages; see
+  <b>netlink</b>(7) for more information.
+<section class="Ss">
+<h2 class="Ss" id="Routing_attributes"><a class="permalink" href="#Routing_attributes">Routing
+  attributes</a></h2>
+Some rtnetlink messages have optional attributes after the initial header:
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+struct rtattr {
+    unsigned short rta_len;    /* Length of option */
+    unsigned short rta_type;   /* Type of option */
+    /* Data follows */
+};
+
+</pre>
+<br/>
+<p class="Pp">These attributes should be manipulated using only the RTA_* macros
+    or libnetlink, see <b>rtnetlink</b>(3).</p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Messages"><a class="permalink" href="#Messages">Messages</a></h2>
+Rtnetlink consists of these message types (in addition to standard netlink
+  messages):
+<dl class="Bl-tag">
+  <dt><b>RTM_NEWLINK</b>, <b>RTM_DELLINK</b>, <b>RTM_GETLINK</b></dt>
+  <dd>Create, remove or get information about a specific network interface.
+      These messages contain an <i>ifinfomsg</i> structure followed by a series
+      of <i>rtattr</i> structures.</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>
+    <pre>
+struct ifinfomsg {
+    unsigned char  ifi_family; /* AF_UNSPEC */
+    unsigned short ifi_type;   /* Device type */
+    int            ifi_index;  /* Interface index */
+    unsigned int   ifi_flags;  /* Device flags  */
+    unsigned int   ifi_change; /* change mask */
+};
+    </pre>
+  </dd>
+  <dt></dt>
+  <dd><i>ifi_flags</i> contains the device flags, see <b>netdevice</b>(7);
+      <i>ifi_index</i> is the unique interface index (since Linux 3.7, it is
+      possible to feed a nonzero value with the <b>RTM_NEWLINK</b> message, thus
+      creating a link with the given <i>ifindex</i>); <i>ifi_change</i> is
+      reserved for future use and should be always set to 0xFFFFFFFF.
+    <table class="tbl">
+      <tr>
+        <td colspan="3" style="text-align: center;">Routing attributes</td>
+      </tr>
+      <tr style="border-bottom-style: solid;">
+        <td>rta_type</td>
+        <td>value type</td>
+        <td>description</td>
+      </tr>
+      <tr>
+        <td>IFLA_UNSPEC</td>
+        <td>-</td>
+        <td>unspecified.</td>
+      </tr>
+      <tr>
+        <td>IFLA_ADDRESS</td>
+        <td>hardware address</td>
+        <td>interface L2 address</td>
+      </tr>
+      <tr>
+        <td>IFLA_BROADCAST</td>
+        <td>hardware address</td>
+        <td>L2 broadcast address.</td>
+      </tr>
+      <tr>
+        <td>IFLA_IFNAME</td>
+        <td>asciiz string</td>
+        <td>Device name.</td>
+      </tr>
+      <tr>
+        <td>IFLA_MTU</td>
+        <td>unsigned int</td>
+        <td>MTU of the device.</td>
+      </tr>
+      <tr>
+        <td>IFLA_LINK</td>
+        <td>int</td>
+        <td>Link type.</td>
+      </tr>
+      <tr>
+        <td>IFLA_QDISC</td>
+        <td>asciiz string</td>
+        <td>Queueing discipline.</td>
+      </tr>
+      <tr>
+        <td>IFLA_STATS</td>
+        <td>see below</td>
+        <td>Interface Statistics.</td>
+      </tr>
+    </table>
+  </dd>
+</dl>
+<p class="Pp">The value type for <b>IFLA_STATS</b> is <i>struct
+    rtnl_link_stats</i> (<i>struct net_device_stats</i> in Linux 2.4 and
+    earlier).</p>
+<dl class="Bl-tag">
+  <dt><b>RTM_NEWADDR</b>, <b>RTM_DELADDR</b>, <b>RTM_GETADDR</b></dt>
+  <dd>Add, remove or receive information about an IP address associated with an
+      interface. In Linux 2.2, an interface can carry multiple IP addresses,
+      this replaces the alias device concept in 2.0. In Linux 2.2, these
+      messages support IPv4 and IPv6 addresses. They contain an <i>ifaddrmsg</i>
+      structure, optionally followed by <i>rtattr</i> routing attributes.</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>
+    <pre>
+struct ifaddrmsg {
+    unsigned char ifa_family;    /* Address type */
+    unsigned char ifa_prefixlen; /* Prefixlength of address */
+    unsigned char ifa_flags;     /* Address flags */
+    unsigned char ifa_scope;     /* Address scope */
+    unsigned int  ifa_index;     /* Interface index */
+};
+    </pre>
+  </dd>
+  <dt></dt>
+  <dd><i>ifa_family</i> is the address family type (currently <b>AF_INET</b> or
+      <b>AF_INET6</b>), <i>ifa_prefixlen</i> is the length of the address mask
+      of the address if defined for the family (like for IPv4), <i>ifa_scope</i>
+      is the address scope, <i>ifa_index</i> is the interface index of the
+      interface the address is associated with. <i>ifa_flags</i> is a flag word
+      of <b>IFA_F_SECONDARY</b> for secondary address (old alias interface),
+      <b>IFA_F_PERMANENT</b> for a permanent address set by the user and other
+      undocumented flags.
+    <table class="tbl">
+      <tr>
+        <td colspan="3" style="text-align: center;">Attributes</td>
+      </tr>
+      <tr style="border-bottom-style: solid;">
+        <td>rta_type</td>
+        <td>value type</td>
+        <td>description</td>
+      </tr>
+      <tr>
+        <td>IFA_UNSPEC</td>
+        <td>-</td>
+        <td>unspecified.</td>
+      </tr>
+      <tr>
+        <td>IFA_ADDRESS</td>
+        <td>raw protocol address</td>
+        <td>interface address</td>
+      </tr>
+      <tr>
+        <td>IFA_LOCAL</td>
+        <td>raw protocol address</td>
+        <td>local address</td>
+      </tr>
+      <tr>
+        <td>IFA_LABEL</td>
+        <td>asciiz string</td>
+        <td>name of the interface</td>
+      </tr>
+      <tr>
+        <td>IFA_BROADCAST</td>
+        <td>raw protocol address</td>
+        <td>broadcast address.</td>
+      </tr>
+      <tr>
+        <td>IFA_ANYCAST</td>
+        <td>raw protocol address</td>
+        <td>anycast address</td>
+      </tr>
+      <tr>
+        <td>IFA_CACHEINFO</td>
+        <td>struct ifa_cacheinfo</td>
+        <td>Address information.</td>
+      </tr>
+    </table>
+  </dd>
+</dl>
+<dl class="Bl-tag">
+  <dt><b>RTM_NEWROUTE</b>, <b>RTM_DELROUTE</b>, <b>RTM_GETROUTE</b></dt>
+  <dd>Create, remove or receive information about a network route. These
+      messages contain an <i>rtmsg</i> structure with an optional sequence of
+      <i>rtattr</i> structures following. For <b>RTM_GETROUTE</b>, setting
+      <i>rtm_dst_len</i> and <i>rtm_src_len</i> to 0 means you get all entries
+      for the specified routing table. For the other fields, except
+      <i>rtm_table</i> and <i>rtm_protocol</i>, 0 is the wildcard.</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>
+    <pre>
+struct rtmsg {
+    unsigned char rtm_family;   /* Address family of route */
+    unsigned char rtm_dst_len;  /* Length of destination */
+    unsigned char rtm_src_len;  /* Length of source */
+    unsigned char rtm_tos;      /* TOS filter */
+    unsigned char rtm_table;    /* Routing table ID */
+    unsigned char rtm_protocol; /* Routing protocol; see below */
+    unsigned char rtm_scope;    /* See below */
+    unsigned char rtm_type;     /* See below */
+    unsigned int  rtm_flags;
+};
+    </pre>
+    <table class="tbl">
+      <tr style="border-bottom-style: solid;">
+        <td>rtm_type</td>
+        <td>Route type</td>
+      </tr>
+      <tr>
+        <td>RTN_UNSPEC</td>
+        <td>unknown route</td>
+      </tr>
+      <tr>
+        <td>RTN_UNICAST</td>
+        <td>a gateway or direct route</td>
+      </tr>
+      <tr>
+        <td>RTN_LOCAL</td>
+        <td>a local interface route</td>
+      </tr>
+      <tr>
+        <td>RTN_BROADCAST</td>
+        <td>a local broadcast route (sent as a broadcast)</td>
+      </tr>
+      <tr>
+        <td>RTN_ANYCAST</td>
+        <td>a local broadcast route (sent as a unicast)</td>
+      </tr>
+      <tr>
+        <td>RTN_MULTICAST</td>
+        <td>a multicast route</td>
+      </tr>
+      <tr>
+        <td>RTN_BLACKHOLE</td>
+        <td>a packet dropping route</td>
+      </tr>
+      <tr>
+        <td>RTN_UNREACHABLE</td>
+        <td>an unreachable destination</td>
+      </tr>
+      <tr>
+        <td>RTN_PROHIBIT</td>
+        <td>a packet rejection route</td>
+      </tr>
+      <tr>
+        <td>RTN_THROW</td>
+        <td>continue routing lookup in another table</td>
+      </tr>
+      <tr>
+        <td>RTN_NAT</td>
+        <td>a network address translation rule</td>
+      </tr>
+      <tr>
+        <td>RTN_XRESOLVE</td>
+        <td>refer to an external resolver (not implemented)</td>
+      </tr>
+    </table>
+    <table class="tbl">
+      <tr style="border-bottom-style: solid;">
+        <td>rtm_protocol</td>
+        <td>Route origin.</td>
+      </tr>
+      <tr>
+        <td>RTPROT_UNSPEC</td>
+        <td>unknown</td>
+      </tr>
+      <tr>
+        <td>RTPROT_REDIRECT</td>
+        <td>by an ICMP redirect (currently unused)</td>
+      </tr>
+      <tr>
+        <td>RTPROT_KERNEL</td>
+        <td>by the kernel</td>
+      </tr>
+      <tr>
+        <td>RTPROT_BOOT</td>
+        <td>during boot</td>
+      </tr>
+      <tr>
+        <td>RTPROT_STATIC</td>
+        <td>by the administrator</td>
+      </tr>
+    </table>
+    <p class="Pp">Values larger than <b>RTPROT_STATIC</b> are not interpreted by
+        the kernel, they are just for user information. They may be used to tag
+        the source of a routing information or to distinguish between multiple
+        routing daemons. See <i>&lt;linux/rtnetlink.h&gt;</i> for the routing
+        daemon identifiers which are already assigned.</p>
+  </dd>
+  <dt></dt>
+  <dd><i>rtm_scope</i> is the distance to the destination:
+    <table class="tbl">
+      <tr>
+        <td>RT_SCOPE_UNIVERSE</td>
+        <td>global route</td>
+      </tr>
+      <tr>
+        <td>RT_SCOPE_SITE</td>
+        <td>interior route in the local autonomous system</td>
+      </tr>
+      <tr>
+        <td>RT_SCOPE_LINK</td>
+        <td>route on this link</td>
+      </tr>
+      <tr>
+        <td>RT_SCOPE_HOST</td>
+        <td>route on the local host</td>
+      </tr>
+      <tr>
+        <td>RT_SCOPE_NOWHERE</td>
+        <td>destination doesn't exist</td>
+      </tr>
+    </table>
+    <p class="Pp">The values between <b>RT_SCOPE_UNIVERSE</b> and
+        <b>RT_SCOPE_SITE</b> are available to the user.</p>
+  </dd>
+  <dt></dt>
+  <dd>The <i>rtm_flags</i> have the following meanings:
+    <table class="tbl">
+      <tr>
+        <td>RTM_F_NOTIFY</td>
+        <td>if the route changes, notify the user via rtnetlink</td>
+      </tr>
+      <tr>
+        <td>RTM_F_CLONED</td>
+        <td>route is cloned from another route</td>
+      </tr>
+      <tr>
+        <td>RTM_F_EQUALIZE</td>
+        <td>a multipath equalizer (not yet implemented)</td>
+      </tr>
+    </table>
+    <p class="Pp"><i>rtm_table</i> specifies the routing table</p>
+    <table class="tbl">
+      <tr>
+        <td>RT_TABLE_UNSPEC</td>
+        <td>an unspecified routing table</td>
+      </tr>
+      <tr>
+        <td>RT_TABLE_DEFAULT</td>
+        <td>the default table</td>
+      </tr>
+      <tr>
+        <td>RT_TABLE_MAIN</td>
+        <td>the main table</td>
+      </tr>
+      <tr>
+        <td>RT_TABLE_LOCAL</td>
+        <td>the local table</td>
+      </tr>
+    </table>
+    <p class="Pp">The user may assign arbitrary values between
+        <b>RT_TABLE_UNSPEC</b> and <b>RT_TABLE_DEFAULT</b>.</p>
+    <table class="tbl">
+      <tr>
+        <td colspan="3" style="text-align: center;">Attributes</td>
+      </tr>
+      <tr style="border-bottom-style: solid;">
+        <td>rta_type</td>
+        <td>value type</td>
+        <td>description</td>
+      </tr>
+      <tr>
+        <td>RTA_UNSPEC</td>
+        <td>-</td>
+        <td>ignored.</td>
+      </tr>
+      <tr>
+        <td>RTA_DST</td>
+        <td>protocol address</td>
+        <td>Route destination address.</td>
+      </tr>
+      <tr>
+        <td>RTA_SRC</td>
+        <td>protocol address</td>
+        <td>Route source address.</td>
+      </tr>
+      <tr>
+        <td>RTA_IIF</td>
+        <td>int</td>
+        <td>Input interface index.</td>
+      </tr>
+      <tr>
+        <td>RTA_OIF</td>
+        <td>int</td>
+        <td>Output interface index.</td>
+      </tr>
+      <tr>
+        <td>RTA_GATEWAY</td>
+        <td>protocol address</td>
+        <td>The gateway of the route</td>
+      </tr>
+      <tr>
+        <td>RTA_PRIORITY</td>
+        <td>int</td>
+        <td>Priority of route.</td>
+      </tr>
+      <tr>
+        <td>RTA_PREFSRC</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>RTA_METRICS</td>
+        <td>int</td>
+        <td>Route metric</td>
+      </tr>
+      <tr>
+        <td>RTA_MULTIPATH</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>RTA_PROTOINFO</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>RTA_FLOW</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>RTA_CACHEINFO</td>
+        <td></td>
+      </tr>
+    </table>
+    <p class="Pp"><b>Fill these values in!</b></p>
+  </dd>
+</dl>
+<dl class="Bl-tag">
+  <dt><b>RTM_NEWNEIGH</b>, <b>RTM_DELNEIGH</b>, <b>RTM_GETNEIGH</b></dt>
+  <dd>Add, remove or receive information about a neighbor table entry (e.g., an
+      ARP entry). The message contains an <i>ndmsg</i> structure.</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>
+    <pre>
+struct ndmsg {
+    unsigned char ndm_family;
+    int           ndm_ifindex;  /* Interface index */
+    __u16         ndm_state;    /* State */
+    __u8          ndm_flags;    /* Flags */
+    __u8          ndm_type;
+};
+struct nda_cacheinfo {
+    __u32         ndm_confirmed;
+    __u32         ndm_used;
+    __u32         ndm_updated;
+    __u32         ndm_refcnt;
+};
+    </pre>
+  </dd>
+  <dt></dt>
+  <dd><i>ndm_state</i> is a bit mask of the following states:
+    <table class="tbl">
+      <tr>
+        <td>NUD_INCOMPLETE</td>
+        <td>a currently resolving cache entry</td>
+      </tr>
+      <tr>
+        <td>NUD_REACHABLE</td>
+        <td>a confirmed working cache entry</td>
+      </tr>
+      <tr>
+        <td>NUD_STALE</td>
+        <td>an expired cache entry</td>
+      </tr>
+      <tr>
+        <td>NUD_DELAY</td>
+        <td>an entry waiting for a timer</td>
+      </tr>
+      <tr>
+        <td>NUD_PROBE</td>
+        <td>a cache entry that is currently reprobed</td>
+      </tr>
+      <tr>
+        <td>NUD_FAILED</td>
+        <td>an invalid cache entry</td>
+      </tr>
+      <tr>
+        <td>NUD_NOARP</td>
+        <td>a device with no destination cache</td>
+      </tr>
+      <tr>
+        <td>NUD_PERMANENT</td>
+        <td>a static entry</td>
+      </tr>
+    </table>
+    <p class="Pp">Valid <i>ndm_flags</i> are:</p>
+    <table class="tbl">
+      <tr>
+        <td>NTF_PROXY</td>
+        <td>a proxy arp entry</td>
+      </tr>
+      <tr>
+        <td>NTF_ROUTER</td>
+        <td>an IPv6 router</td>
+      </tr>
+    </table>
+    <p class="Pp">The <i>rtattr</i> struct has the following meanings for the
+        <i>rta_type</i> field:</p>
+    <table class="tbl">
+      <tr>
+        <td>NDA_UNSPEC</td>
+        <td>unknown type</td>
+      </tr>
+      <tr>
+        <td>NDA_DST</td>
+        <td>a neighbor cache n/w layer destination address</td>
+      </tr>
+      <tr>
+        <td>NDA_LLADDR</td>
+        <td>a neighbor cache link layer address</td>
+      </tr>
+      <tr>
+        <td>NDA_CACHEINFO</td>
+        <td>cache statistics.</td>
+      </tr>
+    </table>
+    <p class="Pp">If the <i>rta_type</i> field is <b>NDA_CACHEINFO</b>, then a
+        <i>struct nda_cacheinfo</i> header follows</p>
+  </dd>
+</dl>
+<dl class="Bl-tag">
+  <dt><b>RTM_NEWRULE</b>, <b>RTM_DELRULE</b>, <b>RTM_GETRULE</b></dt>
+  <dd>Add, delete or retrieve a routing rule. Carries a <i>struct rtmsg</i></dd>
+  <dt><b>RTM_NEWQDISC</b>, <b>RTM_DELQDISC</b>, <b>RTM_GETQDISC</b></dt>
+  <dd>Add, remove or get a queueing discipline. The message contains a <i>struct
+      tcmsg</i> and may be followed by a series of attributes.</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>
+    <pre>
+struct tcmsg {
+    unsigned char    tcm_family;
+    int              tcm_ifindex;   /* interface index */
+    __u32            tcm_handle;    /* Qdisc handle */
+    __u32            tcm_parent;    /* Parent qdisc */
+    __u32            tcm_info;
+};
+    </pre>
+    <table class="tbl">
+      <tr>
+        <td colspan="3" style="text-align: center;">Attributes</td>
+      </tr>
+      <tr style="border-bottom-style: solid;">
+        <td>rta_type</td>
+        <td>value type</td>
+        <td>Description</td>
+      </tr>
+      <tr>
+        <td>TCA_UNSPEC</td>
+        <td>-</td>
+        <td>unspecified</td>
+      </tr>
+      <tr>
+        <td>TCA_KIND</td>
+        <td>asciiz string</td>
+        <td>Name of queueing discipline</td>
+      </tr>
+      <tr>
+        <td>TCA_OPTIONS</td>
+        <td>byte sequence</td>
+        <td>Qdisc-specific options follow</td>
+      </tr>
+      <tr>
+        <td>TCA_STATS</td>
+        <td>struct tc_stats</td>
+        <td>Qdisc statistics.</td>
+      </tr>
+      <tr>
+        <td>TCA_XSTATS</td>
+        <td>qdisc-specific</td>
+        <td>Module-specific statistics.</td>
+      </tr>
+      <tr>
+        <td>TCA_RATE</td>
+        <td>struct tc_estimator</td>
+        <td>Rate limit.</td>
+      </tr>
+    </table>
+    <p class="Pp">In addition, various other qdisc-module-specific attributes
+        are allowed. For more information see the appropriate include files.</p>
+  </dd>
+</dl>
+<dl class="Bl-tag">
+  <dt><b>RTM_NEWTCLASS</b>, <b>RTM_DELTCLASS</b>, <b>RTM_GETTCLASS</b></dt>
+  <dd>Add, remove or get a traffic class. These messages contain a <i>struct
+      tcmsg</i> as described above.</dd>
+  <dt><b>RTM_NEWTFILTER</b>, <b>RTM_DELTFILTER</b>, <b>RTM_GETTFILTER</b></dt>
+  <dd>Add, remove or receive information about a traffic filter. These messages
+      contain a <i>struct tcmsg</i> as described above.</dd>
+</dl>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="VERSIONS"><a class="permalink" href="#VERSIONS">VERSIONS</a></h1>
+<b>rtnetlink</b> is a new feature of Linux 2.2.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="BUGS"><a class="permalink" href="#BUGS">BUGS</a></h1>
+This manual page is incomplete.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>cmsg</b>(3), <b>rtnetlink</b>(3), <b>ip</b>(7), <b>netlink</b>(7)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2020-02-09</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

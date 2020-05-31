@@ -1,0 +1,102 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/ifplugd.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">IFPLUGD(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">IFPLUGD(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+ifplugd - manual page for ifplugd 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>ifplugd</b> [<i>OPTIONS</i>]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">Network interface plug detection daemon</p>
+<dl class="Bl-tag">
+  <dt><b>-n</b></dt>
+  <dd>Don't daemonize</dd>
+  <dt><b>-s</b></dt>
+  <dd>Don't log to syslog</dd>
+  <dt><b>-i</b> IFACE</dt>
+  <dd>Interface</dd>
+  <dt><b>-f</b>/-F</dt>
+  <dd>Treat link detection error as link down/link up (otherwise exit on
+    error)</dd>
+  <dt><b>-a</b></dt>
+  <dd>Don't up interface at each link probe</dd>
+  <dt><b>-M</b></dt>
+  <dd>Monitor creation/destruction of interface (otherwise it must exist)</dd>
+  <dt><b>-r</b> PROG</dt>
+  <dd>Script to run</dd>
+  <dt><b>-x</b> ARG</dt>
+  <dd>Extra argument for script</dd>
+  <dt><b>-I</b></dt>
+  <dd>Don't exit on nonzero exit code from script</dd>
+  <dt><b>-p</b></dt>
+  <dd>Don't run &quot;up&quot; script on startup</dd>
+  <dt><b>-q</b></dt>
+  <dd>Don't run &quot;down&quot; script on exit</dd>
+  <dt><b>-l</b></dt>
+  <dd>Always run script on startup</dd>
+  <dt><b>-t</b> SECS</dt>
+  <dd>Poll time in seconds</dd>
+  <dt><b>-u</b> SECS</dt>
+  <dd>Delay before running script after link up</dd>
+  <dt><b>-d</b> SECS</dt>
+  <dd>Delay after link down</dd>
+  <dt><b>-m</b> MODE</dt>
+  <dd>API mode (mii, priv, ethtool, wlan, iff, auto)</dd>
+  <dt><b>-k</b></dt>
+  <dd>Kill running daemon</dd>
+</dl>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

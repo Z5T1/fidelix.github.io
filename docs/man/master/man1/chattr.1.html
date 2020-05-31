@@ -1,0 +1,106 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/chattr.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">CHATTR(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">CHATTR(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+chattr - manual page for chattr 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>chattr</b> [<i>-R</i>] [<i>-v VERSION</i>] [<i>-+=AacDdijsStTu</i>]
+  <i>FILE</i>...
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">Change ext2 file attributes</p>
+<dl class="Bl-tag">
+  <dt><b>-R</b></dt>
+  <dd>Recurse</dd>
+  <dt><b>-v</b> VER</dt>
+  <dd>Set version/generation number</dd>
+</dl>
+<section class="Ss">
+<h2 class="Ss" id="Modifiers:"><a class="permalink" href="#Modifiers:">Modifiers:</a></h2>
+<dl class="Bl-tag">
+  <dt>-,+,=</dt>
+  <dd>Remove/add/set attributes</dd>
+</dl>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Attributes:"><a class="permalink" href="#Attributes:">Attributes:</a></h2>
+<dl class="Bl-tag">
+  <dt>A</dt>
+  <dd>Don't track atime</dd>
+  <dt>a</dt>
+  <dd>Append mode only</dd>
+  <dt>c</dt>
+  <dd>Enable compress</dd>
+  <dt>D</dt>
+  <dd>Write dir contents synchronously</dd>
+  <dt>d</dt>
+  <dd>Don't backup with dump</dd>
+  <dt>i</dt>
+  <dd>Cannot be modified (immutable)</dd>
+  <dt>j</dt>
+  <dd>Write all data to journal first</dd>
+  <dt>s</dt>
+  <dd>Zero disk storage when deleted</dd>
+  <dt>S</dt>
+  <dd>Write synchronously</dd>
+  <dt>t</dt>
+  <dd>Disable tail-merging of partial blocks with other files</dd>
+  <dt>u</dt>
+  <dd>Allow file to be undeleted</dd>
+</dl>
+</section>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

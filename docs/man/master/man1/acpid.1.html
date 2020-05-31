@@ -1,0 +1,83 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/acpid.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">ACPID(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">ACPID(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+acpid - manual page for acpid 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>acpid</b> [<i>-df</i>] [<i>-c CONFDIR</i>] [<i>-l LOGFILE</i>] [<i>-a
+  ACTIONFILE</i>] [<i>-M MAPFILE</i>] [<i>-e PROC_EVENT_FILE</i>] [<i>-p
+  PIDFILE</i>]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">Listen to ACPI events and spawn specific helpers on event
+  arrival</p>
+<dl class="Bl-tag">
+  <dt><b>-d</b></dt>
+  <dd>Log to stderr, not log file (implies <b>-f</b>)</dd>
+  <dt><b>-f</b></dt>
+  <dd>Run in foreground</dd>
+  <dt><b>-c</b> DIR</dt>
+  <dd>Config directory [/etc/acpi]</dd>
+</dl>
+<p class="Pp HP"><b>-e</b> FILE <i>/proc</i> event file [/proc/acpi/event]</p>
+<p class="Pp HP"><b>-l</b> FILE Log file [/var/log/acpid.log]</p>
+<p class="Pp HP"><b>-p</b> FILE Pid file [/var/run/acpid.pid]</p>
+<p class="Pp HP"><b>-a</b> FILE Action file [/etc/acpid.conf]</p>
+<p class="Pp HP"><b>-M</b> FILE Map file [/etc/acpi.map]</p>
+<p class="Pp">Accept and ignore compatibility options <b>-g</b> <b>-m</b>
+    <b>-s</b> <b>-S</b> <b>-v</b></p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

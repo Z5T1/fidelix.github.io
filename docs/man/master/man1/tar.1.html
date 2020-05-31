@@ -1,0 +1,106 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/tar.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">TAR(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">TAR(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+tar - manual page for tar 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>tar</b> <i>c|x|t </i>[<i>-zJjahmvokO</i>] [<i>-f TARFILE</i>] [<i>-C DIR</i>]
+  [<i>-T FILE</i>] [<i>-X FILE</i>] [<i>--exclude PATTERN</i>]...
+  [<i>FILE</i>]...
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">Create, extract, or list files from a tar file</p>
+<dl class="Bl-tag">
+  <dt>c</dt>
+  <dd>Create</dd>
+  <dt>x</dt>
+  <dd>Extract</dd>
+  <dt>t</dt>
+  <dd>List</dd>
+</dl>
+<p class="Pp HP"><b>-f</b> FILE Name of TARFILE ('-' for stdin/out)</p>
+<dl class="Bl-tag">
+  <dt><b>-C</b> DIR</dt>
+  <dd>Change to DIR before operation</dd>
+  <dt><b>-v</b></dt>
+  <dd>Verbose</dd>
+  <dt><b>-O</b></dt>
+  <dd>Extract to stdout</dd>
+  <dt><b>-m</b></dt>
+  <dd>Don't restore mtime</dd>
+  <dt><b>-o</b></dt>
+  <dd>Don't restore user:group</dd>
+  <dt><b>-k</b></dt>
+  <dd>Don't replace existing files</dd>
+  <dt><b>-z</b></dt>
+  <dd>(De)compress using gzip</dd>
+  <dt><b>-J</b></dt>
+  <dd>(De)compress using xz</dd>
+  <dt><b>-j</b></dt>
+  <dd>(De)compress using bzip2</dd>
+  <dt><b>-a</b></dt>
+  <dd>(De)compress using lzma</dd>
+  <dt><b>-h</b></dt>
+  <dd>Follow symlinks</dd>
+</dl>
+<p class="Pp HP"><b>-T</b> FILE File with names to include</p>
+<p class="Pp HP"><b>-X</b> FILE File with glob patterns to exclude</p>
+<dl class="Bl-tag">
+  <dt><b>--exclude</b> PATTERN</dt>
+  <dd>Glob pattern to exclude</dd>
+</dl>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

@@ -1,0 +1,85 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man8/getpcaps.8</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">GETPCAPS(8)</td>
+    <td class="head-vol">System Manager's Manual</td>
+    <td class="head-rtitle">GETPCAPS(8)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+getpcaps - display process capabilities
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>getpcaps</b>[optional args] <i>pid</i>...
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>getpcaps</b> displays the capabilities on the processes indicated by the
+  <i>pid</i> value(s) given on the commandline. The capabilities are displayed
+  in the <b>cap_from_text</b>(3) format.
+<p class="Pp">Optional arguments:</p>
+<p class="Pp"><b>--help</b> or <b>--usage</b> Displays usage information and
+    exits.</p>
+<p class="Pp"><b>--ugly</b> or <b>--legacy</b> Displays output in a somewhat
+    ugly legacy format.</p>
+<p class="Pp"><b>--verbose</b> Displays usage in a legacy-like format but not
+    quite so ugly in modern default terminal fonts.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>capsh</b>(8), <b>setcap</b>(8) and <b>getcap</b>(8).
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHOR"><a class="permalink" href="#AUTHOR">AUTHOR</a></h1>
+This manual page was originally written by Robert Bihlmeyer
+  &lt;robbe@debian.org&gt;, for the Debian GNU/Linux system (but may be used by
+  others).
+<p class="Pp"></p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2020-01-04</td>
+    <td class="foot-os"></td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

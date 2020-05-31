@@ -1,0 +1,92 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/nsenter.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">NSENTER(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">NSENTER(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+nsenter - manual page for nsenter 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>nsenter</b> [<i>OPTIONS</i>] [<i>PROG </i>[<i>ARGS</i>]]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<dl class="Bl-tag">
+  <dt><b>-t</b> PID</dt>
+  <dd>Target process to get namespaces from</dd>
+  <dt><b>-m[FILE]</b></dt>
+  <dd>Enter mount namespace</dd>
+  <dt><b>-u[FILE]</b></dt>
+  <dd>Enter UTS namespace (hostname etc)</dd>
+  <dt><b>-i[FILE]</b></dt>
+  <dd>Enter System V IPC namespace</dd>
+  <dt><b>-n[FILE]</b></dt>
+  <dd>Enter network namespace</dd>
+  <dt><b>-p[FILE]</b></dt>
+  <dd>Enter pid namespace</dd>
+  <dt><b>-U[FILE]</b></dt>
+  <dd>Enter user namespace</dd>
+  <dt><b>-S</b> UID</dt>
+  <dd>Set uid in entered namespace</dd>
+  <dt><b>-G</b> GID</dt>
+  <dd>Set gid in entered namespace</dd>
+  <dt><b>--preserve-credentials</b></dt>
+  <dd>Don't touch uids or gids</dd>
+  <dt><b>-r[DIR]</b></dt>
+  <dd>Set root directory</dd>
+  <dt><b>-w[DIR]</b></dt>
+  <dd>Set working directory</dd>
+  <dt><b>-F</b></dt>
+  <dd>Don't fork before exec'ing PROG</dd>
+</dl>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

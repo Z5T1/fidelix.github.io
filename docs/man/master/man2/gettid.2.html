@@ -1,0 +1,121 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/gettid.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">GETTID(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">GETTID(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+gettid - get thread identification
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>#include &lt;sys/types.h&gt;</b>
+</pre>
+<pre>
+<b>pid_t gettid(void);</b>
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>gettid</b>() returns the caller's thread ID (TID). In a single-threaded
+  process, the thread ID is equal to the process ID (PID, as returned by
+  <b>getpid</b>(2)). In a multithreaded process, all threads have the same PID,
+  but each one has a unique TID. For further details, see the discussion of
+  <b>CLONE_THREAD</b> in <b>clone</b>(2).
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, returns the thread ID of the calling thread.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+This call is always successful.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="VERSIONS"><a class="permalink" href="#VERSIONS">VERSIONS</a></h1>
+The <b>gettid</b>() system call first appeared on Linux in kernel 2.4.11.
+  Library support was added in glibc 2.30. (Earlier glibc versions did not
+  provide a wrapper for this system call, necessitating the use of
+  <b>syscall</b>(2).)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+<b>gettid</b>() is Linux-specific and should not be used in programs that are
+  intended to be portable.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+The thread ID returned by this call is not the same thing as a POSIX thread ID
+  (i.e., the opaque value returned by <b>pthread_self</b>(3)).
+<p class="Pp">In a new thread group created by a <b>clone</b>(2) call that does
+    not specify the <b>CLONE_THREAD</b> flag (or, equivalently, a new process
+    created by <b>fork</b>(2)), the new process is a thread group leader, and
+    its thread group ID (the value returned by <b>getpid</b>(2)) is the same as
+    its thread ID (the value returned by <b>gettid</b>()).</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>capget</b>(2), <b>clone</b>(2), <b>fcntl</b>(2), <b>fork</b>(2),
+  <b>getpid</b>(2), <b>get_robust_list</b>(2), <b>ioprio_set</b>(2),
+  <b>perf_event_open</b>(2), <b>sched_setaffinity</b>(2),
+  <b>sched_setparam</b>(2), <b>sched_setscheduler</b>(2), <b>tgkill</b>(2),
+  <b>timer_create</b>(2)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-03-06</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

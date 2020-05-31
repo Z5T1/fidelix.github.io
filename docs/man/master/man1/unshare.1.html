@@ -1,0 +1,88 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/unshare.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">UNSHARE(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">UNSHARE(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+unshare - manual page for unshare 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>unshare</b> [<i>OPTIONS</i>] [<i>PROG </i>[<i>ARGS</i>]]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<dl class="Bl-tag">
+  <dt><b>-m</b>,--mount[=FILE]</dt>
+  <dd>Unshare mount namespace</dd>
+  <dt><b>-u</b>,--uts[=FILE]</dt>
+  <dd>Unshare UTS namespace (hostname etc.)</dd>
+  <dt><b>-i</b>,--ipc[=FILE]</dt>
+  <dd>Unshare System V IPC namespace</dd>
+  <dt><b>-n</b>,--net[=FILE]</dt>
+  <dd>Unshare network namespace</dd>
+  <dt><b>-p</b>,--pid[=FILE]</dt>
+  <dd>Unshare PID namespace</dd>
+  <dt><b>-U</b>,--user[=FILE]</dt>
+  <dd>Unshare user namespace</dd>
+  <dt><b>-f</b>,--fork</dt>
+  <dd>Fork before execing PROG</dd>
+  <dt><b>-r</b>,--map-root-user</dt>
+  <dd>Map current user to root (implies <b>-U</b>)</dd>
+  <dt><b>--mount-proc</b>[=<i>DIR</i>]</dt>
+  <dd>Mount <i>/proc</i> filesystem first (implies <b>-m</b>)</dd>
+  <dt><b>--propagation</b> slave|shared|private|unchanged</dt>
+  <dd>Modify mount propagation in mount namespace</dd>
+  <dt><b>--setgroups</b> allow|deny</dt>
+  <dd>Control the setgroups syscall in user namespaces</dd>
+</dl>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

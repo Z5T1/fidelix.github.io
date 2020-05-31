@@ -1,0 +1,135 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/readahead.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">READAHEAD(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">READAHEAD(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+readahead - initiate file readahead into page cache
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>#define _GNU_SOURCE</b>             /* See feature_test_macros(7) */
+<b>#include &lt;fcntl.h&gt;</b>
+</pre>
+<pre>
+<b>ssize_t readahead(int </b><i>fd</i><b>, off64_t </b><i>offset</i><b>, size_t </b><i>count</i><b>);</b>
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>readahead</b>() initiates readahead on a file so that subsequent reads from
+  that file will be satisfied from the cache, and not block on disk I/O
+  (assuming the readahead was initiated early enough and that other activity on
+  the system did not in the meantime flush pages from the cache).
+<p class="Pp">The <i>fd</i> argument is a file descriptor identifying the file
+    which is to be read. The <i>offset</i> argument specifies the starting point
+    from which data is to be read and <i>count</i> specifies the number of bytes
+    to be read. I/O is performed in whole pages, so that <i>offset</i> is
+    effectively rounded down to a page boundary and bytes are read up to the
+    next page boundary greater than or equal to <i>(offset+count)</i>.
+    <b>readahead</b>() does not read beyond the end of the file. The file offset
+    of the open file description referred to by the file descriptor <i>fd</i> is
+    left unchanged.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, <b>readahead</b>() returns 0; on failure, -1 is returned, with
+  <i>errno</i> set to indicate the cause of the error.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EBADF</b></dt>
+  <dd><i>fd</i> is not a valid file descriptor or is not open for reading.</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd><i>fd</i> does not refer to a file type to which <b>readahead</b>() can be
+      applied.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="VERSIONS"><a class="permalink" href="#VERSIONS">VERSIONS</a></h1>
+The <b>readahead</b>() system call appeared in Linux 2.4.13; glibc support has
+  been provided since version 2.3.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+The <b>readahead</b>() system call is Linux-specific, and its use should be
+  avoided in portable applications.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+On some 32-bit architectures, the calling signature for this system call
+  differs, for the reasons described in <b>syscall</b>(2).
+</section>
+<section class="Sh">
+<h1 class="Sh" id="BUGS"><a class="permalink" href="#BUGS">BUGS</a></h1>
+<b>readahead</b>() attempts to schedule the reads in the background and return
+  immediately. However, it may block while it reads the filesystem metadata
+  needed to locate the requested blocks. This occurs frequently with ext[234] on
+  large files using indirect blocks instead of extents, giving the appearance
+  that the call blocks until the requested data has been read.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>lseek</b>(2), <b>madvise</b>(2), <b>mmap</b>(2), <b>posix_fadvise</b>(2),
+  <b>read</b>(2)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-03-06</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

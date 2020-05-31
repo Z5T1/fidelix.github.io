@@ -1,0 +1,672 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man5/x509v3.cnf.5</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">X509V3.CNF(5)</td>
+    <td class="head-vol">File Formats Manual</td>
+    <td class="head-rtitle">X509V3.CNF(5)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<code class="Nm">x509v3.cnf</code> &#x2014;
+<div class="Nd">X.509 V3 certificate extension configuration format</div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+Several of the OpenSSL utilities can add extensions to a certificate or
+  certificate request based on the contents of a configuration file. The file
+  format is based on the
+  <a class="Xr" href="../man5/openssl.cnf.5.html">openssl.cnf(5)</a> format.
+<p class="Pp">Typically the application will contain an option to point to an
+    extension section. Each line of the extension section takes the form:</p>
+<p class="Pp"></p>
+<div class="Bd
+  Bd-indent"><var class="Ar">extension_name</var>=[<code class="Cm">critical</code>,]
+  <var class="Ar">extension_options</var></div>
+<p class="Pp">If <code class="Cm">critical</code> is present, then the extension
+    will be critical.</p>
+<p class="Pp">The format of <var class="Ar">extension_options</var> depends on
+    the value of <var class="Ar">extension_name</var>.</p>
+<p class="Pp">There are four main types of extension: string extensions,
+    multi-valued extensions, raw extensions, and arbitrary extensions.</p>
+<p class="Pp">String extensions simply have a string which contains either the
+    value itself or how it is obtained. For example:</p>
+<p class="Pp"></p>
+<div class="Bd Bd-indent"><code class="Li">nsComment=&quot;This is a
+  Comment&quot;</code></div>
+<p class="Pp">Multi-valued extensions have a short form and a long form. The
+    short form is a list of names and values:</p>
+<p class="Pp"></p>
+<div class="Bd
+  Bd-indent"><code class="Li">basicConstraints=critical,CA:true,pathlen:1</code></div>
+<p class="Pp">The long form allows the values to be placed in a separate
+    section:</p>
+<div class="Bd Pp Bd-indent">
+<pre>
+basicConstraints=critical,@bs_section
+
+[bs_section]
+CA=true
+pathlen=1
+</pre>
+</div>
+<p class="Pp">Both forms are equivalent.</p>
+<p class="Pp">The syntax of raw extensions is governed by the extension code: it
+    can for example contain data in multiple sections. The correct syntax to use
+    is defined by the extension code itself: check out the certificate policies
+    extension for an example.</p>
+<p class="Pp">If an extension type is unsupported, then the arbitrary extension
+    syntax must be used; see the
+    <a class="Sx" href="#ARBITRARY_EXTENSIONS">ARBITRARY EXTENSIONS</a> section
+    for more details.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="STANDARD_EXTENSIONS"><a class="permalink" href="#STANDARD_EXTENSIONS">STANDARD
+  EXTENSIONS</a></h1>
+The following sections describe each supported extension in detail.
+<section class="Ss">
+<h2 class="Ss" id="Basic_constraints"><a class="permalink" href="#Basic_constraints">Basic
+  constraints</a></h2>
+This is a multi-valued extension which indicates whether a certificate is a CA
+  certificate. The first (mandatory) name is <code class="Ic">CA</code> followed
+  by <code class="Cm">TRUE</code> or <code class="Cm">FALSE</code>. If
+  <code class="Ic">CA</code> is <code class="Cm">TRUE</code>, then an optional
+  <code class="Ic">pathlen</code> name followed by a non-negative value can be
+  included. For example:
+<div class="Bd Pp Bd-indent">
+<pre>
+basicConstraints=CA:TRUE
+basicConstraints=CA:FALSE
+basicConstraints=critical,CA:TRUE, pathlen:0
+</pre>
+</div>
+<p class="Pp">A CA certificate must include the
+    <code class="Ic">basicConstraints</code> value with the
+    <code class="Ic">CA</code> field set to <code class="Cm">TRUE</code>. An end
+    user certificate must either set <code class="Ic">CA</code> to
+    <code class="Cm">FALSE</code> or exclude the extension entirely. Some
+    software may require the inclusion of
+    <code class="Ic">basicConstraints</code> with <code class="Ic">CA</code> set
+    to <code class="Cm">FALSE</code> for end entity certificates.</p>
+<p class="Pp">The <code class="Ic">pathlen</code> parameter indicates the
+    maximum number of CAs that can appear below this one in a chain. So if you
+    have a CA with a <code class="Ic">pathlen</code> of zero it can only be used
+    to sign end user certificates and not further CAs.</p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Key_usage"><a class="permalink" href="#Key_usage">Key
+  usage</a></h2>
+Key usage is a multi-valued extension consisting of a list of names of the
+  permitted key usages.
+<p class="Pp">The supported names are: <code class="Ic">digitalSignature</code>,
+    <code class="Ic">nonRepudiation</code>,
+    <code class="Ic">keyEncipherment</code>,
+    <code class="Ic">dataEncipherment</code>,
+    <code class="Ic">keyAgreement</code>, <code class="Ic">keyCertSign</code>,
+    <code class="Ic">cRLSign</code>, <code class="Ic">encipherOnly</code>, and
+    <code class="Ic">decipherOnly</code>. Examples:</p>
+<div class="Bd Pp Bd-indent">
+<pre>
+keyUsage=digitalSignature, nonRepudiation
+keyUsage=critical, keyCertSign
+</pre>
+</div>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Extended_key_usage"><a class="permalink" href="#Extended_key_usage">Extended
+  key usage</a></h2>
+This extensions consists of a list of usages indicating purposes for which the
+  certificate public key can be used for.
+<p class="Pp">These can either be object short names or the dotted numerical
+    form of OIDs. While any OID can be used, only certain values make sense. In
+    particular the following PKIX, NS and MS values are meaningful:</p>
+<table class="Bl-column">
+  <tr>
+    <td><i class="Em">value</i></td>
+    <td><i class="Em">meaning</i></td>
+  </tr>
+  <tr>
+    <td><a class="permalink" href="#serverAuth"><code class="Ic" id="serverAuth">serverAuth</code></a></td>
+    <td>SSL/TLS web server authentication</td>
+  </tr>
+  <tr>
+    <td><a class="permalink" href="#clientAuth"><code class="Ic" id="clientAuth">clientAuth</code></a></td>
+    <td>SSL/TLS web client authentication</td>
+  </tr>
+  <tr>
+    <td><a class="permalink" href="#codeSigning"><code class="Ic" id="codeSigning">codeSigning</code></a></td>
+    <td>code signing</td>
+  </tr>
+  <tr>
+    <td><a class="permalink" href="#emailProtection"><code class="Ic" id="emailProtection">emailProtection</code></a></td>
+    <td>E-mail protection (S/MIME)</td>
+  </tr>
+  <tr>
+    <td><a class="permalink" href="#timeStamping"><code class="Ic" id="timeStamping">timeStamping</code></a></td>
+    <td>trusted timestamping</td>
+  </tr>
+  <tr>
+    <td><a class="permalink" href="#OCSPSigning"><code class="Ic" id="OCSPSigning">OCSPSigning</code></a></td>
+    <td>OCSP signing</td>
+  </tr>
+  <tr>
+    <td><a class="permalink" href="#ipsecIKE"><code class="Ic" id="ipsecIKE">ipsecIKE</code></a></td>
+    <td>IPsec internet key exchange</td>
+  </tr>
+  <tr>
+    <td><a class="permalink" href="#msCodeInd"><code class="Ic" id="msCodeInd">msCodeInd</code></a></td>
+    <td>Microsoft individual code signing (authenticode)</td>
+  </tr>
+  <tr>
+    <td><a class="permalink" href="#msCodeCom"><code class="Ic" id="msCodeCom">msCodeCom</code></a></td>
+    <td>Microsoft commercial code signing (authenticode)</td>
+  </tr>
+  <tr>
+    <td><a class="permalink" href="#msCTLSign"><code class="Ic" id="msCTLSign">msCTLSign</code></a></td>
+    <td>Microsoft trust list signing</td>
+  </tr>
+  <tr>
+    <td><a class="permalink" href="#msEFS"><code class="Ic" id="msEFS">msEFS</code></a></td>
+    <td>Microsoft encrypted file system</td>
+  </tr>
+</table>
+<p class="Pp">Examples:</p>
+<div class="Bd Pp Bd-indent">
+<pre>
+extendedKeyUsage=critical,codeSigning,1.2.3.4
+extendedKeyUsage=serverAuth,clientAuth
+</pre>
+</div>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Subject_key_identifier"><a class="permalink" href="#Subject_key_identifier">Subject
+  key identifier</a></h2>
+This is really a string extension and can take two possible values. Either the
+  word <code class="Cm">hash</code> which will automatically follow the
+  guidelines in RFC 3280 or a hex string giving the extension value to include.
+  The use of the hex string is strongly discouraged. Example:
+<p class="Pp"></p>
+<div class="Bd
+  Bd-indent"><code class="Li">subjectKeyIdentifier=hash</code></div>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Authority_key_identifier"><a class="permalink" href="#Authority_key_identifier">Authority
+  key identifier</a></h2>
+The authority key identifier extension permits two options,
+  <code class="Cm">keyid</code> and <code class="Cm">issuer</code>: both can
+  take the optional value <code class="Cm">always</code>.
+<p class="Pp">If the <code class="Cm">keyid</code> option is present, an attempt
+    is made to copy the subject key identifier from the parent certificate. If
+    the value <code class="Cm">always</code> is present, then an error is
+    returned if the option fails.</p>
+<p class="Pp">The <code class="Cm">issuer</code> option copies the issuer and
+    serial number from the issuer certificate. This will only be done if the
+    <code class="Cm">keyid</code> option fails or is not included unless the
+    <code class="Cm">always</code> flag will always include the value.
+  Example:</p>
+<p class="Pp"></p>
+<div class="Bd
+  Bd-indent"><code class="Li">authorityKeyIdentifier=keyid,issuer</code></div>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Subject_alternative_name"><a class="permalink" href="#Subject_alternative_name">Subject
+  alternative name</a></h2>
+The subject alternative name extension allows various literal values to be
+  included in the configuration file. These include
+  <code class="Ic">email</code> (an email address), <code class="Ic">URI</code>
+  (a uniform resource indicator), <code class="Ic">DNS</code> (a DNS domain
+  name), <code class="Ic">RID</code> (a registered ID: OBJECT IDENTIFIER),
+  <code class="Ic">IP</code> (an IP address), <code class="Ic">dirName</code> (a
+  distinguished name), and <code class="Ic">otherName</code>.
+<p class="Pp">The <code class="Ic">email</code> option can include a special
+    <code class="Cm">copy</code> value. This will automatically include any
+    email addresses contained in the certificate subject name in the
+  extension.</p>
+<p class="Pp">The IP address used in the <code class="Ic">IP</code> options can
+    be in either IPv4 or IPv6 format.</p>
+<p class="Pp">The value of <code class="Ic">dirName</code> should point to a
+    section containing the distinguished name to use as a set of name value
+    pairs. Multi values AVAs can be formed by prefacing the name with a
+    &#x2018;<code class="Li">+</code>&#x2019; character.</p>
+<p class="Pp"><code class="Ic">otherName</code> can include arbitrary data
+    associated with an OID: the value should be the OID followed by a semicolon
+    and the content in standard
+    <a class="Xr" href="../man3/ASN1_generate_nconf.3.html">ASN1_generate_nconf(3)</a>
+    format. Examples:</p>
+<div class="Bd Pp Bd-indent">
+<pre>
+subjectAltName=email:copy,email:my@other.address,URI:http://my.url.here/
+subjectAltName=IP:192.168.7.1
+subjectAltName=IP:13::17
+subjectAltName=email:my@other.address,RID:1.2.3.4
+subjectAltName=otherName:1.2.3.4;UTF8:some other identifier
+
+subjectAltName=dirName:dir_sect
+
+[dir_sect]
+C=UK
+O=My Organization
+OU=My Unit
+CN=My Name
+</pre>
+</div>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Issuer_alternative_name"><a class="permalink" href="#Issuer_alternative_name">Issuer
+  alternative name</a></h2>
+The issuer alternative name option supports all the literal options of subject
+  alternative name. It does not support the
+  <code class="Ic">email</code>:<code class="Cm">copy</code> option because that
+  would not make sense. It does support an additional
+  <code class="Ic">issuer</code>:<code class="Cm">copy</code> option that will
+  copy all the subject alternative name values from the issuer certificate (if
+  possible). Example:
+<p class="Pp"></p>
+<div class="Bd Bd-indent"><code class="Li">issuerAltName =
+  issuer:copy</code></div>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Authority_info_access"><a class="permalink" href="#Authority_info_access">Authority
+  info access</a></h2>
+The authority information access extension gives details about how to access
+  certain information relating to the CA. Its syntax is
+  <var class="Ar">accessOID</var>; <var class="Ar">location</var> where
+  <var class="Ar">location</var> has the same syntax as subject alternative name
+  (except that <code class="Ic">email</code>:<code class="Cm">copy</code> is not
+  supported). <var class="Ar">accessOID</var> can be any valid OID but only
+  certain values are meaningful, for example <code class="Cm">OCSP</code> and
+  <code class="Cm">caIssuers</code>. Example:
+<div class="Bd Pp Bd-indent">
+<pre>
+authorityInfoAccess = OCSP;URI:http://ocsp.my.host/
+authorityInfoAccess = caIssuers;URI:http://my.ca/ca.html
+</pre>
+</div>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="CRL_distribution_points"><a class="permalink" href="#CRL_distribution_points">CRL
+  distribution points</a></h2>
+This is a multi-valued extension whose options can be either in
+  <var class="Ar">name</var>:<var class="Ar">value</var> pair form using the
+  same form as subject alternative name or a single value representing a section
+  name containing all the distribution point fields.
+<p class="Pp">For a <var class="Ar">name</var>:<var class="Ar">value</var> pair
+    a new DistributionPoint with the fullName field set to the given value, both
+    the cRLissuer and reasons fields are omitted in this case.</p>
+<p class="Pp">In the single option case, the section indicated contains values
+    for each field. In this section:</p>
+<p class="Pp">If the name is <code class="Ic">fullname</code>, the value field
+    should contain the full name of the distribution point in the same format as
+    subject alternative name.</p>
+<p class="Pp">If the name is <code class="Ic">relativename</code>, then the
+    value field should contain a section name whose contents represent a DN
+    fragment to be placed in this field.</p>
+<p class="Pp">The name <code class="Ic">CRLIssuer</code>, if present, should
+    contain a value for this field in subject alternative name format.</p>
+<p class="Pp">If the name is <code class="Ic">reasons</code>, the value field
+    should consist of a comma separated field containing the reasons. Valid
+    reasons are: <code class="Cm">keyCompromise</code>,
+    <code class="Cm">CACompromise</code>,
+    <code class="Cm">affiliationChanged</code>,
+    <code class="Cm">superseded</code>,
+    <code class="Cm">cessationOfOperation</code>,
+    <code class="Cm">certificateHold</code>,
+    <code class="Cm">privilegeWithdrawn</code>, and
+    <code class="Cm">AACompromise</code>.</p>
+<p class="Pp">Simple examples:</p>
+<div class="Bd Pp Bd-indent">
+<pre>
+crlDistributionPoints=URI:http://myhost.com/myca.crl
+crlDistributionPoints=URI:http://my.com/my.crl,URI:http://oth.com/my.crl
+</pre>
+</div>
+<p class="Pp">Full distribution point example:</p>
+<div class="Bd Pp Bd-indent">
+<pre>
+crlDistributionPoints=crldp1_section
+
+[crldp1_section]
+fullname=URI:http://myhost.com/myca.crl
+CRLissuer=dirName:issuer_sect
+reasons=keyCompromise, CACompromise
+
+[issuer_sect]
+C=UK
+O=Organisation
+CN=Some Name
+</pre>
+</div>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Issuing_distribution_point"><a class="permalink" href="#Issuing_distribution_point">Issuing
+  distribution point</a></h2>
+This extension should only appear in CRLs. It is a multi-valued extension whose
+  syntax is similar to the &quot;section&quot; pointed to by the CRL
+  distribution points extension with a few differences.
+<p class="Pp">The names <code class="Ic">reasons</code> and
+    <code class="Ic">CRLissuer</code> are not recognized.</p>
+<p class="Pp">The name <code class="Ic">onlysomereasons</code> is accepted,
+    which sets this field. The value is in the same format as the CRL
+    distribution point <code class="Ic">reasons</code> field.</p>
+<p class="Pp">The names <code class="Ic">onlyuser</code>,
+    <code class="Ic">onlyCA</code>, <code class="Ic">onlyAA</code>, and
+    <code class="Ic">indirectCRL</code> are also accepted. The values should be
+    a boolean values (<code class="Cm">TRUE</code> or
+    <code class="Cm">FALSE</code>) to indicate the value of the corresponding
+    field. Example:</p>
+<div class="Bd Pp Bd-indent">
+<pre>
+issuingDistributionPoint=critical, @idp_section
+
+[idp_section]
+fullname=URI:http://myhost.com/myca.crl
+indirectCRL=TRUE
+onlysomereasons=keyCompromise, CACompromise
+
+[issuer_sect]
+C=UK
+O=Organisation
+CN=Some Name
+</pre>
+</div>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Certificate_policies"><a class="permalink" href="#Certificate_policies">Certificate
+  policies</a></h2>
+This is a raw extension. All the fields of this extension can be set by using
+  the appropriate syntax.
+<p class="Pp">If you follow the PKIX recommendations and just use one OID, then
+    you just include the value of that OID. Multiple OIDs can be set separated
+    by commas, for example:</p>
+<p class="Pp"></p>
+<div class="Bd Bd-indent"><code class="Li">certificatePolicies= 1.2.4.5,
+  1.1.3.4</code></div>
+<p class="Pp">If you wish to include qualifiers, then the policy OID and
+    qualifiers need to be specified in a separate section: this is done by using
+    the @<var class="Ar">section</var> syntax instead of a literal OID
+  value.</p>
+<p class="Pp">The section referred to must include the policy OID using the name
+    <code class="Ic">policyIdentifier</code>. <code class="Ic">CPSuri</code>
+    qualifiers can be included using the syntax:</p>
+<p class="Pp"></p>
+<div class="Bd
+  Bd-indent"><code class="Ic">CPS</code>.<var class="Ar">nnn</var>=<var class="Ar">value</var></div>
+<p class="Pp"><code class="Ic">userNotice</code> qualifiers can be set using the
+    syntax:</p>
+<p class="Pp"></p>
+<div class="Bd
+  Bd-indent"><code class="Ic">userNotice</code>.<var class="Ar">nnn</var>=@<var class="Ar">notice</var></div>
+<p class="Pp">The value of the <code class="Ic">userNotice</code> qualifier is
+    specified in the relevant section. This section can include
+    <code class="Ic">explicitText</code>, <code class="Ic">organization</code>,
+    and <code class="Ic">noticeNumbers</code> options.
+    <code class="Ic">explicitText</code> and
+    <code class="Ic">organization</code> are text strings, and
+    <code class="Ic">noticeNumbers</code> is a comma separated list of numbers.
+    The <code class="Ic">organization</code> and
+    <code class="Ic">noticeNumbers</code> options (if included) must
+    <i class="Em">both</i> be present. If you use the
+    <code class="Ic">userNotice</code> option with IE5 then you need the
+    <code class="Ic">ia5org</code> option at the top level to modify the
+    encoding: otherwise it will not be interpreted properly. Example:</p>
+<div class="Bd Pp Bd-indent">
+<pre>
+certificatePolicies=ia5org,1.2.3.4,1.5.6.7.8,@polsect
+
+[polsect]
+policyIdentifier = 1.3.5.8
+CPS.1=&quot;http://my.host.name/&quot;
+CPS.2=&quot;http://my.your.name/&quot;
+userNotice.1=@notice
+
+[notice]
+explicitText=&quot;Explicit Text Here&quot;
+organization=&quot;Organisation Name&quot;
+noticeNumbers=1,2,3,4
+</pre>
+</div>
+<p class="Pp">The <code class="Ic">ia5org</code> option changes the type of the
+    <code class="Ic">organization</code> field. In RFC 2459, it can only be of
+    type <var class="Vt">DisplayText</var>. In RFC 3280,
+    <var class="Vt">IA5String</var> is also permissible. Some software (for
+    example some versions of MSIE) may require
+  <code class="Ic">ia5org</code>.</p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Policy_constraints"><a class="permalink" href="#Policy_constraints">Policy
+  constraints</a></h2>
+This is a multi-valued extension which consists of the names
+  <code class="Ic">requireExplicitPolicy</code> or
+  <code class="Ic">inhibitPolicyMapping</code> and a non-negative integer value.
+  At least one component must be present. Example:
+<p class="Pp"></p>
+<div class="Bd Bd-indent"><code class="Li">policyConstraints =
+  requireExplicitPolicy:3</code></div>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Inhibit_any_policy"><a class="permalink" href="#Inhibit_any_policy">Inhibit
+  any policy</a></h2>
+This is a string extension whose value must be a non-negative integer. Example:
+<p class="Pp"></p>
+<div class="Bd Bd-indent"><code class="Li">inhibitAnyPolicy = 2</code></div>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Name_constraints"><a class="permalink" href="#Name_constraints">Name
+  constraints</a></h2>
+The name constraints extension is a multi-valued extension. The name should
+  begin with the word <code class="Cm">permitted</code> or
+  <code class="Cm">excluded</code>, followed by a semicolon. The rest of the
+  name and the value follows the syntax of subjectAltName except
+  <code class="Ic">email</code>:<code class="Cm">copy</code> is not supported
+  and the <code class="Ic">IP</code> form should consist of an IP addresses and
+  subnet mask separated by a slash. Examples:
+<div class="Bd Pp Bd-indent">
+<pre>
+nameConstraints=permitted;IP:192.168.0.0/255.255.0.0
+nameConstraints=permitted;email:.somedomain.com
+nameConstraints=excluded;email:.com
+</pre>
+</div>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="OCSP_no_check"><a class="permalink" href="#OCSP_no_check">OCSP
+  no check</a></h2>
+The OCSP no check extension is a string extension, but its value is ignored.
+  Example:
+<p class="Pp"></p>
+<div class="Bd Bd-indent"><code class="Li">noCheck = ignored</code></div>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="TLS_Feature_(aka_must_staple)"><a class="permalink" href="#TLS_Feature_(aka_must_staple)">TLS
+  Feature (aka must staple)</a></h2>
+This is a multi-valued extension consisting of a list of TLS extension
+  identifiers. Each identifier may be a number in the range from 0 to 65535 or a
+  supported name. When a TLS client sends a listed extension, the TLS server is
+  expected to include that extension in its reply.
+<p class="Pp">The supported names are: <code class="Cm">status_request</code>
+    and <code class="Cm">status_request_v2</code>. Example:</p>
+<p class="Pp"></p>
+<div class="Bd Bd-indent"><code class="Li">tlsfeature =
+  status_request</code></div>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DEPRECATED_EXTENSIONS"><a class="permalink" href="#DEPRECATED_EXTENSIONS">DEPRECATED
+  EXTENSIONS</a></h1>
+The following extensions are non-standard, Netscape specific and largely
+  obsolete. Their use in new applications is discouraged.
+<section class="Ss">
+<h2 class="Ss" id="Netscape_string_extensions"><a class="permalink" href="#Netscape_string_extensions">Netscape
+  string extensions</a></h2>
+Netscape comment (<code class="Ic">nsComment</code>) is a string extension
+  containing a comment which will be displayed when the certificate is viewed in
+  some browsers. Example:
+<p class="Pp"></p>
+<div class="Bd Bd-indent"><code class="Li">nsComment = Some Random
+  Comment</code></div>
+<p class="Pp">Other supported extensions in this category are:
+    <code class="Ic">nsBaseUrl</code>, <code class="Ic">nsRevocationUrl</code>,
+    <code class="Ic">nsCaRevocationUrl</code>,
+    <code class="Ic">nsRenewalUrl</code>, <code class="Ic">nsCaPolicyUrl</code>,
+    and <code class="Ic">nsSslServerName</code>.</p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Netscape_certificate_type"><a class="permalink" href="#Netscape_certificate_type">Netscape
+  certificate type</a></h2>
+This is a multi-valued extensions which consists of a list of flags to be
+  included. It was used to indicate the purposes for which a certificate could
+  be used. The <code class="Ic">basicConstraints</code>,
+  <code class="Ic">keyUsage</code>, and extended key usage extensions are now
+  used instead.
+<p class="Pp">Acceptable values for <code class="Ic">nsCertType</code> are:
+    <code class="Cm">client</code>, <code class="Cm">server</code>,
+    <code class="Cm">email</code>, <code class="Cm">objsign</code>,
+    <code class="Cm">reserved</code>, <code class="Cm">sslCA</code>,
+    <code class="Cm">emailCA</code>, <code class="Cm">objCA</code>.</p>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ARBITRARY_EXTENSIONS"><a class="permalink" href="#ARBITRARY_EXTENSIONS">ARBITRARY
+  EXTENSIONS</a></h1>
+If an extension is not supported by the OpenSSL code, then it must be encoded
+  using the arbitrary extension format. It is also possible to use the arbitrary
+  format for supported extensions. Extreme care should be taken to ensure that
+  the data is formatted correctly for the given extension type.
+<p class="Pp">There are two ways to encode arbitrary extensions.</p>
+<p class="Pp">The first way is to use the word <code class="Cm">ASN1</code>
+    followed by the extension content using the same syntax as
+    <a class="Xr" href="../man3/ASN1_generate_nconf.3.html">ASN1_generate_nconf(3)</a>.
+    For example:</p>
+<div class="Bd Pp Bd-indent">
+<pre>
+1.2.3.4=critical,ASN1:UTF8String:Some random data
+1.2.3.4=ASN1:SEQUENCE:seq_sect
+
+[seq_sect]
+field1 = UTF8:field1
+field2 = UTF8:field2
+</pre>
+</div>
+<p class="Pp">It is also possible to use the word <code class="Cm">DER</code> to
+    include the raw encoded data in any extension.</p>
+<div class="Bd Pp Bd-indent">
+<pre>
+1.2.3.4=critical,DER:01:02:03:04
+1.2.3.4=DER:01020304
+</pre>
+</div>
+<p class="Pp">The value following <code class="Cm">DER</code> is a hex dump of
+    the DER encoding of the extension. Any extension can be placed in this form
+    to override the default behaviour. For example:</p>
+<p class="Pp"></p>
+<div class="Bd
+  Bd-indent"><code class="Li">basicConstraints=critical,DER:00:01:02:03</code></div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="FILES"><a class="permalink" href="#FILES">FILES</a></h1>
+<dl class="Bl-tag Bl-compact">
+  <dt><span class="Pa">/etc/ssl/x509v3.cnf</span></dt>
+  <dd>standard configuration file</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<a class="Xr" href="../man1/openssl.1.html">openssl(1)</a>,
+  <a class="Xr" href="../man3/ASN1_generate_nconf.3.html">ASN1_generate_nconf(3)</a>,
+  <a class="Xr" href="../man3/OPENSSL_config.3.html">OPENSSL_config(3)</a>,
+  <a class="Xr" href="../man5/openssl.cnf.5.html">openssl.cnf(5)</a>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="HISTORY"><a class="permalink" href="#HISTORY">HISTORY</a></h1>
+X509v3 extension code was first added to OpenSSL 0.9.2.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CAVEATS"><a class="permalink" href="#CAVEATS">CAVEATS</a></h1>
+There is no guarantee that a specific implementation will process a given
+  extension. It may therefore sometimes be possible to use certificates for
+  purposes prohibited by their extensions because a specific application does
+  not recognize or honour the values of the relevant extensions.
+<p class="Pp">The <code class="Cm">DER</code> and <code class="Cm">ASN1</code>
+    options should be used with caution. It is possible to create totally
+    invalid extensions if they are not used carefully.</p>
+<p class="Pp">If an extension is multi-value and a field value must contain a
+    comma, the long form must be used. Otherwise the comma would be
+    misinterpreted as a field separator. For example,</p>
+<p class="Pp"></p>
+<div class="Bd
+  Bd-indent"><code class="Li">subjectAltName=URI:ldap://somehost.com/CN=foo,OU=bar</code></div>
+<p class="Pp">will produce an error, but the following form is valid:</p>
+<div class="Bd Pp Bd-indent">
+<pre>
+subjectAltName=@subject_alt_section
+
+[subject_alt_section]
+subjectAltName=URI:ldap://somehost.com/CN=foo,OU=bar
+</pre>
+</div>
+<p class="Pp">Due to the behaviour of the OpenSSL CONF library, the same field
+    name can only occur once in a section. That means that</p>
+<div class="Bd Pp Bd-indent">
+<pre>
+subjectAltName=@alt_section
+
+[alt_section]
+email=steve@here
+email=steve@there
+</pre>
+</div>
+<p class="Pp">will only use the last value. This can be worked around by using
+    the form:</p>
+<div class="Bd Pp Bd-indent">
+<pre>
+[alt_section]
+email.1=steve@here
+email.2=steve@there
+</pre>
+</div>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">June 6, 2019</td>
+    <td class="foot-os">Fidelix 0.1</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

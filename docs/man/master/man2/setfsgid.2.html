@@ -1,0 +1,137 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/setfsgid.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">SETFSGID(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">SETFSGID(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+setfsgid - set group identity used for filesystem checks
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>#include &lt;sys/fsuid.h&gt;</b>
+<p class="Pp"><b>int setfsgid(uid_t </b><i>fsgid</i><b>);</b></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+On Linux, a process has both a filesystem group ID and an effective group ID.
+  The (Linux-specific) filesystem group ID is used for permissions checking when
+  accessing filesystem objects, while the effective group ID is used for some
+  other kinds of permissions checks (see <b>credentials</b>(7)).
+<p class="Pp">Normally, the value of the process's filesystem group ID is the
+    same as the value of its effective group ID. This is so, because whenever a
+    process's effective group ID is changed, the kernel also changes the
+    filesystem group ID to be the same as the new value of the effective group
+    ID. A process can cause the value of its filesystem group ID to diverge from
+    its effective group ID by using <b>setfsgid</b>() to change its filesystem
+    group ID to the value given in <i>fsgid</i>.</p>
+<p class="Pp"><b>setfsgid</b>() will succeed only if the caller is the superuser
+    or if <i>fsgid</i> matches either the caller's real group ID, effective
+    group ID, saved set-group-ID, or current the filesystem user ID.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On both success and failure, this call returns the previous filesystem group ID
+  of the caller.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="VERSIONS"><a class="permalink" href="#VERSIONS">VERSIONS</a></h1>
+This system call is present in Linux since version 1.2.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+<b>setfsgid</b>() is Linux-specific and should not be used in programs intended
+  to be portable.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+The filesystem group ID concept and the <b>setfsgid</b>() system call were
+  invented for historical reasons that are no longer applicable on modern Linux
+  kernels. See <b>setfsuid</b>(2) for a discussion of why the use of both
+  <b>setfsuid</b>(2) and <b>setfsgid</b>() is nowadays unneeded.
+<p class="Pp">The original Linux <b>setfsgid</b>() system call supported only
+    16-bit group IDs. Subsequently, Linux 2.4 added <b>setfsgid32</b>()
+    supporting 32-bit IDs. The glibc <b>setfsgid</b>() wrapper function
+    transparently deals with the variation across kernel versions.</p>
+<section class="Ss">
+<h2 class="Ss" id="C_library/kernel_differences"><a class="permalink" href="#C_library/kernel_differences">C
+  library/kernel differences</a></h2>
+In glibc 2.15 and earlier, when the wrapper for this system call determines that
+  the argument can't be passed to the kernel without integer truncation (because
+  the kernel is old and does not support 32-bit group IDs), it will return -1
+  and set <i>errno</i> to <b>EINVAL</b> without attempting the system call.
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="BUGS"><a class="permalink" href="#BUGS">BUGS</a></h1>
+No error indications of any kind are returned to the caller, and the fact that
+  both successful and unsuccessful calls return the same value makes it
+  impossible to directly determine whether the call succeeded or failed.
+  Instead, the caller must resort to looking at the return value from a further
+  call such as <i>setfsgid(-1)</i> (which will always fail), in order to
+  determine if a preceding call to <b>setfsgid</b>() changed the filesystem
+  group ID. At the very least, <b>EPERM</b> should be returned when the call
+  fails (because the caller lacks the <b>CAP_SETGID</b> capability).
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>kill</b>(2), <b>setfsuid</b>(2), <b>capabilities</b>(7),
+  <b>credentials</b>(7)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-05-09</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

@@ -1,0 +1,261 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/io_submit.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">IO_SUBMIT(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">IO_SUBMIT(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+io_submit - submit asynchronous I/O blocks for processing
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>#include &lt;linux/aio_abi.h&gt;</b>          /* Defines needed types */
+</pre>
+<pre>
+<b>int io_submit(aio_context_t </b><i>ctx_id</i><b>, long </b><i>nr</i><b>, struct iocb **</b><i>iocbpp</i><b>);</b>
+</pre>
+<p class="Pp"><i>Note</i>: There is no glibc wrapper for this system call; see
+    NOTES.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+The <b>io_submit</b>() system call queues <i>nr</i> I/O request blocks for
+  processing in the AIO context <i>ctx_id</i>. The <i>iocbpp</i> argument should
+  be an array of <i>nr</i> AIO control blocks, which will be submitted to
+  context <i>ctx_id</i>.
+<p class="Pp">The <i>iocb</i> (I/O control block) structure defined in
+    <i>linux/aio_abi.h</i> defines the parameters that control the I/O
+    operation.</p>
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+#include &lt;linux/aio_abi.h&gt;
+struct iocb {
+    __u64   aio_data;
+    __u32   PADDED(aio_key, aio_rw_flags);
+    __u16   aio_lio_opcode;
+    __s16   aio_reqprio;
+    __u32   aio_fildes;
+    __u64   aio_buf;
+    __u64   aio_nbytes;
+    __s64   aio_offset;
+    __u64   aio_reserved2;
+    __u32   aio_flags;
+    __u32   aio_resfd;
+};
+
+</pre>
+<br/>
+<p class="Pp">The fields of this structure are as follows:</p>
+<dl class="Bl-tag">
+  <dt><i>aio_data</i></dt>
+  <dd>This data is copied into the <i>data</i> field of the <i>io_event</i>
+      structure upon I/O completion (see <b>io_getevents</b>(2)).</dd>
+  <dt><i>aio_key</i></dt>
+  <dd>This is an internal field used by the kernel. Do not modify this field
+      after an <b>io_submit</b>() call.</dd>
+  <dt><i>aio_rw_flags</i></dt>
+  <dd>This defines the R/W flags passed with structure. The valid values
+    are:</dd>
+</dl>
+<div class="Bd-indent">
+<dl class="Bl-tag">
+  <dt><b>RWF_APPEND</b> (since Linux 4.16)</dt>
+  <dd>Append data to the end of the file. See the description of the flag of the
+      same name in <b>pwritev2</b>(2) as well as the description of
+      <b>O_APPEND</b> in <b>open</b>(2). The <i>aio_offset</i> field is ignored.
+      The file offset is not changed.</dd>
+  <dt><b>RWF_DSYNC</b> (since Linux 4.13)</dt>
+  <dd>Write operation complete according to requirement of synchronized I/O data
+      integrity. See the description of the flag of the same name in
+      <b>pwritev2</b>(2) as well the description of <b>O_DSYNC</b> in
+      <b>open</b>(2).</dd>
+  <dt><b>RWF_HIPRI</b> (since Linux 4.13)</dt>
+  <dd>High priority request, poll if possible</dd>
+  <dt><b>RWF_NOWAIT</b> (since Linux 4.14)</dt>
+  <dd>Don't wait if the I/O will block for operations such as file block
+      allocations, dirty page flush, mutex locks, or a congested block device
+      inside the kernel. If any of these conditions are met, the control block
+      is returned immediately with a return value of <b>-EAGAIN</b> in the
+      <i>res</i> field of the <i>io_event</i> structure (see
+      <b>io_getevents</b>(2)).</dd>
+  <dt><b>RWF_SYNC</b> (since Linux 4.13)</dt>
+  <dd>Write operation complete according to requirement of synchronized I/O file
+      integrity. See the description of the flag of the same name in
+      <b>pwritev2</b>(2) as well the description of <b>O_SYNC</b> in
+      <b>open</b>(2).</dd>
+</dl>
+</div>
+<dl class="Bl-tag">
+  <dt><i>aio_lio_opcode</i></dt>
+  <dd>This defines the type of I/O to be performed by the <i>iocb</i> structure.
+      The valid values are defined by the enum defined in
+      <i>linux/aio_abi.h</i>:</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>
+    <br/>
+    <pre>
+enum {
+    IOCB_CMD_PREAD = 0,
+    IOCB_CMD_PWRITE = 1,
+    IOCB_CMD_FSYNC = 2,
+    IOCB_CMD_FDSYNC = 3,
+    IOCB_CMD_NOOP = 6,
+    IOCB_CMD_PREADV = 7,
+    IOCB_CMD_PWRITEV = 8,
+};
+
+    </pre>
+    <br/>
+  </dd>
+</dl>
+<dl class="Bl-tag">
+  <dt><i>aio_reqprio</i></dt>
+  <dd>This defines the requests priority.</dd>
+  <dt><i>aio_fildes</i></dt>
+  <dd>The file descriptor on which the I/O operation is to be performed.</dd>
+  <dt><i>aio_buf</i></dt>
+  <dd>This is the buffer used to transfer data for a read or write
+    operation.</dd>
+  <dt><i>aio_nbytes</i></dt>
+  <dd>This is the size of the buffer pointed to by <i>aio_buf</i>.</dd>
+  <dt><i>aio_offset</i></dt>
+  <dd>This is the file offset at which the I/O operation is to be
+    performed.</dd>
+  <dt><i>aio_flags</i></dt>
+  <dd>This is the set of flags associated with the <i>iocb</i> structure. The
+      valid values are:</dd>
+</dl>
+<div class="Bd-indent">
+<dl class="Bl-tag">
+  <dt><b>IOCB_FLAG_RESFD</b></dt>
+  <dd>Asynchronous I/O control must signal the file descriptor mentioned in
+      <i>aio_resfd</i> upon completion.</dd>
+  <dt><b>IOCB_FLAG_IOPRIO</b> (since Linux 4.18)</dt>
+  <dd>Interpret the <i>aio_reqprio</i> field as an <b>IOPRIO_VALUE</b> as
+      defined by <i>linux/ioprio.h</i>.</dd>
+</dl>
+</div>
+<dl class="Bl-tag">
+  <dt><i>aio_resfd</i></dt>
+  <dd>The file descriptor to signal in the event of asynchronous I/O
+    completion.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, <b>io_submit</b>() returns the number of <i>iocb</i>s submitted
+  (which may be less than <i>nr</i>, or 0 if <i>nr</i> is zero). For the failure
+  return, see NOTES.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EAGAIN</b></dt>
+  <dd>Insufficient resources are available to queue any <i>iocb</i>s.</dd>
+  <dt><b>EBADF</b></dt>
+  <dd>The file descriptor specified in the first <i>iocb</i> is invalid.</dd>
+  <dt><b>EFAULT</b></dt>
+  <dd>One of the data structures points to invalid data.</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd>The AIO context specified by <i>ctx_id</i> is invalid. <i>nr</i> is less
+      than 0. The <i>iocb</i> at <i>*iocbpp[0]</i> is not properly initialized,
+      the operation specified is invalid for the file descriptor in the
+      <i>iocb</i>, or the value in the <i>aio_reqprio</i> field is invalid.</dd>
+  <dt><b>ENOSYS</b></dt>
+  <dd><b>io_submit</b>() is not implemented on this architecture.</dd>
+  <dt><b>EPERM</b></dt>
+  <dd>The <i>aio_reqprio</i> field is set with the class <b>IOPRIO_CLASS_RT</b>,
+      but the submitting context does not have the <b>CAP_SYS_ADMIN</b>
+      capability.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="VERSIONS"><a class="permalink" href="#VERSIONS">VERSIONS</a></h1>
+The asynchronous I/O system calls first appeared in Linux 2.5.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+<b>io_submit</b>() is Linux-specific and should not be used in programs that are
+  intended to be portable.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+Glibc does not provide a wrapper function for this system call. You could invoke
+  it using <b>syscall</b>(2). But instead, you probably want to use the
+  <b>io_submit</b>() wrapper function provided by <i>libaio</i>.
+<p class="Pp">Note that the <i>libaio</i> wrapper function uses a different type
+    (<i>io_context_t</i>) for the <i>ctx_id</i> argument. Note also that the
+    <i>libaio</i> wrapper does not follow the usual C library conventions for
+    indicating errors: on error it returns a negated error number (the negative
+    of one of the values listed in ERRORS). If the system call is invoked via
+    <b>syscall</b>(2), then the return value follows the usual conventions for
+    indicating an error: -1, with <i>errno</i> set to a (positive) value that
+    indicates the error.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>io_cancel</b>(2), <b>io_destroy</b>(2), <b>io_getevents</b>(2),
+  <b>io_setup</b>(2), <b>aio</b>(7)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-10-10</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

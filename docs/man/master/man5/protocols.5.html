@@ -1,0 +1,104 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man5/protocols.5</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">PROTOCOLS(5)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">PROTOCOLS(5)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+protocols - protocols definition file
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+This file is a plain ASCII file, describing the various DARPA internet protocols
+  that are available from the TCP/IP subsystem. It should be consulted instead
+  of using the numbers in the ARPA include files, or, even worse, just guessing
+  them. These numbers will occur in the protocol field of any IP header.
+<p class="Pp">Keep this file untouched since changes would result in incorrect
+    IP packages. Protocol numbers and names are specified by the IANA (Internet
+    Assigned Numbers Authority).</p>
+<p class="Pp">Each line is of the following format:</p>
+<p class="Pp"></p>
+<div class="Bd-indent"><i>protocol number aliases ...</i></div>
+<p class="Pp">where the fields are delimited by spaces or tabs. Empty lines are
+    ignored. If a line contains a hash mark (#), the hash mark and the part of
+    the line following it are ignored.</p>
+<p class="Pp">The field descriptions are:</p>
+<dl class="Bl-tag">
+  <dt><i>protocol</i></dt>
+  <dd>the native name for the protocol. For example <i>ip</i>, <i>tcp</i>, or
+      <i>udp</i>.</dd>
+  <dt><i>number</i></dt>
+  <dd>the official number for this protocol as it will appear within the IP
+      header.</dd>
+  <dt><i>aliases</i></dt>
+  <dd>optional aliases for the protocol.</dd>
+</dl>
+<p class="Pp">This file might be distributed over a network using a network-wide
+    naming service like Yellow Pages/NIS or BIND/Hesiod.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="FILES"><a class="permalink" href="#FILES">FILES</a></h1>
+<dl class="Bl-tag">
+  <dt><i>/etc/protocols</i></dt>
+  <dd>The protocols definition file.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>getprotoent</b>(3)
+<p class="Pp"><a class="Lk" href="http://www.iana.org/assignments/protocol-numbers">http://www.iana.org/assignments/protocol-numbers</a></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2012-08-05</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

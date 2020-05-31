@@ -13,6 +13,18 @@ body {
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
 
+.thin_column {
+	width: 95%;
+	column-width: 250px;
+	column-span: 1;
+}
+
+.footer {
+	text-align: center;
+	border-top-style: solid;
+	border-color: lightblue;
+}
+
 .menubar {
 	width: 100%;
 	color: #ffcf5c;
@@ -81,10 +93,19 @@ body {
 	display: block;
 }
 
+.post {
+	padding: 10px;
+	margin: 10px;
+	border-bottom-style: solid;
+	border-color: lightblue;
+	list-style-type: none;
+}
+
 h1, h2, h3, h4, h5, h6 {
 	color: #102a6f;
+	padding: 10px;
+	margin: 0;
 	font-weight: bold;
-	text-align: center;
 	font-size: 24px;
 	font-family: Helvetica;
 }
@@ -111,6 +132,15 @@ h6 {
 
 p {
 	margin: 10px;
+	color: #102a6f;
+	font-family: Helvetica;
+}
+
+a {
+	display: inline;
+}
+
+* {
 	color: #102a6f;
 	font-family: Helvetica;
 }

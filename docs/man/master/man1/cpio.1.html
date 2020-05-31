@@ -1,0 +1,106 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/cpio.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">CPIO(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">CPIO(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+cpio - manual page for cpio 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>cpio</b> [<i>-dmvu</i>] [<i>-F FILE</i>] [<i>-R USER</i>[<i>:GRP</i>]] [<i>-H
+  newc</i>] [<i>-tio</i>] [<i>-p DIR</i>] [<i>EXTR_FILE</i>]...
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">Extract (<b>-i</b>) or list (<b>-t</b>) files from a cpio archive,
+    or take file list from stdin and create an archive (<b>-o</b>) or copy files
+    (<b>-p</b>)</p>
+<section class="Ss">
+<h2 class="Ss" id="Main_operation_mode:"><a class="permalink" href="#Main_operation_mode:">Main
+  operation mode:</a></h2>
+<dl class="Bl-tag">
+  <dt><b>-t</b></dt>
+  <dd>List</dd>
+  <dt><b>-i</b></dt>
+  <dd>Extract EXTR_FILEs (or all)</dd>
+  <dt><b>-o</b></dt>
+  <dd>Create (requires <b>-H</b> newc)</dd>
+  <dt><b>-p</b> DIR</dt>
+  <dd>Copy files to DIR</dd>
+</dl>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+<p class="Pp HP"><b>-H</b> newc Archive format</p>
+<dl class="Bl-tag">
+  <dt><b>-d</b></dt>
+  <dd>Make leading directories</dd>
+  <dt><b>-m</b></dt>
+  <dd>Preserve mtime</dd>
+  <dt><b>-v</b></dt>
+  <dd>Verbose</dd>
+  <dt><b>-u</b></dt>
+  <dd>Overwrite</dd>
+</dl>
+<p class="Pp HP"><b>-F</b> FILE Input (<b>-t</b>,-i,-p) or output (<b>-o</b>)
+    file</p>
+<dl class="Bl-tag">
+  <dt><b>-R</b> USER[:GRP]</dt>
+  <dd>Set owner of created files</dd>
+  <dt><b>-L</b></dt>
+  <dd>Dereference symlinks</dd>
+  <dt><b>-0</b></dt>
+  <dd>Input is separated by NULs</dd>
+</dl>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

@@ -1,0 +1,84 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/makedevs.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">MAKEDEVS(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">MAKEDEVS(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+makedevs - manual page for makedevs 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>makedevs</b> [<i>-d device_table</i>] <i>rootdir</i>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">Create a range of special files as specified in a device table.
+    Device table entries take the form of: &lt;name&gt; &lt;type&gt;
+    &lt;mode&gt; &lt;uid&gt; &lt;gid&gt; &lt;major&gt; &lt;minor&gt;
+    &lt;start&gt; &lt;inc&gt; &lt;count&gt; Where name is the file name, type
+    can be one of:</p>
+<dl class="Bl-tag">
+  <dt>f</dt>
+  <dd>Regular file</dd>
+  <dt>d</dt>
+  <dd>Directory</dd>
+  <dt>c</dt>
+  <dd>Character device</dd>
+  <dt>b</dt>
+  <dd>Block device</dd>
+  <dt>p</dt>
+  <dd>Fifo (named pipe)</dd>
+</dl>
+<p class="Pp">uid is the user id for the target file, gid is the group id for
+    the target file. The rest of the entries (major, minor, etc) apply to to
+    device special files. A '-' may be used for blank entries.</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

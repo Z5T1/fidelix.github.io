@@ -1,0 +1,240 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/bind.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">BIND(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">BIND(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+bind - bind a name to a socket
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>#include &lt;sys/types.h&gt;</b>          /* See NOTES */
+<b>#include &lt;sys/socket.h&gt;</b>
+</pre>
+<pre>
+<b>int bind(int </b><i>sockfd</i><b>, const struct sockaddr *</b><i>addr</i><b>,</b>
+<b>         socklen_t </b><i>addrlen</i><b>);</b>
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+When a socket is created with <b>socket</b>(2), it exists in a name space
+  (address family) but has no address assigned to it. <b>bind</b>() assigns the
+  address specified by <i>addr</i> to the socket referred to by the file
+  descriptor <i>sockfd</i>. <i>addrlen</i> specifies the size, in bytes, of the
+  address structure pointed to by <i>addr</i>. Traditionally, this operation is
+  called &#x201C;assigning a name to a socket&#x201D;.
+<p class="Pp">It is normally necessary to assign a local address using
+    <b>bind</b>() before a <b>SOCK_STREAM</b> socket may receive connections
+    (see <b>accept</b>(2)).</p>
+<p class="Pp">The rules used in name binding vary between address families.
+    Consult the manual entries in Section 7 for detailed information. For
+    <b>AF_INET</b>, see <b>ip</b>(7); for <b>AF_INET6</b>, see <b>ipv6</b>(7);
+    for <b>AF_UNIX</b>, see <b>unix</b>(7); for <b>AF_APPLETALK</b>, see
+    <b>ddp</b>(7); for <b>AF_PACKET</b>, see <b>packet</b>(7); for
+    <b>AF_X25</b>, see <b>x25</b>(7); and for <b>AF_NETLINK</b>, see
+    <b>netlink</b>(7).</p>
+<p class="Pp">The actual structure passed for the <i>addr</i> argument will
+    depend on the address family. The <i>sockaddr</i> structure is defined as
+    something like:</p>
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+struct sockaddr {
+    sa_family_t sa_family;
+    char        sa_data[14];
+}
+
+</pre>
+<br/>
+<p class="Pp">The only purpose of this structure is to cast the structure
+    pointer passed in <i>addr</i> in order to avoid compiler warnings. See
+    EXAMPLE below.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, zero is returned. On error, -1 is returned, and <i>errno</i> is set
+  appropriately.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EACCES</b></dt>
+  <dd>The address is protected, and the user is not the superuser.</dd>
+  <dt><b>EADDRINUSE</b></dt>
+  <dd>The given address is already in use.</dd>
+  <dt><b>EADDRINUSE</b></dt>
+  <dd>(Internet domain sockets) The port number was specified as zero in the
+      socket address structure, but, upon attempting to bind to an ephemeral
+      port, it was determined that all port numbers in the ephemeral port range
+      are currently in use. See the discussion of
+      <i>/proc/sys/net/ipv4/ip_local_port_range</i> <b>ip</b>(7).</dd>
+  <dt><b>EBADF</b></dt>
+  <dd><i>sockfd</i> is not a valid file descriptor.</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd>The socket is already bound to an address.</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd><i>addrlen</i> is wrong, or <i>addr</i> is not a valid address for this
+      socket's domain.</dd>
+  <dt><b>ENOTSOCK</b></dt>
+  <dd>The file descriptor <i>sockfd</i> does not refer to a socket.</dd>
+</dl>
+<p class="Pp">The following errors are specific to UNIX domain (<b>AF_UNIX</b>)
+    sockets:</p>
+<dl class="Bl-tag">
+  <dt><b>EACCES</b></dt>
+  <dd>Search permission is denied on a component of the path prefix. (See also
+      <b>path_resolution</b>(7).)</dd>
+  <dt><b>EADDRNOTAVAIL</b></dt>
+  <dd>A nonexistent interface was requested or the requested address was not
+      local.</dd>
+  <dt><b>EFAULT</b></dt>
+  <dd><i>addr</i> points outside the user's accessible address space.</dd>
+  <dt><b>ELOOP</b></dt>
+  <dd>Too many symbolic links were encountered in resolving <i>addr</i>.</dd>
+  <dt><b>ENAMETOOLONG</b></dt>
+  <dd><i>addr</i> is too long.</dd>
+  <dt><b>ENOENT</b></dt>
+  <dd>A component in the directory prefix of the socket pathname does not
+    exist.</dd>
+  <dt><b>ENOMEM</b></dt>
+  <dd>Insufficient kernel memory was available.</dd>
+  <dt><b>ENOTDIR</b></dt>
+  <dd>A component of the path prefix is not a directory.</dd>
+  <dt><b>EROFS</b></dt>
+  <dd>The socket inode would reside on a read-only filesystem.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+POSIX.1-2001, POSIX.1-2008, SVr4, 4.4BSD (<b>bind</b>() first appeared in
+  4.2BSD).
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+POSIX.1 does not require the inclusion of <i>&lt;sys/types.h&gt;</i>, and this
+  header file is not required on Linux. However, some historical (BSD)
+  implementations required this header file, and portable applications are
+  probably wise to include it.
+<p class="Pp">For background on the <i>socklen_t</i> type, see
+  <b>accept</b>(2).</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="BUGS"><a class="permalink" href="#BUGS">BUGS</a></h1>
+The transparent proxy options are not described.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXAMPLE"><a class="permalink" href="#EXAMPLE">EXAMPLE</a></h1>
+An example of the use of <b>bind</b>() with Internet domain sockets can be found
+  in <b>getaddrinfo</b>(3).
+<p class="Pp">The following example shows how to bind a stream socket in the
+    UNIX (<b>AF_UNIX</b>) domain, and accept connections:</p>
+<p class="Pp"></p>
+<pre>
+#include &lt;sys/socket.h&gt;
+#include &lt;sys/un.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#define MY_SOCK_PATH &quot;/somepath&quot;
+#define LISTEN_BACKLOG 50
+#define handle_error(msg) \
+    do { perror(msg); exit(EXIT_FAILURE); } while (0)
+int
+main(int argc, char *argv[])
+{
+    int sfd, cfd;
+    struct sockaddr_un my_addr, peer_addr;
+    socklen_t peer_addr_size;
+    sfd = socket(AF_UNIX, SOCK_STREAM, 0);
+    if (sfd == -1)
+        handle_error(&quot;socket&quot;);
+    memset(&amp;my_addr, 0, sizeof(struct sockaddr_un));
+                        /* Clear structure */
+    my_addr.sun_family = AF_UNIX;
+    strncpy(my_addr.sun_path, MY_SOCK_PATH,
+            sizeof(my_addr.sun_path) - 1);
+    if (bind(sfd, (struct sockaddr *) &amp;my_addr,
+            sizeof(struct sockaddr_un)) == -1)
+        handle_error(&quot;bind&quot;);
+    if (listen(sfd, LISTEN_BACKLOG) == -1)
+        handle_error(&quot;listen&quot;);
+    /* Now we can accept incoming connections one
+       at a time using accept(2) */
+    peer_addr_size = sizeof(struct sockaddr_un);
+    cfd = accept(sfd, (struct sockaddr *) &amp;peer_addr,
+                 &amp;peer_addr_size);
+    if (cfd == -1)
+        handle_error(&quot;accept&quot;);
+    /* Code to deal with incoming connection(s)... */
+    /* When no longer required, the socket pathname, MY_SOCK_PATH
+       should be deleted using unlink(2) or remove(3) */
+}
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>accept</b>(2), <b>connect</b>(2), <b>getsockname</b>(2), <b>listen</b>(2),
+  <b>socket</b>(2), <b>getaddrinfo</b>(3), <b>getifaddrs</b>(3), <b>ip</b>(7),
+  <b>ipv6</b>(7), <b>path_resolution</b>(7), <b>socket</b>(7), <b>unix</b>(7)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-03-06</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

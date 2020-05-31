@@ -1,0 +1,374 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man4/cciss.4</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">CCISS(4)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">CCISS(4)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+cciss - HP Smart Array block driver
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+modprobe cciss [ cciss_allow_hpsa=1 ]
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>Note</b>: This obsolete driver was removed from the kernel in version 4.14,
+  as it is superseded by the <b>hpsa</b>(4) driver in newer kernels.
+<p class="Pp"><b>cciss</b> is a block driver for older HP Smart Array RAID
+    controllers.</p>
+<section class="Ss">
+<h2 class="Ss" id="Options"><a class="permalink" href="#Options">Options</a></h2>
+<i>cciss_allow_hpsa=1</i>: This option prevents the <b>cciss</b> driver from
+  attempting to drive any controllers that the <b>hpsa</b>(4) driver is capable
+  of controlling, which is to say, the <b>cciss</b> driver is restricted by this
+  option to the following controllers:
+<p class="Pp"></p>
+<pre>
+    Smart Array 5300
+    Smart Array 5i
+    Smart Array 532
+    Smart Array 5312
+    Smart Array 641
+    Smart Array 642
+    Smart Array 6400
+    Smart Array 6400 EM
+    Smart Array 6i
+    Smart Array P600
+    Smart Array P400i
+    Smart Array E200i
+    Smart Array E200
+    Smart Array E200i
+    Smart Array E200i
+    Smart Array E200i
+    Smart Array E500
+</pre>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Supported_hardware"><a class="permalink" href="#Supported_hardware">Supported
+  hardware</a></h2>
+The <b>cciss</b> driver supports the following Smart Array boards:
+<p class="Pp"></p>
+<pre>
+    Smart Array 5300
+    Smart Array 5i
+    Smart Array 532
+    Smart Array 5312
+    Smart Array 641
+    Smart Array 642
+    Smart Array 6400
+    Smart Array 6400 U320 Expansion Module
+    Smart Array 6i
+    Smart Array P600
+    Smart Array P800
+    Smart Array E400
+    Smart Array P400i
+    Smart Array E200
+    Smart Array E200i
+    Smart Array E500
+    Smart Array P700m
+    Smart Array P212
+    Smart Array P410
+    Smart Array P410i
+    Smart Array P411
+    Smart Array P812
+    Smart Array P712m
+    Smart Array P711m
+</pre>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Configuration_details"><a class="permalink" href="#Configuration_details">Configuration
+  details</a></h2>
+To configure HP Smart Array controllers, use the HP Array Configuration Utility
+  (either <b>hpacuxe</b>(8) or <b>hpacucli</b>(8)) or the Offline ROM-based
+  Configuration Utility (ORCA) run from the Smart Array's option ROM at boot
+  time.
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="FILES"><a class="permalink" href="#FILES">FILES</a></h1>
+<section class="Ss">
+<h2 class="Ss" id="Device_nodes"><a class="permalink" href="#Device_nodes">Device
+  nodes</a></h2>
+The device naming scheme is as follows:
+<p class="Pp"></p>
+<pre>
+Major numbers:
+</pre>
+<pre>
+    104     cciss0
+    105     cciss1
+    106     cciss2
+    105     cciss3
+    108     cciss4
+    109     cciss5
+    110     cciss6
+    111     cciss7
+</pre>
+<pre>
+Minor numbers:
+</pre>
+<pre>
+    b7 b6 b5 b4 b3 b2 b1 b0
+    |----+----| |----+----|
+         |           |
+         |           +-------- Partition ID (0=wholedev, 1-15 partition)
+         |
+         +-------------------- Logical Volume number
+</pre>
+<pre>
+The device naming scheme is:
+</pre>
+<pre>
+    /dev/cciss/c0d0         Controller 0, disk 0, whole device
+    /dev/cciss/c0d0p1       Controller 0, disk 0, partition 1
+    /dev/cciss/c0d0p2       Controller 0, disk 0, partition 2
+    /dev/cciss/c0d0p3       Controller 0, disk 0, partition 3
+</pre>
+<pre>
+    /dev/cciss/c1d1         Controller 1, disk 1, whole device
+    /dev/cciss/c1d1p1       Controller 1, disk 1, partition 1
+    /dev/cciss/c1d1p2       Controller 1, disk 1, partition 2
+    /dev/cciss/c1d1p3       Controller 1, disk 1, partition 3
+</pre>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Files_in_/proc"><a class="permalink" href="#Files_in_/proc">Files
+  in /proc</a></h2>
+The files <i>/proc/driver/cciss/cciss[0-9]+</i> contain information about the
+  configuration of each controller. For example:
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+$ <b>cd /proc/driver/cciss</b>
+$ <b>ls -l</b>
+total 0
+-rw-r--r-- 1 root root 0 2010-09-10 10:38 cciss0
+-rw-r--r-- 1 root root 0 2010-09-10 10:38 cciss1
+-rw-r--r-- 1 root root 0 2010-09-10 10:38 cciss2
+$ <b>cat cciss2</b>
+cciss2: HP Smart Array P800 Controller
+Board ID: 0x3223103c
+Firmware Version: 7.14
+IRQ: 16
+Logical drives: 1
+Current Q depth: 0
+Current # commands on controller: 0
+Max Q depth since init: 1
+Max # commands on controller since init: 2
+Max SG entries since init: 32
+Sequential access devices: 0
+cciss/c2d0:   36.38GB       RAID 0
+
+</pre>
+<br/>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Files_in_/sys"><a class="permalink" href="#Files_in_/sys">Files
+  in /sys</a></h2>
+<dl class="Bl-tag">
+  <dt><i>/sys/bus/pci/devices/&lt;dev&gt;/ccissX/cXdY/model</i></dt>
+  <dd>Displays the SCSI INQUIRY page 0 model for logical drive <i>Y</i> of
+      controller <i>X</i>.</dd>
+  <dt><i>/sys/bus/pci/devices/&lt;dev&gt;/ccissX/cXdY/rev</i></dt>
+  <dd>Displays the SCSI INQUIRY page 0 revision for logical drive <i>Y</i> of
+      controller <i>X</i>.</dd>
+  <dt><i>/sys/bus/pci/devices/&lt;dev&gt;/ccissX/cXdY/unique_id</i></dt>
+  <dd>Displays the SCSI INQUIRY page 83 serial number for logical drive <i>Y</i>
+      of controller <i>X</i>.</dd>
+  <dt><i>/sys/bus/pci/devices/&lt;dev&gt;/ccissX/cXdY/vendor</i></dt>
+  <dd>Displays the SCSI INQUIRY page 0 vendor for logical drive <i>Y</i> of
+      controller <i>X</i>.</dd>
+  <dt><i>/sys/bus/pci/devices/&lt;dev&gt;/ccissX/cXdY/block:cciss!cXdY</i></dt>
+  <dd>A symbolic link to <i>/sys/block/cciss!cXdY</i>.</dd>
+  <dt><i>/sys/bus/pci/devices/&lt;dev&gt;/ccissX/rescan</i></dt>
+  <dd>When this file is written to, the driver rescans the controller to
+      discover any new, removed, or modified logical drives.</dd>
+  <dt><i>/sys/bus/pci/devices/&lt;dev&gt;/ccissX/resettable</i></dt>
+  <dd>A value of 1 displayed in this file indicates that the
+      &quot;reset_devices=1&quot; kernel parameter (used by <b>kdump</b>) is
+      honored by this controller. A value of 0 indicates that the
+      &quot;reset_devices=1&quot; kernel parameter will not be honored. Some
+      models of Smart Array are not able to honor this parameter.</dd>
+  <dt><i>/sys/bus/pci/devices/&lt;dev&gt;/ccissX/cXdY/lunid</i></dt>
+  <dd>Displays the 8-byte LUN ID used to address logical drive <i>Y</i> of
+      controller <i>X</i>.</dd>
+  <dt><i>/sys/bus/pci/devices/&lt;dev&gt;/ccissX/cXdY/raid_level</i></dt>
+  <dd>Displays the RAID level of logical drive <i>Y</i> of controller
+    <i>X</i>.</dd>
+  <dt><i>/sys/bus/pci/devices/&lt;dev&gt;/ccissX/cXdY/usage_count</i></dt>
+  <dd>Displays the usage count (number of opens) of logical drive <i>Y</i> of
+      controller <i>X</i>.</dd>
+</dl>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="SCSI_tape_drive_and_medium_changer_support"><a class="permalink" href="#SCSI_tape_drive_and_medium_changer_support">SCSI
+  tape drive and medium changer support</a></h2>
+SCSI sequential access devices and medium changer devices are supported and
+  appropriate device nodes are automatically created (e.g., <i>/dev/st0</i>,
+  <i>/dev/st1</i>, etc.; see <b>st</b>(4) for more details.) You must enable
+  &quot;SCSI tape drive support for Smart Array 5xxx&quot; and &quot;SCSI
+  support&quot; in your kernel configuration to be able to use SCSI tape drives
+  with your Smart Array 5xxx controller.
+<p class="Pp">Additionally, note that the driver will not engage the SCSI core
+    at init time. The driver must be directed to dynamically engage the SCSI
+    core via the <i>/proc</i> filesystem entry, which the &quot;block&quot; side
+    of the driver creates as <i>/proc/driver/cciss/cciss*</i> at run time. This
+    is because at driver init time, the SCSI core may not yet be initialized
+    (because the driver is a block driver) and attempting to register it with
+    the SCSI core in such a case would cause a hang. This is best done via an
+    initialization script (typically in <i>/etc/init.d</i>, but could vary
+    depending on distribution). For example:</p>
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+for x in /proc/driver/cciss/cciss[0-9]*
+do
+    echo &quot;engage scsi&quot; &gt; $x
+done
+
+</pre>
+<br/>
+<p class="Pp">Once the SCSI core is engaged by the driver, it cannot be
+    disengaged (except by unloading the driver, if it happens to be linked as a
+    module.)</p>
+<p class="Pp">Note also that if no sequential access devices or medium changers
+    are detected, the SCSI core will not be engaged by the action of the above
+    script.</p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Hot_plug_support_for_SCSI_tape_drives"><a class="permalink" href="#Hot_plug_support_for_SCSI_tape_drives">Hot
+  plug support for SCSI tape drives</a></h2>
+Hot plugging of SCSI tape drives is supported, with some caveats. The
+  <b>cciss</b> driver must be informed that changes to the SCSI bus have been
+  made. This may be done via the <i>/proc</i> filesystem. For example:
+<p class="Pp">
+   echo &quot;rescan&quot; &gt; /proc/scsi/cciss0/1</p>
+<p class="Pp">This causes the driver to:</p>
+<div class="Bd-indent">
+<dl class="Bl-tag">
+  <dt>1.</dt>
+  <dd>query the adapter about changes to the physical SCSI buses and/or fibre
+      channel arbitrated loop, and</dd>
+  <dt>2.</dt>
+  <dd>make note of any new or removed sequential access devices or medium
+      changers.</dd>
+</dl>
+</div>
+<p class="Pp">The driver will output messages indicating which devices have been
+    added or removed and the controller, bus, target, and lun used to address
+    each device. The driver then notifies the SCSI midlayer of these
+  changes.</p>
+<p class="Pp">Note that the naming convention of the <i>/proc</i> filesystem
+    entries contains a number in addition to the driver name (e.g.,
+    &quot;cciss0&quot; instead of just &quot;cciss&quot;, which you might
+    expect).</p>
+<p class="Pp">Note: <i>Only</i> sequential access devices and medium changers
+    are presented as SCSI devices to the SCSI midlayer by the <b>cciss</b>
+    driver. Specifically, physical SCSI disk drives are <i>not</i> presented to
+    the SCSI midlayer. The only disk devices that are presented to the kernel
+    are logical drives that the array controller constructs from regions on the
+    physical drives. The logical drives are presented to the block layer (not to
+    the SCSI midlayer). It is important for the driver to prevent the kernel
+    from accessing the physical drives directly, since these drives are used by
+    the array controller to construct the logical drives.</p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="SCSI_error_handling_for_tape_drives_and_medium_changers"><a class="permalink" href="#SCSI_error_handling_for_tape_drives_and_medium_changers">SCSI
+  error handling for tape drives and medium changers</a></h2>
+The Linux SCSI midlayer provides an error-handling protocol that is initiated
+  whenever a SCSI command fails to complete within a certain amount of time
+  (which can vary depending on the command). The <b>cciss</b> driver
+  participates in this protocol to some extent. The normal protocol is a
+  four-step process:
+<ul class="Bl-bullet">
+  <li>First, the device is told to abort the command.</li>
+  <li>If that doesn't work, the device is reset.</li>
+  <li>If that doesn't work, the SCSI bus is reset.</li>
+  <li>If that doesn't work, the host bus adapter is reset.</li>
+</ul>
+<p class="Pp">The <b>cciss</b> driver is a block driver as well as a SCSI driver
+    and only the tape drives and medium changers are presented to the SCSI
+    midlayer. Furthermore, unlike more straightforward SCSI drivers, disk I/O
+    continues through the block side during the SCSI error-recovery process.
+    Therefore, the <b>cciss</b> driver implements only the first two of these
+    actions, aborting the command, and resetting the device. Note also that most
+    tape drives will not oblige in aborting commands, and sometimes it appears
+    they will not even obey a reset command, though in most circumstances they
+    will. If the command cannot be aborted and the device cannot be reset, the
+    device will be set offline.</p>
+<p class="Pp">In the event that the error-handling code is triggered and a tape
+    drive is successfully reset or the tardy command is successfully aborted,
+    the tape drive may still not allow I/O to continue until some command is
+    issued that positions the tape to a known position. Typically you must
+    rewind the tape (by issuing <i>mt -f /dev/st0 rewind</i> for example) before
+    I/O can proceed again to a tape drive that was reset.</p>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>hpsa</b>(4), <b>cciss_vol_status</b>(8), <b>hpacucli</b>(8),
+  <b>hpacuxe</b>(8)
+<p class="Pp"><a class="Lk" href="http://cciss.sf.net">http://cciss.sf.net</a>,
+    and <i>Documentation/blockdev/cciss.txt</i> and
+    <i>Documentation/ABI/testing/sysfs-bus-pci-devices-cciss</i> in the Linux
+    kernel source tree</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2017-09-15</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

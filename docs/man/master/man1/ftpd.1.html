@@ -1,0 +1,93 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/ftpd.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">FTPD(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">FTPD(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+ftpd - manual page for ftpd 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>ftpd</b> [<i>-wvS</i>] [<i>-a USER</i>] [<i>-t N</i>] [<i>-T N</i>]
+  [<i>DIR</i>]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">FTP server. Chroots to DIR, if this fails (run by non-root), cds
+    to it. Should be used as inetd service, inetd.conf line:</p>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>21 stream tcp nowait root ftpd ftpd <i>/files/to/serve</i></dd>
+</dl>
+<section class="Ss">
+<h2 class="Ss" id="Can_be_run_from_tcpsvd:"><a class="permalink" href="#Can_be_run_from_tcpsvd:">Can
+  be run from tcpsvd:</a></h2>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>tcpsvd <b>-vE</b> 0.0.0.0 21 ftpd <i>/files/to/serve</i></dd>
+</dl>
+<dl class="Bl-tag">
+  <dt><b>-w</b></dt>
+  <dd>Allow upload</dd>
+  <dt><b>-A</b></dt>
+  <dd>No login required, client access occurs under ftpd's UID</dd>
+</dl>
+<p class="Pp HP"><b>-a</b> USER Enable 'anonymous' login and map it to USER</p>
+<dl class="Bl-tag">
+  <dt><b>-v</b></dt>
+  <dd>Log errors to stderr. <b>-vv</b>: verbose log</dd>
+  <dt><b>-S</b></dt>
+  <dd>Log errors to syslog. <b>-SS</b>: verbose log</dd>
+</dl>
+<p class="Pp HP"><b>-t</b>,-T N Idle and absolute timeout</p>
+</section>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

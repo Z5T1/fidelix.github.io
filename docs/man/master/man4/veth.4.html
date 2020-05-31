@@ -1,0 +1,119 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man4/veth.4</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">VETH(4)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">VETH(4)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+veth - Virtual Ethernet Device
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+The <b>veth</b> devices are virtual Ethernet devices. They can act as tunnels
+  between network namespaces to create a bridge to a physical network device in
+  another namespace, but can also be used as standalone network devices.
+<p class="Pp"><b>veth</b> devices are always created in interconnected pairs. A
+    pair can be created using the command:</p>
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+# ip link add &lt;p1-name&gt; type veth peer name &lt;p2-name&gt;
+
+</pre>
+<br/>
+<p class="Pp">In the above, <i>p1-name</i> and <i>p2-name</i> are the names
+    assigned to the two connected end points.</p>
+<p class="Pp">Packets transmitted on one device in the pair are immediately
+    received on the other device. When either devices is down the link state of
+    the pair is down.</p>
+<p class="Pp"><b>veth</b> device pairs are useful for combining the network
+    facilities of the kernel together in interesting ways. A particularly
+    interesting use case is to place one end of a <b>veth</b> pair in one
+    network namespace and the other end in another network namespace, thus
+    allowing communication between network namespaces. To do this, one first
+    creates the <b>veth</b> device as above and then moves one side of the pair
+    to the other namespace:</p>
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+# ip link set &lt;p2-name&gt; netns &lt;p2-namespace&gt;
+
+</pre>
+<br/>
+<p class="Pp"><b>ethtool</b>(8) can be used to find the peer of a <b>veth</b>
+    network interface, using commands something like:</p>
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+# <b>ip link add ve_A type veth peer name ve_B</b>   # Create veth pair
+# <b>ethtool -S ve_A</b>         # Discover interface index of peer
+NIC statistics:
+     peer_ifindex: 16
+# <b>ip link | grep '^16:'</b>   # Look up interface
+16: ve_B@ve_A: &lt;BROADCAST,MULTICAST,M-DOWN&gt; mtu 1500 qdisc ...
+
+</pre>
+<br/>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>clone</b>(2), <b>network_namespaces</b>(7), <b>ip</b>(8), <b>ip-link</b>(8),
+  <b>ip-netns</b>(8)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2018-02-02</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

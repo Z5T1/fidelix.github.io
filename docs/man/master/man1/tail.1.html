@@ -1,0 +1,85 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/tail.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">TAIL(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">TAIL(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+tail - manual page for tail 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>tail</b> [<i>OPTIONS</i>] [<i>FILE</i>]...
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">Print last 10 lines of each FILE (or stdin) to stdout. With more
+    than one FILE, precede each with a filename header.</p>
+<dl class="Bl-tag">
+  <dt><b>-f</b></dt>
+  <dd>Print data as file grows</dd>
+  <dt><b>-c</b> [+]N[kbm]</dt>
+  <dd>Print last N bytes</dd>
+  <dt><b>-n</b> N[kbm]</dt>
+  <dd>Print last N lines</dd>
+  <dt><b>-n</b> +N[kbm]</dt>
+  <dd>Start on Nth line and print the rest</dd>
+  <dt><b>-q</b></dt>
+  <dd>Never print headers</dd>
+  <dt><b>-s</b> SECONDS</dt>
+  <dd>Wait SECONDS between reads with <b>-f</b></dd>
+  <dt><b>-v</b></dt>
+  <dd>Always print headers</dd>
+  <dt><b>-F</b></dt>
+  <dd>Same as <b>-f</b>, but keep retrying</dd>
+</dl>
+<p class="Pp">N may be suffixed by k (x1024), b (x512), or m (x1024^2).</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

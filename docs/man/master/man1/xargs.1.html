@@ -1,0 +1,90 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/xargs.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">XARGS(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">XARGS(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+xargs - manual page for xargs 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>xargs</b> [<i>OPTIONS</i>] [<i>PROG ARGS</i>]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">Run PROG on every item given by stdin</p>
+<dl class="Bl-tag">
+  <dt><b>-0</b></dt>
+  <dd>Input is separated by NULs</dd>
+</dl>
+<p class="Pp HP"><b>-a</b> FILE Read from FILE instead of stdin</p>
+<dl class="Bl-tag">
+  <dt><b>-r</b></dt>
+  <dd>Don't run command if input is empty</dd>
+  <dt><b>-t</b></dt>
+  <dd>Print the command on stderr before execution</dd>
+  <dt><b>-p</b></dt>
+  <dd>Ask user whether to run each command</dd>
+  <dt><b>-E</b> STR,-e[STR]</dt>
+  <dd>STR stops input processing</dd>
+  <dt><b>-I</b> STR</dt>
+  <dd>Replace STR within PROG ARGS with input line</dd>
+  <dt><b>-n</b> N</dt>
+  <dd>Pass no more than N args to PROG</dd>
+  <dt><b>-s</b> N</dt>
+  <dd>Pass command line of no more than N bytes</dd>
+  <dt><b>-P</b> N</dt>
+  <dd>Run up to N PROGs in parallel</dd>
+  <dt><b>-x</b></dt>
+  <dd>Exit if size is exceeded</dd>
+</dl>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

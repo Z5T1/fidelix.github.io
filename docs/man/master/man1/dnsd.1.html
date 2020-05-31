@@ -1,0 +1,84 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/dnsd.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">DNSD(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">DNSD(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+dnsd - manual page for dnsd 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>dnsd</b> [<i>-dvs</i>] [<i>-c CONFFILE</i>] [<i>-t TTL_SEC</i>] [<i>-p
+  PORT</i>] [<i>-i ADDR</i>]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">Small static DNS server daemon</p>
+<p class="Pp HP"><b>-c</b> FILE Config file</p>
+<dl class="Bl-tag">
+  <dt><b>-t</b> SEC</dt>
+  <dd>TTL</dd>
+</dl>
+<p class="Pp HP"><b>-p</b> PORT Listen on PORT</p>
+<p class="Pp HP"><b>-i</b> ADDR Listen on ADDR</p>
+<dl class="Bl-tag">
+  <dt><b>-d</b></dt>
+  <dd>Daemonize</dd>
+  <dt><b>-v</b></dt>
+  <dd>Verbose</dd>
+  <dt><b>-s</b></dt>
+  <dd>Send successful replies only. Use this if you want to use
+      <i>/etc/resolv.conf</i> with two nameserver lines:</dd>
+  <dt>nameserver DNSD_SERVER</dt>
+  <dd>nameserver NORMAL_DNS_SERVER</dd>
+</dl>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

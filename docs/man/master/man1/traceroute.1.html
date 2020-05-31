@@ -1,0 +1,106 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/traceroute.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">TRACEROUTE(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">TRACEROUTE(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+traceroute - manual page for traceroute 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>traceroute</b> [<i>-46FIlnrv</i>] [<i>-f 1ST_TTL</i>] [<i>-m MAXTTL</i>]
+  [<i>-q PROBES</i>] [<i>-p PORT</i>]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>[-t TOS] [-w WAIT_SEC] [-s SRC_IP] [-i IFACE] [-z PAUSE_MSEC] HOST
+    [BYTES]</dd>
+</dl>
+<p class="Pp">Trace the route to HOST</p>
+<dl class="Bl-tag">
+  <dt><b>-4</b>,-6</dt>
+  <dd>Force IP or IPv6 name resolution</dd>
+  <dt><b>-F</b></dt>
+  <dd>Set don't fragment bit</dd>
+  <dt><b>-I</b></dt>
+  <dd>Use ICMP ECHO instead of UDP datagrams</dd>
+  <dt><b>-l</b></dt>
+  <dd>Display TTL value of the returned packet</dd>
+  <dt><b>-n</b></dt>
+  <dd>Print numeric addresses</dd>
+  <dt><b>-r</b></dt>
+  <dd>Bypass routing tables, send directly to HOST</dd>
+  <dt><b>-v</b></dt>
+  <dd>Verbose</dd>
+  <dt><b>-f</b> N</dt>
+  <dd>First number of hops (default 1)</dd>
+  <dt><b>-m</b> N</dt>
+  <dd>Max number of hops</dd>
+  <dt><b>-q</b> N</dt>
+  <dd>Number of probes per hop (default 3)</dd>
+  <dt><b>-p</b> N</dt>
+  <dd>Base UDP port number used in probes (default 33434)</dd>
+  <dt><b>-s</b> IP</dt>
+  <dd>Source address</dd>
+</dl>
+<p class="Pp HP"><b>-i</b> IFACE Source interface</p>
+<dl class="Bl-tag">
+  <dt><b>-t</b> N</dt>
+  <dd>Type-of-service in probe packets (default 0)</dd>
+  <dt><b>-w</b> SEC</dt>
+  <dd>Time to wait for a response (default 3)</dd>
+  <dt><b>-g</b> IP</dt>
+  <dd>Loose source route gateway (8 max)</dd>
+</dl>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

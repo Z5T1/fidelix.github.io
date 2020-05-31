@@ -1,0 +1,163 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/stat.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">STAT(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">STAT(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+stat - manual page for stat 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>stat</b> [<i>OPTIONS</i>] <i>FILE</i>...
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">Display file (default) or filesystem status</p>
+<dl class="Bl-tag">
+  <dt><b>-c</b> FMT</dt>
+  <dd>Use the specified format</dd>
+  <dt><b>-f</b></dt>
+  <dd>Display filesystem status</dd>
+  <dt><b>-L</b></dt>
+  <dd>Follow links</dd>
+  <dt><b>-t</b></dt>
+  <dd>Terse display</dd>
+</dl>
+<section class="Ss">
+<h2 class="Ss" id="FMT_sequences_for_files:"><a class="permalink" href="#FMT_sequences_for_files:">FMT
+  sequences for files:</a></h2>
+<dl class="Bl-tag">
+  <dt>%a</dt>
+  <dd>Access rights in octal</dd>
+  <dt>%A</dt>
+  <dd>Access rights in human readable form</dd>
+  <dt>%b</dt>
+  <dd>Number of blocks allocated (see %B)</dd>
+  <dt>%B</dt>
+  <dd>Size in bytes of each block reported by %b</dd>
+  <dt>%d</dt>
+  <dd>Device number in decimal</dd>
+  <dt>%D</dt>
+  <dd>Device number in hex</dd>
+  <dt>%f</dt>
+  <dd>Raw mode in hex</dd>
+  <dt>%F</dt>
+  <dd>File type</dd>
+  <dt>%g</dt>
+  <dd>Group ID</dd>
+  <dt>%G</dt>
+  <dd>Group name</dd>
+  <dt>%h</dt>
+  <dd>Number of hard links</dd>
+  <dt>%i</dt>
+  <dd>Inode number</dd>
+  <dt>%n</dt>
+  <dd>File name</dd>
+  <dt>%N</dt>
+  <dd>File name, with -&gt; TARGET if symlink</dd>
+  <dt>%o</dt>
+  <dd>I/O block size</dd>
+  <dt>%s</dt>
+  <dd>Total size in bytes</dd>
+  <dt>%t</dt>
+  <dd>Major device type in hex</dd>
+  <dt>%T</dt>
+  <dd>Minor device type in hex</dd>
+  <dt>%u</dt>
+  <dd>User ID</dd>
+  <dt>%U</dt>
+  <dd>User name</dd>
+  <dt>%x</dt>
+  <dd>Time of last access</dd>
+  <dt>%X</dt>
+  <dd>Time of last access as seconds since Epoch</dd>
+  <dt>%y</dt>
+  <dd>Time of last modification</dd>
+  <dt>%Y</dt>
+  <dd>Time of last modification as seconds since Epoch</dd>
+  <dt>%z</dt>
+  <dd>Time of last change</dd>
+  <dt>%Z</dt>
+  <dd>Time of last change as seconds since Epoch</dd>
+</dl>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="FMT_sequences_for_file_systems:"><a class="permalink" href="#FMT_sequences_for_file_systems:">FMT
+  sequences for file systems:</a></h2>
+<dl class="Bl-tag">
+  <dt>%a</dt>
+  <dd>Free blocks available to non-superuser</dd>
+  <dt>%b</dt>
+  <dd>Total data blocks</dd>
+  <dt>%c</dt>
+  <dd>Total file nodes</dd>
+  <dt>%d</dt>
+  <dd>Free file nodes</dd>
+  <dt>%f</dt>
+  <dd>Free blocks</dd>
+  <dt>%i</dt>
+  <dd>File System ID in hex</dd>
+  <dt>%l</dt>
+  <dd>Maximum length of filenames</dd>
+  <dt>%n</dt>
+  <dd>File name</dd>
+  <dt>%s</dt>
+  <dd>Block size (for faster transfer)</dd>
+  <dt>%S</dt>
+  <dd>Fundamental block size (for block counts)</dd>
+  <dt>%t</dt>
+  <dd>Type in hex</dd>
+  <dt>%T</dt>
+  <dd>Type in human readable form</dd>
+</dl>
+</section>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

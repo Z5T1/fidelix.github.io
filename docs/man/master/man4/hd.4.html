@@ -1,0 +1,113 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man4/hd.4</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">HD(4)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">HD(4)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+hd - MFM/IDE hard disk devices
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+The <b>hd*</b> devices are block devices to access MFM/IDE hard disk drives in
+  raw mode. The master drive on the primary IDE controller (major device number
+  3) is <b>hda</b>; the slave drive is <b>hdb</b>. The master drive of the
+  second controller (major device number 22) is <b>hdc</b> and the slave is
+  <b>hdd</b>.
+<p class="Pp">General IDE block device names have the form <b>hd</b><i>X</i>, or
+    <b>hd</b><i>XP</i>, where <i>X</i> is a letter denoting the physical drive,
+    and <i>P</i> is a number denoting the partition on that physical drive. The
+    first form, <b>hd</b><i>X</i>, is used to address the whole drive. Partition
+    numbers are assigned in the order the partitions are discovered, and only
+    nonempty, nonextended partitions get a number. However, partition numbers
+    1&#x2013;4 are given to the four partitions described in the MBR (the
+    &quot;primary&quot; partitions), regardless of whether they are unused or
+    extended. Thus, the first logical partition will be
+    <b>hd</b><i>X</i><b>5</b> . Both DOS-type partitioning and BSD-disklabel
+    partitioning are supported. You can have at most 63 partitions on an IDE
+    disk.</p>
+<p class="Pp">For example, <i>/dev/hda</i> refers to all of the first IDE drive
+    in the system; and <i>/dev/hdb3</i> refers to the third DOS
+    &quot;primary&quot; partition on the second one.</p>
+<p class="Pp">They are typically created by:</p>
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+mknod -m 660 /dev/hda b 3 0
+mknod -m 660 /dev/hda1 b 3 1
+mknod -m 660 /dev/hda2 b 3 2
+...
+mknod -m 660 /dev/hda8 b 3 8
+mknod -m 660 /dev/hdb b 3 64
+mknod -m 660 /dev/hdb1 b 3 65
+mknod -m 660 /dev/hdb2 b 3 66
+...
+mknod -m 660 /dev/hdb8 b 3 72
+chown root:disk /dev/hd*
+
+</pre>
+<br/>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="FILES"><a class="permalink" href="#FILES">FILES</a></h1>
+<i>/dev/hd*</i>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>chown</b>(1), <b>mknod</b>(1), <b>sd</b>(4), <b>mount</b>(8)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2017-09-15</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

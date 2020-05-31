@@ -1,0 +1,95 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man8/getcap.8</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">GETCAP(8)</td>
+    <td class="head-vol">System Manager's Manual</td>
+    <td class="head-rtitle">GETCAP(8)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+getcap - examine file capabilities
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>getcap</b> [-v] [-n] [-r] [-h] <i>filename</i> [ ... ]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>getcap</b> displays the name and capabilities of each specified
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>-h</b></dt>
+  <dd>prints quick usage.</dd>
+  <dt><b>-n</b></dt>
+  <dd>prints any non-zero namespace rootid value found to be associated with a
+      file's capabilities.</dd>
+  <dt><b>-r</b></dt>
+  <dd>enables recursive search.</dd>
+  <dt><b>-v</b></dt>
+  <dd>enables to display all searched entries, even if it has no
+      file-capabilities.</dd>
+  <dt><i>filename</i></dt>
+  <dd>One file per line.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="REPORTING_BUGS"><a class="permalink" href="#REPORTING_BUGS">REPORTING
+  BUGS</a></h1>
+Please report bugs via:
+<dl class="Bl-tag">
+  <dt>https://bugzilla.kernel.org/buglist.cgi?component=libcap&amp;list_id=1047723&amp;product=Tools&amp;resolution=---</dt>
+  <dd></dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>cap_get_file</b>(3), <b>cap_to_text</b>(3), <b>setcap</b>(8)
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2020-01-07</td>
+    <td class="foot-os"></td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

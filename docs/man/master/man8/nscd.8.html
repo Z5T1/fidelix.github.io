@@ -1,0 +1,111 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man8/nscd.8</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">NSCD(8)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">NSCD(8)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+nscd - name service cache daemon
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>nscd</b> is a daemon that provides a cache for the most common name service
+  requests. The default configuration file, <i>/etc/nscd.conf</i>, determines
+  the behavior of the cache daemon. See <b>nscd.conf</b>(5).
+<p class="Pp"><b>nscd</b> provides caching for accesses of the <b>passwd</b>(5),
+    <b>group</b>(5), <b>hosts</b>(5) <b>services</b>(5) and <i>netgroup</i>
+    databases through standard libc interfaces, such as <b>getpwnam</b>(3),
+    <b>getpwuid</b>(3), <b>getgrnam</b>(3), <b>getgrgid</b>(3),
+    <b>gethostbyname</b>(3), and others.</p>
+<p class="Pp">There are two caches for each database: a positive one for items
+    found, and a negative one for items not found. Each cache has a separate TTL
+    (time-to-live) period for its data. Note that the shadow file is
+    specifically not cached. <b>getspnam</b>(3) calls remain uncached as a
+    result.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>--help</b></dt>
+  <dd>will give you a list with all options and what they do.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+The daemon will try to watch for changes in configuration files appropriate for
+  each database (e.g., <i>/etc/passwd</i> for the <i>passwd</i> database or
+  <i>/etc/hosts</i> and <i>/etc/resolv.conf</i> for the <i>hosts</i> database),
+  and flush the cache when these are changed. However, this will happen only
+  after a short delay (unless the <b>inotify</b>(7) mechanism is available and
+  glibc 2.9 or later is available), and this auto-detection does not cover
+  configuration files required by nonstandard NSS modules, if any are specified
+  in <i>/etc/nsswitch.conf</i>. In that case, you need to run the following
+  command after changing the configuration file of the database so that
+  <b>nscd</b> invalidates its cache:
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+$ <b>nscd -i</b> <i>&lt;database&gt;</i>
+
+</pre>
+<br/>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>nscd.conf</b>(5), <b>nsswitch.conf</b>(5)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2015-05-07</td>
+    <td class="foot-os">GNU</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

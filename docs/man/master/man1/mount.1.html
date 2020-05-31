@@ -1,0 +1,122 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/mount.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">MOUNT(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">MOUNT(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+mount - manual page for mount 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>mount</b> [<i>OPTIONS</i>] [<i>-o OPT</i>] <i>DEVICE NODE</i>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">Mount a filesystem. Filesystem autodetection requires
+    <i>/proc</i>.</p>
+<dl class="Bl-tag">
+  <dt><b>-a</b></dt>
+  <dd>Mount all filesystems in fstab</dd>
+  <dt><b>-f</b></dt>
+  <dd>Dry run</dd>
+  <dt><b>-v</b></dt>
+  <dd>Verbose</dd>
+  <dt><b>-r</b></dt>
+  <dd>Read-only mount</dd>
+</dl>
+<p class="Pp HP"><b>-t</b> FSTYPE[,...] Filesystem type(s)</p>
+<dl class="Bl-tag">
+  <dt><b>-T</b> FILE</dt>
+  <dd>Read FILE instead of <i>/etc/fstab</i></dd>
+  <dt><b>-O</b> OPT</dt>
+  <dd>Mount only filesystems with option OPT (<b>-a</b> only)</dd>
+</dl>
+<section class="Ss">
+<h2 class="Ss" id="-o_OPT:"><a class="permalink" href="#-o_OPT:">-o
+  OPT:</a></h2>
+<dl class="Bl-tag">
+  <dt>loop</dt>
+  <dd>Ignored (loop devices are autodetected)</dd>
+  <dt>[a]sync</dt>
+  <dd>Writes are [a]synchronous</dd>
+  <dt>[no]atime</dt>
+  <dd>Disable/enable updates to inode access times</dd>
+  <dt>[no]diratime</dt>
+  <dd>Disable/enable atime updates to directories</dd>
+  <dt>[no]relatime</dt>
+  <dd>Disable/enable atime updates relative to modification time</dd>
+  <dt>[no]dev</dt>
+  <dd>(Dis)allow use of special device files</dd>
+  <dt>[no]exec</dt>
+  <dd>(Dis)allow use of executable files</dd>
+  <dt>[no]suid</dt>
+  <dd>(Dis)allow set-user-id-root programs</dd>
+  <dt>[r]shared</dt>
+  <dd>Convert [recursively] to a shared subtree</dd>
+  <dt>[r]slave</dt>
+  <dd>Convert [recursively] to a slave subtree</dd>
+  <dt>[r]private</dt>
+  <dd>Convert [recursively] to a private subtree</dd>
+  <dt>[un]bindable</dt>
+  <dd>Make mount point [un]able to be bind mounted</dd>
+  <dt>[r]bind</dt>
+  <dd>Bind a file or directory [recursively] to another location</dd>
+  <dt>move</dt>
+  <dd>Relocate an existing mount point</dd>
+  <dt>remount</dt>
+  <dd>Remount a mounted filesystem, changing flags</dd>
+  <dt>ro</dt>
+  <dd>Same as <b>-r</b></dd>
+</dl>
+<p class="Pp">There are filesystem-specific <b>-o</b> flags.</p>
+</section>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

@@ -1,0 +1,243 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/unlink.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">UNLINK(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">UNLINK(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+unlink, unlinkat - delete a name and possibly the file it refers to
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>#include &lt;unistd.h&gt;</b>
+</pre>
+<pre>
+<b>int unlink(const char *</b><i>pathname</i><b>);</b>
+<b>#include &lt;fcntl.h&gt;           </b>/* Definition of AT_* constants */
+<b>#include &lt;unistd.h&gt;</b>
+</pre>
+<pre>
+<b>int unlinkat(int </b><i>dirfd</i><b>, const char *</b><i>pathname</i><b>, int </b><i>flags</i><b>);</b>
+</pre>
+<p class="Pp">
+  <br/>
+  Feature Test Macro Requirements for glibc (see <b>feature_test_macros</b>(7)):
+  <br/>
+</p>
+<p class="Pp"><b>unlinkat</b>():</p>
+<div class="Bd-indent">
+<dl class="Bl-tag">
+  <dt>Since glibc 2.10:</dt>
+  <dd>_POSIX_C_SOURCE&#x00A0;&gt;=&#x00A0;200809L</dd>
+  <dt>Before glibc 2.10:</dt>
+  <dd>_ATFILE_SOURCE</dd>
+</dl>
+</div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>unlink</b>() deletes a name from the filesystem. If that name was the last
+  link to a file and no processes have the file open, the file is deleted and
+  the space it was using is made available for reuse.
+<p class="Pp">If the name was the last link to a file but any processes still
+    have the file open, the file will remain in existence until the last file
+    descriptor referring to it is closed.</p>
+<p class="Pp">If the name referred to a symbolic link, the link is removed.</p>
+<p class="Pp">If the name referred to a socket, FIFO, or device, the name for it
+    is removed but processes which have the object open may continue to use
+  it.</p>
+<section class="Ss">
+<h2 class="Ss" id="unlinkat()"><a class="permalink" href="#unlinkat()">unlinkat()</a></h2>
+The <b>unlinkat</b>() system call operates in exactly the same way as either
+  <b>unlink</b>() or <b>rmdir</b>(2) (depending on whether or not <i>flags</i>
+  includes the <b>AT_REMOVEDIR</b> flag) except for the differences described
+  here.
+<p class="Pp">If the pathname given in <i>pathname</i> is relative, then it is
+    interpreted relative to the directory referred to by the file descriptor
+    <i>dirfd</i> (rather than relative to the current working directory of the
+    calling process, as is done by <b>unlink</b>() and <b>rmdir</b>(2) for a
+    relative pathname).</p>
+<p class="Pp">If the pathname given in <i>pathname</i> is relative and
+    <i>dirfd</i> is the special value <b>AT_FDCWD</b>, then <i>pathname</i> is
+    interpreted relative to the current working directory of the calling process
+    (like <b>unlink</b>() and <b>rmdir</b>(2)).</p>
+<p class="Pp">If the pathname given in <i>pathname</i> is absolute, then
+    <i>dirfd</i> is ignored.</p>
+<p class="Pp"><i>flags</i> is a bit mask that can either be specified as 0, or
+    by ORing together flag values that control the operation of
+    <b>unlinkat</b>(). Currently, only one such flag is defined:</p>
+<dl class="Bl-tag">
+  <dt><b>AT_REMOVEDIR</b></dt>
+  <dd>By default, <b>unlinkat</b>() performs the equivalent of <b>unlink</b>()
+      on <i>pathname</i>. If the <b>AT_REMOVEDIR</b> flag is specified, then
+      performs the equivalent of <b>rmdir</b>(2) on <i>pathname</i>.</dd>
+</dl>
+<p class="Pp">See <b>openat</b>(2) for an explanation of the need for
+    <b>unlinkat</b>().</p>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, zero is returned. On error, -1 is returned, and <i>errno</i> is set
+  appropriately.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EACCES</b></dt>
+  <dd>Write access to the directory containing <i>pathname</i> is not allowed
+      for the process's effective UID, or one of the directories in
+      <i>pathname</i> did not allow search permission. (See also
+      <b>path_resolution</b>(7).)</dd>
+  <dt><b>EBUSY</b></dt>
+  <dd>The file <i>pathname</i> cannot be unlinked because it is being used by
+      the system or another process; for example, it is a mount point or the NFS
+      client software created it to represent an active but otherwise nameless
+      inode (&quot;NFS silly renamed&quot;).</dd>
+  <dt><b>EFAULT</b></dt>
+  <dd><i>pathname</i> points outside your accessible address space.</dd>
+  <dt><b>EIO</b></dt>
+  <dd>An I/O error occurred.</dd>
+  <dt><b>EISDIR</b></dt>
+  <dd><i>pathname</i> refers to a directory. (This is the non-POSIX value
+      returned by Linux since 2.1.132.)</dd>
+  <dt><b>ELOOP</b></dt>
+  <dd>Too many symbolic links were encountered in translating
+    <i>pathname</i>.</dd>
+  <dt><b>ENAMETOOLONG</b></dt>
+  <dd><i>pathname</i> was too long.</dd>
+  <dt><b>ENOENT</b></dt>
+  <dd>A component in <i>pathname</i> does not exist or is a dangling symbolic
+      link, or <i>pathname</i> is empty.</dd>
+  <dt><b>ENOMEM</b></dt>
+  <dd>Insufficient kernel memory was available.</dd>
+  <dt><b>ENOTDIR</b></dt>
+  <dd>A component used as a directory in <i>pathname</i> is not, in fact, a
+      directory.</dd>
+  <dt><b>EPERM</b></dt>
+  <dd>The system does not allow unlinking of directories, or unlinking of
+      directories requires privileges that the calling process doesn't have.
+      (This is the POSIX prescribed error return; as noted above, Linux returns
+      <b>EISDIR</b> for this case.)</dd>
+  <dt><b>EPERM</b> (Linux only)</dt>
+  <dd>The filesystem does not allow unlinking of files.</dd>
+  <dt><b>EPERM</b> or <b>EACCES</b></dt>
+  <dd>The directory containing <i>pathname</i> has the sticky bit
+      (<b>S_ISVTX</b>) set and the process's effective UID is neither the UID of
+      the file to be deleted nor that of the directory containing it, and the
+      process is not privileged (Linux: does not have the <b>CAP_FOWNER</b>
+      capability).</dd>
+  <dt><b>EPERM</b></dt>
+  <dd>The file to be unlinked is marked immutable or append-only. (See
+      <b>ioctl_iflags</b>(2).)</dd>
+  <dt><b>EROFS</b></dt>
+  <dd><i>pathname</i> refers to a file on a read-only filesystem.</dd>
+</dl>
+<p class="Pp">The same errors that occur for <b>unlink</b>() and <b>rmdir</b>(2)
+    can also occur for <b>unlinkat</b>(). The following additional errors can
+    occur for <b>unlinkat</b>():</p>
+<dl class="Bl-tag">
+  <dt><b>EBADF</b></dt>
+  <dd><i>dirfd</i> is not a valid file descriptor.</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd>An invalid flag value was specified in <i>flags</i>.</dd>
+  <dt><b>EISDIR</b></dt>
+  <dd><i>pathname</i> refers to a directory, and <b>AT_REMOVEDIR</b> was not
+      specified in <i>flags</i>.</dd>
+  <dt><b>ENOTDIR</b></dt>
+  <dd><i>pathname</i> is relative and <i>dirfd</i> is a file descriptor
+      referring to a file other than a directory.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="VERSIONS"><a class="permalink" href="#VERSIONS">VERSIONS</a></h1>
+<b>unlinkat</b>() was added to Linux in kernel 2.6.16; library support was added
+  to glibc in version 2.4.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+<b>unlink</b>(): SVr4, 4.3BSD, POSIX.1-2001, POSIX.1-2008.
+<p class="Pp"><b>unlinkat</b>(): POSIX.1-2008.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+<section class="Ss">
+<h2 class="Ss" id="Glibc_notes"><a class="permalink" href="#Glibc_notes">Glibc
+  notes</a></h2>
+On older kernels where <b>unlinkat</b>() is unavailable, the glibc wrapper
+  function falls back to the use of <b>unlink</b>() or <b>rmdir</b>(2). When
+  <i>pathname</i> is a relative pathname, glibc constructs a pathname based on
+  the symbolic link in <i>/proc/self/fd</i> that corresponds to the <i>dirfd</i>
+  argument.
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="BUGS"><a class="permalink" href="#BUGS">BUGS</a></h1>
+Infelicities in the protocol underlying NFS can cause the unexpected
+  disappearance of files which are still being used.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>rm</b>(1), <b>unlink</b>(1), <b>chmod</b>(2), <b>link</b>(2),
+  <b>mknod</b>(2), <b>open</b>(2), <b>rename</b>(2), <b>rmdir</b>(2),
+  <b>mkfifo</b>(3), <b>remove</b>(3), <b>path_resolution</b>(7),
+  <b>symlink</b>(7)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2017-09-15</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

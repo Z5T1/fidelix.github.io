@@ -1,0 +1,157 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/pod2texi.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">POD2TEXI(1)</td>
+    <td class="head-vol">User Contributed Perl Documentation</td>
+    <td class="head-rtitle">POD2TEXI(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<br/>
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+pod2texi - convert Pod to Texinfo
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<span class="Li"></span>
+<pre>
+  pod2texi [OPTION]... POD...
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+Translate Pod file(s) to Texinfo. There are two basic modes of operation. First,
+  by default, each pod is translated to a standalone Texinfo manual.
+<p class="Pp">Second, if <span class="Li">&quot;--base-level&quot;</span> is set
+    higher than 0, each pod is translated to a file suitable for
+    <span class="Li">@include</span>, and one more file with all the
+    <span class="Li">@include</span>s is generated, intended to be
+    <span class="Li">@include</span>d in turn within a hand-written top-level
+    file.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>--appendix-sections</b></dt>
+  <dd>Use appendix sectioning commands (<span class="Li">@appendix</span>, ...)
+      instead of the default numbered sectioning Texinfo @-commands
+      (<span class="Li">@chapter</span>, <span class="Li">@section</span>,
+    ...).</dd>
+  <dt><b>--base-level</b>=<i>NUM|NAME</i></dt>
+  <dd>Sets the level of the <span class="Li">&quot;head1&quot;</span> commands.
+      It may be an integer or a Texinfo sectioning command (without the
+      <span class="Li">&quot;@&quot;</span>): 1 corresponds to the
+      <span class="Li">@chapter</span>/<span class="Li">@unnumbered</span>
+      level, 2 to the <span class="Li">@section</span> level, and so on. The
+      default is 0, meaning that <span class="Li">&quot;head1&quot;</span>
+      commands are still output as chapters, but the output is arranged as a
+      standalone manual.
+    <p class="Pp">If the level is not 0, the pod file is rendered as a fragment
+        of a Texinfo manual suitable for <span class="Li">@include</span>. In
+        this case, each pod file has an additional sectioning command covering
+        the entire file, one level above the
+        <span class="Li">&quot;--base-level&quot;</span> value. Therefore, to
+        make each pod file a chapter in a large manual, you should use
+        <span class="Li">&quot;section&quot;</span> as the base level.</p>
+    <p class="Pp">For an example of making Texinfo out of the Perl documentation
+        itself, see <span class="Li">&quot;contrib/perldoc-all&quot;</span> in
+        the Texinfo source distribution, with output available at
+        &lt;http://www.gnu.org/software/perl/manual&gt;.</p>
+  </dd>
+  <dt><b>--debug</b>=<i>NUM</i></dt>
+  <dd>Set debugging level to <i>NUM</i>.</dd>
+  <dt><b>--help</b></dt>
+  <dd>Display help and exit.</dd>
+  <dt><b>--output</b>=<i>NAME</i></dt>
+  <dd>Name for the first manual, or the main manual if there is a main manual.
+      Default is to write to standard output.</dd>
+  <dt><b>--no-section-nodes</b></dt>
+  <dd>Use anchors for sections instead of nodes.</dd>
+  <dt><b>--no-fill-section-gaps</b></dt>
+  <dd>Do not fill sectioning gaps with empty <span class="Li">@unnumbered</span>
+      files. Ordinarily, it's good to keep the sectioning hierarchy intact.</dd>
+  <dt><b>--preamble</b>=<i>STR</i></dt>
+  <dd>Insert <i>STR</i> as top boilerplate before includes. The default is a
+      minimal beginning for a Texinfo document, and sets
+      <span class="Li">@documentencoding</span> to
+      <span class="Li">&quot;utf-8&quot;</span> (because the output is written
+      that way).</dd>
+  <dt><b>--subdir</b>=<i>NAME</i></dt>
+  <dd>If there is a main manual with include files (each corresponding to an
+      input pod file), then those include files are put in directory
+      <i>NAME</i>.</dd>
+  <dt><b>--unnumbered-sections</b></dt>
+  <dd>Use unnumbered sectioning commands (<span class="Li">@unnumbered</span>,
+      ...) instead of the default numbered sectioning Texinfo @-commands
+      (<span class="Li">@chapter</span>, <span class="Li">@section</span>,
+    ...).</dd>
+  <dt><b>--top</b>=<i>TOP</i></dt>
+  <dd>Name of the <span class="Li">@top</span> element for the main manual. May
+      contain Texinfo code.</dd>
+  <dt><b>--version</b></dt>
+  <dd>Display version information and exit.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+Pod::Simple::Texinfo. perlpod. The Texinfo manual. Texinfo home page:
+  &lt;http://www.gnu.org/software/texinfo/&gt;
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COPYRIGHT"><a class="permalink" href="#COPYRIGHT">COPYRIGHT</a></h1>
+Copyright 2016 Free Software Foundation, Inc.
+<p class="Pp">This program is free software; you can redistribute it and/or
+    modify it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 3 of the License, or (at your
+    option) any later version.</p>
+<p class="Pp">There is NO WARRANTY, to the extent permitted by law.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHOR"><a class="permalink" href="#AUTHOR">AUTHOR</a></h1>
+Patrice Dumas &lt;bug-texinfo@gnu.org&gt;.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-02-01</td>
+    <td class="foot-os">perl v5.28.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

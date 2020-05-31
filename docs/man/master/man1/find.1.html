@@ -1,0 +1,153 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/find.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">FIND(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">FIND(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+find - manual page for find 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>find</b> [<i>-HL</i>] [<i>PATH</i>]... [<i>OPTIONS</i>] [<i>ACTIONS</i>]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">Search for files and perform actions on them. First failed action
+    stops processing of current file. Defaults: PATH is current directory,
+    action is '-print'</p>
+<dl class="Bl-tag">
+  <dt><b>-L</b>,-follow</dt>
+  <dd>Follow symlinks</dd>
+  <dt><b>-H</b></dt>
+  <dd>...on command line only</dd>
+  <dt><b>-xdev</b></dt>
+  <dd>Don't descend directories on other filesystems</dd>
+  <dt><b>-maxdepth</b> N</dt>
+  <dd>Descend at most N levels. <b>-maxdepth</b> 0 applies actions to command
+      line arguments only</dd>
+  <dt><b>-mindepth</b> N</dt>
+  <dd>Don't act on first N levels</dd>
+  <dt><b>-depth</b></dt>
+  <dd>Act on directory *after* traversing it</dd>
+</dl>
+<section class="Ss">
+<h2 class="Ss" id="Actions:"><a class="permalink" href="#Actions:">Actions:</a></h2>
+<dl class="Bl-tag">
+  <dt>( ACTIONS )</dt>
+  <dd>Group actions for <b>-o</b> / <b>-a</b></dd>
+  <dt>! ACT</dt>
+  <dd>Invert ACT's success/failure</dd>
+  <dt>ACT1 [-a] ACT2</dt>
+  <dd>If ACT1 fails, stop, else do ACT2</dd>
+  <dt>ACT1 <b>-o</b> ACT2</dt>
+  <dd>If ACT1 succeeds, stop, else do ACT2 Note: <b>-a</b> has higher priority
+      than <b>-o</b></dd>
+  <dt><b>-name</b> PATTERN</dt>
+  <dd>Match file name (w/o directory name) to PATTERN</dd>
+  <dt><b>-iname</b> PATTERN</dt>
+  <dd>Case insensitive <b>-name</b></dd>
+  <dt><b>-path</b> PATTERN</dt>
+  <dd>Match path to PATTERN</dd>
+  <dt><b>-ipath</b> PATTERN</dt>
+  <dd>Case insensitive <b>-path</b></dd>
+  <dt><b>-regex</b> PATTERN</dt>
+  <dd>Match path to regex PATTERN</dd>
+  <dt><b>-type</b> X</dt>
+  <dd>File type is X (one of: f,d,l,b,c,s,p)</dd>
+  <dt><b>-executable</b></dt>
+  <dd>File is executable</dd>
+  <dt><b>-perm</b> MASK</dt>
+  <dd>At least one mask bit (+MASK), all bits (<b>-MASK</b>), or exactly MASK
+      bits are set in file's mode</dd>
+  <dt><b>-mtime</b> DAYS</dt>
+  <dd>mtime is greater than (+N), less than (<b>-N</b>), or exactly N days in
+      the past</dd>
+  <dt><b>-mmin</b> MINS</dt>
+  <dd>mtime is greater than (+N), less than (<b>-N</b>), or exactly N minutes in
+      the past</dd>
+  <dt><b>-newer</b> FILE</dt>
+  <dd>mtime is more recent than FILE's</dd>
+  <dt><b>-inum</b> N</dt>
+  <dd>File has inode number N</dd>
+  <dt><b>-user</b> NAME/ID</dt>
+  <dd>File is owned by given user</dd>
+  <dt><b>-group</b> NAME/ID</dt>
+  <dd>File is owned by given group</dd>
+  <dt><b>-size</b> N[bck]</dt>
+  <dd>File size is N (c:bytes,k:kbytes,b:512 bytes(def.)) +/-N: file size is
+      bigger/smaller than N</dd>
+  <dt><b>-links</b> N</dt>
+  <dd>Number of links is greater than (+N), less than (<b>-N</b>), or exactly
+    N</dd>
+  <dt><b>-prune</b></dt>
+  <dd>If current file is directory, don't descend into it</dd>
+</dl>
+<p class="Pp">If none of the following actions is specified, <b>-print</b> is
+    assumed</p>
+<dl class="Bl-tag">
+  <dt><b>-print</b></dt>
+  <dd>Print file name</dd>
+  <dt><b>-print0</b></dt>
+  <dd>Print file name, NUL terminated</dd>
+  <dt><b>-exec</b> CMD ARG ; Run CMD with all instances of {} replaced by</dt>
+  <dd>file name. Fails if CMD exits with nonzero</dd>
+</dl>
+<p class="Pp HP"><b>-exec</b> CMD ARG + Run CMD with {} replaced by list of file
+    names</p>
+<dl class="Bl-tag">
+  <dt><b>-delete</b></dt>
+  <dd>Delete current file/directory. Turns on <b>-depth</b> option</dd>
+  <dt><b>-quit</b></dt>
+  <dd>Exit</dd>
+</dl>
+</section>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

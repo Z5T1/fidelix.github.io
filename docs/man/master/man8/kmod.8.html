@@ -1,0 +1,99 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man8/kmod.8</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">KMOD(8)</td>
+    <td class="head-vol">kmod</td>
+    <td class="head-rtitle">KMOD(8)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+kmod - Program to manage Linux Kernel modules
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp HP"><b>kmod</b> [<b>OPTIONS</b>...] [<i>COMMAND</i>]
+    [<b>COMMAND_OPTIONS</b>...]</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>kmod</b> is a multi-call binary which implements the programs used to control
+  Linux Kernel modules. Most users will only run it using its other names.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+<b>-V</b> <b>--version</b>
+<div class="Bd-indent">Show the program version and exit.</div>
+<p class="Pp"><b>-h</b> <b>--help</b></p>
+<div class="Bd-indent">Show the help message.</div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COMMANDS"><a class="permalink" href="#COMMANDS">COMMANDS</a></h1>
+<b>help</b>
+<div class="Bd-indent">Show the help message.</div>
+<p class="Pp"><b>list</b></p>
+<div class="Bd-indent">List the currently loaded modules.</div>
+<p class="Pp"><b>static-nodes</b></p>
+<div class="Bd-indent">Output the static device nodes information provided by
+  the modules of the currently running kernel version.</div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COPYRIGHT"><a class="permalink" href="#COPYRIGHT">COPYRIGHT</a></h1>
+This manual page originally Copyright 2014, Marco d'Itri. Maintained by Lucas De
+  Marchi and others.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>lsmod</b>(8), <b>rmmod</b>(8), <b>insmod</b>(8), <b>modinfo</b>(8),
+  <b>modprobe</b>(8), <b>depmod</b>(8)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHOR"><a class="permalink" href="#AUTHOR">AUTHOR</a></h1>
+<b>Lucas De Marchi</b> &lt;lucas.de.marchi@gmail.com&gt;
+<div class="Bd-indent">Developer</div>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">02/07/2019</td>
+    <td class="foot-os">kmod</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

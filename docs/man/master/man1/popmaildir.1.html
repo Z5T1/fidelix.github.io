@@ -1,0 +1,83 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/popmaildir.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">POPMAILDIR(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">POPMAILDIR(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+popmaildir - manual page for popmaildir 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>popmaildir</b> [<i>OPTIONS</i>] <i>MAILDIR </i>[<i>CONN_HELPER ARGS</i>]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">Fetch content of remote mailbox to local maildir</p>
+<dl class="Bl-tag">
+  <dt><b>-s</b></dt>
+  <dd>Skip authorization</dd>
+  <dt><b>-T</b></dt>
+  <dd>Get messages with TOP instead of RETR</dd>
+  <dt><b>-k</b></dt>
+  <dd>Keep retrieved messages on the server</dd>
+  <dt><b>-t</b> SEC</dt>
+  <dd>Network timeout</dd>
+  <dt><b>-F</b> 'PROG ARGS'</dt>
+  <dd>Filter program (may be repeated)</dd>
+  <dt><b>-M</b> 'PROG ARGS'</dt>
+  <dd>Delivery program</dd>
+</dl>
+<p class="Pp">Fetch from plain POP3 server: popmaildir <b>-k</b> DIR nc
+    pop3.server.com 110 &lt;user_and_pass.txt Fetch from SSLed POP3 server and
+    delete fetched emails: popmaildir DIR <b>--</b> openssl s_client
+    <b>-quiet</b> <b>-connect</b> pop3.server.com:995 &lt;user_and_pass.txt</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

@@ -1,0 +1,133 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/inotify_init.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">INOTIFY_INIT(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">INOTIFY_INIT(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+inotify_init, inotify_init1 - initialize an inotify instance
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>#include &lt;sys/inotify.h&gt;</b>
+</pre>
+<pre>
+<b>int inotify_init(void);</b>
+<b>int inotify_init1(int </b><i>flags</i><b>);</b>
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+For an overview of the inotify API, see <b>inotify</b>(7).
+<p class="Pp"><b>inotify_init</b>() initializes a new inotify instance and
+    returns a file descriptor associated with a new inotify event queue.</p>
+<p class="Pp">If <i>flags</i> is 0, then <b>inotify_init1</b>() is the same as
+    <b>inotify_init</b>(). The following values can be bitwise ORed in
+    <i>flags</i> to obtain different behavior:</p>
+<dl class="Bl-tag">
+  <dt><b>IN_NONBLOCK</b></dt>
+  <dd>Set the <b>O_NONBLOCK</b> file status flag on the open file description
+      (see <b>open</b>(2)) referred to by the new file descriptor. Using this
+      flag saves extra calls to <b>fcntl</b>(2) to achieve the same result.</dd>
+  <dt><b>IN_CLOEXEC</b></dt>
+  <dd>Set the close-on-exec (<b>FD_CLOEXEC</b>) flag on the new file descriptor.
+      See the description of the <b>O_CLOEXEC</b> flag in <b>open</b>(2) for
+      reasons why this may be useful.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, these system calls return a new file descriptor. On error, -1 is
+  returned, and <i>errno</i> is set to indicate the error.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EINVAL</b></dt>
+  <dd>(<b>inotify_init1</b>()) An invalid value was specified in
+    <i>flags</i>.</dd>
+  <dt><b>EMFILE</b></dt>
+  <dd>The user limit on the total number of inotify instances has been
+    reached.</dd>
+  <dt><b>EMFILE</b></dt>
+  <dd>The per-process limit on the number of open file descriptors has been
+      reached.</dd>
+  <dt><b>ENFILE</b></dt>
+  <dd>The system-wide limit on the total number of open files has been
+    reached.</dd>
+  <dt><b>ENOMEM</b></dt>
+  <dd>Insufficient kernel memory is available.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="VERSIONS"><a class="permalink" href="#VERSIONS">VERSIONS</a></h1>
+<b>inotify_init</b>() first appeared in Linux 2.6.13; library support was added
+  to glibc in version 2.4. <b>inotify_init1</b>() was added in Linux 2.6.27;
+  library support was added to glibc in version 2.9.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+These system calls are Linux-specific.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>inotify_add_watch</b>(2), <b>inotify_rm_watch</b>(2), <b>inotify</b>(7)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-03-06</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

@@ -1,0 +1,159 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/acct.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">ACCT(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">ACCT(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+acct - switch process accounting on or off
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>#include &lt;unistd.h&gt;</b>
+</pre>
+<pre>
+<b>int acct(const char *</b><i>filename</i><b>);</b>
+</pre>
+<p class="Pp">
+  <br/>
+  Feature Test Macro Requirements for glibc (see <b>feature_test_macros</b>(7)):
+  <br/>
+</p>
+<p class="Pp"><b>acct</b>():</p>
+<pre>
+    Since glibc 2.21:
+        _DEFAULT_SOURCE
+    In glibc 2.19 and 2.20:
+        _DEFAULT_SOURCE || (_XOPEN_SOURCE &amp;&amp; _XOPEN_SOURCE&#x00A0;&lt;&#x00A0;500)
+    Up to and including glibc 2.19:
+        _BSD_SOURCE || (_XOPEN_SOURCE &amp;&amp; _XOPEN_SOURCE&#x00A0;&lt;&#x00A0;500)
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+The <b>acct</b>() system call enables or disables process accounting. If called
+  with the name of an existing file as its argument, accounting is turned on,
+  and records for each terminating process are appended to <i>filename</i> as it
+  terminates. An argument of NULL causes accounting to be turned off.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, zero is returned. On error, -1 is returned, and <i>errno</i> is set
+  appropriately.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EACCES</b></dt>
+  <dd>Write permission is denied for the specified file, or search permission is
+      denied for one of the directories in the path prefix of <i>filename</i>
+      (see also <b>path_resolution</b>(7)), or <i>filename</i> is not a regular
+      file.</dd>
+  <dt><b>EFAULT</b></dt>
+  <dd><i>filename</i> points outside your accessible address space.</dd>
+  <dt><b>EIO</b></dt>
+  <dd>Error writing to the file <i>filename</i>.</dd>
+  <dt><b>EISDIR</b></dt>
+  <dd><i>filename</i> is a directory.</dd>
+  <dt><b>ELOOP</b></dt>
+  <dd>Too many symbolic links were encountered in resolving
+    <i>filename</i>.</dd>
+  <dt><b>ENAMETOOLONG</b></dt>
+  <dd><i>filename</i> was too long.</dd>
+  <dt><b>ENFILE</b></dt>
+  <dd>The system-wide limit on the total number of open files has been
+    reached.</dd>
+  <dt><b>ENOENT</b></dt>
+  <dd>The specified file does not exist.</dd>
+  <dt><b>ENOMEM</b></dt>
+  <dd>Out of memory.</dd>
+  <dt><b>ENOSYS</b></dt>
+  <dd>BSD process accounting has not been enabled when the operating system
+      kernel was compiled. The kernel configuration parameter controlling this
+      feature is <b>CONFIG_BSD_PROCESS_ACCT</b>.</dd>
+  <dt><b>ENOTDIR</b></dt>
+  <dd>A component used as a directory in <i>filename</i> is not in fact a
+      directory.</dd>
+  <dt><b>EPERM</b></dt>
+  <dd>The calling process has insufficient privilege to enable process
+      accounting. On Linux, the <b>CAP_SYS_PACCT</b> capability is
+    required.</dd>
+  <dt><b>EROFS</b></dt>
+  <dd><i>filename</i> refers to a file on a read-only filesystem.</dd>
+  <dt><b>EUSERS</b></dt>
+  <dd>There are no more free file structures or we ran out of memory.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+SVr4, 4.3BSD (but not POSIX).
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+No accounting is produced for programs running when a system crash occurs. In
+  particular, nonterminating processes are never accounted for.
+<p class="Pp">The structure of the records written to the accounting file is
+    described in <b>acct</b>(5).</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>acct</b>(5)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2016-03-15</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

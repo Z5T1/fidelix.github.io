@@ -1,0 +1,81 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/run-parts.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">RUN-PARTS(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">RUN-PARTS(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+run-parts - manual page for run-parts 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>run-parts</b> [<i>-a ARG</i>]... [<i>-u UMASK</i>] [<i>--reverse</i>]
+  [<i>--test</i>] [<i>--exit-on-error</i>] [<i>--list</i>] <i>DIRECTORY</i>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">Run a bunch of scripts in DIRECTORY</p>
+<dl class="Bl-tag">
+  <dt><b>-a</b> ARG</dt>
+  <dd>Pass ARG as argument to scripts</dd>
+  <dt><b>-u</b> UMASK</dt>
+  <dd>Set UMASK before running scripts</dd>
+  <dt><b>--reverse</b></dt>
+  <dd>Reverse execution order</dd>
+  <dt><b>--test</b></dt>
+  <dd>Dry run</dd>
+</dl>
+<p class="Pp HP"><b>--exit-on-error</b> Exit if a script exits with non-zero</p>
+<dl class="Bl-tag">
+  <dt><b>--list</b></dt>
+  <dd>Print names of matching files even if they are not executable</dd>
+</dl>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

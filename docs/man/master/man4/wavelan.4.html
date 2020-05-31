@@ -1,0 +1,167 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man4/wavelan.4</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">WAVELAN(4)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">WAVELAN(4)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+wavelan - AT&amp;T GIS WaveLAN ISA device driver
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>insmod wavelan_cs.o [io=</b><i>B,B..</i><b>] [ irq=</b><i>I,I..</i><b>]
+  [name=</b><i>N,N..</i><b>]</b>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<i>This driver is obsolete:</i> it was removed from the kernel in version
+  2.6.35.
+<p class="Pp"><i>wavelan</i> is the low-level device driver for the NCR /
+    AT&amp;T / Lucent <b>WaveLAN ISA</b> and Digital (DEC) <b>RoamAbout DS</b>
+    wireless ethernet adapter. This driver is available as a module or might be
+    compiled in the kernel. This driver supports multiple cards in both forms
+    (up to 4) and allocates the next available ethernet device (eth0..eth#) for
+    each card found, unless a device name is explicitly specified (see below).
+    This device name will be reported in the kernel log file with the MAC
+    address, NWID and frequency used by the card.</p>
+<section class="Ss">
+<h2 class="Ss" id="Parameters"><a class="permalink" href="#Parameters">Parameters</a></h2>
+This section apply to the module form (parameters passed on the <b>insmod</b>(8)
+  command line). If the driver is included in the kernel, use the
+  <i>ether=IRQ,IO,NAME</i> syntax on the kernel command line.
+<dl class="Bl-tag">
+  <dt><b>io</b></dt>
+  <dd>Specify the list of base address where to search for wavelan cards
+      (setting by dip switch on the card). If you don't specify any io address,
+      the driver will scan 0x390 and 0x3E0 addresses, which might conflict with
+      other hardware...</dd>
+  <dt><b>irq</b></dt>
+  <dd>Set the list of irq that each wavelan card should use (the value is saved
+      in permanent storage for future use).</dd>
+  <dt><b>name</b></dt>
+  <dd>Set the list of name to be used for each wavelan cards device (name used
+      by <b>ifconfig</b>(8)).</dd>
+</dl>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Wireless_extensions"><a class="permalink" href="#Wireless_extensions">Wireless
+  extensions</a></h2>
+Use <b>iwconfig</b>(8) to manipulate wireless extensions.
+</section>
+<section class="Ss">
+<h2 class="Ss" id="NWID_(or_domain)"><a class="permalink" href="#NWID_(or_domain)">NWID
+  (or domain)</a></h2>
+Set the network ID [<i>0</i> to <i>FFFF</i>] or disable it [<i>off</i>]. As the
+  NWID is stored in the card Permanent Storage Area, it will be reuse at any
+  further invocation of the driver.
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Frequency_&amp;_channels"><a class="permalink" href="#Frequency_&amp;_channels">Frequency
+  &amp; channels</a></h2>
+For the 2.4&#x00A0;GHz 2.00 Hardware, you are able to set the frequency by
+  specifying one of the 10 defined channels (<i>2.412,</i> <i>2.422, 2.425,
+  2.4305, 2.432, 2.442, 2.452, 2.460, 2.462</i> or <i>2.484</i>) or directly by
+  its value. The frequency is changed immediately and permanently. Frequency
+  availability depends on the regulations...
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Statistics_spy"><a class="permalink" href="#Statistics_spy">Statistics
+  spy</a></h2>
+Set a list of MAC addresses in the driver (up to 8) and get the last quality of
+  link for each of those (see <b>iwspy</b>(8)).
+</section>
+<section class="Ss">
+<h2 class="Ss" id="/proc/net/wireless"><a class="permalink" href="#/proc/net/wireless">/proc/net/wireless</a></h2>
+<i>status</i> is the status reported by the modem. <i>Link quality</i> reports
+  the quality of the modulation on the air (direct sequence spread spectrum)
+  [max = 16]. <i>Level</i> and <i>Noise</i> refer to the signal level and noise
+  level [max = 64]. The <i>crypt discarded packet</i> and <i>misc discarded
+  packet</i> counters are not implemented.
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Private_ioctl"><a class="permalink" href="#Private_ioctl">Private
+  ioctl</a></h2>
+You may use <b>iwpriv</b>(8) to manipulate private ioctls.
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Quality_and_level_threshold"><a class="permalink" href="#Quality_and_level_threshold">Quality
+  and level threshold</a></h2>
+Enable you the define the quality and level threshold used by the modem (packet
+  below that level are discarded).
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Histogram"><a class="permalink" href="#Histogram">Histogram</a></h2>
+This functionality makes it possible to set a number of signal level intervals
+  and to count the number of packets received in each of those defined
+  intervals. This distribution might be used to calculate the mean value and
+  standard deviation of the signal level.
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Specific_notes"><a class="permalink" href="#Specific_notes">Specific
+  notes</a></h2>
+This driver fails to detect some <b>non-NCR/AT&amp;T/Lucent</b> Wavelan cards.
+  If this happens for you, you must look in the source code on how to add your
+  card to the detection routine.
+<p class="Pp">Some of the mentioned features are optional. You may enable to
+    disable them by changing flags in the driver header and recompile.</p>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>wavelan_cs</b>(4), <b>ifconfig</b>(8), <b>insmod</b>(8), <b>iwconfig</b>(8),
+  <b>iwpriv</b>(8), <b>iwspy</b>(8)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2017-09-15</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

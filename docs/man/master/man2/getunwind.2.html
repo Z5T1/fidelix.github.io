@@ -1,0 +1,137 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/getunwind.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">GETUNWIND(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">GETUNWIND(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+getunwind - copy the unwind data to caller's buffer
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>#include &lt;syscall.h&gt;</b>
+<b>#include &lt;linux/unwind.h&gt;</b>
+</pre>
+<pre>
+<b>long getunwind(void </b><i>*buf</i><b>, size_t </b><i>buf_size</i><b>);</b>
+</pre>
+<p class="Pp"><i>Note</i>: There is no glibc wrapper for this system call; see
+    NOTES.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<i>Note: this function is obsolete.</i>
+<p class="Pp">The IA-64-specific <b>getunwind</b>() system call copies the
+    kernel's call frame unwind data into the buffer pointed to by <i>buf</i> and
+    returns the size of the unwind data; this data describes the gate page
+    (kernel code that is mapped into user space).</p>
+<p class="Pp">The size of the buffer <i>buf</i> is specified in <i>buf_size</i>.
+    The data is copied only if <i>buf_size</i> is greater than or equal to the
+    size of the unwind data and <i>buf</i> is not NULL; otherwise, no data is
+    copied, and the call succeeds, returning the size that would be needed to
+    store the unwind data.</p>
+<p class="Pp">The first part of the unwind data contains an unwind table. The
+    rest contains the associated unwind information, in no particular order. The
+    unwind table contains entries of the following form:</p>
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+u64 start;      (64-bit address of start of function)
+u64 end;        (64-bit address of end of function)
+u64 info;       (BUF-relative offset to unwind info)
+
+</pre>
+<br/>
+<p class="Pp">An entry whose <i>start</i> value is zero indicates the end of the
+    table. For more information about the format, see the <i>IA-64 Software
+    Conventions and Runtime Architecture</i> manual.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, <b>getunwind</b>() returns the size of the unwind data. On error, -1
+  is returned and <i>errno</i> is set to indicate the error.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<b>getunwind</b>() fails with the error <b>EFAULT</b> if the unwind info can't
+  be stored in the space specified by <i>buf</i>.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="VERSIONS"><a class="permalink" href="#VERSIONS">VERSIONS</a></h1>
+This system call is available since Linux 2.4.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+This system call is Linux-specific, and is available only on the IA-64
+  architecture.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+This system call has been deprecated. The modern way to obtain the kernel's
+  unwind data is via the <b>vdso</b>(7).
+<p class="Pp">Glibc does not provide a wrapper for this system call; in the
+    unlikely event that you want to call it, use <b>syscall</b>(2).</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>getauxval</b>(3)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2017-09-15</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

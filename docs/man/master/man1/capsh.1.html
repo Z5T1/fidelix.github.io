@@ -1,0 +1,232 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/capsh.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">CAPSH(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">CAPSH(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+capsh - capability shell wrapper
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>capsh</b> [<i>OPTION</i>]...
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+Linux capability support and use can be explored and constrained with this tool.
+  This tool provides a handy wrapper for certain types of capability testing and
+  environment creation. It also provides some debugging features useful for
+  summarizing capability state.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+The tool takes a number of optional arguments, acting on them in the order they
+  are provided. They are as follows:
+<dl class="Bl-tag">
+  <dt><b>--help</b></dt>
+  <dd>Display the list of commands supported by <b>capsh</b>.</dd>
+  <dt><b>--print</b></dt>
+  <dd>Display prevailing capability and related state.</dd>
+  <dt><b>--</b><i> [args]</i></dt>
+  <dd>Execute <b>/bin/bash</b> with trailing arguments. Note, you can use <b>-c
+      'command to execute'</b> for specific commands.</dd>
+  <dt><b>==</b></dt>
+  <dd>Execute <b>capsh</b> again with remaining arguments. Useful for testing
+      <b>exec</b>() behavior.</dd>
+  <dt><b>--caps=</b><i>cap-set</i></dt>
+  <dd>Set the prevailing process capabilities to those specified by
+      <i>cap-set</i>. Where <i>cap-set</i> is a text-representation of
+      capability state as per <b>cap_from_text</b>(3).</dd>
+  <dt><b>--drop=</b><i>cap-list</i></dt>
+  <dd>Remove the listed capabilities from the prevailing bounding set. The
+      capabilites are a comma separated list of capabilities as recognized by
+      the <b>cap_from_name</b>(3) function. Use of this feature requires that
+      the capsh program is operating with <b>CAP_SETPCAP</b> in its effective
+      set.</dd>
+  <dt><b>--inh=</b><i>cap-list</i></dt>
+  <dd>Set the inheritable set of capabilities for the current process to equal
+      those provided in the comma separated list. For this action to succeed,
+      the prevailing process should already have each of these capabilities in
+      the union of the current inheritable and permitted capability sets, or the
+      capsh program is operating with <b>CAP_SETPCAP</b> in its effective
+    set.</dd>
+  <dt><b>--user=</b><i>username</i></dt>
+  <dd>Assume the identity of the named user. That is, look up the user's
+      <i>uid</i> and <i>gid</i> with <b>getpwuid</b>(3) and their group
+      memberships with <b>getgrouplist</b>(3) and set them all using
+      <b>cap_setuid</b>(3) and <b>cap_setgroups</b>(3). Following this command,
+      the effective capabilities will be cleared, but the permitted set will not
+      be so the running program is still privileged.</dd>
+  <dt><b>--modes</b></dt>
+  <dd>Lists all of the libcap modes supported by <b>--mode</b>.</dd>
+  <dt><b>--mode=</b>&lt;mode&gt;</dt>
+  <dd>Force the program into a <b>cap_set_mode</b>(3) security mode. This is a
+      set of securebits and prevailing capability arrangement recommended for
+      its pre-determined security stance.</dd>
+  <dt><b>--inmode=</b>&lt;mode&gt;</dt>
+  <dd>Confirm that the prevailing mode is so named, or exit with a status
+    1.</dd>
+  <dt><b>--uid=</b><i>id</i></dt>
+  <dd>Force all <b>uid</b> values to equal <i>id</i> using the <b>setuid</b>(2)
+      system call. This argument may require explicit preparation of the
+      effective set.</dd>
+  <dt><b>--cap-uid=</b>&lt;uid&gt;</dt>
+  <dd>use the <b>cap_setuid</b>(3) function to set the uid of the current
+      process. This performs all prepations for setting the uid without dropping
+      capabilities in the process. Following this command the prevailing
+      effective capabilities will be lowered.</dd>
+  <dt><b>--is-uid=</b><i>&lt;id&gt;</i></dt>
+  <dd>Exit with status 1 unless the current <i>uid</i> equals
+    <i>&lt;id&gt;</i>.</dd>
+  <dt><b>--gid=</b><i>&lt;id&gt;</i></dt>
+  <dd>Force all <b>gid</b> values to equal <i>id</i> using the <b>setgid</b>(2)
+      system call.</dd>
+  <dt><b>--is-gid=</b><i>&lt;id&gt;</i></dt>
+  <dd>Exit with status 1 unless the current <i>gid</i> equals
+    <i>&lt;id&gt;</i>.</dd>
+  <dt><b>--groups=</b><i>&lt;gid-list&gt;</i></dt>
+  <dd>Set the supplementary groups to the numerical list provided. The groups
+      are set with the <b>setgroups</b>(2) system call. See <b>--user</b> for a
+      more convenient way of doing this.</dd>
+  <dt><b>--keep=</b><i>&lt;0|1&gt;</i></dt>
+  <dd>In a non-pure capability mode, the kernel provides liberal privilege to
+      the super-user. However, it is normally the case that when the super-user
+      changes <i>uid</i> to some lesser user, then capabilities are dropped. For
+      these situations, the kernel can permit the process to retain its
+      capabilities after a <b>setuid</b>(2) system call. This feature is known
+      as <i>keep-caps</i> support. The way to activate it using this program is
+      with this argument. Setting the value to 1 will cause <i>keep-caps</i> to
+      be active. Setting it to 0 will cause keep-caps to deactivate for the
+      current process. In all cases, <i>keep-caps</i> is deactivated when an
+      <b>exec</b>() is performed. See <b>--secbits</b> for ways to disable this
+      feature.</dd>
+  <dt><b>--secbits=</b><i>N</i></dt>
+  <dd>Set the security-bits for the program, this is via <b>prctl</b>(2),
+      <b>PR_SET_SECUREBITS</b> API, and the list of supported bits and their
+      meaning can be found in the <b>&lt;sys/secbits.h&gt;</b> header file. The
+      program will list these bits via the <b>--print</b> command.</dd>
+  <dt><b>--chroot=</b><i>path</i></dt>
+  <dd>Execute the <b>chroot</b>(2) system call with the new root-directory (/)
+      equal to <i>path</i>. This operation requires <b>CAP_SYS_CHROOT</b> to be
+      in effect.</dd>
+  <dt><b>--forkfor=</b><i>sec</i></dt>
+  <dd>This command causes the program to fork a child process for so many
+      seconds. The child will sleep that long and then exit with status 0. The
+      purpose of this command is to support exploring the way processes are
+      killable in the face of capability changes. See the <b>--killit</b>
+      command. Only one fork can be active at a time.</dd>
+  <dt><b>--killit=</b><i>sig</i></dt>
+  <dd>This commands causes a <b>--forkfor</b> child to be <b>kill</b>(2)d with
+      the specified signal. The command then waits for the child to exit. If the
+      exit status does not match the signal being used to kill it, the
+      <b>capsh</b> program exits with status 1.</dd>
+  <dt><b>--decode=</b><i>N</i></dt>
+  <dd>This is a convenience feature. If you look at <b>/proc/1/status</b> there
+      are some capability related fields of the following form:
+    <p class="Pp">
+       CapInh:	0000000000000000
+       CapPrm:	ffffffffffffffff
+       CapEff:	fffffffffffffeff
+       CapBnd:	ffffffffffffffff</p>
+    <p class="Pp">This option provides a quick way to decode a capability vector
+        represented in this form. For example, the missing capability from this
+        effective set is 0x0100. By running:</p>
+    <p class="Pp">
+       capsh --decode=0x0100</p>
+    <p class="Pp">we observe that the missing capability is:
+      <b>cap_setpcap</b>.</p>
+  </dd>
+  <dt><b>--supports=</b><i>xxx</i></dt>
+  <dd>As the kernel evolves, more capabilities are added. This option can be
+      used to verify the existence of a capability on the system. For example,
+      <b>--supports=</b><i>cap_syslog</i> will cause capsh to promptly exit with
+      a status of 1 when run on kernel 2.6.27. However, when run on kernel
+      2.6.38 it will silently succeed.</dd>
+  <dt><b>--has-p=</b><i>xxx</i></dt>
+  <dd>Exit with status 1 unless the <i>permitted</i> vector has capability
+      <b>xxx</b> raised.</dd>
+  <dt><b>--has-ambient</b></dt>
+  <dd>Performs a check to see if the running kernel supports ambient
+      capabilities. If not, the capsh command exits with status 1.</dd>
+  <dt><b>--has-a=</b><i>xxx</i></dt>
+  <dd>Exit with status 1 unless the <i>ambient</i> vector has capability
+      <b>xxx</b> raised.</dd>
+  <dt><b>--addamb=</b><i>xxx</i></dt>
+  <dd>Adds the specificed ambient capability to the running process.</dd>
+  <dt><b>--delamb=</b><i>xxx</i></dt>
+  <dd>Removes the specified ambient capability from the running process.</dd>
+  <dt><b>--noamb</b></dt>
+  <dd>Drops all ambient capabilities from the running process.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXIT_STATUS"><a class="permalink" href="#EXIT_STATUS">EXIT
+  STATUS</a></h1>
+Following successful execution the tool exits with status 0. Following an error,
+  the tool immediately exits with status 1.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHOR"><a class="permalink" href="#AUTHOR">AUTHOR</a></h1>
+Written by Andrew G. Morgan &lt;morgan@kernel.org&gt;.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="REPORTING_BUGS"><a class="permalink" href="#REPORTING_BUGS">REPORTING
+  BUGS</a></h1>
+Please report bugs via:
+<dl class="Bl-tag">
+  <dt>https://bugzilla.kernel.org/buglist.cgi?component=libcap&amp;list_id=1047723&amp;product=Tools&amp;resolution=---</dt>
+  <dd></dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>libcap</b>(3), <b>getcap</b>(8), <b>setcap</b>(8) and <b>capabilities</b>(7).
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2020-01-07</td>
+    <td class="foot-os">libcap 2</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

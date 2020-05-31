@@ -1,0 +1,98 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man8/genfstab.8</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">GENFSTAB(8)</td>
+    <td class="head-vol">Linux System Administrator's Manual</td>
+    <td class="head-rtitle">GENFSTAB(8)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+genfstab - Generate a new fstab, suitable for use as /etc/fstab
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>genfstab [OPTIONS] [SYSROOT]</b>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+Generate a new fstab, suitable for use as /etc/fstab, from the currently mounted
+  partitions. Optionally, SYSROOT can specify a directory to use as the relative
+  root for the new fstab. If SYSROOT is not specified, a default of / will be
+  used. SYSROOT can also be specified as an environment variable.
+<p class="Pp"></p>
+<p class="Pp">Options:</p>
+<dl class="Bl-tag">
+  <dt><b>-d</b></dt>
+  <dd>Use device node paths when generating fstab. Negates the effects of
+    -u.</dd>
+  <dt><b>-h</b></dt>
+  <dd>Print a help message.</dd>
+  <dt><b>-p</b></dt>
+  <dd>Operate in permissive mode. Negates the effects of -s.</dd>
+  <dt><b>-s</b></dt>
+  <dd>Operate in secure mode. Additional security hardening options will be
+      enabled, such as disallowing SUID root executables on some partitions.
+      This is the default.</dd>
+  <dt><b>-u</b></dt>
+  <dd>Use UUIDs instead of device node paths when generating fstab. This is the
+      default.
+    <p class="Pp"></p>
+  </dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHOR"><a class="permalink" href="#AUTHOR">AUTHOR</a></h1>
+Genfstab was written by Scott Court (z5t1@z5t1.com).
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="HISTORY"><a class="permalink" href="#HISTORY">HISTORY</a></h1>
+Genfstab first appeared in Fidelix 0.1
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2020-04-19</td>
+    <td class="foot-os">Fidelix</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

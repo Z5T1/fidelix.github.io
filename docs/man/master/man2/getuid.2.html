@@ -1,0 +1,111 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/getuid.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">GETUID(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">GETUID(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+getuid, geteuid - get user identity
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>#include &lt;unistd.h&gt;</b>
+<br/>
+<b>#include &lt;sys/types.h&gt;</b>
+<p class="Pp"><b>uid_t getuid(void);</b>
+  <br/>
+  <b>uid_t geteuid(void);</b></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>getuid</b>() returns the real user ID of the calling process.
+<p class="Pp"><b>geteuid</b>() returns the effective user ID of the calling
+    process.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+These functions are always successful.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+POSIX.1-2001, POSIX.1-2008, 4.3BSD.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+<section class="Ss">
+<h2 class="Ss" id="History"><a class="permalink" href="#History">History</a></h2>
+In UNIX&#x00A0;V6 the <b>getuid</b>() call returned <i>(euid &lt;&lt; 8) +
+  uid</i>. UNIX&#x00A0;V7 introduced separate calls <b>getuid</b>() and
+  <b>geteuid</b>().
+<p class="Pp">The original Linux <b>getuid</b>() and <b>geteuid</b>() system
+    calls supported only 16-bit user IDs. Subsequently, Linux 2.4 added
+    <b>getuid32</b>() and <b>geteuid32</b>(), supporting 32-bit IDs. The glibc
+    <b>getuid</b>() and <b>geteuid</b>() wrapper functions transparently deal
+    with the variations across kernel versions.</p>
+<p class="Pp">On Alpha, instead of a pair of <b>getuid</b>() and
+    <b>geteuid</b>() system calls, a single <b>getxuid</b>() system call is
+    provided, which returns a pair of real and effective UIDs. The glibc
+    <b>getuid</b>() and <b>geteuid</b>() wrapper functions transparently deal
+    with this. See <b>syscall</b>(2) for details regarding register mapping.</p>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>getresuid</b>(2), <b>setreuid</b>(2), <b>setuid</b>(2), <b>credentials</b>(7)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-03-06</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

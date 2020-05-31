@@ -1,0 +1,87 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/top.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">TOP(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">TOP(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+top - manual page for top 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>top</b> [<i>-bmH</i>] [<i>-n COUNT</i>] [<i>-d SECONDS</i>]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">Provide a view of process activity in real time. Read the status
+    of all processes from <i>/proc</i> each SECONDS and display a screenful of
+    them. Keys:</p>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>N/M/P/T: show CPU usage, sort by pid/mem/cpu/time S: show memory R:
+      reverse sort H: toggle threads, 1: toggle SMP Q,^C: exit</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>-b</b></dt>
+  <dd>Batch mode</dd>
+  <dt><b>-n</b> N</dt>
+  <dd>Exit after N iterations</dd>
+  <dt><b>-d</b> SEC</dt>
+  <dd>Delay between updates</dd>
+  <dt><b>-m</b></dt>
+  <dd>Same as 's' key</dd>
+  <dt><b>-H</b></dt>
+  <dd>Show threads</dd>
+</dl>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

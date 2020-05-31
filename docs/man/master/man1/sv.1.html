@@ -1,0 +1,83 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/sv.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">SV(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">SV(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+sv - manual page for sv 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>sv</b> [<i>-v</i>] [<i>-w SEC</i>] <i>CMD SERVICE_DIR</i>...
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">Control services monitored by runsv supervisor. Commands (only
+    first character is enough):</p>
+<p class="Pp">status: query service status up: if service isn't running, start
+    it. If service stops, restart it once: like 'up', but if service stops,
+    don't restart it down: send TERM and CONT signals. If ./run exits, start
+    ./finish</p>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>if it exists. After it stops, don't restart service</dd>
+</dl>
+<p class="Pp">exit: send TERM and CONT signals to service and log service. If
+    they exit,</p>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>runsv exits too</dd>
+</dl>
+<p class="Pp">pause, cont, hup, alarm, interrupt, quit, 1, 2, term, kill: send
+    STOP, CONT, HUP, ALRM, INT, QUIT, USR1, USR2, TERM, KILL signal to
+  service</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

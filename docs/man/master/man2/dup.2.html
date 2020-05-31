@@ -1,0 +1,207 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/dup.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">DUP(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">DUP(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+dup, dup2, dup3 - duplicate a file descriptor
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>#include &lt;unistd.h&gt;</b>
+</pre>
+<pre>
+<b>int dup(int </b><i>oldfd</i><b>);</b>
+<b>int dup2(int </b><i>oldfd</i><b>, int </b><i>newfd</i><b>);</b>
+<b>#define _GNU_SOURCE</b>             /* See feature_test_macros(7) */
+<b>#include &lt;fcntl.h&gt;</b>              /* Obtain O_* constant definitions */
+<b>#include &lt;unistd.h&gt;</b>
+</pre>
+<pre>
+<b>int dup3(int </b><i>oldfd</i><b>, int </b><i>newfd</i><b>, int </b><i>flags</i><b>);</b>
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+The <b>dup</b>() system call creates a copy of the file descriptor <i>oldfd</i>,
+  using the lowest-numbered unused file descriptor for the new descriptor.
+<p class="Pp">After a successful return, the old and new file descriptors may be
+    used interchangeably. They refer to the same open file description (see
+    <b>open</b>(2)) and thus share file offset and file status flags; for
+    example, if the file offset is modified by using <b>lseek</b>(2) on one of
+    the file descriptors, the offset is also changed for the other.</p>
+<p class="Pp">The two file descriptors do not share file descriptor flags (the
+    close-on-exec flag). The close-on-exec flag (<b>FD_CLOEXEC</b>; see
+    <b>fcntl</b>(2)) for the duplicate descriptor is off.</p>
+<section class="Ss">
+<h2 class="Ss" id="dup2()"><a class="permalink" href="#dup2()">dup2()</a></h2>
+The <b>dup2</b>() system call performs the same task as <b>dup</b>(), but
+  instead of using the lowest-numbered unused file descriptor, it uses the file
+  descriptor number specified in <i>newfd</i>. If the file descriptor
+  <i>newfd</i> was previously open, it is silently closed before being reused.
+<p class="Pp">The steps of closing and reusing the file descriptor <i>newfd</i>
+    are performed <i>atomically</i>. This is important, because trying to
+    implement equivalent functionality using <b>close</b>(2) and <b>dup</b>()
+    would be subject to race conditions, whereby <i>newfd</i> might be reused
+    between the two steps. Such reuse could happen because the main program is
+    interrupted by a signal handler that allocates a file descriptor, or because
+    a parallel thread allocates a file descriptor.</p>
+<p class="Pp">Note the following points:</p>
+<ul class="Bl-bullet">
+  <li>If <i>oldfd</i> is not a valid file descriptor, then the call fails, and
+      <i>newfd</i> is not closed.</li>
+  <li>If <i>oldfd</i> is a valid file descriptor, and <i>newfd</i> has the same
+      value as <i>oldfd</i>, then <b>dup2</b>() does nothing, and returns
+      <i>newfd</i>.</li>
+</ul>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="dup3()"><a class="permalink" href="#dup3()">dup3()</a></h2>
+<b>dup3</b>() is the same as <b>dup2</b>(), except that:
+<ul class="Bl-bullet">
+  <li>The caller can force the close-on-exec flag to be set for the new file
+      descriptor by specifying <b>O_CLOEXEC</b> in <i>flags</i>. See the
+      description of the same flag in <b>open</b>(2) for reasons why this may be
+      useful.</li>
+  <li>If <i>oldfd</i> equals <i>newfd</i>, then <b>dup3</b>() fails with the
+      error <b>EINVAL</b>.</li>
+</ul>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, these system calls return the new file descriptor. On error, -1 is
+  returned, and <i>errno</i> is set appropriately.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EBADF</b></dt>
+  <dd><i>oldfd</i> isn't an open file descriptor.</dd>
+  <dt><b>EBADF</b></dt>
+  <dd><i>newfd</i> is out of the allowed range for file descriptors (see the
+      discussion of <b>RLIMIT_NOFILE</b> in <b>getrlimit</b>(2)).</dd>
+  <dt><b>EBUSY</b></dt>
+  <dd>(Linux only) This may be returned by <b>dup2</b>() or <b>dup3</b>() during
+      a race condition with <b>open</b>(2) and <b>dup</b>().</dd>
+  <dt><b>EINTR</b></dt>
+  <dd>The <b>dup2</b>() or <b>dup3</b>() call was interrupted by a signal; see
+      <b>signal</b>(7).</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd>(<b>dup3</b>()) <i>flags</i> contain an invalid value.</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd>(<b>dup3</b>()) <i>oldfd</i> was equal to <i>newfd</i>.</dd>
+  <dt><b>EMFILE</b></dt>
+  <dd>The per-process limit on the number of open file descriptors has been
+      reached (see the discussion of <b>RLIMIT_NOFILE</b> in
+      <b>getrlimit</b>(2)).</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="VERSIONS"><a class="permalink" href="#VERSIONS">VERSIONS</a></h1>
+<b>dup3</b>() was added to Linux in version 2.6.27; glibc support is available
+  starting with version 2.9.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+<b>dup</b>(), <b>dup2</b>(): POSIX.1-2001, POSIX.1-2008, SVr4, 4.3BSD.
+<p class="Pp"><b>dup3</b>() is Linux-specific.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+The error returned by <b>dup2</b>() is different from that returned by
+  <b>fcntl(</b>..., <b>F_DUPFD</b>, ...<b>)</b> when <i>newfd</i> is out of
+  range. On some systems, <b>dup2</b>() also sometimes returns <b>EINVAL</b>
+  like <b>F_DUPFD</b>.
+<p class="Pp">If <i>newfd</i> was open, any errors that would have been reported
+    at <b>close</b>(2) time are lost. If this is of concern, then&#x2014;unless
+    the program is single-threaded and does not allocate file descriptors in
+    signal handlers&#x2014;the correct approach is <i>not</i> to close
+    <i>newfd</i> before calling <b>dup2</b>(), because of the race condition
+    described above. Instead, code something like the following could be
+  used:</p>
+<p class="Pp"></p>
+<pre>
+    /* Obtain a duplicate of 'newfd' that can subsequently
+       be used to check for close() errors; an EBADF error
+       means that 'newfd' was not open. */
+    tmpfd = dup(newfd);
+    if (tmpfd == -1 &amp;&amp; errno != EBADF) {
+        /* Handle unexpected dup() error */
+    }
+    /* Atomically duplicate 'oldfd' on 'newfd' */
+    if (dup2(oldfd, newfd) == -1) {
+        /* Handle dup2() error */
+    }
+    /* Now check for close() errors on the file originally
+       referred to by 'newfd' */
+    if (tmpfd != -1) {
+        if (close(tmpfd) == -1) {
+            /* Handle errors from close */
+        }
+    }
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>close</b>(2), <b>fcntl</b>(2), <b>open</b>(2)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2017-09-15</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

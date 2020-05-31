@@ -1,0 +1,114 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/memusagestat.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">MEMUSAGESTAT(1)</td>
+    <td class="head-vol">Linux programmer's manual</td>
+    <td class="head-rtitle">MEMUSAGESTAT(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+memusagestat - generate graphic from memory profiling data
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>memusagestat</b> [<i>option</i>]... <i>datafile</i> [<i>outfile</i>]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>memusagestat</b> creates a PNG file containing a graphical representation of
+  the memory profiling data in the file <i>datafile</i>; that file is generated
+  via the <i>-d</i> (or <i>--data</i>) option of <b>memusage</b>(1).
+<p class="Pp">The red line in the graph shows the heap usage (allocated memory)
+    and the green line shows the stack usage. The x-scale is either the number
+    of memory-handling function calls or (if the <i>-t</i> option is specified)
+    time.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>-o&#x00A0;</b><i>file</i><b>,&#x00A0;<b>--output=</b></b><i><b>file</b></i></dt>
+  <dd>Name of the output file.</dd>
+  <dt><b>-s&#x00A0;</b><i>string</i><b>,&#x00A0;<b>--string=</b></b><i><b>string</b></i></dt>
+  <dd>Use <i>string</i> as the title inside the output graph.</dd>
+  <dt><b>-t,&#x00A0;<b>--time</b></b></dt>
+  <dd>Use time (rather than number of function calls) as the scale for the X
+      axis.</dd>
+  <dt><b>-T,&#x00A0;<b>--total</b></b></dt>
+  <dd>Also draw a graph of total memory consumption.</dd>
+  <dt><b>-x&#x00A0;</b><i>size</i><b>,&#x00A0;<b>--x-size=</b></b><i><b>size</b></i></dt>
+  <dd>Make the output graph <i>size</i> pixels wide.</dd>
+  <dt><b>-y&#x00A0;</b><i>size</i><b>,&#x00A0;<b>--y-size=</b></b><i><b>size</b></i></dt>
+  <dd>Make the output graph <i>size</i> pixels high.</dd>
+  <dt><b>-?,&#x00A0;<b>--help</b></b></dt>
+  <dd>Print a help message and exit.</dd>
+  <dt><b>--usage</b></dt>
+  <dd>Print a short usage message and exit.</dd>
+  <dt><b>-V,&#x00A0;<b>--version</b></b></dt>
+  <dd>Print version information and exit.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="BUGS"><a class="permalink" href="#BUGS">BUGS</a></h1>
+To report bugs, see
+  <a class="Lk" href="http://www.gnu.org/software/libc/bugs.html">http://www.gnu.org/software/libc/bugs.html</a>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXAMPLE"><a class="permalink" href="#EXAMPLE">EXAMPLE</a></h1>
+See <b>memusage</b>(1).
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>memusage</b>(1), <b>mtrace</b>(1)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-03-06</td>
+    <td class="foot-os">GNU</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

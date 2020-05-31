@@ -1,0 +1,133 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/uselib.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">USELIB(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">USELIB(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+uselib - load shared library
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>#include &lt;unistd.h&gt;</b>
+<p class="Pp"><b>int uselib(const char *</b><i>library</i><b>);</b></p>
+<p class="Pp"><i>Note</i>: No declaration of this system call is provided in
+    glibc headers; see NOTES.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+The system call <b>uselib</b>() serves to load a shared library to be used by
+  the calling process. It is given a pathname. The address where to load is
+  found in the library itself. The library can have any recognized binary
+  format.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, zero is returned. On error, -1 is returned, and <i>errno</i> is set
+  appropriately.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+In addition to all of the error codes returned by <b>open</b>(2) and
+  <b>mmap</b>(2), the following may also be returned:
+<dl class="Bl-tag">
+  <dt><b>EACCES</b></dt>
+  <dd>The library specified by <i>library</i> does not have read or execute
+      permission, or the caller does not have search permission for one of the
+      directories in the path prefix. (See also <b>path_resolution</b>(7).)</dd>
+  <dt><b>ENFILE</b></dt>
+  <dd>The system-wide limit on the total number of open files has been
+    reached.</dd>
+  <dt><b>ENOEXEC</b></dt>
+  <dd>The file specified by <i>library</i> is not an executable of a known type;
+      for example, it does not have the correct magic numbers.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+<b>uselib</b>() is Linux-specific, and should not be used in programs intended
+  to be portable.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+This obsolete system call is not supported by glibc. No declaration is provided
+  in glibc headers, but, through a quirk of history, glibc versions before 2.23
+  did export an ABI for this system call. Therefore, in order to employ this
+  system call, it was sufficient to manually declare the interface in your code;
+  alternatively, you could invoke the system call using <b>syscall</b>(2).
+<p class="Pp">In ancient libc versions, <b>uselib</b>() was used to load the
+    shared libraries with names found in an array of names in the binary.</p>
+<p class="Pp">Since libc 4.3.2, startup code tries to prefix these names with
+    &quot;/usr/lib&quot;, &quot;/lib&quot; and &quot;&quot; before giving up. In
+    libc 4.3.4 and later these names are looked for in the directories found in
+    <b>LD_LIBRARY_PATH</b>, and if not found there, prefixes
+    &quot;/usr/lib&quot;, &quot;/lib&quot; and &quot;/&quot; are tried.</p>
+<p class="Pp">From libc 4.4.4 on only the library &quot;/lib/ld.so&quot; is
+    loaded, so that this dynamic library can load the remaining libraries needed
+    (again using this call). This is also the state of affairs in libc5.</p>
+<p class="Pp">glibc2 does not use this call.</p>
+<p class="Pp">Since Linux 3.15, this system call is available only when the
+    kernel is configured with the <b>CONFIG_USELIB</b> option.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>ar</b>(1), <b>gcc</b>(1), <b>ld</b>(1), <b>ldd</b>(1), <b>mmap</b>(2),
+  <b>open</b>(2), <b>dlopen</b>(3), <b>capabilities</b>(7), <b>ld.so</b>(8)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2017-09-15</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

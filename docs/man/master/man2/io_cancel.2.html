@@ -1,0 +1,132 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/io_cancel.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">IO_CANCEL(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">IO_CANCEL(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+io_cancel - cancel an outstanding asynchronous I/O operation
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>#include &lt;linux/aio_abi.h&gt;</b>          /* Defines needed types */
+</pre>
+<pre>
+<b>int io_cancel(aio_context_t </b><i>ctx_id</i><b>, struct iocb *</b><i>iocb</i><b>,</b>
+<b>              struct io_event *</b><i>result</i><b>);</b>
+</pre>
+<p class="Pp"><i>Note</i>: There is no glibc wrapper for this system call; see
+    NOTES.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+The <b>io_cancel</b>() system call attempts to cancel an asynchronous I/O
+  operation previously submitted with <b>io_submit</b>(2). The <i>iocb</i>
+  argument describes the operation to be canceled and the <i>ctx_id</i> argument
+  is the AIO context to which the operation was submitted. If the operation is
+  successfully canceled, the event will be copied into the memory pointed to by
+  <i>result</i> without being placed into the completion queue.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, <b>io_cancel</b>() returns 0. For the failure return, see NOTES.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EAGAIN</b></dt>
+  <dd>The <i>iocb</i> specified was not canceled.</dd>
+  <dt><b>EFAULT</b></dt>
+  <dd>One of the data structures points to invalid data.</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd>The AIO context specified by <i>ctx_id</i> is invalid.</dd>
+  <dt><b>ENOSYS</b></dt>
+  <dd><b>io_cancel</b>() is not implemented on this architecture.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="VERSIONS"><a class="permalink" href="#VERSIONS">VERSIONS</a></h1>
+The asynchronous I/O system calls first appeared in Linux 2.5.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+<b>io_cancel</b>() is Linux-specific and should not be used in programs that are
+  intended to be portable.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+Glibc does not provide a wrapper function for this system call. You could invoke
+  it using <b>syscall</b>(2). But instead, you probably want to use the
+  <b>io_cancel</b>() wrapper function provided by <i>libaio</i>.
+<p class="Pp">Note that the <i>libaio</i> wrapper function uses a different type
+    (<i>io_context_t</i>) for the <i>ctx_id</i> argument. Note also that the
+    <i>libaio</i> wrapper does not follow the usual C library conventions for
+    indicating errors: on error it returns a negated error number (the negative
+    of one of the values listed in ERRORS). If the system call is invoked via
+    <b>syscall</b>(2), then the return value follows the usual conventions for
+    indicating an error: -1, with <i>errno</i> set to a (positive) value that
+    indicates the error.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>io_destroy</b>(2), <b>io_getevents</b>(2), <b>io_setup</b>(2),
+  <b>io_submit</b>(2), <b>aio</b>(7)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2017-09-15</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

@@ -1,0 +1,203 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/getgroups.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">GETGROUPS(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">GETGROUPS(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+getgroups, setgroups - get/set list of supplementary group IDs
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>#include &lt;sys/types.h&gt;</b>
+<br/>
+<b>#include &lt;unistd.h&gt;</b>
+<p class="Pp"><b>int getgroups(int </b><i>size</i><b>, gid_t
+    </b><i>list</i><b>[]);</b></p>
+<p class="Pp"><b>#include &lt;grp.h&gt;</b></p>
+<p class="Pp"><b>int setgroups(size_t </b><i>size</i><b>, const gid_t
+    *</b><i>list</i><b>);</b></p>
+<p class="Pp">
+  <br/>
+  Feature Test Macro Requirements for glibc (see <b>feature_test_macros</b>(7)):
+  <br/>
+</p>
+<p class="Pp"><b>setgroups</b>():
+   Since glibc 2.19:
+   _DEFAULT_SOURCE
+   Glibc 2.19 and earlier:
+   _BSD_SOURCE</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>getgroups</b>() returns the supplementary group IDs of the calling process in
+  <i>list</i>. The argument <i>size</i> should be set to the maximum number of
+  items that can be stored in the buffer pointed to by <i>list</i>. If the
+  calling process is a member of more than <i>size</i> supplementary groups,
+  then an error results.
+<p class="Pp">It is unspecified whether the effective group ID of the calling
+    process is included in the returned list. (Thus, an application should also
+    call <b>getegid</b>(2) and add or remove the resulting value.)</p>
+<p class="Pp">If <i>size</i> is zero, <i>list</i> is not modified, but the total
+    number of supplementary group IDs for the process is returned. This allows
+    the caller to determine the size of a dynamically allocated <i>list</i> to
+    be used in a further call to <b>getgroups</b>().</p>
+<p class="Pp"><b>setgroups</b>() sets the supplementary group IDs for the
+    calling process. Appropriate privileges are required (see the description of
+    the <b>EPERM</b> error, below). The <i>size</i> argument specifies the
+    number of supplementary group IDs in the buffer pointed to by <i>list</i>. A
+    process can drop all of its supplementary groups with the call:</p>
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+setgroups(0, NULL);
+
+</pre>
+<br/>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, <b>getgroups</b>() returns the number of supplementary group IDs. On
+  error, -1 is returned, and <i>errno</i> is set appropriately.
+<p class="Pp">On success, <b>setgroups</b>() returns 0. On error, -1 is
+    returned, and <i>errno</i> is set appropriately.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EFAULT</b></dt>
+  <dd><i>list</i> has an invalid address.</dd>
+</dl>
+<p class="Pp"><b>getgroups</b>() can additionally fail with the following
+  error:</p>
+<dl class="Bl-tag">
+  <dt><b>EINVAL</b></dt>
+  <dd><i>size</i> is less than the number of supplementary group IDs, but is not
+      zero.</dd>
+</dl>
+<p class="Pp"><b>setgroups</b>() can additionally fail with the following
+    errors:</p>
+<dl class="Bl-tag">
+  <dt><b>EINVAL</b></dt>
+  <dd><i>size</i> is greater than <b>NGROUPS_MAX</b> (32 before Linux 2.6.4;
+      65536 since Linux 2.6.4).</dd>
+  <dt><b>ENOMEM</b></dt>
+  <dd>Out of memory.</dd>
+  <dt><b>EPERM</b></dt>
+  <dd>The calling process has insufficient privilege (the caller does not have
+      the <b>CAP_SETGID</b> capability in the user namespace in which it
+      resides).</dd>
+  <dt><b>EPERM</b> (since Linux 3.19)</dt>
+  <dd>The use of <b>setgroups</b>() is denied in this user namespace. See the
+      description of <i>/proc/[pid]/setgroups</i> in
+    <b>user_namespaces</b>(7).</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+<b>getgroups</b>(): SVr4, 4.3BSD, POSIX.1-2001, POSIX.1-2008.
+<p class="Pp"><b>setgroups</b>(): SVr4, 4.3BSD. Since <b>setgroups</b>()
+    requires privilege, it is not covered by POSIX.1.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+A process can have up to <b>NGROUPS_MAX</b> supplementary group IDs in addition
+  to the effective group ID. The constant <b>NGROUPS_MAX</b> is defined in
+  <i>&lt;limits.h&gt;</i>. The set of supplementary group IDs is inherited from
+  the parent process, and preserved across an <b>execve</b>(2).
+<p class="Pp">The maximum number of supplementary group IDs can be found at run
+    time using <b>sysconf</b>(3):</p>
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+long ngroups_max;
+ngroups_max = sysconf(_SC_NGROUPS_MAX);
+
+</pre>
+<br/>
+<p class="Pp">The maximum return value of <b>getgroups</b>() cannot be larger
+    than one more than this value. Since Linux 2.6.4, the maximum number of
+    supplementary group IDs is also exposed via the Linux-specific read-only
+    file, <i>/proc/sys/kernel/ngroups_max</i>.</p>
+<p class="Pp">The original Linux <b>getgroups</b>() system call supported only
+    16-bit group IDs. Subsequently, Linux 2.4 added <b>getgroups32</b>(),
+    supporting 32-bit IDs. The glibc <b>getgroups</b>() wrapper function
+    transparently deals with the variation across kernel versions.</p>
+<section class="Ss">
+<h2 class="Ss" id="C_library/kernel_differences"><a class="permalink" href="#C_library/kernel_differences">C
+  library/kernel differences</a></h2>
+At the kernel level, user IDs and group IDs are a per-thread attribute. However,
+  POSIX requires that all threads in a process share the same credentials. The
+  NPTL threading implementation handles the POSIX requirements by providing
+  wrapper functions for the various system calls that change process UIDs and
+  GIDs. These wrapper functions (including the one for <b>setgroups</b>())
+  employ a signal-based technique to ensure that when one thread changes
+  credentials, all of the other threads in the process also change their
+  credentials. For details, see <b>nptl</b>(7).
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>getgid</b>(2), <b>setgid</b>(2), <b>getgrouplist</b>(3),
+  <b>group_member</b>(3), <b>initgroups</b>(3), <b>capabilities</b>(7),
+  <b>credentials</b>(7)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-03-06</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

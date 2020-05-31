@@ -1,0 +1,145 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/time.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">TIME(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">TIME(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+time - get time in seconds
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>#include &lt;time.h&gt;</b>
+<p class="Pp"><b>time_t time(time_t *</b><i>tloc</i><b>);</b></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>time</b>() returns the time as the number of seconds since the Epoch,
+  1970-01-01 00:00:00 +0000 (UTC).
+<p class="Pp">If <i>tloc</i> is non-NULL, the return value is also stored in the
+    memory pointed to by <i>tloc</i>.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, the value of time in seconds since the Epoch is returned. On error,
+  <i>((time_t)&#x00A0;-1)</i> is returned, and <i>errno</i> is set
+  appropriately.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EFAULT</b></dt>
+  <dd><i>tloc</i> points outside your accessible address space (but see
+    BUGS).</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>On systems where the C library <b>time</b>() wrapper function invokes an
+      implementation provided by the <b>vdso</b>(7) (so that there is no trap
+      into the kernel), an invalid address may instead trigger a <b>SIGSEGV</b>
+      signal.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+SVr4, 4.3BSD, C89, C99, POSIX.1-2001. POSIX does not specify any error
+  conditions.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+POSIX.1 defines <i>seconds since the Epoch</i> using a formula that approximates
+  the number of seconds between a specified time and the Epoch. This formula
+  takes account of the facts that all years that are evenly divisible by 4 are
+  leap years, but years that are evenly divisible by 100 are not leap years
+  unless they are also evenly divisible by 400, in which case they are leap
+  years. This value is not the same as the actual number of seconds between the
+  time and the Epoch, because of leap seconds and because system clocks are not
+  required to be synchronized to a standard reference. The intention is that the
+  interpretation of seconds since the Epoch values be consistent; see
+  POSIX.1-2008 Rationale A.4.15 for further rationale.
+<p class="Pp">On Linux, a call to <b>time</b>() with <i>tloc</i> specified as
+    NULL cannot fail with the error <b>EOVERFLOW</b>, even on ABIs where
+    <i>time_t</i> is a signed 32-bit integer and the clock ticks past the time
+    2**31 (2038-01-19 03:14:08 UTC, ignoring leap seconds). (POSIX.1 permits,
+    but does not require, the <b>EOVERFLOW</b> error in the case where the
+    seconds since the Epoch will not fit in <i>time_t</i>.) Instead, the
+    behavior on Linux is undefined when the system time is out of the
+    <i>time_t</i> range. Applications intended to run after 2038 should use ABIs
+    with <i>time_t</i> wider than 32 bits.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="BUGS"><a class="permalink" href="#BUGS">BUGS</a></h1>
+Error returns from this system call are indistinguishable from successful
+  reports that the time is a few seconds <i>before</i> the Epoch, so the C
+  library wrapper function never sets <i>errno</i> as a result of this call.
+<p class="Pp">The <i>tloc</i> argument is obsolescent and should always be NULL
+    in new code. When <i>tloc</i> is NULL, the call cannot fail.</p>
+<section class="Ss">
+<h2 class="Ss" id="C_library/kernel_differences"><a class="permalink" href="#C_library/kernel_differences">C
+  library/kernel differences</a></h2>
+On some architectures, an implementation of <b>time</b>() is provided in the
+  <b>vdso</b>(7).
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>date</b>(1), <b>gettimeofday</b>(2), <b>ctime</b>(3), <b>ftime</b>(3),
+  <b>time</b>(7), <b>vdso</b>(7)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2017-09-15</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

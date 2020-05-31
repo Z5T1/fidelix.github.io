@@ -1,0 +1,110 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/grep.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">GREP(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">GREP(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+grep - manual page for grep 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>grep</b> [<i>-HhnlLoqvsriwFE</i>] [<i>-m N</i>] [<i>-A/B/C N</i>]
+  <i>PATTERN/-e PATTERN</i>...<i>/-f FILE </i>[<i>FILE</i>]...
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">Search for PATTERN in FILEs (or stdin)</p>
+<dl class="Bl-tag">
+  <dt><b>-H</b></dt>
+  <dd>Add 'filename:' prefix</dd>
+  <dt><b>-h</b></dt>
+  <dd>Do not add 'filename:' prefix</dd>
+  <dt><b>-n</b></dt>
+  <dd>Add 'line_no:' prefix</dd>
+  <dt><b>-l</b></dt>
+  <dd>Show only names of files that match</dd>
+  <dt><b>-L</b></dt>
+  <dd>Show only names of files that don't match</dd>
+  <dt><b>-c</b></dt>
+  <dd>Show only count of matching lines</dd>
+  <dt><b>-o</b></dt>
+  <dd>Show only the matching part of line</dd>
+  <dt><b>-q</b></dt>
+  <dd>Quiet. Return 0 if PATTERN is found, 1 otherwise</dd>
+  <dt><b>-v</b></dt>
+  <dd>Select non-matching lines</dd>
+  <dt><b>-s</b></dt>
+  <dd>Suppress open and read errors</dd>
+  <dt><b>-r</b></dt>
+  <dd>Recurse</dd>
+  <dt><b>-i</b></dt>
+  <dd>Ignore case</dd>
+  <dt><b>-w</b></dt>
+  <dd>Match whole words only</dd>
+  <dt><b>-x</b></dt>
+  <dd>Match whole lines only</dd>
+  <dt><b>-F</b></dt>
+  <dd>PATTERN is a literal (not regexp)</dd>
+  <dt><b>-E</b></dt>
+  <dd>PATTERN is an extended regexp</dd>
+  <dt><b>-m</b> N</dt>
+  <dd>Match up to N times per file</dd>
+  <dt><b>-A</b> N</dt>
+  <dd>Print N lines of trailing context</dd>
+  <dt><b>-B</b> N</dt>
+  <dd>Print N lines of leading context</dd>
+  <dt><b>-C</b> N</dt>
+  <dd>Same as '-A N <b>-B</b> N'</dd>
+</dl>
+<p class="Pp HP"><b>-e</b> PTRN Pattern to match</p>
+<p class="Pp HP"><b>-f</b> FILE Read pattern from file</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

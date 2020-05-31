@@ -1,0 +1,117 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man8/makepkg.8</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">MAKEPKG(8)</td>
+    <td class="head-vol">Linux System Administrator's Manual</td>
+    <td class="head-rtitle">MAKEPKG(8)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+makepkg - creates an installable package
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>makepkg [-h] [-d ROOT_DIR] [-m METADATA_DIR] -o &lt;OUTPUT_FILE&gt;</b>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+Make an installable package from the contents of a directory. The resulting
+  package can be installed with <b>installpkg(8)</b>
+<p class="Pp"></p>
+<p class="Pp">Options:</p>
+<dl class="Bl-tag">
+  <dt><b>-o &lt;output file&gt;</b></dt>
+  <dd>The name of the file to write the package archive to. By convention, this
+      is of the form <b>name-version-architecture-osrelease-build.tgz</b> Valid
+      file extensions are .tgz and .tbz.</dd>
+  <dt><b>-d &lt;root directory&gt;</b></dt>
+  <dd>The root directory to make the package from. If this is omitted, defaults
+      to the current working directory.</dd>
+  <dt><b>-m &lt;metadata directory&gt;</b></dt>
+  <dd>The directory containing the package metadata. If this is omitted,
+      defaults to ROOT_DIR/var/pkgdb/output_file_basename.</dd>
+  <dt><b>-h</b></dt>
+  <dd>Displays a help message.
+    <p class="Pp"></p>
+  </dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="METADATA"><a class="permalink" href="#METADATA">METADATA</a></h1>
+The following files are permitted in the metadata directory. If using <b>-m</b>
+  to specify a different metadata directory, only these files will be copied and
+  all other files will be ignored.
+<dl class="Bl-tag">
+  <dt><b>description</b></dt>
+  <dd>Contains a description of the package (optionally multiline).</dd>
+  <dt><b>README.install</b></dt>
+  <dd>A README to display when installing the package.</dd>
+  <dt><b>README.upgrade</b></dt>
+  <dd>A README to display when upgrading the package.</dd>
+  <dt><b>README.uninstall</b></dt>
+  <dd>A README to display when uninstalling the package.</dd>
+  <dt><b>doinst.sh</b></dt>
+  <dd>A shell script to run after installing the package.</dd>
+  <dt><b>douninst.sh</b></dt>
+  <dd>A shell script to run before uninstalling the package.
+    <p class="Pp"></p>
+  </dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHOR"><a class="permalink" href="#AUTHOR">AUTHOR</a></h1>
+Makepkg was written by Scott Court (z5t1@z5t1.com).
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>pkgtool(8)</b> <b>installpkg(8)</b> <b>removepkg(8)</b> <b>upgradepkg(8)</b>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2020-03-24</td>
+    <td class="foot-os">Fidelix 0.1</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

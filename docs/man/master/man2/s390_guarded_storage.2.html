@@ -1,0 +1,174 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/s390_guarded_storage.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">S390_GUARDED_STORAGE(2)</td>
+    <td class="head-vol">System Calls Manual</td>
+    <td class="head-rtitle">S390_GUARDED_STORAGE(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+s390_guarded_storage - operations with z/Architecture guarded storage facility
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>#include &lt;asm/guarded_storage.h&gt;</b>
+</pre>
+<pre>
+<b>int s390_guarded_storage(int </b><i>command</i><b>, struct gs_cb *</b><i>gs_cb</i><b>);</b>
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+The <b>s390_guarded_storage</b>() system call enables the use of the Guarded
+  Storage Facility (a z/Architecture-specific feature) for user-space processes.
+<p class="Pp">The guarded storage facility is a hardware feature that allows
+    marking up to 64 memory regions (as of z14) as guarded; reading a pointer
+    with a newly introduced &quot;Load Guarded&quot; (LGG) or &quot;Load Logical
+    and Shift Guarded&quot; (LLGFSG) instructions will cause a range check on
+    the loaded value and invoke a (previously set up) user-space handler if one
+    of the guarded regions is affected.</p>
+<p class="Pp">The <i>command</i> argument indicates which function to perform.
+    The following commands are supported:</p>
+<dl class="Bl-tag">
+  <dt><b>GS_ENABLE</b></dt>
+  <dd>Enable the guarded storage facility for the calling task. The initial
+      content of the guarded storage control block will be all zeros. After
+      enablement, user-space code can use the &quot;Load Guarded Storage
+      Controls&quot; (LGSC) instruction (or the <b>load_gs_cb</b>() function
+      wrapper provided in the <i>asm/guarded_storage.h</i> header) to load an
+      arbitrary control block. While a task is enabled, the kernel will save and
+      restore the calling content of the guarded storage registers on context
+      switch.</dd>
+  <dt><b>GS_DISABLE</b></dt>
+  <dd>Disables the use of the guarded storage facility for the calling task. The
+      kernel will cease to save and restore the content of the guarded storage
+      registers, the task-specific content of these registers is lost.</dd>
+  <dt><b>GS_SET_BC_CB</b></dt>
+  <dd>Set a broadcast guarded storage control block to the one provided in the
+      <i>gs_cb</i> argument. This is called per thread and associates a specific
+      guarded storage control block with the calling task. This control block
+      will be used in the broadcast command <b>GS_BROADCAST</b>.</dd>
+  <dt><b>GS_CLEAR_BC_CB</b></dt>
+  <dd>Clears the broadcast guarded storage control block. The guarded storage
+      control block will no longer have the association established by the
+      <b>GS_SET_BC_CB</b> command.</dd>
+  <dt><b>GS_BROADCAST</b></dt>
+  <dd>Sends a broadcast to all thread siblings of the calling task. Every
+      sibling that has established a broadcast guarded storage control block
+      will load this control block and will be enabled for guarded storage. The
+      broadcast guarded storage control block is consumed; a second broadcast
+      without a refresh of the stored control block with <b>GS_SET_BC_CB</b>
+      will not have any effect.</dd>
+</dl>
+<p class="Pp">The <i>gs_cb</i> argument specifies the address of a guarded
+    storage control block structure and is currently used only by the
+    <b>GS_SET_BC_CB</b> command; all other aforementioned commands ignore this
+    argument.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, the return value of <b>s390_guarded_storage</b>() is 0.
+<p class="Pp">On error, -1 is returned, and <i>errno</i> is set
+  appropriately.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EFAULT</b></dt>
+  <dd><i>command</i> was <b>GS_SET_BC_CB</b> and the copying of the guarded
+      storage control block structure pointed by the <i>gs_cb</i> argument has
+      failed.</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd>The value provided in the <i>command</i> argument was not valid.</dd>
+  <dt><b>ENOMEM</b></dt>
+  <dd><i>command</i> was one of <b>GS_ENABLE</b> or <b>GS_SET_BC_CB</b>, and the
+      allocation of a new guarded storage control block has failed.</dd>
+  <dt><b>EOPNOTSUPP</b></dt>
+  <dd>The guarded storage facility is not supported by the hardware.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="VERSIONS"><a class="permalink" href="#VERSIONS">VERSIONS</a></h1>
+This system call is available since Linux 4.12.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+This Linux-specific system call is available only on the s390 architecture.
+<p class="Pp">The guarded storage facility is available beginning with System
+    z14.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+Glibc does not provide a wrapper for this system call, use <b>syscall</b>(2) to
+  call it.
+<p class="Pp">The description of the guarded storage facility along with related
+    instructions and Guarded Storage Control Block and Guarded Storage Event
+    Parameter List structure layouts is available in &quot;z/Architecture
+    Principles of Operations&quot; beginning from the twelfth edition.</p>
+<p class="Pp">The <i>gs_cb</i> structure has a field <i>gsepla</i> (Guarded
+    Storage Event Parameter List Address), which is a user-space pointer to a
+    Guarded Storage Event Parameter List structure (that contains the address of
+    the aforementioned event handler in the <i>gseha</i> field), and its layout
+    is available as a <b>gs_epl</b> structure type definition in the
+    <i>asm/guarded_storage.h</i> header.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>syscall</b>(2)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-03-06</td>
+    <td class="foot-os">Linux Programmer's Manual</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

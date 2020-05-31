@@ -1,0 +1,341 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man5/terminal-colors.d.5</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">TERMINAL_COLORS.D(5)</td>
+    <td class="head-vol">terminal-colors.d</td>
+    <td class="head-rtitle">TERMINAL_COLORS.D(5)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+terminal-colors.d - Configure output colorization for various utilities
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+/etc/terminal-colors.d/[[<i>name</i>][@<i>term</i>].][<i>type</i>]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+Files in this directory determine the default behavior for utilities when
+  coloring output.
+<p class="Pp">The <i>name</i> is a utility name. The name is optional and when
+    none is specified then the file is used for all unspecified utilities.</p>
+<p class="Pp">The <i>term</i> is a terminal identifier (the TERM environment
+    variable). The terminal identifier is optional and when none is specified
+    then the file is used for all unspecified terminals.</p>
+<p class="Pp">The <i>type</i> is a file type. Supported file types are:</p>
+<dl class="Bl-tag">
+  <dt><b>disable</b></dt>
+  <dd>Turns off output colorization for all compatible utilities.</dd>
+  <dt><b>enable</b></dt>
+  <dd>Turns on output colorization; any matching <b>disable</b> files are
+      ignored.</dd>
+  <dt><b>scheme</b></dt>
+  <dd>Specifies colors used for output. The file format may be specific to the
+      utility, the default format is described below.</dd>
+</dl>
+<p class="Pp">If there are more files that match for a utility, then the file
+    with the more specific filename wins. For example, the filename
+    &quot;@xterm.scheme&quot; has less priority than
+    &quot;dmesg@xterm.scheme&quot;. The lowest priority are those files without
+    a utility name and terminal identifier (e.g., &quot;disable&quot;).</p>
+<p class="Pp">The user-specific <i>$XDG_CONFIG_HOME/terminal-colors.d</i> or
+    <i>$HOME/.config/terminal-colors.d</i> overrides the global setting.</p>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXAMPLES"><a class="permalink" href="#EXAMPLES">EXAMPLES</a></h1>
+Disable colors for all compatible utilities:
+<div class="Bd-indent">
+<br/>
+<b>touch /etc/terminal-colors.d/disable</b>
+<br/>
+</div>
+<p class="Pp">Disable colors for all compatible utils on a vt100 terminal:</p>
+<div class="Bd-indent">
+<br/>
+<b>touch /etc/terminal-colors.d/@vt100.disable</b>
+<br/>
+</div>
+<p class="Pp">Disable colors for all compatible utils except dmesg(1):</p>
+<div class="Bd-indent">
+<br/>
+<b>touch /etc/terminal-colors.d/disable</b>
+<p class="Pp"><b>touch /etc/terminal-colors.d/dmesg.enable</b>
+  <br/>
+</p>
+</div>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DEFAULT_SCHEME_FILES_FORMAT"><a class="permalink" href="#DEFAULT_SCHEME_FILES_FORMAT">DEFAULT
+  SCHEME FILES FORMAT</a></h1>
+The following statement is recognized:
+<p class="Pp"></p>
+<div class="Bd-indent">
+<br/>
+<b>name color-sequence</b>
+<br/>
+</div>
+<p class="Pp">The <b>name</b> is a logical name of color sequence (for example
+    &quot;error&quot;). The names are specific to the utilities. For more
+    details always see the COLORS section in the man page for the utility.</p>
+<p class="Pp">The <b>color-sequence</b> is a color name, ASCII color sequences
+    or escape sequences.</p>
+<p class="Pp"></p>
+<section class="Ss">
+<h2 class="Ss" id="Color_names"><a class="permalink" href="#Color_names">Color
+  names</a></h2>
+black, blink, blue, bold, brown, cyan, darkgray, gray, green, halfbright,
+  lightblue, lightcyan, lightgray, lightgreen, lightmagenta, lightred, magenta,
+  red, reset, reverse, and yellow.
+<p class="Pp"></p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="ANSI_color_sequences"><a class="permalink" href="#ANSI_color_sequences">ANSI
+  color sequences</a></h2>
+The color sequences are composed of sequences of numbers separated by
+  semicolons. The most common codes are:
+<p class="Pp"></p>
+<div class="Bd-indent">
+<table class="tbl">
+  <tr>
+    <td> 0</td>
+    <td>to restore default color</td>
+  </tr>
+  <tr>
+    <td> 1</td>
+    <td>for brighter colors</td>
+  </tr>
+  <tr>
+    <td> 4</td>
+    <td>for underlined text</td>
+  </tr>
+  <tr>
+    <td> 5</td>
+    <td>for flashing text</td>
+  </tr>
+  <tr>
+    <td>30</td>
+    <td>for black foreground</td>
+  </tr>
+  <tr>
+    <td>31</td>
+    <td>for red foreground</td>
+  </tr>
+  <tr>
+    <td>32</td>
+    <td>for green foreground</td>
+  </tr>
+  <tr>
+    <td>33</td>
+    <td>for yellow (or brown) foreground</td>
+  </tr>
+  <tr>
+    <td>34</td>
+    <td>for blue foreground</td>
+  </tr>
+  <tr>
+    <td>35</td>
+    <td>for purple foreground</td>
+  </tr>
+  <tr>
+    <td>36</td>
+    <td>for cyan foreground</td>
+  </tr>
+  <tr>
+    <td>37</td>
+    <td>for white (or gray) foreground</td>
+  </tr>
+  <tr>
+    <td>40</td>
+    <td>for black background</td>
+  </tr>
+  <tr>
+    <td>41</td>
+    <td>for red background</td>
+  </tr>
+  <tr>
+    <td>42</td>
+    <td>for green background</td>
+  </tr>
+  <tr>
+    <td>43</td>
+    <td>for yellow (or brown) background</td>
+  </tr>
+  <tr>
+    <td>44</td>
+    <td>for blue background</td>
+  </tr>
+  <tr>
+    <td>45</td>
+    <td>for purple background</td>
+  </tr>
+  <tr>
+    <td>46</td>
+    <td>for cyan background</td>
+  </tr>
+  <tr>
+    <td>47</td>
+    <td>for white (or gray) background</td>
+  </tr>
+</table>
+</div>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Escape_sequences"><a class="permalink" href="#Escape_sequences">Escape
+  sequences</a></h2>
+To specify control or blank characters in the color sequences, C-style \-escaped
+  notation can be used:
+<p class="Pp"></p>
+<div class="Bd-indent">
+<table class="tbl">
+  <tr>
+    <td>\a</td>
+    <td>Bell (ASCII 7)</td>
+  </tr>
+  <tr>
+    <td>\b</td>
+    <td>Backspace (ASCII 8)</td>
+  </tr>
+  <tr>
+    <td>\e</td>
+    <td>Escape (ASCII 27)</td>
+  </tr>
+  <tr>
+    <td>\f</td>
+    <td>Form feed (ASCII 12)</td>
+  </tr>
+  <tr>
+    <td>\n</td>
+    <td>Newline (ASCII 10)</td>
+  </tr>
+  <tr>
+    <td>\r</td>
+    <td>Carriage Return (ASCII 13)</td>
+  </tr>
+  <tr>
+    <td>\t</td>
+    <td>Tab (ASCII 9)</td>
+  </tr>
+  <tr>
+    <td>\v</td>
+    <td>Vertical Tab (ASCII 11)</td>
+  </tr>
+  <tr>
+    <td>\?</td>
+    <td>Delete (ASCII 127)</td>
+  </tr>
+  <tr>
+    <td>\_</td>
+    <td>Space</td>
+  </tr>
+  <tr>
+    <td>\\</td>
+    <td>Backslash (\)</td>
+  </tr>
+  <tr>
+    <td>\^</td>
+    <td>Caret (^)</td>
+  </tr>
+  <tr>
+    <td>\#</td>
+    <td>Hash mark (#)</td>
+  </tr>
+</table>
+</div>
+<p class="Pp">Please note that escapes are necessary to enter a space,
+    backslash, caret, or any control character anywhere in the string, as well
+    as a hash mark as the first character.</p>
+<p class="Pp">For example, to use a red background for alert messages in the
+    output of <b>dmesg</b>(1), use:</p>
+<p class="Pp"></p>
+<div class="Bd-indent">
+<br/>
+<b>echo 'alert 37;41' &gt;&gt; /etc/terminal-colors.d/dmesg.scheme</b>
+<br/>
+</div>
+<p class="Pp"></p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Comments"><a class="permalink" href="#Comments">Comments</a></h2>
+Lines where the first non-blank character is a # (hash) are ignored. Any other
+  use of the hash character is not interpreted as introducing a comment.
+<p class="Pp"></p>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="FILES"><a class="permalink" href="#FILES">FILES</a></h1>
+<i>$XDG_CONFIG_HOME/terminal-colors.d</i>
+<br/>
+<i>$HOME/.config/terminal-colors.d</i>
+<br/>
+<i>/etc/terminal-colors.d</i>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ENVIRONMENT"><a class="permalink" href="#ENVIRONMENT">ENVIRONMENT</a></h1>
+<dl class="Bl-tag">
+  <dt>TERMINAL_COLORS_DEBUG=all</dt>
+  <dd>enables debug output.
+    <p class="Pp"></p>
+  </dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COMPATIBILITY"><a class="permalink" href="#COMPATIBILITY">COMPATIBILITY</a></h1>
+The terminal-colors.d functionality is currently supported by all util-linux
+  utilities which provides colorized output. For more details always see the
+  COLORS section in the man page for the utility.
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AVAILABILITY"><a class="permalink" href="#AVAILABILITY">AVAILABILITY</a></h1>
+terminal-colors.d is part of the util-linux package and is available from
+  <a class="Lk" href="https://www.kernel.org/pub/linux/utils/util-linux/">Linux
+  Kernel Archive</a>.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">January 2014</td>
+    <td class="foot-os">util-linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

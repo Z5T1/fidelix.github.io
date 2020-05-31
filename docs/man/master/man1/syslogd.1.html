@@ -1,0 +1,93 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/syslogd.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">SYSLOGD(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">SYSLOGD(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+syslogd - manual page for syslogd 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>syslogd</b> [<i>OPTIONS</i>]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">System logging utility</p>
+<dl class="Bl-tag">
+  <dt><b>-n</b></dt>
+  <dd>Run in foreground</dd>
+  <dt><b>-R</b> HOST[:PORT]</dt>
+  <dd>Log to HOST:PORT (default PORT:514)</dd>
+  <dt><b>-L</b></dt>
+  <dd>Log locally and via network (default is network only if <b>-R</b>)</dd>
+  <dt><b>-C[size_kb]</b></dt>
+  <dd>Log to shared mem buffer (use logread to read it)</dd>
+  <dt><b>-K</b></dt>
+  <dd>Log to kernel printk buffer (use dmesg to read it)</dd>
+  <dt><b>-O</b> FILE</dt>
+  <dd>Log to FILE (default: <i>/var/log/messages</i>, stdout if -)</dd>
+  <dt><b>-s</b> SIZE</dt>
+  <dd>Max size (KB) before rotation (default 200KB, 0=off)</dd>
+  <dt><b>-b</b> N</dt>
+  <dd>N rotated logs to keep (default 1, max 99, 0=purge)</dd>
+  <dt><b>-l</b> N</dt>
+  <dd>Log only messages more urgent than prio N (1-8)</dd>
+  <dt><b>-S</b></dt>
+  <dd>Smaller output</dd>
+  <dt><b>-t</b></dt>
+  <dd>Strip client-generated timestamps</dd>
+  <dt><b>-D</b></dt>
+  <dd>Drop duplicates</dd>
+  <dt><b>-f</b> FILE</dt>
+  <dd>Use FILE as config (default:/etc/syslog.conf)</dd>
+</dl>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

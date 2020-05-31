@@ -1,0 +1,142 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/hdparm.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">HDPARM(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">HDPARM(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+hdparm - manual page for hdparm 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>hdparm</b> [<i>OPTIONS</i>] [<i>DEVICE</i>]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<dl class="Bl-tag">
+  <dt><b>-a</b></dt>
+  <dd>Get/set fs readahead</dd>
+  <dt><b>-A</b></dt>
+  <dd>Set drive read-lookahead flag (0/1)</dd>
+  <dt><b>-b</b></dt>
+  <dd>Get/set bus state (0 == off, 1 == on, 2 == tristate)</dd>
+  <dt><b>-B</b></dt>
+  <dd>Set Advanced Power Management setting (1-255)</dd>
+  <dt><b>-c</b></dt>
+  <dd>Get/set IDE 32-bit IO setting</dd>
+  <dt><b>-C</b></dt>
+  <dd>Check IDE power mode status</dd>
+  <dt><b>-d</b></dt>
+  <dd>Get/set using_dma flag</dd>
+  <dt><b>-D</b></dt>
+  <dd>Enable/disable drive defect-mgmt</dd>
+  <dt><b>-f</b></dt>
+  <dd>Flush buffer cache for device on exit</dd>
+  <dt><b>-g</b></dt>
+  <dd>Display drive geometry</dd>
+  <dt><b>-h</b></dt>
+  <dd>Display terse usage information</dd>
+  <dt><b>-i</b></dt>
+  <dd>Display drive identification</dd>
+  <dt><b>-I</b></dt>
+  <dd>Detailed/current information directly from drive</dd>
+  <dt><b>-k</b></dt>
+  <dd>Get/set keep_settings_over_reset flag (0/1)</dd>
+  <dt><b>-K</b></dt>
+  <dd>Set drive keep_features_over_reset flag (0/1)</dd>
+  <dt><b>-L</b></dt>
+  <dd>Set drive doorlock (0/1) (removable harddisks only)</dd>
+  <dt><b>-m</b></dt>
+  <dd>Get/set multiple sector count</dd>
+  <dt><b>-n</b></dt>
+  <dd>Get/set ignore-write-errors flag (0/1)</dd>
+  <dt><b>-p</b></dt>
+  <dd>Set PIO mode on IDE interface chipset (0,1,2,3,4,...)</dd>
+  <dt><b>-P</b></dt>
+  <dd>Set drive prefetch count</dd>
+  <dt><b>-Q</b></dt>
+  <dd>Get/set DMA tagged-queuing depth (if supported)</dd>
+  <dt><b>-r</b></dt>
+  <dd>Get/set readonly flag (DANGEROUS to set)</dd>
+  <dt><b>-R</b></dt>
+  <dd>Register an IDE interface (DANGEROUS)</dd>
+  <dt><b>-S</b></dt>
+  <dd>Set standby (spindown) timeout</dd>
+  <dt><b>-t</b></dt>
+  <dd>Perform device read timings</dd>
+  <dt><b>-T</b></dt>
+  <dd>Perform cache read timings</dd>
+  <dt><b>-u</b></dt>
+  <dd>Get/set unmaskirq flag (0/1)</dd>
+  <dt><b>-U</b></dt>
+  <dd>Unregister an IDE interface (DANGEROUS)</dd>
+  <dt><b>-v</b></dt>
+  <dd>Defaults; same as <b>-mcudkrag</b> for IDE drives</dd>
+  <dt><b>-V</b></dt>
+  <dd>Display program version and exit immediately</dd>
+  <dt><b>-w</b></dt>
+  <dd>Perform device reset (DANGEROUS)</dd>
+  <dt><b>-W</b></dt>
+  <dd>Set drive write-caching flag (0/1) (DANGEROUS)</dd>
+  <dt><b>-x</b></dt>
+  <dd>Tristate device for hotswap (0/1) (DANGEROUS)</dd>
+  <dt><b>-X</b></dt>
+  <dd>Set IDE xfer mode (DANGEROUS)</dd>
+  <dt><b>-y</b></dt>
+  <dd>Put IDE drive in standby mode</dd>
+  <dt><b>-Y</b></dt>
+  <dd>Put IDE drive to sleep</dd>
+  <dt><b>-Z</b></dt>
+  <dd>Disable Seagate auto-powersaving mode</dd>
+  <dt><b>-z</b></dt>
+  <dd>Reread partition table</dd>
+</dl>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

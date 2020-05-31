@@ -1,0 +1,163 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/getsockopt.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">GETSOCKOPT(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">GETSOCKOPT(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+getsockopt, setsockopt - get and set options on sockets
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>#include &lt;sys/types.h&gt;</b>          /* See NOTES */
+<b>#include &lt;sys/socket.h&gt;</b>
+</pre>
+<pre>
+<b>int getsockopt(int </b><i>sockfd</i><b>, int </b><i>level</i><b>, int </b><i>optname</i><b>,</b>
+<b>               void *</b><i>optval</i><b>, socklen_t *</b><i>optlen</i><b>);</b>
+<b>int setsockopt(int </b><i>sockfd</i><b>, int </b><i>level</i><b>, int </b><i>optname</i><b>,</b>
+<b>               const void *</b><i>optval</i><b>, socklen_t </b><i>optlen</i><b>);</b>
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>getsockopt</b>() and <b>setsockopt</b>() manipulate options for the socket
+  referred to by the file descriptor <i>sockfd</i>. Options may exist at
+  multiple protocol levels; they are always present at the uppermost socket
+  level.
+<p class="Pp">When manipulating socket options, the level at which the option
+    resides and the name of the option must be specified. To manipulate options
+    at the sockets API level, <i>level</i> is specified as <b>SOL_SOCKET</b>. To
+    manipulate options at any other level the protocol number of the appropriate
+    protocol controlling the option is supplied. For example, to indicate that
+    an option is to be interpreted by the <b>TCP</b> protocol, <i>level</i>
+    should be set to the protocol number of <b>TCP</b>; see
+    <b>getprotoent</b>(3).</p>
+<p class="Pp">The arguments <i>optval</i> and <i>optlen</i> are used to access
+    option values for <b>setsockopt</b>(). For <b>getsockopt</b>() they identify
+    a buffer in which the value for the requested option(s) are to be returned.
+    For <b>getsockopt</b>(), <i>optlen</i> is a value-result argument, initially
+    containing the size of the buffer pointed to by <i>optval</i>, and modified
+    on return to indicate the actual size of the value returned. If no option
+    value is to be supplied or returned, <i>optval</i> may be NULL.</p>
+<p class="Pp"><i>Optname</i> and any specified options are passed uninterpreted
+    to the appropriate protocol module for interpretation. The include file
+    <i>&lt;sys/socket.h&gt;</i> contains definitions for socket level options,
+    described below. Options at other protocol levels vary in format and name;
+    consult the appropriate entries in section 4 of the manual.</p>
+<p class="Pp">Most socket-level options utilize an <i>int</i> argument for
+    <i>optval</i>. For <b>setsockopt</b>(), the argument should be nonzero to
+    enable a boolean option, or zero if the option is to be disabled.</p>
+<p class="Pp">For a description of the available socket options see
+    <b>socket</b>(7) and the appropriate protocol man pages.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, zero is returned for the standard options. On error, -1 is returned,
+  and <i>errno</i> is set appropriately.
+<p class="Pp">Netfilter allows the programmer to define custom socket options
+    with associated handlers; for such options, the return value on success is
+    the value returned by the handler.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EBADF</b></dt>
+  <dd>The argument <i>sockfd</i> is not a valid file descriptor.</dd>
+  <dt><b>EFAULT</b></dt>
+  <dd>The address pointed to by <i>optval</i> is not in a valid part of the
+      process address space. For <b>getsockopt</b>(), this error may also be
+      returned if <i>optlen</i> is not in a valid part of the process address
+      space.</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd><i>optlen</i> invalid in <b>setsockopt</b>(). In some cases this error can
+      also occur for an invalid value in <i>optval</i> (e.g., for the
+      <b>IP_ADD_MEMBERSHIP</b> option described in <b>ip</b>(7)).</dd>
+  <dt><b>ENOPROTOOPT</b></dt>
+  <dd>The option is unknown at the level indicated.</dd>
+  <dt><b>ENOTSOCK</b></dt>
+  <dd>The file descriptor <i>sockfd</i> does not refer to a socket.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+POSIX.1-2001, POSIX.1-2008, SVr4, 4.4BSD (these system calls first appeared in
+  4.2BSD).
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+POSIX.1 does not require the inclusion of <i>&lt;sys/types.h&gt;</i>, and this
+  header file is not required on Linux. However, some historical (BSD)
+  implementations required this header file, and portable applications are
+  probably wise to include it.
+<p class="Pp">For background on the <i>socklen_t</i> type, see
+  <b>accept</b>(2).</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="BUGS"><a class="permalink" href="#BUGS">BUGS</a></h1>
+Several of the socket options should be handled at lower levels of the system.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>ioctl</b>(2), <b>socket</b>(2), <b>getprotoent</b>(3), <b>protocols</b>(5),
+  <b>ip</b>(7), <b>packet</b>(7), <b>socket</b>(7), <b>tcp</b>(7),
+  <b>udp</b>(7), <b>unix</b>(7)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2017-09-15</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

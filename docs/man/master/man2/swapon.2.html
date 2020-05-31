@@ -1,0 +1,180 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/swapon.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">SWAPON(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">SWAPON(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+swapon, swapoff - start/stop swapping to file/device
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>#include &lt;unistd.h&gt;</b>
+<br/>
+<b>#include &lt;sys/swap.h&gt;</b>
+<p class="Pp"><b>int swapon(const char *</b><i>path</i><b>, int
+    </b><i>swapflags</i><b>);</b>
+  <br/>
+  <b>int swapoff(const char *</b><i>path</i><b>);</b></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>swapon</b>() sets the swap area to the file or block device specified by
+  <i>path</i>. <b>swapoff</b>() stops swapping to the file or block device
+  specified by <i>path</i>.
+<p class="Pp">If the <b>SWAP_FLAG_PREFER</b> flag is specified in the
+    <b>swapon</b>() <i>swapflags</i> argument, the new swap area will have a
+    higher priority than default. The priority is encoded within
+    <i>swapflags</i> as:</p>
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+<i>(prio &lt;&lt; SWAP_FLAG_PRIO_SHIFT) &amp; SWAP_FLAG_PRIO_MASK</i>
+
+</pre>
+<br/>
+<p class="Pp">If the <b>SWAP_FLAG_DISCARD</b> flag is specified in the
+    <b>swapon</b>() <i>swapflags</i> argument, freed swap pages will be
+    discarded before they are reused, if the swap device supports the discard or
+    trim operation. (This may improve performance on some Solid State Devices,
+    but often it does not.) See also NOTES.</p>
+<p class="Pp">These functions may be used only by a privileged process (one
+    having the <b>CAP_SYS_ADMIN</b> capability).</p>
+<section class="Ss">
+<h2 class="Ss" id="Priority"><a class="permalink" href="#Priority">Priority</a></h2>
+Each swap area has a priority, either high or low. The default priority is low.
+  Within the low-priority areas, newer areas are even lower priority than older
+  areas.
+<p class="Pp">All priorities set with <i>swapflags</i> are high-priority, higher
+    than default. They may have any nonnegative value chosen by the caller.
+    Higher numbers mean higher priority.</p>
+<p class="Pp">Swap pages are allocated from areas in priority order, highest
+    priority first. For areas with different priorities, a higher-priority area
+    is exhausted before using a lower-priority area. If two or more areas have
+    the same priority, and it is the highest priority available, pages are
+    allocated on a round-robin basis between them.</p>
+<p class="Pp">As of Linux 1.3.6, the kernel usually follows these rules, but
+    there are exceptions.</p>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, zero is returned. On error, -1 is returned, and <i>errno</i> is set
+  appropriately.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EBUSY</b></dt>
+  <dd>(for <b>swapon</b>()) The specified <i>path</i> is already being used as a
+      swap area.</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd>The file <i>path</i> exists, but refers neither to a regular file nor to a
+      block device;</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd>(<b>swapon</b>()) The indicated path does not contain a valid swap
+      signature or resides on an in-memory filesystem such as
+    <b>tmpfs</b>(5).</dd>
+  <dt><b>EINVAL</b> (since Linux 3.4)</dt>
+  <dd>(<b>swapon</b>()) An invalid flag value was specified in
+    <i>flags</i>.</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd>(<b>swapoff</b>()) <i>path</i> is not currently a swap area.</dd>
+  <dt><b>ENFILE</b></dt>
+  <dd>The system-wide limit on the total number of open files has been
+    reached.</dd>
+  <dt><b>ENOENT</b></dt>
+  <dd>The file <i>path</i> does not exist.</dd>
+  <dt><b>ENOMEM</b></dt>
+  <dd>The system has insufficient memory to start swapping.</dd>
+  <dt><b>EPERM</b></dt>
+  <dd>The caller does not have the <b>CAP_SYS_ADMIN</b> capability.
+      Alternatively, the maximum number of swap files are already in use; see
+      NOTES below.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+These functions are Linux-specific and should not be used in programs intended
+  to be portable. The second <i>swapflags</i> argument was introduced in Linux
+  1.3.2.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+The partition or path must be prepared with <b>mkswap</b>(8).
+<p class="Pp">There is an upper limit on the number of swap files that may be
+    used, defined by the kernel constant <b>MAX_SWAPFILES</b>. Before kernel
+    2.4.10, <b>MAX_SWAPFILES</b> has the value 8; since kernel 2.4.10, it has
+    the value 32. Since kernel 2.6.18, the limit is decreased by 2 (thus: 30) if
+    the kernel is built with the <b>CONFIG_MIGRATION</b> option (which reserves
+    two swap table entries for the page migration features of <b>mbind</b>(2)
+    and <b>migrate_pages</b>(2)). Since kernel 2.6.32, the limit is further
+    decreased by 1 if the kernel is built with the <b>CONFIG_MEMORY_FAILURE</b>
+    option.</p>
+<p class="Pp">Discard of swap pages was introduced in kernel 2.6.29, then made
+    conditional on the <b>SWAP_FLAG_DISCARD</b> flag in kernel 2.6.36, which
+    still discards the entire swap area when <b>swapon</b>() is called, even if
+    that flag bit is not set.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>mkswap</b>(8), <b>swapoff</b>(8), <b>swapon</b>(8)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2017-09-15</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

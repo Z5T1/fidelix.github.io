@@ -1,0 +1,136 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man7/session-keyring.7</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">SESSION-KEYRING(7)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">SESSION-KEYRING(7)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+session-keyring - session shared process keyring
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+The session keyring is a keyring used to anchor keys on behalf of a process. It
+  is typically created by <b>pam_keyinit</b>(8) when a user logs in and a link
+  will be added that refers to the <b>user-keyring</b>(7). Optionally, PAM may
+  revoke the session keyring on logout. (In typical configurations, PAM does do
+  this revocation.) The session keyring has the name (description) <i>_ses</i>.
+<p class="Pp">A special serial number value, <b>KEY_SPEC_SESSION_KEYRING</b>, is
+    defined that can be used in lieu of the actual serial number of the calling
+    process's session keyring.</p>
+<p class="Pp">From the <b>keyctl</b>(1) utility, '<b>@s</b>' can be used instead
+    of a numeric key ID in much the same way.</p>
+<p class="Pp">A process's session keyring is inherited across <b>clone</b>(2),
+    <b>fork</b>(2), and <b>vfork</b>(2). The session keyring is preserved across
+    <b>execve</b>(2), even when the executable is set-user-ID or set-group-ID or
+    has capabilities. The session keyring is destroyed when the last process
+    that refers to it exits.</p>
+<p class="Pp">If a process doesn't have a session keyring when it is accessed,
+    then, under certain circumstances, the <b>user-session-keyring</b>(7) will
+    be attached as the session keyring and under others a new session keyring
+    will be created. (See <b>user-session-keyring</b>(7) for further
+  details.)</p>
+<section class="Ss">
+<h2 class="Ss" id="Special_operations"><a class="permalink" href="#Special_operations">Special
+  operations</a></h2>
+The <i>keyutils</i> library provides the following special operations for
+  manipulating session keyrings:
+<dl class="Bl-tag">
+  <dt><b>keyctl_join_session_keyring</b>(3)</dt>
+  <dd>This operation allows the caller to change the session keyring that it
+      subscribes to. The caller can join an existing keyring with a specified
+      name (description), create a new keyring with a given name, or ask the
+      kernel to create a new &quot;anonymous&quot; session keyring with the name
+      &quot;_ses&quot;. (This function is an interface to the <b>keyctl</b>(2)
+      <b>KEYCTL_JOIN_SESSION_KEYRING</b> operation.)</dd>
+  <dt><b>keyctl_session_to_parent</b>(3)</dt>
+  <dd>This operation allows the caller to make the parent process's session
+      keyring to the same as its own. For this to succeed, the parent process
+      must have identical security attributes and must be single threaded. (This
+      function is an interface to the <b>keyctl</b>(2)
+      <b>KEYCTL_SESSION_TO_PARENT</b> operation.)</dd>
+</dl>
+<p class="Pp">These operations are also exposed through the <b>keyctl</b>(1)
+    utility as:</p>
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+keyctl session
+keyctl session - [&lt;prog&gt; &lt;arg1&gt; &lt;arg2&gt; ...]
+keyctl session &lt;name&gt; [&lt;prog&gt; &lt;arg1&gt; &lt;arg2&gt; ...]
+
+</pre>
+<br/>
+<p class="Pp">and:</p>
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+keyctl new_session
+
+</pre>
+<br/>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>keyctl</b>(1), <b>keyctl</b>(3), <b>keyctl_join_session_keyring</b>(3),
+  <b>keyctl_session_to_parent</b>(3), <b>keyrings</b>(7),
+  <b>persistent-keyring</b>(7), <b>process-keyring</b>(7),
+  <b>thread-keyring</b>(7), <b>user-keyring</b>(7),
+  <b>user-session-keyring</b>(7), <b>pam_keyinit</b>(8)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2017-09-15</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

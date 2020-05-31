@@ -1,0 +1,142 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man7/futex.7</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">FUTEX(7)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">FUTEX(7)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+futex - fast user-space locking
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>#include &lt;linux/futex.h&gt;</b>
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+The Linux kernel provides futexes (&quot;Fast user-space mutexes&quot;) as a
+  building block for fast user-space locking and semaphores. Futexes are very
+  basic and lend themselves well for building higher-level locking abstractions
+  such as mutexes, condition variables, read-write locks, barriers, and
+  semaphores.
+<p class="Pp">Most programmers will in fact not be using futexes directly but
+    will instead rely on system libraries built on them, such as the Native
+    POSIX Thread Library (NPTL) (see <b>pthreads</b>(7)).</p>
+<p class="Pp">A futex is identified by a piece of memory which can be shared
+    between processes or threads. In these different processes, the futex need
+    not have identical addresses. In its bare form, a futex has semaphore
+    semantics; it is a counter that can be incremented and decremented
+    atomically; processes can wait for the value to become positive.</p>
+<p class="Pp">Futex operation occurs entirely in user space for the noncontended
+    case. The kernel is involved only to arbitrate the contended case. As any
+    sane design will strive for noncontention, futexes are also optimized for
+    this situation.</p>
+<p class="Pp">In its bare form, a futex is an aligned integer which is touched
+    only by atomic assembler instructions. This integer is four bytes long on
+    all platforms. Processes can share this integer using <b>mmap</b>(2), via
+    shared memory segments, or because they share memory space, in which case
+    the application is commonly called multithreaded.</p>
+<section class="Ss">
+<h2 class="Ss" id="Semantics"><a class="permalink" href="#Semantics">Semantics</a></h2>
+Any futex operation starts in user space, but it may be necessary to communicate
+  with the kernel using the <b>futex</b>(2) system call.
+<p class="Pp">To &quot;up&quot; a futex, execute the proper assembler
+    instructions that will cause the host CPU to atomically increment the
+    integer. Afterward, check if it has in fact changed from 0 to 1, in which
+    case there were no waiters and the operation is done. This is the
+    noncontended case which is fast and should be common.</p>
+<p class="Pp">In the contended case, the atomic increment changed the counter
+    from -1 (or some other negative number). If this is detected, there are
+    waiters. User space should now set the counter to 1 and instruct the kernel
+    to wake up any waiters using the <b>FUTEX_WAKE</b> operation.</p>
+<p class="Pp">Waiting on a futex, to &quot;down&quot; it, is the reverse
+    operation. Atomically decrement the counter and check if it changed to 0, in
+    which case the operation is done and the futex was uncontended. In all other
+    circumstances, the process should set the counter to -1 and request that the
+    kernel wait for another process to up the futex. This is done using the
+    <b>FUTEX_WAIT</b> operation.</p>
+<p class="Pp">The <b>futex</b>(2) system call can optionally be passed a timeout
+    specifying how long the kernel should wait for the futex to be upped. In
+    this case, semantics are more complex and the programmer is referred to
+    <b>futex</b>(2) for more details. The same holds for asynchronous futex
+    waiting.</p>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="VERSIONS"><a class="permalink" href="#VERSIONS">VERSIONS</a></h1>
+Initial futex support was merged in Linux 2.5.7 but with different semantics
+  from those described above. Current semantics are available from Linux 2.5.40
+  onward.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+To reiterate, bare futexes are not intended as an easy-to-use abstraction for
+  end users. Implementors are expected to be assembly literate and to have read
+  the sources of the futex user-space library referenced below.
+<p class="Pp">This man page illustrates the most common use of the
+    <b>futex</b>(2) primitives; it is by no means the only one.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>clone</b>(2), <b>futex</b>(2), <b>get_robust_list</b>(2),
+  <b>set_robust_list</b>(2), <b>set_tid_address</b>(2), <b>pthreads</b>(7)
+<p class="Pp"><i>Fuss, Futexes and Furwocks: Fast Userlevel Locking in Linux</i>
+    (proceedings of the Ottawa Linux Symposium 2002), futex example library,
+    futex-*.tar.bz2
+    <a class="Lk" href="ftp://ftp.kernel.org/pub/linux/kernel/people/rusty/">ftp://ftp.kernel.org/pub/linux/kernel/people/rusty/</a>.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2017-09-15</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

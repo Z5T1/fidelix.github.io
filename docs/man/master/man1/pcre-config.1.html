@@ -1,0 +1,129 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/pcre-config.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">PCRE-CONFIG(1)</td>
+    <td class="head-vol">General Commands Manual</td>
+    <td class="head-rtitle">PCRE-CONFIG(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+pcre-config - program to return PCRE configuration
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>pcre-config [--prefix] [--exec-prefix] [--version] [--libs]</b>
+<b>            [--libs16] [--libs32] [--libs-cpp] [--libs-posix]</b>
+<b>            [--cflags] [--cflags-posix]</b>
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>pcre-config</b> returns the configuration of the installed PCRE libraries and
+  the options required to compile a program to use them. Some of the options
+  apply only to the 8-bit, or 16-bit, or 32-bit libraries, respectively, and are
+  not available if only one of those libraries has been built. If an unavailable
+  option is encountered, the &quot;usage&quot; information is output.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>--prefix</b></dt>
+  <dd>Writes the directory prefix used in the PCRE installation for architecture
+      independent files (<i>/usr</i> on many systems, <i>/usr/local</i> on some
+      systems) to the standard output.</dd>
+  <dt><b>--exec-prefix</b></dt>
+  <dd>Writes the directory prefix used in the PCRE installation for architecture
+      dependent files (normally the same as <b>--prefix</b>) to the standard
+      output.</dd>
+  <dt><b>--version</b></dt>
+  <dd>Writes the version number of the installed PCRE libraries to the standard
+      output.</dd>
+  <dt><b>--libs</b></dt>
+  <dd>Writes to the standard output the command line options required to link
+      with the 8-bit PCRE library (<b>-lpcre</b> on many systems).</dd>
+  <dt><b>--libs16</b></dt>
+  <dd>Writes to the standard output the command line options required to link
+      with the 16-bit PCRE library (<b>-lpcre16</b> on many systems).</dd>
+  <dt><b>--libs32</b></dt>
+  <dd>Writes to the standard output the command line options required to link
+      with the 32-bit PCRE library (<b>-lpcre32</b> on many systems).</dd>
+  <dt><b>--libs-cpp</b></dt>
+  <dd>Writes to the standard output the command line options required to link
+      with PCRE's C++ wrapper library (<b>-lpcrecpp</b> <b>-lpcre</b> on many
+      systems).</dd>
+  <dt><b>--libs-posix</b></dt>
+  <dd>Writes to the standard output the command line options required to link
+      with PCRE's POSIX API wrapper library (<b>-lpcreposix</b> <b>-lpcre</b> on
+      many systems).</dd>
+  <dt><b>--cflags</b></dt>
+  <dd>Writes to the standard output the command line options required to compile
+      files that use PCRE (this may include some <b>-I</b> options, but is blank
+      on many systems).</dd>
+  <dt><b>--cflags-posix</b></dt>
+  <dd>Writes to the standard output the command line options required to compile
+      files that use PCRE's POSIX API wrapper library (this may include some
+      <b>-I</b> options, but is blank on many systems).</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>pcre(3)</b>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHOR"><a class="permalink" href="#AUTHOR">AUTHOR</a></h1>
+This manual page was originally written by Mark Baker for the Debian GNU/Linux
+  system. It has been subsequently revised as a generic PCRE man page.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="REVISION"><a class="permalink" href="#REVISION">REVISION</a></h1>
+<pre>
+Last updated: 24 June 2012
+</pre>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">01 January 2012</td>
+    <td class="foot-os">PCRE 8.30</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

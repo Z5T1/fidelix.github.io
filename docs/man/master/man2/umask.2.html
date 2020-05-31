@@ -1,0 +1,149 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/umask.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">UMASK(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">UMASK(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+umask - set file mode creation mask
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>#include &lt;sys/types.h&gt;</b>
+<br/>
+<b>#include &lt;sys/stat.h&gt;</b>
+<p class="Pp"><b>mode_t umask(mode_t </b><i>mask</i><b>);</b></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>umask</b>() sets the calling process's file mode creation mask (umask) to
+  <i>mask</i> &amp; 0777 (i.e., only the file permission bits of <i>mask</i> are
+  used), and returns the previous value of the mask.
+<p class="Pp">The umask is used by <b>open</b>(2), <b>mkdir</b>(2), and other
+    system calls that create files to modify the permissions placed on newly
+    created files or directories. Specifically, permissions in the umask are
+    turned off from the <i>mode</i> argument to <b>open</b>(2) and
+    <b>mkdir</b>(2).</p>
+<p class="Pp">Alternatively, if the parent directory has a default ACL (see
+    <b>acl</b>(5)), the umask is ignored, the default ACL is inherited, the
+    permission bits are set based on the inherited ACL, and permission bits
+    absent in the <i>mode</i> argument are turned off. For example, the
+    following default ACL is equivalent to a umask of 022:</p>
+<p class="Pp">
+   u::rwx,g::r-x,o::r-x</p>
+<p class="Pp">Combining the effect of this default ACL with a <i>mode</i>
+    argument of 0666 (rw-rw-rw-), the resulting file permissions would be 0644
+    (rw-r--r--).</p>
+<p class="Pp">The constants that should be used to specify <i>mask</i> are
+    described in <b>inode</b>(7).</p>
+<p class="Pp">The typical default value for the process umask is
+    <i>S_IWGRP&#x00A0;|&#x00A0;S_IWOTH</i> (octal 022). In the usual case where
+    the <i>mode</i> argument to <b>open</b>(2) is specified as:</p>
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH
+
+</pre>
+<br/>
+<p class="Pp">(octal 0666) when creating a new file, the permissions on the
+    resulting file will be:</p>
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
+
+</pre>
+<br/>
+<p class="Pp">(because 0666 &amp; ~022 = 0644; i.e., rw-r--r--).</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+This system call always succeeds and the previous value of the mask is returned.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+POSIX.1-2001, POSIX.1-2008, SVr4, 4.3BSD.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+A child process created via <b>fork</b>(2) inherits its parent's umask. The
+  umask is left unchanged by <b>execve</b>(2).
+<p class="Pp">It is impossible to use <b>umask</b>() to fetch a process's umask
+    without at the same time changing it. A second call to <b>umask</b>() would
+    then be needed to restore the umask. The nonatomicity of these two steps
+    provides the potential for races in multithreaded programs.</p>
+<p class="Pp">Since Linux 4.7, the umask of any process can be viewed via the
+    <i>Umask</i> field of <i>/proc/[pid]/status</i>. Inspecting this field in
+    <i>/proc/self/status</i> allows a process to retrieve its umask without at
+    the same time changing it.</p>
+<p class="Pp">The umask setting also affects the permissions assigned to POSIX
+    IPC objects (<b>mq_open</b>(3), <b>sem_open</b>(3), <b>shm_open</b>(3)),
+    FIFOs (<b>mkfifo</b>(3)), and UNIX domain sockets (<b>unix</b>(7)) created
+    by the process. The umask does not affect the permissions assigned to
+    System&#x00A0;V IPC objects created by the process (using <b>msgget</b>(2),
+    <b>semget</b>(2), <b>shmget</b>(2)).</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>chmod</b>(2), <b>mkdir</b>(2), <b>open</b>(2), <b>stat</b>(2), <b>acl</b>(5)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2017-09-15</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

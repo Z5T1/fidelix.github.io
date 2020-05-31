@@ -1,0 +1,149 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/pread.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">PREAD(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">PREAD(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+pread, pwrite - read from or write to a file descriptor at a given offset
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>#include &lt;unistd.h&gt;</b>
+<p class="Pp"><b>ssize_t pread(int </b><i>fd</i><b>, void *</b><i>buf</i><b>,
+    size_t </b><i>count</i><b>, off_t </b><i>offset</i><b>);</b></p>
+<p class="Pp"><b>ssize_t pwrite(int </b><i>fd</i><b>, const void
+    *</b><i>buf</i><b>, size_t </b><i>count</i><b>, off_t
+    </b><i>offset</i><b>);</b></p>
+<p class="Pp">
+  <br/>
+  Feature Test Macro Requirements for glibc (see <b>feature_test_macros</b>(7)):
+  <br/>
+</p>
+<p class="Pp"><b>pread</b>(), <b>pwrite</b>():</p>
+<div class="Bd-indent">_XOPEN_SOURCE&#x00A0;&gt;=&#x00A0;500
+<br/>
+|| /* Since glibc 2.12: */ _POSIX_C_SOURCE&#x00A0;&gt;=&#x00A0;200809L</div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>pread</b>() reads up to <i>count</i> bytes from file descriptor <i>fd</i> at
+  offset <i>offset</i> (from the start of the file) into the buffer starting at
+  <i>buf</i>. The file offset is not changed.
+<p class="Pp"><b>pwrite</b>() writes up to <i>count</i> bytes from the buffer
+    starting at <i>buf</i> to the file descriptor <i>fd</i> at offset
+    <i>offset</i>. The file offset is not changed.</p>
+<p class="Pp">The file referenced by <i>fd</i> must be capable of seeking.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, <b>pread</b>() returns the number of bytes read (a return of zero
+  indicates end of file) and <b>pwrite</b>() returns the number of bytes
+  written.
+<p class="Pp">Note that it is not an error for a successful call to transfer
+    fewer bytes than requested (see <b>read</b>(2) and <b>write</b>(2)).</p>
+<p class="Pp">On error, -1 is returned and <i>errno</i> is set to indicate the
+    cause of the error.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<b>pread</b>() can fail and set <i>errno</i> to any error specified for
+  <b>read</b>(2) or <b>lseek</b>(2). <b>pwrite</b>() can fail and set
+  <i>errno</i> to any error specified for <b>write</b>(2) or <b>lseek</b>(2).
+</section>
+<section class="Sh">
+<h1 class="Sh" id="VERSIONS"><a class="permalink" href="#VERSIONS">VERSIONS</a></h1>
+The <b>pread</b>() and <b>pwrite</b>() system calls were added to Linux in
+  version 2.1.60; the entries in the i386 system call table were added in
+  2.1.69. C library support (including emulation using <b>lseek</b>(2) on older
+  kernels without the system calls) was added in glibc 2.1.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+POSIX.1-2001, POSIX.1-2008.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+The <b>pread</b>() and <b>pwrite</b>() system calls are especially useful in
+  multithreaded applications. They allow multiple threads to perform I/O on the
+  same file descriptor without being affected by changes to the file offset by
+  other threads.
+<section class="Ss">
+<h2 class="Ss" id="C_library/kernel_differences"><a class="permalink" href="#C_library/kernel_differences">C
+  library/kernel differences</a></h2>
+On Linux, the underlying system calls were renamed in kernel 2.6: <b>pread</b>()
+  became <b>pread64</b>(), and <b>pwrite</b>() became <b>pwrite64</b>(). The
+  system call numbers remained the same. The glibc <b>pread</b>() and
+  <b>pwrite</b>() wrapper functions transparently deal with the change.
+<p class="Pp">On some 32-bit architectures, the calling signature for these
+    system calls differ, for the reasons described in <b>syscall</b>(2).</p>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="BUGS"><a class="permalink" href="#BUGS">BUGS</a></h1>
+POSIX requires that opening a file with the <b>O_APPEND</b> flag should have no
+  effect on the location at which <b>pwrite</b>() writes data. However, on
+  Linux, if a file is opened with <b>O_APPEND</b>, <b>pwrite</b>() appends data
+  to the end of the file, regardless of the value of <i>offset</i>.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>lseek</b>(2), <b>read</b>(2), <b>readv</b>(2), <b>write</b>(2)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2017-09-15</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

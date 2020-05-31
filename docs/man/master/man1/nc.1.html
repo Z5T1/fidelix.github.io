@@ -1,0 +1,91 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/nc.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">NC(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">NC(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+nc - manual page for nc 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>nc</b> [<i>OPTIONS</i>] <i>HOST PORT - connect</i>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">nc [OPTIONS] <b>-l</b> <b>-p</b> PORT [HOST] [PORT] - listen</p>
+<p class="Pp HP"><b>-e</b> PROG Run PROG after connect (must be last)</p>
+<dl class="Bl-tag">
+  <dt><b>-l</b></dt>
+  <dd>Listen mode, for inbound connects</dd>
+  <dt><b>-lk</b></dt>
+  <dd>With <b>-e</b>, provides persistent server</dd>
+</dl>
+<p class="Pp HP"><b>-p</b> PORT Local port</p>
+<p class="Pp HP"><b>-s</b> ADDR Local address</p>
+<dl class="Bl-tag">
+  <dt><b>-w</b> SEC</dt>
+  <dd>Timeout for connects and final net reads</dd>
+  <dt><b>-i</b> SEC</dt>
+  <dd>Delay interval for lines sent</dd>
+  <dt><b>-n</b></dt>
+  <dd>Don't do DNS resolution</dd>
+  <dt><b>-u</b></dt>
+  <dd>UDP mode</dd>
+  <dt><b>-v</b></dt>
+  <dd>Verbose</dd>
+</dl>
+<p class="Pp HP"><b>-o</b> FILE Hex dump traffic</p>
+<dl class="Bl-tag">
+  <dt><b>-z</b></dt>
+  <dd>Zero-I/O mode (scanning)</dd>
+</dl>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

@@ -1,0 +1,147 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/arch_prctl.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">ARCH_PRCTL(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">ARCH_PRCTL(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+arch_prctl - set architecture-specific thread state
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>#include &lt;asm/prctl.h&gt;</b>
+<b>#include &lt;sys/prctl.h&gt;</b>
+</pre>
+<pre>
+<b>int arch_prctl(int </b><i>code</i><b>, unsigned long </b><i>addr</i><b>);</b>
+<b>int arch_prctl(int </b><i>code</i><b>, unsigned long *</b><i>addr</i><b>);</b>
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>arch_prctl</b>() sets architecture-specific process or thread state.
+  <i>code</i> selects a subfunction and passes argument <i>addr</i> to it;
+  <i>addr</i> is interpreted as either an <i>unsigned long</i> for the
+  &quot;set&quot; operations, or as an <i>unsigned long&#x00A0;*</i>, for the
+  &quot;get&quot; operations.
+<p class="Pp">Subfunctions for x86-64 are:</p>
+<dl class="Bl-tag">
+  <dt><b>ARCH_SET_FS</b></dt>
+  <dd>Set the 64-bit base for the <i>FS</i> register to <i>addr</i>.</dd>
+  <dt><b>ARCH_GET_FS</b></dt>
+  <dd>Return the 64-bit base value for the <i>FS</i> register of the current
+      thread in the <i>unsigned long</i> pointed to by <i>addr</i>.</dd>
+  <dt><b>ARCH_SET_GS</b></dt>
+  <dd>Set the 64-bit base for the <i>GS</i> register to <i>addr</i>.</dd>
+  <dt><b>ARCH_GET_GS</b></dt>
+  <dd>Return the 64-bit base value for the <i>GS</i> register of the current
+      thread in the <i>unsigned long</i> pointed to by <i>addr</i>.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, <b>arch_prctl</b>() returns 0; on error, -1 is returned, and
+  <i>errno</i> is set to indicate the error.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EFAULT</b></dt>
+  <dd><i>addr</i> points to an unmapped address or is outside the process
+      address space.</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd><i>code</i> is not a valid subcommand.</dd>
+  <dt><b>EPERM</b></dt>
+  <dd><i>addr</i> is outside the process address space.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+<b>arch_prctl</b>() is a Linux/x86-64 extension and should not be used in
+  programs intended to be portable.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+<b>arch_prctl</b>() is supported only on Linux/x86-64 for 64-bit programs
+  currently.
+<p class="Pp">The 64-bit base changes when a new 32-bit segment selector is
+    loaded.</p>
+<p class="Pp"><b>ARCH_SET_GS</b> is disabled in some kernels.</p>
+<p class="Pp">Context switches for 64-bit segment bases are rather expensive. As
+    an optimization, if a 32-bit TLS base address is used, <b>arch_prctl</b>()
+    may use a real TLS entry as if <b>set_thread_area</b>(2) had been called,
+    instead of manipulating the segment base register directly. Memory in the
+    first 2&#x00A0;GB of address space can be allocated by using <b>mmap</b>(2)
+    with the <b>MAP_32BIT</b> flag.</p>
+<p class="Pp">Because of the aforementioned optimization, using
+    <b>arch_prctl</b>() and <b>set_thread_area</b>(2) in the same thread is
+    dangerous, as they may overwrite each other's TLS entries.</p>
+<p class="Pp">As of version 2.7, glibc provides no prototype for
+    <b>arch_prctl</b>(). You have to declare it yourself for now. This may be
+    fixed in future glibc versions.</p>
+<p class="Pp"><i>FS</i> may be already used by the threading library. Programs
+    that use <b>ARCH_SET_FS</b> directly are very likely to crash.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>mmap</b>(2), <b>modify_ldt</b>(2), <b>prctl</b>(2), <b>set_thread_area</b>(2)
+<p class="Pp">AMD X86-64 Programmer's manual</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2017-09-15</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

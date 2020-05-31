@@ -1,0 +1,130 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/setgid.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">SETGID(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">SETGID(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+setgid - set group identity
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>#include &lt;sys/types.h&gt;</b>
+<br/>
+<b>#include &lt;unistd.h&gt;</b>
+<p class="Pp"><b>int setgid(gid_t </b><i>gid</i><b>);</b></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>setgid</b>() sets the effective group ID of the calling process. If the
+  calling process is privileged (more precisely: has the <b>CAP_SETGID</b>
+  capability in its user namespace), the real GID and saved set-group-ID are
+  also set.
+<p class="Pp">Under Linux, <b>setgid</b>() is implemented like the POSIX version
+    with the <b>_POSIX_SAVED_IDS</b> feature. This allows a set-group-ID program
+    that is not set-user-ID-root to drop all of its group privileges, do some
+    un-privileged work, and then reengage the original effective group ID in a
+    secure manner.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, zero is returned. On error, -1 is returned, and <i>errno</i> is set
+  appropriately.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EINVAL</b></dt>
+  <dd>The group ID specified in <i>gid</i> is not valid in this user
+    namespace.</dd>
+  <dt><b>EPERM</b></dt>
+  <dd>The calling process is not privileged (does not have the <b>CAP_SETGID</b>
+      capability in its user namespace), and <i>gid</i> does not match the real
+      group ID or saved set-group-ID of the calling process.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+POSIX.1-2001, POSIX.1-2008, SVr4.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+The original Linux <b>setgid</b>() system call supported only 16-bit group IDs.
+  Subsequently, Linux 2.4 added <b>setgid32</b>() supporting 32-bit IDs. The
+  glibc <b>setgid</b>() wrapper function transparently deals with the variation
+  across kernel versions.
+<section class="Ss">
+<h2 class="Ss" id="C_library/kernel_differences"><a class="permalink" href="#C_library/kernel_differences">C
+  library/kernel differences</a></h2>
+At the kernel level, user IDs and group IDs are a per-thread attribute. However,
+  POSIX requires that all threads in a process share the same credentials. The
+  NPTL threading implementation handles the POSIX requirements by providing
+  wrapper functions for the various system calls that change process UIDs and
+  GIDs. These wrapper functions (including the one for <b>setgid</b>()) employ a
+  signal-based technique to ensure that when one thread changes credentials, all
+  of the other threads in the process also change their credentials. For
+  details, see <b>nptl</b>(7).
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>getgid</b>(2), <b>setegid</b>(2), <b>setregid</b>(2), <b>capabilities</b>(7),
+  <b>credentials</b>(7), <b>user_namespaces</b>(7)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-03-06</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

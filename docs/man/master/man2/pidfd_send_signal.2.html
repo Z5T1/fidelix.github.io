@@ -1,0 +1,229 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/pidfd_send_signal.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">PIDFD_SEND_SIGNAL(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">PIDFD_SEND_SIGNAL(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+pidfd_send_signal - send a signal to a process specified by a file descriptor
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>#include &lt;signal.h&gt;</b>
+</pre>
+<pre>
+<b>int pidfd_send_signal(int </b><i>pidfd</i><b>, int </b><i>sig</i><b>, siginfo_t *</b><i>info</i><b>,</b>
+<b>                      unsigned int </b><i>flags</i><b>);</b>
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+The <b>pidfd_send_signal</b>() system call sends the signal <i>sig</i> to the
+  target process referred to by <i>pidfd</i>, a PID file descriptor that refers
+  to a process.
+<p class="Pp">If the <i>info</i> argument points to a <i>siginfo_t</i> buffer,
+    that buffer should be populated as described in
+  <b>rt_sigqueueinfo</b>(2).</p>
+<p class="Pp">If the <i>info</i> argument is a NULL pointer, this is equivalent
+    to specifying a pointer to a <i>siginfo_t</i> buffer whose fields match the
+    values that are implicitly supplied when a signal is sent using
+    <b>kill</b>(2):</p>
+<p class="Pp"></p>
+<ul class="Bl-bullet">
+  <li><i>si_signo</i> is set to the signal number;</li>
+  <li><i>si_errno</i> is set to 0;</li>
+  <li><i>si_code</i> is set to <b>SI_USER;</b></li>
+  <li><i>si_pid</i> is set to the caller's PID; and</li>
+  <li><i>si_uid</i> is set to the caller's real user ID.</li>
+</ul>
+<p class="Pp">The calling process must either be in the same PID namespace as
+    the process referred to by <i>pidfd</i>, or be in an ancestor of that
+    namespace.</p>
+<p class="Pp">The <i>flags</i> argument is reserved for future use; currently,
+    this argument must be specified as 0.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, <b>pidfd_send_signal</b>() returns 0. On error, -1 is returned and
+  <i>errno</i> is set to indicate the cause of the error.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EBADF</b></dt>
+  <dd><i>pidfd</i> is not a valid PID file descriptor.</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd><i>sig</i> is not a valid signal.</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd>The calling process is not in a PID namespace from which it can send a
+      signal to the target process.</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd><i>flags</i> is not 0.</dd>
+  <dt><b>EPERM</b></dt>
+  <dd>The calling process does not have permission to send the signal to the
+      target process.</dd>
+  <dt><b>EPERM</b></dt>
+  <dd><i>pidfd</i> doesn't refer to the calling process, and <i>info.si_code</i>
+      is invalid (see <b>rt_sigqueueinfo</b>(2)).</dd>
+  <dt><b>ESRCH</b></dt>
+  <dd>The target process does not exist (i.e., it has terminated and been waited
+      on).</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="VERSIONS"><a class="permalink" href="#VERSIONS">VERSIONS</a></h1>
+<b>pidfd_send_signal</b>() first appeared in Linux 5.1.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+<b>pidfd_send_signal</b>() is Linux specific.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+Currently, there is no glibc wrapper for this system call; call it using
+  <b>syscall</b>(2).
+<section class="Ss">
+<h2 class="Ss" id="PID_file_descriptors"><a class="permalink" href="#PID_file_descriptors">PID
+  file descriptors</a></h2>
+The <i>pidfd</i> argument is a PID file descriptor, a file descriptor that
+  refers to process. Such a file descriptor can be obtained in any of the
+  following ways:
+<ul class="Bl-bullet">
+  <li>by opening a <i>/proc/[pid]</i> directory;</li>
+  <li>using <b>pidfd_open</b>(2); or</li>
+  <li>via the PID file descriptor that is returned by a call to <b>clone</b>(2)
+      or <b>clone3</b>(2) that specifies the <b>CLONE_PIDFD</b> flag.</li>
+</ul>
+<p class="Pp">The <b>pidfd_send_signal</b>() system call allows the avoidance of
+    race conditions that occur when using traditional interfaces (such as
+    <b>kill</b>(2)) to signal a process. The problem is that the traditional
+    interfaces specify the target process via a process ID (PID), with the
+    result that the sender may accidentally send a signal to the wrong process
+    if the originally intended target process has terminated and its PID has
+    been recycled for another process. By contrast, a PID file descriptor is a
+    stable reference to a specific process; if that process terminates,
+    <b>pidfd_send_signal</b>() fails with the error <b>ESRCH</b>.</p>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXAMPLE"><a class="permalink" href="#EXAMPLE">EXAMPLE</a></h1>
+<pre>
+#define _GNU_SOURCE
+#include &lt;limits.h&gt;
+#include &lt;signal.h&gt;
+#include &lt;fcntl.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;sys/syscall.h&gt;
+#ifndef __NR_pidfd_send_signal
+#define __NR_pidfd_send_signal 424
+#endif
+static int
+pidfd_send_signal(int pidfd, int sig, siginfo_t *info,
+        unsigned int flags)
+{
+    return syscall(__NR_pidfd_send_signal, pidfd, sig, info, flags);
+}
+int
+main(int argc, char *argv[])
+{
+    siginfo_t info;
+    char path[PATH_MAX];
+    int pidfd, sig;
+    if (argc != 3) {
+        fprintf(stderr, &quot;Usage: %s &lt;pid&gt; &lt;signal&gt;\n&quot;, argv[0]);
+        exit(EXIT_FAILURE);
+    }
+    sig = atoi(argv[2]);
+    /* Obtain a PID file descriptor by opening the /proc/PID directory
+       of the target process */
+    snprintf(path, sizeof(path), &quot;/proc/%s&quot;, argv[1]);
+    pidfd = open(path, O_RDONLY);
+    if (pidfd == -1) {
+        perror(&quot;open&quot;);
+        exit(EXIT_FAILURE);
+    }
+    /* Populate a 'siginfo_t' structure for use with
+       pidfd_send_signal() */
+    memset(&amp;info, 0, sizeof(info));
+    info.si_code = SI_QUEUE;
+    info.si_signo = sig;
+    info.si_errno = 0;
+    info.si_uid = getuid();
+    info.si_pid = getpid();
+    info.si_value.sival_int = 1234;
+    /* Send the signal */
+    if (pidfd_send_signal(pidfd, sig, &amp;info, 0) == -1) {
+        perror(&quot;pidfd_send_signal&quot;);
+        exit(EXIT_FAILURE);
+    }
+    exit(EXIT_SUCCESS);
+}
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>clone</b>(2), <b>kill</b>(2), <b>pidfd_open</b>(2),
+  <b>rt_sigqueueinfo</b>(2), <b>sigaction</b>(2), <b>pid_namespaces</b>(7),
+  <b>signal</b>(7)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-09-19</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

@@ -1,0 +1,87 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/sed.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">SED(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">SED(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+sed - manual page for sed 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>sed</b> [<i>-i</i>[<i>SFX</i>]] [<i>-nrE</i>] [<i>-f FILE</i>]... [<i>-e
+  CMD</i>]... [<i>FILE</i>]...
+<br/>
+<b>sed</b> [<i>-i</i>[<i>SFX</i>]] [<i>-nrE</i>] <i>CMD </i>[<i>FILE</i>]...
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<dl class="Bl-tag">
+  <dt><b>-e</b> CMD</dt>
+  <dd>Add CMD to sed commands to be executed</dd>
+</dl>
+<p class="Pp HP"><b>-f</b> FILE Add FILE contents to sed commands to be
+  executed</p>
+<p class="Pp HP"><b>-i[SFX]</b> Edit files in-place (otherwise sends to
+  stdout)</p>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>Optionally back files up, appending SFX</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt><b>-n</b></dt>
+  <dd>Suppress automatic printing of pattern space</dd>
+  <dt><b>-r</b>,-E</dt>
+  <dd>Use extended regex syntax</dd>
+</dl>
+<p class="Pp">If no <b>-e</b> or <b>-f</b>, the first non-option argument is the
+    sed command string. Remaining arguments are input files (stdin if none).</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

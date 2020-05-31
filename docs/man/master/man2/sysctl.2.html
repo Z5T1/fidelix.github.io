@@ -1,0 +1,189 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/sysctl.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">SYSCTL(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">SYSCTL(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+sysctl - read/write system parameters
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>#include &lt;unistd.h&gt;</b>
+<b>#include &lt;linux/sysctl.h&gt;</b>
+</pre>
+<pre>
+<b>int _sysctl(struct __sysctl_args *</b><i>args</i><b>);</b>
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>This system call no longer exists on current kernels!</b> See NOTES.
+<p class="Pp">The <b>_sysctl</b>() call reads and/or writes kernel parameters.
+    For example, the hostname, or the maximum number of open files. The argument
+    has the form</p>
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+struct __sysctl_args {
+    int    *name;    /* integer vector describing variable */
+    int     nlen;    /* length of this vector */
+    void   *oldval;  /* 0 or address where to store old value */
+    size_t *oldlenp; /* available room for old value,
+                        overwritten by actual size of old value */
+    void   *newval;  /* 0 or address of new value */
+    size_t  newlen;  /* size of new value */
+};
+
+</pre>
+<br/>
+<p class="Pp">This call does a search in a tree structure, possibly resembling a
+    directory tree under <i>/proc/sys</i>, and if the requested item is found
+    calls some appropriate routine to read or modify the value.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+Upon successful completion, <b>_sysctl</b>() returns 0. Otherwise, a value of -1
+  is returned and <i>errno</i> is set to indicate the error.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EACCES</b>, <b>EPERM</b></dt>
+  <dd>No search permission for one of the encountered &quot;directories&quot;,
+      or no read permission where <i>oldval</i> was nonzero, or no write
+      permission where <i>newval</i> was nonzero.</dd>
+  <dt><b>EFAULT</b></dt>
+  <dd>The invocation asked for the previous value by setting <i>oldval</i>
+      non-NULL, but allowed zero room in <i>oldlenp</i>.</dd>
+  <dt><b>ENOTDIR</b></dt>
+  <dd><i>name</i> was not found.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="VERSIONS"><a class="permalink" href="#VERSIONS">VERSIONS</a></h1>
+This system call first appeared in Linux 1.3.57. It was removed in Linux 5.5.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+This call is Linux-specific, and should not be used in programs intended to be
+  portable. It originated in 4.4BSD. Only Linux has the <i>/proc/sys</i> mirror,
+  and the object naming schemes differ between Linux and 4.4BSD, but the
+  declaration of the <b>sysctl</b>() function is the same in both.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+Use of this system call was long discouraged: since Linux 2.6.24, uses of this
+  system call result in warnings in the kernel log, and in Linux 5.5, the system
+  call was finally removed. Use the <i>/proc/sys</i> interface instead.
+<p class="Pp">Note that on older kernels where this system call still exists, it
+    is available only if the kernel was configured with the
+    <b>CONFIG_SYSCTL_SYSCALL</b> option. Furthermore, glibc does not provide a
+    wrapper for this system call, necessitating the use of
+  <b>syscall</b>(2).</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="BUGS"><a class="permalink" href="#BUGS">BUGS</a></h1>
+The object names vary between kernel versions, making this system call worthless
+  for applications.
+<p class="Pp">Not all available objects are properly documented.</p>
+<p class="Pp">It is not yet possible to change operating system by writing to
+    <i>/proc/sys/kernel/ostype</i>.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXAMPLE"><a class="permalink" href="#EXAMPLE">EXAMPLE</a></h1>
+<pre>
+#define _GNU_SOURCE
+#include &lt;unistd.h&gt;
+#include &lt;sys/syscall.h&gt;
+#include &lt;string.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;linux/sysctl.h&gt;
+int _sysctl(struct __sysctl_args *args );
+#define OSNAMESZ 100
+int
+main(void)
+{
+    struct __sysctl_args args;
+    char osname[OSNAMESZ];
+    size_t osnamelth;
+    int name[] = { CTL_KERN, KERN_OSTYPE };
+    memset(&amp;args, 0, sizeof(struct __sysctl_args));
+    args.name = name;
+    args.nlen = sizeof(name)/sizeof(name[0]);
+    args.oldval = osname;
+    args.oldlenp = &amp;osnamelth;
+    osnamelth = sizeof(osname);
+    if (syscall(SYS__sysctl, &amp;args) == -1) {
+        perror(&quot;_sysctl&quot;);
+        exit(EXIT_FAILURE);
+    }
+    printf(&quot;This machine is running %*s\n&quot;, osnamelth, osname);
+    exit(EXIT_SUCCESS);
+}
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>proc</b>(5)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2020-02-09</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

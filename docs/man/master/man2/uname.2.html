@@ -1,0 +1,159 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/uname.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">UNAME(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">UNAME(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+uname - get name and information about current kernel
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>#include &lt;sys/utsname.h&gt;</b>
+<p class="Pp"><b>int uname(struct utsname *</b><i>buf</i><b>);</b></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>uname</b>() returns system information in the structure pointed to by
+  <i>buf</i>. The <i>utsname</i> struct is defined in
+  <i>&lt;sys/utsname.h&gt;</i>:
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+struct utsname {
+    char sysname[];    /* Operating system name (e.g., &quot;Linux&quot;) */
+    char nodename[];   /* Name within &quot;some implementation-defined
+                          network&quot; */
+    char release[];    /* Operating system release (e.g., &quot;2.6.28&quot;) */
+    char version[];    /* Operating system version */
+    char machine[];    /* Hardware identifier */
+#ifdef _GNU_SOURCE
+    char domainname[]; /* NIS or YP domain name */
+#endif
+};
+
+</pre>
+<br/>
+<p class="Pp">The length of the arrays in a <i>struct utsname</i> is unspecified
+    (see NOTES); the fields are terminated by a null byte ('\0').</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, zero is returned. On error, -1 is returned, and <i>errno</i> is set
+  appropriately.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EFAULT</b></dt>
+  <dd><i>buf</i> is not valid.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+POSIX.1-2001, POSIX.1-2008, SVr4. There is no <b>uname</b>() call in 4.3BSD.
+<p class="Pp">The <i>domainname</i> member (the NIS or YP domain name) is a GNU
+    extension.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+This is a system call, and the operating system presumably knows its name,
+  release and version. It also knows what hardware it runs on. So, four of the
+  fields of the struct are meaningful. On the other hand, the field
+  <i>nodename</i> is meaningless: it gives the name of the present machine in
+  some undefined network, but typically machines are in more than one network
+  and have several names. Moreover, the kernel has no way of knowing about such
+  things, so it has to be told what to answer here. The same holds for the
+  additional <i>domainname</i> field.
+<p class="Pp">To this end, Linux uses the system calls <b>sethostname</b>(2) and
+    <b>setdomainname</b>(2). Note that there is no standard that says that the
+    hostname set by <b>sethostname</b>(2) is the same string as the
+    <i>nodename</i> field of the struct returned by <b>uname</b>() (indeed, some
+    systems allow a 256-byte hostname and an 8-byte nodename), but this is true
+    on Linux. The same holds for <b>setdomainname</b>(2) and the
+    <i>domainname</i> field.</p>
+<p class="Pp">The length of the fields in the struct varies. Some operating
+    systems or libraries use a hardcoded 9 or 33 or 65 or 257. Other systems use
+    <b>SYS_NMLN</b> or <b>_SYS_NMLN</b> or <b>UTSLEN</b> or
+    <b>_UTSNAME_LENGTH</b>. Clearly, it is a bad idea to use any of these
+    constants; just use sizeof(...). Often 257 is chosen in order to have room
+    for an internet hostname.</p>
+<p class="Pp">Part of the utsname information is also accessible via
+    <i>/proc/sys/kernel/</i>{<i>ostype</i>, <i>hostname</i>, <i>osrelease</i>,
+    <i>version</i>, <i>domainname</i>}.</p>
+<section class="Ss">
+<h2 class="Ss" id="C_library/kernel_differences"><a class="permalink" href="#C_library/kernel_differences">C
+  library/kernel differences</a></h2>
+Over time, increases in the size of the <i>utsname</i> structure have led to
+  three successive versions of <b>uname</b>(): <i>sys_olduname</i>() (slot
+  <i>__NR_oldolduname</i>), <i>sys_uname</i>() (slot <i>__NR_olduname</i>), and
+  <i>sys_newuname</i>() (slot <i>__NR_uname)</i>. The first one used length 9
+  for all fields; the second used 65; the third also uses 65 but adds the
+  <i>domainname</i> field. The glibc <b>uname</b>() wrapper function hides these
+  details from applications, invoking the most recent version of the system call
+  provided by the kernel.
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>uname</b>(1), <b>getdomainname</b>(2), <b>gethostname</b>(2),
+  <b>uts_namespaces</b>(7)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-10-10</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

@@ -1,0 +1,143 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/inotify_add_watch.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">INOTIFY_ADD_WATCH(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">INOTIFY_ADD_WATCH(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+inotify_add_watch - add a watch to an initialized inotify instance
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>#include &lt;sys/inotify.h&gt;</b>
+<p class="Pp"><b>int inotify_add_watch(int </b><i>fd</i><b>, const char
+    *</b><i>pathname</i><b>, uint32_t </b><i>mask</i><b>);</b></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>inotify_add_watch</b>() adds a new watch, or modifies an existing watch, for
+  the file whose location is specified in <i>pathname</i>; the caller must have
+  read permission for this file. The <i>fd</i> argument is a file descriptor
+  referring to the inotify instance whose watch list is to be modified. The
+  events to be monitored for <i>pathname</i> are specified in the <i>mask</i>
+  bit-mask argument. See <b>inotify</b>(7) for a description of the bits that
+  can be set in <i>mask</i>.
+<p class="Pp">A successful call to <b>inotify_add_watch</b>() returns a unique
+    watch descriptor for this inotify instance, for the filesystem object
+    (inode) that corresponds to <i>pathname</i>. If the filesystem object was
+    not previously being watched by this inotify instance, then the watch
+    descriptor is newly allocated. If the filesystem object was already being
+    watched (perhaps via a different link to the same object), then the
+    descriptor for the existing watch is returned.</p>
+<p class="Pp">The watch descriptor is returned by later <b>read</b>(2)s from the
+    inotify file descriptor. These reads fetch <i>inotify_event</i> structures
+    (see <b>inotify</b>(7)) indicating filesystem events; the watch descriptor
+    inside this structure identifies the object for which the event
+  occurred.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, <b>inotify_add_watch</b>() returns a nonnegative watch descriptor.
+  On error, -1 is returned and <i>errno</i> is set appropriately.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EACCES</b></dt>
+  <dd>Read access to the given file is not permitted.</dd>
+  <dt><b>EBADF</b></dt>
+  <dd>The given file descriptor is not valid.</dd>
+  <dt><b>EEXIST</b></dt>
+  <dd><i>mask</i> contains <b>IN_MASK_CREATE</b> and <i>pathname</i> refers to a
+      file already being watched by the same <i>fd</i>.</dd>
+  <dt><b>EFAULT</b></dt>
+  <dd><i>pathname</i> points outside of the process's accessible address
+    space.</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd>The given event mask contains no valid events; or <i>mask</i> contains
+      both <b>IN_MASK_ADD</b> and <b>IN_MASK_CREATE</b>; or <i>fd</i> is not an
+      inotify file descriptor.</dd>
+  <dt><b>ENAMETOOLONG</b></dt>
+  <dd><i>pathname</i> is too long.</dd>
+  <dt><b>ENOENT</b></dt>
+  <dd>A directory component in <i>pathname</i> does not exist or is a dangling
+      symbolic link.</dd>
+  <dt><b>ENOMEM</b></dt>
+  <dd>Insufficient kernel memory was available.</dd>
+  <dt><b>ENOSPC</b></dt>
+  <dd>The user limit on the total number of inotify watches was reached or the
+      kernel failed to allocate a needed resource.</dd>
+  <dt><b>ENOTDIR</b></dt>
+  <dd><i>mask</i> contains <b>IN_ONLYDIR</b> and <i>pathname</i> is not a
+      directory.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="VERSIONS"><a class="permalink" href="#VERSIONS">VERSIONS</a></h1>
+Inotify was merged into the 2.6.13 Linux kernel.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+This system call is Linux-specific.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>inotify_init</b>(2), <b>inotify_rm_watch</b>(2), <b>inotify</b>(7)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-10-10</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

@@ -1,0 +1,298 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man7/sysvipc.7</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">SVIPC(7)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">SVIPC(7)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+sysvipc - System V interprocess communication mechanisms
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>#include &lt;sys/msg.h&gt;</b>
+<b>#include &lt;sys/sem.h&gt;</b>
+<b>#include &lt;sys/shm.h&gt;</b>
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+This manual page refers to the Linux implementation of the System V interprocess
+  communication (IPC) mechanisms: message queues, semaphore sets, and shared
+  memory segments. In the following, the word <i>resource</i> means an
+  instantiation of one among such mechanisms.
+<section class="Ss">
+<h2 class="Ss" id="Resource_access_permissions"><a class="permalink" href="#Resource_access_permissions">Resource
+  access permissions</a></h2>
+For each resource, the system uses a common structure of type <i>struct
+  ipc_perm</i> to store information needed in determining permissions to perform
+  an IPC operation. The <i>ipc_perm</i> structure includes the following
+  members:
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+struct ipc_perm {
+    uid_t          cuid;   /* creator user ID */
+    gid_t          cgid;   /* creator group ID */
+    uid_t          uid;    /* owner user ID */
+    gid_t          gid;    /* owner group ID */
+    unsigned short mode;   /* r/w permissions */
+};
+
+</pre>
+<br/>
+<p class="Pp">The <i>mode</i> member of the <i>ipc_perm</i> structure defines,
+    with its lower 9 bits, the access permissions to the resource for a process
+    executing an IPC system call. The permissions are interpreted as
+  follows:</p>
+<p class="Pp"></p>
+<pre>
+    0400    Read by user.
+    0200    Write by user.
+    0040    Read by group.
+    0020    Write by group.
+    0004    Read by others.
+    0002    Write by others.
+</pre>
+<p class="Pp">Bits 0100, 0010, and 0001 (the execute bits) are unused by the
+    system. Furthermore, &quot;write&quot; effectively means &quot;alter&quot;
+    for a semaphore set.</p>
+<p class="Pp">The same system header file also defines the following symbolic
+    constants:</p>
+<dl class="Bl-tag">
+  <dt><b>IPC_CREAT</b></dt>
+  <dd>Create entry if key doesn't exist.</dd>
+  <dt><b>IPC_EXCL</b></dt>
+  <dd>Fail if key exists.</dd>
+  <dt><b>IPC_NOWAIT</b></dt>
+  <dd>Error if request must wait.</dd>
+  <dt><b>IPC_PRIVATE</b></dt>
+  <dd>Private key.</dd>
+  <dt><b>IPC_RMID</b></dt>
+  <dd>Remove resource.</dd>
+  <dt><b>IPC_SET</b></dt>
+  <dd>Set resource options.</dd>
+  <dt><b>IPC_STAT</b></dt>
+  <dd>Get resource options.</dd>
+</dl>
+<p class="Pp">Note that <b>IPC_PRIVATE</b> is a <i>key_t</i> type, while all the
+    other symbolic constants are flag fields and can be OR'ed into an <i>int</i>
+    type variable.</p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Message_queues"><a class="permalink" href="#Message_queues">Message
+  queues</a></h2>
+A message queue is uniquely identified by a positive integer (its <i>msqid</i>)
+  and has an associated data structure of type <i>struct msqid_ds</i>, defined
+  in <i>&lt;sys/msg.h&gt;</i>, containing the following members:
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+struct msqid_ds {
+    struct ipc_perm msg_perm;
+    msgqnum_t       msg_qnum;    /* no of messages on queue */
+    msglen_t        msg_qbytes;  /* bytes max on a queue */
+    pid_t           msg_lspid;   /* PID of last msgsnd(2) call */
+    pid_t           msg_lrpid;   /* PID of last msgrcv(2) call */
+    time_t          msg_stime;   /* last msgsnd(2) time */
+    time_t          msg_rtime;   /* last msgrcv(2) time */
+    time_t          msg_ctime;   /* last change time */
+};
+
+</pre>
+<br/>
+<dl class="Bl-tag">
+  <dt><i>msg_perm</i></dt>
+  <dd><i>ipc_perm</i> structure that specifies the access permissions on the
+      message queue.</dd>
+  <dt><i>msg_qnum</i></dt>
+  <dd>Number of messages currently on the message queue.</dd>
+  <dt><i>msg_qbytes</i></dt>
+  <dd>Maximum number of bytes of message text allowed on the message queue.</dd>
+  <dt><i>msg_lspid</i></dt>
+  <dd>ID of the process that performed the last <b>msgsnd</b>(2) system
+    call.</dd>
+  <dt><i>msg_lrpid</i></dt>
+  <dd>ID of the process that performed the last <b>msgrcv</b>(2) system
+    call.</dd>
+  <dt><i>msg_stime</i></dt>
+  <dd>Time of the last <b>msgsnd</b>(2) system call.</dd>
+  <dt><i>msg_rtime</i></dt>
+  <dd>Time of the last <b>msgrcv</b>(2) system call.</dd>
+  <dt><i>msg_ctime</i></dt>
+  <dd>Time of the last system call that changed a member of the <i>msqid_ds</i>
+      structure.</dd>
+</dl>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Semaphore_sets"><a class="permalink" href="#Semaphore_sets">Semaphore
+  sets</a></h2>
+A semaphore set is uniquely identified by a positive integer (its <i>semid</i>)
+  and has an associated data structure of type <i>struct semid_ds</i>, defined
+  in <i>&lt;sys/sem.h&gt;</i>, containing the following members:
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>
+    <br/>
+    <pre>
+struct semid_ds {
+    struct ipc_perm sem_perm;
+    time_t          sem_otime;   /* last operation time */
+    time_t          sem_ctime;   /* last change time */
+    unsigned long   sem_nsems;   /* count of sems in set */
+};
+
+    </pre>
+    <br/>
+  </dd>
+</dl>
+<dl class="Bl-tag">
+  <dt><i>sem_perm</i></dt>
+  <dd><i>ipc_perm</i> structure that specifies the access permissions on the
+      semaphore set.</dd>
+  <dt><i>sem_otime</i></dt>
+  <dd>Time of last <b>semop</b>(2) system call.</dd>
+  <dt><i>sem_ctime</i></dt>
+  <dd>Time of last <b>semctl</b>(2) system call that changed a member of the
+      above structure or of one semaphore belonging to the set.</dd>
+  <dt><i>sem_nsems</i></dt>
+  <dd>Number of semaphores in the set. Each semaphore of the set is referenced
+      by a nonnegative integer ranging from <b>0</b> to <i>sem_nsems-1</i>.</dd>
+</dl>
+<p class="Pp">A semaphore is a data structure of type <i>struct sem</i>
+    containing the following members:</p>
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+struct sem {
+    int semval;  /* semaphore value */
+    int sempid;  /* PID of process that last modified */
+};
+
+</pre>
+<br/>
+<dl class="Bl-tag">
+  <dt><i>semval</i></dt>
+  <dd>Semaphore value: a nonnegative integer.</dd>
+  <dt><i>sempid</i></dt>
+  <dd>PID of the last process that modified the value of this semaphore.</dd>
+</dl>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Shared_memory_segments"><a class="permalink" href="#Shared_memory_segments">Shared
+  memory segments</a></h2>
+A shared memory segment is uniquely identified by a positive integer (its
+  <i>shmid</i>) and has an associated data structure of type <i>struct
+  shmid_ds</i>, defined in <i>&lt;sys/shm.h&gt;</i>, containing the following
+  members:
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+struct shmid_ds {
+    struct ipc_perm shm_perm;
+    size_t          shm_segsz;   /* size of segment */
+    pid_t           shm_cpid;    /* PID of creator */
+    pid_t           shm_lpid;    /* PID, last operation */
+    shmatt_t        shm_nattch;  /* no. of current attaches */
+    time_t          shm_atime;   /* time of last attach */
+    time_t          shm_dtime;   /* time of last detach */
+    time_t          shm_ctime;   /* time of last change */
+};
+
+</pre>
+<br/>
+<dl class="Bl-tag">
+  <dt><i>shm_perm</i></dt>
+  <dd><i>ipc_perm</i> structure that specifies the access permissions on the
+      shared memory segment.</dd>
+  <dt><i>shm_segsz</i></dt>
+  <dd>Size in bytes of the shared memory segment.</dd>
+  <dt><i>shm_cpid</i></dt>
+  <dd>ID of the process that created the shared memory segment.</dd>
+  <dt><i>shm_lpid</i></dt>
+  <dd>ID of the last process that executed a <b>shmat</b>(2) or <b>shmdt</b>(2)
+      system call.</dd>
+  <dt><i>shm_nattch</i></dt>
+  <dd>Number of current alive attaches for this shared memory segment.</dd>
+  <dt><i>shm_atime</i></dt>
+  <dd>Time of the last <b>shmat</b>(2) system call.</dd>
+  <dt><i>shm_dtime</i></dt>
+  <dd>Time of the last <b>shmdt</b>(2) system call.</dd>
+  <dt><i>shm_ctime</i></dt>
+  <dd>Time of the last <b>shmctl</b>(2) system call that changed
+      <i>shmid_ds</i>.</dd>
+</dl>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="IPC_namespaces"><a class="permalink" href="#IPC_namespaces">IPC
+  namespaces</a></h2>
+For a discussion of the interaction of System V IPC objects and IPC namespaces,
+  see <b>ipc_namespaces</b>(7).
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>ipcmk</b>(1), <b>ipcrm</b>(1), <b>ipcs</b>(1), <b>lsipc</b>(1),
+  <b>ipc</b>(2), <b>msgctl</b>(2), <b>msgget</b>(2), <b>msgrcv</b>(2),
+  <b>msgsnd</b>(2), <b>semctl</b>(2), <b>semget</b>(2), <b>semop</b>(2),
+  <b>shmat</b>(2), <b>shmctl</b>(2), <b>shmdt</b>(2), <b>shmget</b>(2),
+  <b>ftok</b>(3), <b>ipc_namespaces</b>(7)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-10-10</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

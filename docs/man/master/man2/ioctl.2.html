@@ -1,0 +1,132 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/ioctl.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">IOCTL(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">IOCTL(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+ioctl - control device
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>#include &lt;sys/ioctl.h&gt;</b>
+<p class="Pp"><b>int ioctl(int </b><i>fd</i><b>, unsigned long
+    </b><i>request</i><b>, ...);</b></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+The <b>ioctl</b>() system call manipulates the underlying device parameters of
+  special files. In particular, many operating characteristics of character
+  special files (e.g., terminals) may be controlled with <b>ioctl</b>()
+  requests. The argument <i>fd</i> must be an open file descriptor.
+<p class="Pp">The second argument is a device-dependent request code. The third
+    argument is an untyped pointer to memory. It's traditionally <b>char
+    *</b><i>argp</i> (from the days before <b>void *</b> was valid C), and will
+    be so named for this discussion.</p>
+<p class="Pp">An <b>ioctl</b>() <i>request</i> has encoded in it whether the
+    argument is an <i>in</i> parameter or <i>out</i> parameter, and the size of
+    the argument <i>argp</i> in bytes. Macros and defines used in specifying an
+    <b>ioctl</b>() <i>request</i> are located in the file
+    <i>&lt;sys/ioctl.h&gt;</i>.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+Usually, on success zero is returned. A few <b>ioctl</b>() requests use the
+  return value as an output parameter and return a nonnegative value on success.
+  On error, -1 is returned, and <i>errno</i> is set appropriately.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EBADF</b></dt>
+  <dd><i>fd</i> is not a valid file descriptor.</dd>
+  <dt><b>EFAULT</b></dt>
+  <dd><i>argp</i> references an inaccessible memory area.</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd><i>request</i> or <i>argp</i> is not valid.</dd>
+  <dt><b>ENOTTY</b></dt>
+  <dd><i>fd</i> is not associated with a character special device.</dd>
+  <dt><b>ENOTTY</b></dt>
+  <dd>The specified request does not apply to the kind of object that the file
+      descriptor <i>fd</i> references.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+No single standard. Arguments, returns, and semantics of <b>ioctl</b>() vary
+  according to the device driver in question (the call is used as a catch-all
+  for operations that don't cleanly fit the UNIX stream I/O model). See
+  <b>ioctl_list</b>(2) for a list of many of the known <b>ioctl</b>() calls. The
+  <b>ioctl</b>() system call appeared in Version 7 AT&amp;T UNIX.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+In order to use this call, one needs an open file descriptor. Often the
+  <b>open</b>(2) call has unwanted side effects, that can be avoided under Linux
+  by giving it the <b>O_NONBLOCK</b> flag.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>execve</b>(2), <b>fcntl</b>(2), <b>ioctl_console</b>(2), <b>ioctl_fat</b>(2),
+  <b>ioctl_ficlonerange</b>(2), <b>ioctl_fideduperange</b>(2),
+  <b>ioctl_getfsmap</b>(2), <b>ioctl_iflags</b>(2), <b>ioctl_list</b>(2),
+  <b>ioctl_ns</b>(2), <b>ioctl_tty</b>(2), <b>ioctl_userfaultfd</b>(2),
+  <b>open</b>(2), <b>sd</b>(4), <b>tty</b>(4)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2017-05-03</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

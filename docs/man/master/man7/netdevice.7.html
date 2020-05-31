@@ -1,0 +1,401 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man7/netdevice.7</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">NETDEVICE(7)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">NETDEVICE(7)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+netdevice - low-level access to Linux network devices
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>#include &lt;sys/ioctl.h&gt;</b>
+<br/>
+<b>#include &lt;net/if.h&gt;</b>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+This man page describes the sockets interface which is used to configure network
+  devices.
+<p class="Pp">Linux supports some standard ioctls to configure network devices.
+    They can be used on any socket's file descriptor regardless of the family or
+    type. Most of them pass an <i>ifreq</i> structure:</p>
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+struct ifreq {
+    char ifr_name[IFNAMSIZ]; /* Interface name */
+    union {
+        struct sockaddr ifr_addr;
+        struct sockaddr ifr_dstaddr;
+        struct sockaddr ifr_broadaddr;
+        struct sockaddr ifr_netmask;
+        struct sockaddr ifr_hwaddr;
+        short           ifr_flags;
+        int             ifr_ifindex;
+        int             ifr_metric;
+        int             ifr_mtu;
+        struct ifmap    ifr_map;
+        char            ifr_slave[IFNAMSIZ];
+        char            ifr_newname[IFNAMSIZ];
+        char           *ifr_data;
+    };
+};
+
+</pre>
+<br/>
+<p class="Pp">Normally, the user specifies which device to affect by setting
+    <i>ifr_name</i> to the name of the interface. All other members of the
+    structure may share memory.</p>
+<section class="Ss">
+<h2 class="Ss" id="Ioctls"><a class="permalink" href="#Ioctls">Ioctls</a></h2>
+If an ioctl is marked as privileged, then using it requires an effective user ID
+  of 0 or the <b>CAP_NET_ADMIN</b> capability. If this is not the case,
+  <b>EPERM</b> will be returned.
+<dl class="Bl-tag">
+  <dt><b>SIOCGIFNAME</b></dt>
+  <dd>Given the <i>ifr_ifindex</i>, return the name of the interface in
+      <i>ifr_name</i>. This is the only ioctl which returns its result in
+      <i>ifr_name</i>.</dd>
+  <dt><b>SIOCGIFINDEX</b></dt>
+  <dd>Retrieve the interface index of the interface into
+    <i>ifr_ifindex</i>.</dd>
+  <dt><b>SIOCGIFFLAGS</b>, <b>SIOCSIFFLAGS</b></dt>
+  <dd>Get or set the active flag word of the device. <i>ifr_flags</i> contains a
+      bit mask of the following values:
+    <table class="tbl">
+      <tr>
+        <td colspan="2" style="text-align: center;">Device flags</td>
+      </tr>
+      <tr>
+        <td>IFF_UP</td>
+        <td>Interface is running.</td>
+      </tr>
+      <tr>
+        <td>IFF_BROADCAST</td>
+        <td>Valid broadcast address set.</td>
+      </tr>
+      <tr>
+        <td>IFF_DEBUG</td>
+        <td>Internal debugging flag.</td>
+      </tr>
+      <tr>
+        <td>IFF_LOOPBACK</td>
+        <td>Interface is a loopback interface.</td>
+      </tr>
+      <tr>
+        <td>IFF_POINTOPOINT</td>
+        <td>Interface is a point-to-point link.</td>
+      </tr>
+      <tr>
+        <td>IFF_RUNNING</td>
+        <td>Resources allocated.</td>
+      </tr>
+      <tr>
+        <td>IFF_NOARP</td>
+        <td>No arp protocol, L2 destination address not set.</td>
+      </tr>
+      <tr>
+        <td>IFF_PROMISC</td>
+        <td>Interface is in promiscuous mode.</td>
+      </tr>
+      <tr>
+        <td>IFF_NOTRAILERS</td>
+        <td>Avoid use of trailers.</td>
+      </tr>
+      <tr>
+        <td>IFF_ALLMULTI</td>
+        <td>Receive all multicast packets.</td>
+      </tr>
+      <tr>
+        <td>IFF_MASTER</td>
+        <td>Master of a load balancing bundle.</td>
+      </tr>
+      <tr>
+        <td>IFF_SLAVE</td>
+        <td>Slave of a load balancing bundle.</td>
+      </tr>
+      <tr>
+        <td>IFF_MULTICAST</td>
+        <td>Supports multicast</td>
+      </tr>
+      <tr>
+        <td>IFF_PORTSEL</td>
+        <td>Is able to select media type via ifmap.</td>
+      </tr>
+      <tr>
+        <td>IFF_AUTOMEDIA</td>
+        <td>Auto media selection active.</td>
+      </tr>
+      <tr>
+        <td>IFF_DYNAMIC</td>
+        <td>The addresses are lost when the interface goes down.</td>
+      </tr>
+      <tr>
+        <td>IFF_LOWER_UP</td>
+        <td>Driver signals L1 up (since Linux 2.6.17)</td>
+      </tr>
+      <tr>
+        <td>IFF_DORMANT</td>
+        <td>Driver signals dormant (since Linux 2.6.17)</td>
+      </tr>
+      <tr>
+        <td>IFF_ECHO</td>
+        <td>Echo sent packets (since Linux 2.6.25)</td>
+      </tr>
+    </table>
+  </dd>
+</dl>
+<p class="Pp">Setting the active flag word is a privileged operation, but any
+    process may read it.</p>
+<dl class="Bl-tag">
+  <dt><b>SIOCGIFPFLAGS</b>, <b>SIOCSIFPFLAGS</b></dt>
+  <dd>Get or set extended (private) flags for the device. <i>ifr_flags</i>
+      contains a bit mask of the following values:
+    <table class="tbl">
+      <tr>
+        <td colspan="2" style="text-align: center;">Private flags</td>
+      </tr>
+      <tr>
+        <td>IFF_802_1Q_VLAN</td>
+        <td>Interface is 802.1Q VLAN device.</td>
+      </tr>
+      <tr>
+        <td>IFF_EBRIDGE</td>
+        <td>Interface is Ethernet bridging device.</td>
+      </tr>
+      <tr>
+        <td>IFF_SLAVE_INACTIVE</td>
+        <td>Interface is inactive bonding slave.</td>
+      </tr>
+      <tr>
+        <td>IFF_MASTER_8023AD</td>
+        <td>Interface is 802.3ad bonding master.</td>
+      </tr>
+      <tr>
+        <td>IFF_MASTER_ALB</td>
+        <td>Interface is balanced-alb bonding master.</td>
+      </tr>
+      <tr>
+        <td>IFF_BONDING</td>
+        <td>Interface is a bonding master or slave.</td>
+      </tr>
+      <tr>
+        <td>IFF_SLAVE_NEEDARP</td>
+        <td>Interface needs ARPs for validation.</td>
+      </tr>
+      <tr>
+        <td>IFF_ISATAP</td>
+        <td>Interface is RFC4214 ISATAP interface.</td>
+      </tr>
+    </table>
+  </dd>
+</dl>
+<p class="Pp">Setting the extended (private) interface flags is a privileged
+    operation.</p>
+<dl class="Bl-tag">
+  <dt><b>SIOCGIFADDR</b>, <b>SIOCSIFADDR</b></dt>
+  <dd>Get or set the address of the device using <i>ifr_addr</i>. Setting the
+      interface address is a privileged operation. For compatibility, only
+      <b>AF_INET</b> addresses are accepted or returned.</dd>
+  <dt><b>SIOCGIFDSTADDR</b>, <b>SIOCSIFDSTADDR</b></dt>
+  <dd>Get or set the destination address of a point-to-point device using
+      <i>ifr_dstaddr</i>. For compatibility, only <b>AF_INET</b> addresses are
+      accepted or returned. Setting the destination address is a privileged
+      operation.</dd>
+  <dt><b>SIOCGIFBRDADDR</b>, <b>SIOCSIFBRDADDR</b></dt>
+  <dd>Get or set the broadcast address for a device using <i>ifr_brdaddr</i>.
+      For compatibility, only <b>AF_INET</b> addresses are accepted or returned.
+      Setting the broadcast address is a privileged operation.</dd>
+  <dt><b>SIOCGIFNETMASK</b>, <b>SIOCSIFNETMASK</b></dt>
+  <dd>Get or set the network mask for a device using <i>ifr_netmask</i>. For
+      compatibility, only <b>AF_INET</b> addresses are accepted or returned.
+      Setting the network mask is a privileged operation.</dd>
+  <dt><b>SIOCGIFMETRIC</b>, <b>SIOCSIFMETRIC</b></dt>
+  <dd>Get or set the metric of the device using <i>ifr_metric</i>. This is
+      currently not implemented; it sets <i>ifr_metric</i> to 0 if you attempt
+      to read it and returns <b>EOPNOTSUPP</b> if you attempt to set it.</dd>
+  <dt><b>SIOCGIFMTU</b>, <b>SIOCSIFMTU</b></dt>
+  <dd>Get or set the MTU (Maximum Transfer Unit) of a device using
+      <i>ifr_mtu</i>. Setting the MTU is a privileged operation. Setting the MTU
+      to too small values may cause kernel crashes.</dd>
+  <dt><b>SIOCGIFHWADDR</b>, <b>SIOCSIFHWADDR</b></dt>
+  <dd>Get or set the hardware address of a device using <i>ifr_hwaddr</i>. The
+      hardware address is specified in a struct <i>sockaddr</i>.
+      <i>sa_family</i> contains the ARPHRD_* device type, <i>sa_data</i> the L2
+      hardware address starting from byte 0. Setting the hardware address is a
+      privileged operation.</dd>
+  <dt><b>SIOCSIFHWBROADCAST</b></dt>
+  <dd>Set the hardware broadcast address of a device from <i>ifr_hwaddr</i>.
+      This is a privileged operation.</dd>
+  <dt><b>SIOCGIFMAP</b>, <b>SIOCSIFMAP</b></dt>
+  <dd>Get or set the interface's hardware parameters using <i>ifr_map</i>.
+      Setting the parameters is a privileged operation.</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>
+    <br/>
+    <pre>
+struct ifmap {
+    unsigned long   mem_start;
+    unsigned long   mem_end;
+    unsigned short  base_addr;
+    unsigned char   irq;
+    unsigned char   dma;
+    unsigned char   port;
+};
+
+    </pre>
+    <br/>
+  </dd>
+  <dt></dt>
+  <dd>The interpretation of the ifmap structure depends on the device driver and
+      the architecture.</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt><b>SIOCADDMULTI</b>, <b>SIOCDELMULTI</b></dt>
+  <dd>Add an address to or delete an address from the device's link layer
+      multicast filters using <i>ifr_hwaddr</i>. These are privileged
+      operations. See also <b>packet</b>(7) for an alternative.</dd>
+  <dt><b>SIOCGIFTXQLEN</b>, <b>SIOCSIFTXQLEN</b></dt>
+  <dd>Get or set the transmit queue length of a device using <i>ifr_qlen</i>.
+      Setting the transmit queue length is a privileged operation.</dd>
+  <dt><b>SIOCSIFNAME</b></dt>
+  <dd>Changes the name of the interface specified in <i>ifr_name</i> to
+      <i>ifr_newname</i>. This is a privileged operation. It is allowed only
+      when the interface is not up.</dd>
+  <dt><b>SIOCGIFCONF</b></dt>
+  <dd>Return a list of interface (network layer) addresses. This currently means
+      only addresses of the <b>AF_INET</b> (IPv4) family for compatibility.
+      Unlike the others, this ioctl passes an <i>ifconf</i> structure:</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>
+    <br/>
+    <pre>
+struct ifconf {
+    int                 ifc_len; /* size of buffer */
+    union {
+        char           *ifc_buf; /* buffer address */
+        struct ifreq   *ifc_req; /* array of structures */
+    };
+};
+
+    </pre>
+    <br/>
+  </dd>
+  <dt></dt>
+  <dd>If <i>ifc_req</i> is NULL, <b>SIOCGIFCONF</b> returns the necessary buffer
+      size in bytes for receiving all available addresses in <i>ifc_len</i>.
+      Otherwise, <i>ifc_req</i> contains a pointer to an array of <i>ifreq</i>
+      structures to be filled with all currently active L3 interface addresses.
+      <i>ifc_len</i> contains the size of the array in bytes. Within each
+      <i>ifreq</i> structure, <i>ifr_name</i> will receive the interface name,
+      and <i>ifr_addr</i> the address. The actual number of bytes transferred is
+      returned in <i>ifc_len</i>.</dd>
+  <dt></dt>
+  <dd>If the size specified by <i>ifc_len</i> is insufficient to store all the
+      addresses, the kernel will skip the exceeding ones and return success.
+      There is no reliable way of detecting this condition once it has occurred.
+      It is therefore recommended to either determine the necessary buffer size
+      beforehand by calling <b>SIOCGIFCONF</b> with <i>ifc_req</i> set to NULL,
+      or to retry the call with a bigger buffer whenever <i>ifc_len</i> upon
+      return differs by less than <i>sizeof(struct ifreq)</i> from its original
+      value.</dd>
+  <dt></dt>
+  <dd>If an error occurs accessing the <i>ifconf</i> or <i>ifreq</i> structures,
+      <b>EFAULT</b> will be returned.</dd>
+</dl>
+<p class="Pp">Most protocols support their own ioctls to configure
+    protocol-specific interface options. See the protocol man pages for a
+    description. For configuring IP addresses, see <b>ip</b>(7).</p>
+<p class="Pp">In addition, some devices support private ioctls. These are not
+    described here.</p>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+Strictly speaking, <b>SIOCGIFCONF</b> and the other ioctls that accept or return
+  only <b>AF_INET</b> socket addresses, are IP-specific and belong in
+  <b>ip</b>(7).
+<p class="Pp">The names of interfaces with no addresses or that don't have the
+    <b>IFF_RUNNING</b> flag set can be found via <i>/proc/net/dev</i>.</p>
+<p class="Pp">Local IPv6 IP addresses can be found via <i>/proc/net</i> or via
+    <b>rtnetlink</b>(7).</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="BUGS"><a class="permalink" href="#BUGS">BUGS</a></h1>
+glibc 2.1 is missing the <i>ifr_newname</i> macro in <i>&lt;net/if.h&gt;</i>.
+  Add the following to your program as a workaround:
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+#ifndef ifr_newname
+#define ifr_newname     ifr_ifru.ifru_slave
+#endif
+
+</pre>
+<br/>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>proc</b>(5), <b>capabilities</b>(7), <b>ip</b>(7), <b>rtnetlink</b>(7)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-11-19</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

@@ -1,0 +1,2340 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/as.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">AS(1)</td>
+    <td class="head-vol">GNU Development Tools</td>
+    <td class="head-rtitle">AS(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<br/>
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+AS - the portable GNU assembler.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+as [<b>-a</b>[<b>cdghlns</b>][=<i>file</i>]] [<b>--alternate</b>] [<b>-D</b>]
+ [<b>--compress-debug-sections</b>] [<b>--nocompress-debug-sections</b>]
+ [<b>--debug-prefix-map</b> <i>old</i>=<i>new</i>]
+ [<b>--defsym</b> <i>sym</i>=<i>val</i>] [<b>-f</b>] [<b>-g</b>]
+  [<b>--gstabs</b>]
+ [<b>--gstabs+</b>] [<b>--gdwarf-2</b>] [<b>--gdwarf-sections</b>]
+ [<b>--gdwarf-cie-version</b>=<i>VERSION</i>]
+ [<b>--help</b>] [<b>-I</b> <i>dir</i>] [<b>-J</b>]
+ [<b>-K</b>] [<b>-L</b>] [<b>--listing-lhs-width</b>=<i>NUM</i>]
+ [<b>--listing-lhs-width2</b>=<i>NUM</i>]
+  [<b>--listing-rhs-width</b>=<i>NUM</i>]
+ [<b>--listing-cont-lines</b>=<i>NUM</i>] [<b>--keep-locals</b>]
+ [<b>--no-pad-sections</b>]
+ [<b>-o</b> <i>objfile</i>] [<b>-R</b>]
+ [<b>--hash-size</b>=<i>NUM</i>] [<b>--reduce-memory-overheads</b>]
+ [<b>--statistics</b>]
+ [<b>-v</b>] [<b>-version</b>] [<b>--version</b>]
+ [<b>-W</b>] [<b>--warn</b>] [<b>--fatal-warnings</b>] [<b>-w</b>] [<b>-x</b>]
+ [<b>-Z</b>] [<b>@</b><i>FILE</i>]
+ [<b>--sectname-subst</b>] [<b>--size-check=[error|warning]</b>]
+ [<b>--elf-stt-common=[no|yes]</b>]
+ [<b>--generate-missing-build-notes=[no|yes]</b>]
+ [<b>--target-help</b>] [<i>target-options</i>]
+ [<b>--</b>|<i>files</i> ...]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="TARGET"><a class="permalink" href="#TARGET">TARGET</a></h1>
+<i>Target AArch64 options:</i>
+ [<b>-EB</b>|<b>-EL</b>]
+ [<b>-mabi</b>=<i>ABI</i>]
+<p class="Pp"><i>Target Alpha options:</i>
+   [<b>-m</b><i>cpu</i>]
+   [<b>-mdebug</b> | <b>-no-mdebug</b>]
+   [<b>-replace</b> | <b>-noreplace</b>]
+   [<b>-relax</b>] [<b>-g</b>] [<b>-G</b><i>size</i>]
+   [<b>-F</b>] [<b>-32addr</b>]</p>
+<p class="Pp"><i>Target ARC options:</i>
+   [<b>-mcpu=</b><i>cpu</i>]
+  
+    [<b>-mA6</b>|<b>-mARC600</b>|<b>-mARC601</b>|<b>-mA7</b>|<b>-mARC700</b>|<b>-mEM</b>|<b>-mHS</b>]
+   [<b>-mcode-density</b>]
+   [<b>-mrelax</b>]
+   [<b>-EB</b>|<b>-EL</b>]</p>
+<p class="Pp"><i>Target ARM options:</i>
+   [<b>-mcpu</b>=<i>processor</i>[+<i>extension</i>...]]
+   [<b>-march</b>=<i>architecture</i>[+<i>extension</i>...]]
+   [<b>-mfpu</b>=<i>floating-point-format</i>]
+   [<b>-mfloat-abi</b>=<i>abi</i>]
+   [<b>-meabi</b>=<i>ver</i>]
+   [<b>-mthumb</b>]
+   [<b>-EB</b>|<b>-EL</b>]
+   [<b>-mapcs-32</b>|<b>-mapcs-26</b>|<b>-mapcs-float</b>|
+   <b>-mapcs-reentrant</b>]
+   [<b>-mthumb-interwork</b>] [<b>-k</b>]</p>
+<p class="Pp"><i>Target Blackfin options:</i>
+   [<b>-mcpu</b>=<i>processor</i>[-<i>sirevision</i>]]
+   [<b>-mfdpic</b>]
+   [<b>-mno-fdpic</b>]
+   [<b>-mnopic</b>]</p>
+<p class="Pp"><i>Target BPF options:</i>
+   [<b>-EL</b>] [<b>-EB</b>]</p>
+<p class="Pp"><i>Target CRIS options:</i>
+   [<b>--underscore</b> | <b>--no-underscore</b>]
+   [<b>--pic</b>] [<b>-N</b>]
+   [<b>--emulation=criself</b> | <b>--emulation=crisaout</b>]
+   [<b>--march=v0_v10</b> | <b>--march=v10</b> | <b>--march=v32</b> |
+    <b>--march=common_v10_v32</b>]</p>
+<p class="Pp"><i>Target C-SKY options:</i>
+   [<b>-march=</b><i>arch</i>] [<b>-mcpu=</b><i>cpu</i>]
+   [<b>-EL</b>] [<b>-mlittle-endian</b>] [<b>-EB</b>] [<b>-mbig-endian</b>]
+   [<b>-fpic</b>] [<b>-pic</b>]
+   [<b>-mljump</b>] [<b>-mno-ljump</b>]
+   [<b>-force2bsr</b>] [<b>-mforce2bsr</b>] [<b>-no-force2bsr</b>]
+    [<b>-mno-force2bsr</b>]
+   [<b>-jsri2bsr</b>] [<b>-mjsri2bsr</b>] [<b>-no-jsri2bsr</b> ]
+    [<b>-mno-jsri2bsr</b>]
+   [<b>-mnolrw</b> ] [<b>-mno-lrw</b>]
+   [<b>-melrw</b>] [<b>-mno-elrw</b>]
+   [<b>-mlaf</b> ] [<b>-mliterals-after-func</b>]
+   [<b>-mno-laf</b>] [<b>-mno-literals-after-func</b>]
+   [<b>-mlabr</b>] [<b>-mliterals-after-br</b>]
+   [<b>-mno-labr</b>] [<b>-mnoliterals-after-br</b>]
+   [<b>-mistack</b>] [<b>-mno-istack</b>]
+   [<b>-mhard-float</b>] [<b>-mmp</b>] [<b>-mcp</b>] [<b>-mcache</b>]
+   [<b>-msecurity</b>] [<b>-mtrust</b>]
+   [<b>-mdsp</b>] [<b>-medsp</b>] [<b>-mvdsp</b>]</p>
+<p class="Pp"><i>Target D10V options:</i>
+   [<b>-O</b>]</p>
+<p class="Pp"><i>Target D30V options:</i>
+   [<b>-O</b>|<b>-n</b>|<b>-N</b>]</p>
+<p class="Pp"><i>Target EPIPHANY options:</i>
+   [<b>-mepiphany</b>|<b>-mepiphany16</b>]</p>
+<p class="Pp"><i>Target H8/300 options:</i>
+   [-h-tick-hex]</p>
+<p class="Pp"><i>Target i386 options:</i>
+   [<b>--32</b>|<b>--x32</b>|<b>--64</b>] [<b>-n</b>]
+   [<b>-march</b>=<i>CPU</i>[+<i>EXTENSION</i>...]]
+  [<b>-mtune</b>=<i>CPU</i>]</p>
+<p class="Pp"><i>Target IA-64 options:</i>
+   [<b>-mconstant-gp</b>|<b>-mauto-pic</b>]
+   [<b>-milp32</b>|<b>-milp64</b>|<b>-mlp64</b>|<b>-mp64</b>]
+   [<b>-mle</b>|<b>mbe</b>]
+   [<b>-mtune=itanium1</b>|<b>-mtune=itanium2</b>]
+   [<b>-munwind-check=warning</b>|<b>-munwind-check=error</b>]
+   [<b>-mhint.b=ok</b>|<b>-mhint.b=warning</b>|<b>-mhint.b=error</b>]
+   [<b>-x</b>|<b>-xexplicit</b>] [<b>-xauto</b>] [<b>-xdebug</b>]</p>
+<p class="Pp"><i>Target IP2K options:</i>
+   [<b>-mip2022</b>|<b>-mip2022ext</b>]</p>
+<p class="Pp"><i>Target M32C options:</i>
+   [<b>-m32c</b>|<b>-m16c</b>] [-relax] [-h-tick-hex]</p>
+<p class="Pp"><i>Target M32R options:</i>
+   [<b>--m32rx</b>|<b>--[no-]warn-explicit-parallel-conflicts</b>|
+   <b>--W[n]p</b>]</p>
+<p class="Pp"><i>Target M680X0 options:</i>
+   [<b>-l</b>] [<b>-m68000</b>|<b>-m68010</b>|<b>-m68020</b>|...]</p>
+<p class="Pp"><i>Target M68HC11 options:</i>
+  
+    [<b>-m68hc11</b>|<b>-m68hc12</b>|<b>-m68hcs12</b>|<b>-mm9s12x</b>|<b>-mm9s12xg</b>]
+   [<b>-mshort</b>|<b>-mlong</b>]
+   [<b>-mshort-double</b>|<b>-mlong-double</b>]
+   [<b>--force-long-branches</b>] [<b>--short-branches</b>]
+   [<b>--strict-direct-mode</b>] [<b>--print-insn-syntax</b>]
+   [<b>--print-opcodes</b>] [<b>--generate-example</b>]</p>
+<p class="Pp"><i>Target MCORE options:</i>
+   [<b>-jsri2bsr</b>] [<b>-sifilter</b>] [<b>-relax</b>]
+   [<b>-mcpu=[210|340]</b>]</p>
+<p class="Pp"><i>Target Meta options:</i>
+   [<b>-mcpu=</b><i>cpu</i>] [<b>-mfpu=</b><i>cpu</i>] [<b>-mdsp=</b><i>cpu</i>]
+    <i>Target MICROBLAZE options:</i></p>
+<p class="Pp"><i>Target MIPS options:</i>
+   [<b>-nocpp</b>] [<b>-EL</b>] [<b>-EB</b>] [<b>-O</b>[<i>optimization
+    level</i>]]
+   [<b>-g</b>[<i>debug level</i>]] [<b>-G</b> <i>num</i>] [<b>-KPIC</b>]
+    [<b>-call_shared</b>]
+   [<b>-non_shared</b>] [<b>-xgot</b> [<b>-mvxworks-pic</b>]
+   [<b>-mabi</b>=<i>ABI</i>] [<b>-32</b>] [<b>-n32</b>] [<b>-64</b>]
+    [<b>-mfp32</b>] [<b>-mgp32</b>]
+   [<b>-mfp64</b>] [<b>-mgp64</b>] [<b>-mfpxx</b>]
+   [<b>-modd-spreg</b>] [<b>-mno-odd-spreg</b>]
+   [<b>-march</b>=<i>CPU</i>] [<b>-mtune</b>=<i>CPU</i>] [<b>-mips1</b>]
+    [<b>-mips2</b>]
+   [<b>-mips3</b>] [<b>-mips4</b>] [<b>-mips5</b>] [<b>-mips32</b>]
+    [<b>-mips32r2</b>]
+   [<b>-mips32r3</b>] [<b>-mips32r5</b>] [<b>-mips32r6</b>] [<b>-mips64</b>]
+    [<b>-mips64r2</b>]
+   [<b>-mips64r3</b>] [<b>-mips64r5</b>] [<b>-mips64r6</b>]
+   [<b>-construct-floats</b>] [<b>-no-construct-floats</b>]
+   [<b>-mignore-branch-isa</b>] [<b>-mno-ignore-branch-isa</b>]
+   [<b>-mnan=</b><i>encoding</i>]
+   [<b>-trap</b>] [<b>-no-break</b>] [<b>-break</b>] [<b>-no-trap</b>]
+   [<b>-mips16</b>] [<b>-no-mips16</b>]
+   [<b>-mmips16e2</b>] [<b>-mno-mips16e2</b>]
+   [<b>-mmicromips</b>] [<b>-mno-micromips</b>]
+   [<b>-msmartmips</b>] [<b>-mno-smartmips</b>]
+   [<b>-mips3d</b>] [<b>-no-mips3d</b>]
+   [<b>-mdmx</b>] [<b>-no-mdmx</b>]
+   [<b>-mdsp</b>] [<b>-mno-dsp</b>]
+   [<b>-mdspr2</b>] [<b>-mno-dspr2</b>]
+   [<b>-mdspr3</b>] [<b>-mno-dspr3</b>]
+   [<b>-mmsa</b>] [<b>-mno-msa</b>]
+   [<b>-mxpa</b>] [<b>-mno-xpa</b>]
+   [<b>-mmt</b>] [<b>-mno-mt</b>]
+   [<b>-mmcu</b>] [<b>-mno-mcu</b>]
+   [<b>-mcrc</b>] [<b>-mno-crc</b>]
+   [<b>-mginv</b>] [<b>-mno-ginv</b>]
+   [<b>-mloongson-mmi</b>] [<b>-mno-loongson-mmi</b>]
+   [<b>-mloongson-cam</b>] [<b>-mno-loongson-cam</b>]
+   [<b>-mloongson-ext</b>] [<b>-mno-loongson-ext</b>]
+   [<b>-mloongson-ext2</b>] [<b>-mno-loongson-ext2</b>]
+   [<b>-minsn32</b>] [<b>-mno-insn32</b>]
+   [<b>-mfix7000</b>] [<b>-mno-fix7000</b>]
+   [<b>-mfix-rm7000</b>] [<b>-mno-fix-rm7000</b>]
+   [<b>-mfix-vr4120</b>] [<b>-mno-fix-vr4120</b>]
+   [<b>-mfix-vr4130</b>] [<b>-mno-fix-vr4130</b>]
+   [<b>-mfix-r5900</b>] [<b>-mno-fix-r5900</b>]
+   [<b>-mdebug</b>] [<b>-no-mdebug</b>]
+   [<b>-mpdr</b>] [<b>-mno-pdr</b>]</p>
+<p class="Pp"><i>Target MMIX options:</i>
+   [<b>--fixed-special-register-names</b>] [<b>--globalize-symbols</b>]
+   [<b>--gnu-syntax</b>] [<b>--relax</b>] [<b>--no-predefined-symbols</b>]
+   [<b>--no-expand</b>] [<b>--no-merge-gregs</b>] [<b>-x</b>]
+   [<b>--linker-allocated-gregs</b>]</p>
+<p class="Pp"><i>Target Nios II options:</i>
+   [<b>-relax-all</b>] [<b>-relax-section</b>] [<b>-no-relax</b>]
+   [<b>-EB</b>] [<b>-EL</b>]</p>
+<p class="Pp"><i>Target NDS32 options:</i>
+   [<b>-EL</b>] [<b>-EB</b>] [<b>-O</b>] [<b>-Os</b>] [<b>-mcpu=</b><i>cpu</i>]
+   [<b>-misa=</b><i>isa</i>] [<b>-mabi=</b><i>abi</i>] [<b>-mall-ext</b>]
+   [<b>-m[no-]16-bit</b>] [<b>-m[no-]perf-ext</b>] [<b>-m[no-]perf2-ext</b>]
+   [<b>-m[no-]string-ext</b>] [<b>-m[no-]dsp-ext</b>] [<b>-m[no-]mac</b>]
+    [<b>-m[no-]div</b>]
+   [<b>-m[no-]audio-isa-ext</b>] [<b>-m[no-]fpu-sp-ext</b>]
+    [<b>-m[no-]fpu-dp-ext</b>]
+   [<b>-m[no-]fpu-fma</b>] [<b>-mfpu-freg=</b><i>FREG</i>]
+    [<b>-mreduced-regs</b>]
+   [<b>-mfull-regs</b>] [<b>-m[no-]dx-regs</b>] [<b>-mpic</b>]
+    [<b>-mno-relax</b>]
+   [<b>-mb2bb</b>]</p>
+<p class="Pp"><i>Target PDP11 options:</i>
+   [<b>-mpic</b>|<b>-mno-pic</b>] [<b>-mall</b>] [<b>-mno-extensions</b>]
+   [<b>-m</b><i>extension</i>|<b>-mno-</b><i>extension</i>]
+   [<b>-m</b><i>cpu</i>] [<b>-m</b><i>machine</i>]</p>
+<p class="Pp"><i>Target picoJava options:</i>
+   [<b>-mb</b>|<b>-me</b>]</p>
+<p class="Pp"><i>Target PowerPC options:</i>
+   [<b>-a32</b>|<b>-a64</b>]
+  
+    [<b>-mpwrx</b>|<b>-mpwr2</b>|<b>-mpwr</b>|<b>-m601</b>|<b>-mppc</b>|<b>-mppc32</b>|<b>-m603</b>|<b>-m604</b>|<b>-m403</b>|<b>-m405</b>|
+  
+    <b>-m440</b>|<b>-m464</b>|<b>-m476</b>|<b>-m7400</b>|<b>-m7410</b>|<b>-m7450</b>|<b>-m7455</b>|<b>-m750cl</b>|<b>-mgekko</b>|
+  
+    <b>-mbroadway</b>|<b>-mppc64</b>|<b>-m620</b>|<b>-me500</b>|<b>-e500x2</b>|<b>-me500mc</b>|<b>-me500mc64</b>|<b>-me5500</b>|
+  
+    <b>-me6500</b>|<b>-mppc64bridge</b>|<b>-mbooke</b>|<b>-mpower4</b>|<b>-mpwr4</b>|<b>-mpower5</b>|<b>-mpwr5</b>|<b>-mpwr5x</b>|
+  
+    <b>-mpower6</b>|<b>-mpwr6</b>|<b>-mpower7</b>|<b>-mpwr7</b>|<b>-mpower8</b>|<b>-mpwr8</b>|<b>-mpower9</b>|<b>-mpwr9</b><b>-ma2</b>|
+  
+    <b>-mcell</b>|<b>-mspe</b>|<b>-mspe2</b>|<b>-mtitan</b>|<b>-me300</b>|<b>-mcom</b>]
+   [<b>-many</b>] [<b>-maltivec</b>|<b>-mvsx</b>|<b>-mhtm</b>|<b>-mvle</b>]
+   [<b>-mregnames</b>|<b>-mno-regnames</b>]
+   [<b>-mrelocatable</b>|<b>-mrelocatable-lib</b>|<b>-K PIC</b>] [<b>-memb</b>]
+  
+    [<b>-mlittle</b>|<b>-mlittle-endian</b>|<b>-le</b>|<b>-mbig</b>|<b>-mbig-endian</b>|<b>-be</b>]
+   [<b>-msolaris</b>|<b>-mno-solaris</b>]
+   [<b>-nops=</b><i>count</i>]</p>
+<p class="Pp"><i>Target PRU options:</i>
+   [<b>-link-relax</b>]
+   [<b>-mnolink-relax</b>]
+   [<b>-mno-warn-regname-label</b>]</p>
+<p class="Pp"><i>Target RISC-V options:</i>
+   [<b>-fpic</b>|<b>-fPIC</b>|<b>-fno-pic</b>]
+   [<b>-march</b>=<i>ISA</i>]
+   [<b>-mabi</b>=<i>ABI</i>]</p>
+<p class="Pp"><i>Target RL78 options:</i>
+   [<b>-mg10</b>]
+   [<b>-m32bit-doubles</b>|<b>-m64bit-doubles</b>]</p>
+<p class="Pp"><i>Target RX options:</i>
+   [<b>-mlittle-endian</b>|<b>-mbig-endian</b>]
+   [<b>-m32bit-doubles</b>|<b>-m64bit-doubles</b>]
+   [<b>-muse-conventional-section-names</b>]
+   [<b>-msmall-data-limit</b>]
+   [<b>-mpid</b>]
+   [<b>-mrelax</b>]
+   [<b>-mint-register=</b><i>number</i>]
+   [<b>-mgcc-abi</b>|<b>-mrx-abi</b>]</p>
+<p class="Pp"><i>Target s390 options:</i>
+   [<b>-m31</b>|<b>-m64</b>] [<b>-mesa</b>|<b>-mzarch</b>]
+    [<b>-march</b>=<i>CPU</i>]
+   [<b>-mregnames</b>|<b>-mno-regnames</b>]
+   [<b>-mwarn-areg-zero</b>]</p>
+<p class="Pp"><i>Target SCORE options:</i>
+   [<b>-EB</b>][<b>-EL</b>][<b>-FIXDD</b>][<b>-NWARN</b>]
+   [<b>-SCORE5</b>][<b>-SCORE5U</b>][<b>-SCORE7</b>][<b>-SCORE3</b>]
+   [<b>-march=score7</b>][<b>-march=score3</b>]
+   [<b>-USE_R1</b>][<b>-KPIC</b>][<b>-O0</b>][<b>-G</b>
+  <i>num</i>][<b>-V</b>]</p>
+<p class="Pp"><i>Target SPARC options:</i>
+  
+    [<b>-Av6</b>|<b>-Av7</b>|<b>-Av8</b>|<b>-Aleon</b>|<b>-Asparclet</b>|<b>-Asparclite</b>
+  
+    <b>-Av8plus</b>|<b>-Av8plusa</b>|<b>-Av8plusb</b>|<b>-Av8plusc</b>|<b>-Av8plusd</b>
+  
+    <b>-Av8plusv</b>|<b>-Av8plusm</b>|<b>-Av9</b>|<b>-Av9a</b>|<b>-Av9b</b>|<b>-Av9c</b>
+  
+    <b>-Av9d</b>|<b>-Av9e</b>|<b>-Av9v</b>|<b>-Av9m</b>|<b>-Asparc</b>|<b>-Asparcvis</b>
+   <b>-Asparcvis2</b>|<b>-Asparcfmaf</b>|<b>-Asparcima</b>|<b>-Asparcvis3</b>
+   <b>-Asparcvisr</b>|<b>-Asparc5</b>]
+  
+    [<b>-xarch=v8plus</b>|<b>-xarch=v8plusa</b>]|<b>-xarch=v8plusb</b>|<b>-xarch=v8plusc</b>
+  
+    <b>-xarch=v8plusd</b>|<b>-xarch=v8plusv</b>|<b>-xarch=v8plusm</b>|<b>-xarch=v9</b>
+  
+    <b>-xarch=v9a</b>|<b>-xarch=v9b</b>|<b>-xarch=v9c</b>|<b>-xarch=v9d</b>|<b>-xarch=v9e</b>
+  
+    <b>-xarch=v9v</b>|<b>-xarch=v9m</b>|<b>-xarch=sparc</b>|<b>-xarch=sparcvis</b>
+   <b>-xarch=sparcvis2</b>|<b>-xarch=sparcfmaf</b>|<b>-xarch=sparcima</b>
+   <b>-xarch=sparcvis3</b>|<b>-xarch=sparcvisr</b>|<b>-xarch=sparc5</b>
+   <b>-bump</b>]
+   [<b>-32</b>|<b>-64</b>]
+   [<b>--enforce-aligned-data</b>][<b>--dcti-couples-detect</b>]</p>
+<p class="Pp"><i>Target TIC54X options:</i>
+   [<b>-mcpu=54[123589]</b>|<b>-mcpu=54[56]lp</b>]
+    [<b>-mfar-mode</b>|<b>-mf</b>]
+   [<b>-merrors-to-file</b> <i>&lt;filename&gt;</i>|<b>-me</b>
+    <i>&lt;filename&gt;</i>]</p>
+<p class="Pp"><i>Target TIC6X options:</i>
+   [<b>-march=</b><i>arch</i>] [<b>-mbig-endian</b>|<b>-mlittle-endian</b>]
+   [<b>-mdsbt</b>|<b>-mno-dsbt</b>]
+    [<b>-mpid=no</b>|<b>-mpid=near</b>|<b>-mpid=far</b>]
+   [<b>-mpic</b>|<b>-mno-pic</b>]</p>
+<p class="Pp"><i>Target TILE-Gx options:</i>
+   [<b>-m32</b>|<b>-m64</b>][<b>-EB</b>][<b>-EL</b>]</p>
+<p class="Pp"><i>Target Visium options:</i>
+   [<b>-mtune=</b><i>arch</i>]</p>
+<p class="Pp"><i>Target Xtensa options:</i>
+   [<b>--[no-]text-section-literals</b>] [<b>--[no-]auto-litpools</b>]
+   [<b>--[no-]absolute-literals</b>]
+   [<b>--[no-]target-align</b>] [<b>--[no-]longcalls</b>]
+   [<b>--[no-]transform</b>]
+   [<b>--rename-section</b> <i>oldname</i>=<i>newname</i>]
+   [<b>--[no-]trampolines</b>]</p>
+<p class="Pp"><i>Target Z80 options:</i>
+   [<b>-z80</b>]|[<b>-z180</b>]|[<b>-r800</b>]|[<b>-ez80</b>]|[<b>-ez80-adl</b>]
+   [<b>-local-prefix=</b><i>PREFIX</i>]
+   [<b>-colonless</b>]
+   [<b>-sdcc</b>]
+   [<b>-fp-s=</b><i>FORMAT</i>]
+   [<b>-fp-d=</b><i>FORMAT</i>]
+   [<b>-strict</b>]|[<b>-full</b>]
+   [<b>-with-inst=</b><i>INST</i><b>[,...]</b>] [<b>-Wnins</b>
+    <i>INST</i><b>[,...]</b>]
+   [<b>-without-inst=</b><i>INST</i><b>[,...]</b>] [<b>-Fins</b>
+    <i>INST</i><b>[,...]</b>]
+   [ <b>-ignore-undocumented-instructions</b>] [<b>-Wnud</b>]
+   [ <b>-ignore-unportable-instructions</b>] [<b>-Wnup</b>]
+   [ <b>-warn-undocumented-instructions</b>] [<b>-Wud</b>]
+   [ <b>-warn-unportable-instructions</b>] [<b>-Wup</b>]
+   [ <b>-forbid-undocumented-instructions</b>] [<b>-Fud</b>]
+   [ <b>-forbid-unportable-instructions</b>] [<b>-Fup</b>]</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+GNU <b>as</b> is really a family of assemblers. If you use (or have used) the
+  GNU assembler on one architecture, you should find a fairly similar
+  environment when you use it on another architecture. Each version has much in
+  common with the others, including object file formats, most assembler
+  directives (often called <i>pseudo-ops</i>) and assembler syntax.
+<p class="Pp"><b>as</b> is primarily intended to assemble the output of the GNU
+    C compiler <span class="Li">&quot;gcc&quot;</span> for use by the linker
+    <span class="Li">&quot;ld&quot;</span>. Nevertheless, we've tried to make
+    <b>as</b> assemble correctly everything that other assemblers for the same
+    machine would assemble. Any exceptions are documented explicitly. This
+    doesn't mean <b>as</b> always uses the same syntax as another assembler for
+    the same architecture; for example, we know of several incompatible versions
+    of 680x0 assembly language syntax.</p>
+<p class="Pp">Each time you run <b>as</b> it assembles exactly one source
+    program. The source program is made up of one or more files. (The standard
+    input is also a file.)</p>
+<p class="Pp">You give <b>as</b> a command line that has zero or more input file
+    names. The input files are read (from left file name to right). A
+    command-line argument (in any position) that has no special meaning is taken
+    to be an input file name.</p>
+<p class="Pp">If you give <b>as</b> no file names it attempts to read one input
+    file from the <b>as</b> standard input, which is normally your terminal. You
+    may have to type <b>ctl-D</b> to tell <b>as</b> there is no more program to
+    assemble.</p>
+<p class="Pp">Use <b>--</b> if you need to explicitly name the standard input
+    file in your command line.</p>
+<p class="Pp">If the source is empty, <b>as</b> produces a small, empty object
+    file.</p>
+<p class="Pp"><b>as</b> may write warnings and error messages to the standard
+    error file (usually your terminal). This should not happen when a compiler
+    runs <b>as</b> automatically. Warnings report an assumption made so that
+    <b>as</b> could keep assembling a flawed program; errors report a grave
+    problem that stops the assembly.</p>
+<p class="Pp">If you are invoking <b>as</b> via the GNU C compiler, you can use
+    the <b>-Wa</b> option to pass arguments through to the assembler. The
+    assembler arguments must be separated from each other (and the <b>-Wa</b>)
+    by commas. For example:</p>
+<p class="Pp"><span class="Li"></span></p>
+<pre>
+        gcc -c -g -O -Wa,-alh,-L file.c
+</pre>
+<p class="Pp">This passes two options to the assembler: <b>-alh</b> (emit a
+    listing to standard output with high-level and assembly source) and
+    <b>-L</b> (retain local symbols in the symbol table).</p>
+<p class="Pp">Usually you do not need to use this <b>-Wa</b> mechanism, since
+    many compiler command-line options are automatically passed to the assembler
+    by the compiler. (You can call the GNU compiler driver with the <b>-v</b>
+    option to see precisely what options it passes to each compilation pass,
+    including the assembler.)</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>@</b><i>file</i></dt>
+  <dd>Read command-line options from <i>file</i>. The options read are inserted
+      in place of the original @<i>file</i> option. If <i>file</i> does not
+      exist, or cannot be read, then the option will be treated literally, and
+      not removed.
+    <p class="Pp">Options in <i>file</i> are separated by whitespace. A
+        whitespace character may be included in an option by surrounding the
+        entire option in either single or double quotes. Any character
+        (including a backslash) may be included by prefixing the character to be
+        included with a backslash. The <i>file</i> may itself contain additional
+        @<i>file</i> options; any such options will be processed
+      recursively.</p>
+  </dd>
+  <dt><b>-a[cdghlmns]</b></dt>
+  <dd>Turn on listings, in any of a variety of ways:</dd>
+</dl>
+<div class="Bd-indent">
+<dl class="Bl-tag">
+  <dt><b>-ac</b></dt>
+  <dd>omit false conditionals</dd>
+  <dt><b>-ad</b></dt>
+  <dd>omit debugging directives</dd>
+  <dt><b>-ag</b></dt>
+  <dd>include general information, like as version and options passed</dd>
+  <dt><b>-ah</b></dt>
+  <dd>include high-level source</dd>
+  <dt><b>-al</b></dt>
+  <dd>include assembly</dd>
+  <dt><b>-am</b></dt>
+  <dd>include macro expansions</dd>
+  <dt><b>-an</b></dt>
+  <dd>omit forms processing</dd>
+  <dt><b>-as</b></dt>
+  <dd>include symbols</dd>
+  <dt><b>=file</b></dt>
+  <dd>set the name of the listing file</dd>
+</dl>
+</div>
+<div class="Bd-indent">
+<p class="Pp">You may combine these options; for example, use <b>-aln</b> for
+    assembly listing without forms processing. The <b>=file</b> option, if used,
+    must be the last one. By itself, <b>-a</b> defaults to <b>-ahls</b>.</p>
+</div>
+<dl class="Bl-tag">
+  <dt><b>--alternate</b></dt>
+  <dd>Begin in alternate macro mode.</dd>
+  <dt><b>--compress-debug-sections</b></dt>
+  <dd>Compress DWARF debug sections using zlib with SHF_COMPRESSED from the ELF
+      ABI. The resulting object file may not be compatible with older linkers
+      and object file utilities. Note if compression would make a given section
+      <i>larger</i> then it is not compressed.</dd>
+  <dt><b>--compress-debug-sections=none</b></dt>
+  <dd></dd>
+  <dt><b>--compress-debug-sections=zlib</b></dt>
+  <dd></dd>
+  <dt><b>--compress-debug-sections=zlib-gnu</b></dt>
+  <dd></dd>
+  <dt><b>--compress-debug-sections=zlib-gabi</b></dt>
+  <dd>These options control how DWARF debug sections are compressed.
+      <b>--compress-debug-sections=none</b> is equivalent to
+      <b>--nocompress-debug-sections</b>. <b>--compress-debug-sections=zlib</b>
+      and <b>--compress-debug-sections=zlib-gabi</b> are equivalent to
+      <b>--compress-debug-sections</b>.
+      <b>--compress-debug-sections=zlib-gnu</b> compresses DWARF debug sections
+      using zlib. The debug sections are renamed to begin with <b>.zdebug</b>.
+      Note if compression would make a given section <i>larger</i> then it is
+      not compressed nor renamed.</dd>
+  <dt><b>--nocompress-debug-sections</b></dt>
+  <dd>Do not compress DWARF debug sections. This is usually the default for all
+      targets except the x86/x86_64, but a configure time option can be used to
+      override this.</dd>
+  <dt><b>-D</b></dt>
+  <dd>Ignored. This option is accepted for script compatibility with calls to
+      other assemblers.</dd>
+  <dt><b>--debug-prefix-map</b> <i>old</i><b>=</b><i>new</i></dt>
+  <dd>When assembling files in directory <i></i><i>old</i><i></i>, record
+      debugging information describing them as in <i></i><i>new</i><i></i>
+      instead.</dd>
+  <dt><b>--defsym</b> <i>sym</i><b>=</b><i>value</i></dt>
+  <dd>Define the symbol <i>sym</i> to be <i>value</i> before assembling the
+      input file. <i>value</i> must be an integer constant. As in C, a leading
+      <b>0x</b> indicates a hexadecimal value, and a leading <b>0</b> indicates
+      an octal value. The value of the symbol can be overridden inside a source
+      file via the use of a <span class="Li">&quot;.set&quot;</span>
+    pseudo-op.</dd>
+  <dt><b>-f</b></dt>
+  <dd>&quot;fast&quot;---skip whitespace and comment preprocessing (assume
+      source is compiler output).</dd>
+  <dt><b>-g</b></dt>
+  <dd></dd>
+  <dt><b>--gen-debug</b></dt>
+  <dd>Generate debugging information for each assembler source line using
+      whichever debug format is preferred by the target. This currently means
+      either STABS, ECOFF or DWARF2.</dd>
+  <dt><b>--gstabs</b></dt>
+  <dd>Generate stabs debugging information for each assembler line. This may
+      help debugging assembler code, if the debugger can handle it.</dd>
+  <dt><b>--gstabs+</b></dt>
+  <dd>Generate stabs debugging information for each assembler line, with GNU
+      extensions that probably only gdb can handle, and that could make other
+      debuggers crash or refuse to read your program. This may help debugging
+      assembler code. Currently the only GNU extension is the location of the
+      current working directory at assembling time.</dd>
+  <dt><b>--gdwarf-2</b></dt>
+  <dd>Generate DWARF2 debugging information for each assembler line. This may
+      help debugging assembler code, if the debugger can handle it. Note---this
+      option is only supported by some targets, not all of them.</dd>
+  <dt><b>--gdwarf-sections</b></dt>
+  <dd>Instead of creating a .debug_line section, create a series of
+      .debug_line.<i>foo</i> sections where <i>foo</i> is the name of the
+      corresponding code section. For example a code section called
+      <i>.text.func</i> will have its dwarf line number information placed into
+      a section called <i>.debug_line.text.func</i>. If the code section is just
+      called <i>.text</i> then debug line section will still be called just
+      <i>.debug_line</i> without any suffix.</dd>
+  <dt><b>--gdwarf-cie-version=</b><i>version</i></dt>
+  <dd>Control which version of DWARF Common Information Entries (CIEs) are
+      produced. When this flag is not specificed the default is version 1,
+      though some targets can modify this default. Other possible values for
+      <i>version</i> are 3 or 4.</dd>
+  <dt><b>--size-check=error</b></dt>
+  <dd></dd>
+  <dt><b>--size-check=warning</b></dt>
+  <dd>Issue an error or warning for invalid ELF .size directive.</dd>
+  <dt><b>--elf-stt-common=no</b></dt>
+  <dd></dd>
+  <dt><b>--elf-stt-common=yes</b></dt>
+  <dd>These options control whether the ELF assembler should generate common
+      symbols with the <span class="Li">&quot;STT_COMMON&quot;</span> type. The
+      default can be controlled by a configure option
+      <b>--enable-elf-stt-common</b>.</dd>
+  <dt><b>--generate-missing-build-notes=yes</b></dt>
+  <dd></dd>
+  <dt><b>--generate-missing-build-notes=no</b></dt>
+  <dd>These options control whether the ELF assembler should generate GNU Build
+      attribute notes if none are present in the input sources. The default can
+      be controlled by the <b>--enable-generate-build-notes</b> configure
+      option.</dd>
+  <dt><b>--help</b></dt>
+  <dd>Print a summary of the command-line options and exit.</dd>
+  <dt><b>--target-help</b></dt>
+  <dd>Print a summary of all target specific options and exit.</dd>
+  <dt><b>-I</b> <i>dir</i></dt>
+  <dd>Add directory <i>dir</i> to the search list for
+      <span class="Li">&quot;.include&quot;</span> directives.</dd>
+  <dt><b>-J</b></dt>
+  <dd>Don't warn about signed overflow.</dd>
+  <dt><b>-K</b></dt>
+  <dd>Issue warnings when difference tables altered for long displacements.</dd>
+  <dt><b>-L</b></dt>
+  <dd></dd>
+  <dt><b>--keep-locals</b></dt>
+  <dd>Keep (in the symbol table) local symbols. These symbols start with
+      system-specific local label prefixes, typically <b>.L</b> for ELF systems
+      or <b>L</b> for traditional a.out systems.</dd>
+  <dt><b>--listing-lhs-width=</b><i>number</i></dt>
+  <dd>Set the maximum width, in words, of the output data column for an
+      assembler listing to <i>number</i>.</dd>
+  <dt><b>--listing-lhs-width2=</b><i>number</i></dt>
+  <dd>Set the maximum width, in words, of the output data column for
+      continuation lines in an assembler listing to <i>number</i>.</dd>
+  <dt><b>--listing-rhs-width=</b><i>number</i></dt>
+  <dd>Set the maximum width of an input source line, as displayed in a listing,
+      to <i>number</i> bytes.</dd>
+  <dt><b>--listing-cont-lines=</b><i>number</i></dt>
+  <dd>Set the maximum number of lines printed in a listing for a single line of
+      input to <i>number</i> + 1.</dd>
+  <dt><b>--no-pad-sections</b></dt>
+  <dd>Stop the assembler for padding the ends of output sections to the
+      alignment of that section. The default is to pad the sections, but this
+      can waste space which might be needed on targets which have tight memory
+      constraints.</dd>
+  <dt><b>-o</b> <i>objfile</i></dt>
+  <dd>Name the object-file output from <b>as</b> <i>objfile</i>.</dd>
+  <dt><b>-R</b></dt>
+  <dd>Fold the data section into the text section.</dd>
+  <dt><b>--hash-size=</b><i>number</i></dt>
+  <dd>Set the default size of GAS's hash tables to a prime number close to
+      <i>number</i>. Increasing this value can reduce the length of time it
+      takes the assembler to perform its tasks, at the expense of increasing the
+      assembler's memory requirements. Similarly reducing this value can reduce
+      the memory requirements at the expense of speed.</dd>
+  <dt><b>--reduce-memory-overheads</b></dt>
+  <dd>This option reduces GAS's memory requirements, at the expense of making
+      the assembly processes slower. Currently this switch is a synonym for
+      <b>--hash-size=4051</b>, but in the future it may have other effects as
+      well.</dd>
+  <dt><b>--sectname-subst</b></dt>
+  <dd>Honor substitution sequences in section names.</dd>
+  <dt><b>--statistics</b></dt>
+  <dd>Print the maximum space (in bytes) and total time (in seconds) used by
+      assembly.</dd>
+  <dt><b>--strip-local-absolute</b></dt>
+  <dd>Remove local absolute symbols from the outgoing symbol table.</dd>
+  <dt><b>-v</b></dt>
+  <dd></dd>
+  <dt><b>-version</b></dt>
+  <dd>Print the <b>as</b> version.</dd>
+  <dt><b>--version</b></dt>
+  <dd>Print the <b>as</b> version and exit.</dd>
+  <dt><b>-W</b></dt>
+  <dd></dd>
+  <dt><b>--no-warn</b></dt>
+  <dd>Suppress warning messages.</dd>
+  <dt><b>--fatal-warnings</b></dt>
+  <dd>Treat warnings as errors.</dd>
+  <dt><b>--warn</b></dt>
+  <dd>Don't suppress warning messages or treat them as errors.</dd>
+  <dt><b>-w</b></dt>
+  <dd>Ignored.</dd>
+  <dt><b>-x</b></dt>
+  <dd>Ignored.</dd>
+  <dt><b>-Z</b></dt>
+  <dd>Generate an object file even after errors.</dd>
+  <dt><b>-- |</b> <i>files</i> <b>...</b></dt>
+  <dd>Standard input, or source files to assemble.</dd>
+</dl>
+<p class="Pp">The following options are available when as is configured for the
+    64-bit mode of the ARM Architecture (AArch64).</p>
+<dl class="Bl-tag">
+  <dt><b>-EB</b></dt>
+  <dd>This option specifies that the output generated by the assembler should be
+      marked as being encoded for a big-endian processor.</dd>
+  <dt><b>-EL</b></dt>
+  <dd>This option specifies that the output generated by the assembler should be
+      marked as being encoded for a little-endian processor.</dd>
+  <dt><b>-mabi=</b><i>abi</i></dt>
+  <dd>Specify which ABI the source code uses. The recognized arguments are:
+      <span class="Li">&quot;ilp32&quot;</span> and
+      <span class="Li">&quot;lp64&quot;</span>, which decides the generated
+      object file in ELF32 and ELF64 format respectively. The default is
+      <span class="Li">&quot;lp64&quot;</span>.</dd>
+  <dt><b>-mcpu=</b><i>processor</i><b>[+</b><i>extension</i><b>...]</b></dt>
+  <dd>This option specifies the target processor. The assembler will issue an
+      error message if an attempt is made to assemble an instruction which will
+      not execute on the target processor. The following processor names are
+      recognized: <span class="Li">&quot;cortex-a34&quot;</span>,
+      <span class="Li">&quot;cortex-a35&quot;</span>,
+      <span class="Li">&quot;cortex-a53&quot;</span>,
+      <span class="Li">&quot;cortex-a55&quot;</span>,
+      <span class="Li">&quot;cortex-a57&quot;</span>,
+      <span class="Li">&quot;cortex-a65&quot;</span>,
+      <span class="Li">&quot;cortex-a65ae&quot;</span>,
+      <span class="Li">&quot;cortex-a72&quot;</span>,
+      <span class="Li">&quot;cortex-a73&quot;</span>,
+      <span class="Li">&quot;cortex-a75&quot;</span>,
+      <span class="Li">&quot;cortex-a76&quot;</span>,
+      <span class="Li">&quot;cortex-a76ae&quot;</span>,
+      <span class="Li">&quot;cortex-a77&quot;</span>,
+      <span class="Li">&quot;ares&quot;</span>,
+      <span class="Li">&quot;exynos-m1&quot;</span>,
+      <span class="Li">&quot;falkor&quot;</span>,
+      <span class="Li">&quot;neoverse-n1&quot;</span>,
+      <span class="Li">&quot;neoverse-e1&quot;</span>,
+      <span class="Li">&quot;qdf24xx&quot;</span>,
+      <span class="Li">&quot;saphira&quot;</span>,
+      <span class="Li">&quot;thunderx&quot;</span>,
+      <span class="Li">&quot;vulcan&quot;</span>,
+      <span class="Li">&quot;xgene1&quot;</span> and
+      <span class="Li">&quot;xgene2&quot;</span>. The special name
+      <span class="Li">&quot;all&quot;</span> may be used to allow the assembler
+      to accept instructions valid for any supported processor, including all
+      optional extensions.
+    <p class="Pp">In addition to the basic instruction set, the assembler can be
+        told to accept, or restrict, various extension mnemonics that extend the
+        processor.</p>
+    <p class="Pp">If some implementations of a particular processor can have an
+        extension, then then those extensions are automatically enabled.
+        Consequently, you will not normally have to specify any additional
+        extensions.</p>
+  </dd>
+  <dt><b>-march=</b><i>architecture</i><b>[+</b><i>extension</i><b>...]</b></dt>
+  <dd>This option specifies the target architecture. The assembler will issue an
+      error message if an attempt is made to assemble an instruction which will
+      not execute on the target architecture. The following architecture names
+      are recognized: <span class="Li">&quot;armv8-a&quot;</span>,
+      <span class="Li">&quot;armv8.1-a&quot;</span>,
+      <span class="Li">&quot;armv8.2-a&quot;</span>,
+      <span class="Li">&quot;armv8.3-a&quot;</span>,
+      <span class="Li">&quot;armv8.4-a&quot;</span>
+      <span class="Li">&quot;armv8.5-a&quot;</span>, and
+      <span class="Li">&quot;armv8.6-a&quot;</span>.
+    <p class="Pp">If both <b>-mcpu</b> and <b>-march</b> are specified, the
+        assembler will use the setting for <b>-mcpu</b>. If neither are
+        specified, the assembler will default to <b>-mcpu=all</b>.</p>
+    <p class="Pp">The architecture option can be extended with the same
+        instruction set extension options as the <b>-mcpu</b> option. Unlike
+        <b>-mcpu</b>, extensions are not always enabled by default,</p>
+  </dd>
+  <dt><b>-mverbose-error</b></dt>
+  <dd>This option enables verbose error messages for AArch64 gas. This option is
+      enabled by default.</dd>
+  <dt><b>-mno-verbose-error</b></dt>
+  <dd>This option disables verbose error messages in AArch64 gas.</dd>
+</dl>
+<p class="Pp">The following options are available when as is configured for an
+    Alpha processor.</p>
+<dl class="Bl-tag">
+  <dt><b>-m</b><i>cpu</i></dt>
+  <dd>This option specifies the target processor. If an attempt is made to
+      assemble an instruction which will not execute on the target processor,
+      the assembler may either expand the instruction as a macro or issue an
+      error message. This option is equivalent to the
+      <span class="Li">&quot;.arch&quot;</span> directive.
+    <p class="Pp">The following processor names are recognized:
+        <span class="Li">21064</span>,
+        <span class="Li">&quot;21064a&quot;</span>,
+        <span class="Li">21066</span>, <span class="Li">21068</span>,
+        <span class="Li">21164</span>,
+        <span class="Li">&quot;21164a&quot;</span>,
+        <span class="Li">&quot;21164pc&quot;</span>,
+        <span class="Li">21264</span>,
+        <span class="Li">&quot;21264a&quot;</span>,
+        <span class="Li">&quot;21264b&quot;</span>,
+        <span class="Li">&quot;ev4&quot;</span>,
+        <span class="Li">&quot;ev5&quot;</span>,
+        <span class="Li">&quot;lca45&quot;</span>,
+        <span class="Li">&quot;ev5&quot;</span>,
+        <span class="Li">&quot;ev56&quot;</span>,
+        <span class="Li">&quot;pca56&quot;</span>,
+        <span class="Li">&quot;ev6&quot;</span>,
+        <span class="Li">&quot;ev67&quot;</span>,
+        <span class="Li">&quot;ev68&quot;</span>. The special name
+        <span class="Li">&quot;all&quot;</span> may be used to allow the
+        assembler to accept instructions valid for any Alpha processor.</p>
+    <p class="Pp">In order to support existing practice in OSF/1 with respect to
+        <span class="Li">&quot;.arch&quot;</span>, and existing practice within
+        <b>MILO</b> (the Linux ARC bootloader), the numbered processor names
+        (e.g. 21064) enable the processor-specific PALcode instructions, while
+        the &quot;electro-vlasic&quot; names (e.g.
+        <span class="Li">&quot;ev4&quot;</span>) do not.</p>
+  </dd>
+  <dt><b>-mdebug</b></dt>
+  <dd></dd>
+  <dt><b>-no-mdebug</b></dt>
+  <dd>Enables or disables the generation of
+      <span class="Li">&quot;.mdebug&quot;</span> encapsulation for stabs
+      directives and procedure descriptors. The default is to automatically
+      enable <span class="Li">&quot;.mdebug&quot;</span> when the first stabs
+      directive is seen.</dd>
+  <dt><b>-relax</b></dt>
+  <dd>This option forces all relocations to be put into the object file, instead
+      of saving space and resolving some relocations at assembly time. Note that
+      this option does not propagate all symbol arithmetic into the object file,
+      because not all symbol arithmetic can be represented. However, the option
+      can still be useful in specific applications.</dd>
+  <dt><b>-replace</b></dt>
+  <dd></dd>
+  <dt><b>-noreplace</b></dt>
+  <dd>Enables or disables the optimization of procedure calls, both at
+      assemblage and at link time. These options are only available for VMS
+      targets and <span class="Li">&quot;-replace&quot;</span> is the default.
+      See section 1.4.1 of the OpenVMS Linker Utility Manual.</dd>
+  <dt><b>-g</b></dt>
+  <dd>This option is used when the compiler generates debug information. When
+      <b>gcc</b> is using <b>mips-tfile</b> to generate debug information for
+      ECOFF, local labels must be passed through to the object file. Otherwise
+      this option has no effect.</dd>
+  <dt><b>-G</b><i>size</i></dt>
+  <dd>A local common symbol larger than <i>size</i> is placed in
+      <span class="Li">&quot;.bss&quot;</span>, while smaller symbols are placed
+      in <span class="Li">&quot;.sbss&quot;</span>.</dd>
+  <dt><b>-F</b></dt>
+  <dd></dd>
+  <dt><b>-32addr</b></dt>
+  <dd>These options are ignored for backward compatibility.</dd>
+</dl>
+<p class="Pp">The following options are available when as is configured for an
+    ARC processor.</p>
+<dl class="Bl-tag">
+  <dt><b>-mcpu=</b><i>cpu</i></dt>
+  <dd>This option selects the core processor variant.</dd>
+  <dt><b>-EB | -EL</b></dt>
+  <dd>Select either big-endian (-EB) or little-endian (-EL) output.</dd>
+  <dt><b>-mcode-density</b></dt>
+  <dd>Enable Code Density extenssion instructions.</dd>
+</dl>
+<p class="Pp">The following options are available when as is configured for the
+    ARM processor family.</p>
+<dl class="Bl-tag">
+  <dt><b>-mcpu=</b><i>processor</i><b>[+</b><i>extension</i><b>...]</b></dt>
+  <dd>Specify which ARM processor variant is the target.</dd>
+  <dt><b>-march=</b><i>architecture</i><b>[+</b><i>extension</i><b>...]</b></dt>
+  <dd>Specify which ARM architecture variant is used by the target.</dd>
+  <dt><b>-mfpu=</b><i>floating-point-format</i></dt>
+  <dd>Select which Floating Point architecture is the target.</dd>
+  <dt><b>-mfloat-abi=</b><i>abi</i></dt>
+  <dd>Select which floating point ABI is in use.</dd>
+  <dt><b>-mthumb</b></dt>
+  <dd>Enable Thumb only instruction decoding.</dd>
+  <dt><b>-mapcs-32 | -mapcs-26 | -mapcs-float | -mapcs-reentrant</b></dt>
+  <dd>Select which procedure calling convention is in use.</dd>
+  <dt><b>-EB | -EL</b></dt>
+  <dd>Select either big-endian (-EB) or little-endian (-EL) output.</dd>
+  <dt><b>-mthumb-interwork</b></dt>
+  <dd>Specify that the code has been generated with interworking between Thumb
+      and ARM code in mind.</dd>
+  <dt><b>-mccs</b></dt>
+  <dd>Turns on CodeComposer Studio assembly syntax compatibility mode.</dd>
+  <dt><b>-k</b></dt>
+  <dd>Specify that PIC code has been generated.</dd>
+</dl>
+<p class="Pp">The following options are available when as is configured for the
+    Blackfin processor family.</p>
+<dl class="Bl-tag">
+  <dt><b>-mcpu=</b><i>processor</i>[<b>-</b><i>sirevision</i>]</dt>
+  <dd>This option specifies the target processor. The optional <i>sirevision</i>
+      is not used in assembler. It's here such that GCC can easily pass down its
+      <span class="Li">&quot;-mcpu=&quot;</span> option. The assembler will
+      issue an error message if an attempt is made to assemble an instruction
+      which will not execute on the target processor. The following processor
+      names are recognized: <span class="Li">&quot;bf504&quot;</span>,
+      <span class="Li">&quot;bf506&quot;</span>,
+      <span class="Li">&quot;bf512&quot;</span>,
+      <span class="Li">&quot;bf514&quot;</span>,
+      <span class="Li">&quot;bf516&quot;</span>,
+      <span class="Li">&quot;bf518&quot;</span>,
+      <span class="Li">&quot;bf522&quot;</span>,
+      <span class="Li">&quot;bf523&quot;</span>,
+      <span class="Li">&quot;bf524&quot;</span>,
+      <span class="Li">&quot;bf525&quot;</span>,
+      <span class="Li">&quot;bf526&quot;</span>,
+      <span class="Li">&quot;bf527&quot;</span>,
+      <span class="Li">&quot;bf531&quot;</span>,
+      <span class="Li">&quot;bf532&quot;</span>,
+      <span class="Li">&quot;bf533&quot;</span>,
+      <span class="Li">&quot;bf534&quot;</span>,
+      <span class="Li">&quot;bf535&quot;</span> (not implemented yet),
+      <span class="Li">&quot;bf536&quot;</span>,
+      <span class="Li">&quot;bf537&quot;</span>,
+      <span class="Li">&quot;bf538&quot;</span>,
+      <span class="Li">&quot;bf539&quot;</span>,
+      <span class="Li">&quot;bf542&quot;</span>,
+      <span class="Li">&quot;bf542m&quot;</span>,
+      <span class="Li">&quot;bf544&quot;</span>,
+      <span class="Li">&quot;bf544m&quot;</span>,
+      <span class="Li">&quot;bf547&quot;</span>,
+      <span class="Li">&quot;bf547m&quot;</span>,
+      <span class="Li">&quot;bf548&quot;</span>,
+      <span class="Li">&quot;bf548m&quot;</span>,
+      <span class="Li">&quot;bf549&quot;</span>,
+      <span class="Li">&quot;bf549m&quot;</span>,
+      <span class="Li">&quot;bf561&quot;</span>, and
+      <span class="Li">&quot;bf592&quot;</span>.</dd>
+  <dt><b>-mfdpic</b></dt>
+  <dd>Assemble for the FDPIC ABI.</dd>
+  <dt><b>-mno-fdpic</b></dt>
+  <dd></dd>
+  <dt><b>-mnopic</b></dt>
+  <dd>Disable -mfdpic.</dd>
+</dl>
+<p class="Pp">The following options are available when as is configured for the
+    Linux kernel BPF processor family.</p>
+<p class="Pp"><span class="Li">@chapter</span> BPF Dependent Features</p>
+<section class="Ss">
+<h2 class="Ss" id="Options"><a class="permalink" href="#Options">Options</a></h2>
+<dl class="Bl-tag">
+  <dt><b>-EB</b></dt>
+  <dd>This option specifies that the assembler should emit big-endian eBPF.</dd>
+  <dt><b>-EL</b></dt>
+  <dd>This option specifies that the assembler should emit little-endian
+    eBPF.</dd>
+</dl>
+<p class="Pp">Note that if no endianness option is specified in the command
+    line, the host endianness is used. See the info pages for documentation of
+    the CRIS-specific options.</p>
+<p class="Pp">The following options are available when as is configured for the
+    C-SKY processor family.</p>
+<dl class="Bl-tag">
+  <dt><b>-march=</b><i>archname</i></dt>
+  <dd>Assemble for architecture <i>archname</i>. The <b>--help</b> option lists
+      valid values for <i>archname</i>.</dd>
+  <dt><b>-mcpu=</b><i>cpuname</i></dt>
+  <dd>Assemble for architecture <i>cpuname</i>. The <b>--help</b> option lists
+      valid values for <i>cpuname</i>.</dd>
+  <dt><b>-EL</b></dt>
+  <dd></dd>
+  <dt><b>-mlittle-endian</b></dt>
+  <dd>Generate little-endian output.</dd>
+  <dt><b>-EB</b></dt>
+  <dd></dd>
+  <dt><b>-mbig-endian</b></dt>
+  <dd>Generate big-endian output.</dd>
+  <dt><b>-fpic</b></dt>
+  <dd></dd>
+  <dt><b>-pic</b></dt>
+  <dd>Generate position-independent code.</dd>
+  <dt><b>-mljump</b></dt>
+  <dd></dd>
+  <dt><b>-mno-ljump</b></dt>
+  <dd>Enable/disable transformation of the short branch instructions
+      <span class="Li">&quot;jbf&quot;</span>,
+      <span class="Li">&quot;jbt&quot;</span>, and
+      <span class="Li">&quot;jbr&quot;</span> to
+      <span class="Li">&quot;jmpi&quot;</span>. This option is for V2 processors
+      only. It is ignored on CK801 and CK802 targets, which do not support the
+      <span class="Li">&quot;jmpi&quot;</span> instruction, and is enabled by
+      default for other processors.</dd>
+  <dt><b>-mbranch-stub</b></dt>
+  <dd></dd>
+  <dt><b>-mno-branch-stub</b></dt>
+  <dd>Pass through <span class="Li">&quot;R_CKCORE_PCREL_IMM26BY2&quot;</span>
+      relocations for <span class="Li">&quot;bsr&quot;</span> instructions to
+      the linker.
+    <p class="Pp">This option is only available for bare-metal C-SKY V2 ELF
+        targets, where it is enabled by default. It cannot be used in code that
+        will be dynamically linked against shared libraries.</p>
+  </dd>
+  <dt><b>-force2bsr</b></dt>
+  <dd></dd>
+  <dt><b>-mforce2bsr</b></dt>
+  <dd></dd>
+  <dt><b>-no-force2bsr</b></dt>
+  <dd></dd>
+  <dt><b>-mno-force2bsr</b></dt>
+  <dd>Enable/disable transformation of <span class="Li">&quot;jbsr&quot;</span>
+      instructions to <span class="Li">&quot;bsr&quot;</span>. This option is
+      always enabled (and <b>-mno-force2bsr</b> is ignored) for CK801/CK802
+      targets. It is also always enabled when <b>-mbranch-stub</b> is in
+    effect.</dd>
+  <dt><b>-jsri2bsr</b></dt>
+  <dd></dd>
+  <dt><b>-mjsri2bsr</b></dt>
+  <dd></dd>
+  <dt><b>-no-jsri2bsr</b></dt>
+  <dd></dd>
+  <dt><b>-mno-jsri2bsr</b></dt>
+  <dd>Enable/disable transformation of <span class="Li">&quot;jsri&quot;</span>
+      instructions to <span class="Li">&quot;bsr&quot;</span>. This option is
+      enabled by default.</dd>
+  <dt><b>-mnolrw</b></dt>
+  <dd></dd>
+  <dt><b>-mno-lrw</b></dt>
+  <dd>Enable/disable transformation of <span class="Li">&quot;lrw&quot;</span>
+      instructions into a
+      <span class="Li">&quot;movih&quot;</span>/<span class="Li">&quot;ori&quot;</span>
+      pair.</dd>
+  <dt><b>-melrw</b></dt>
+  <dd></dd>
+  <dt><b>-mno-elrw</b></dt>
+  <dd>Enable/disable extended <span class="Li">&quot;lrw&quot;</span>
+      instructions. This option is enabled by default for CK800-series
+      processors.</dd>
+  <dt><b>-mlaf</b></dt>
+  <dd></dd>
+  <dt><b>-mliterals-after-func</b></dt>
+  <dd></dd>
+  <dt><b>-mno-laf</b></dt>
+  <dd></dd>
+  <dt><b>-mno-literals-after-func</b></dt>
+  <dd>Enable/disable placement of literal pools after each function.</dd>
+  <dt><b>-mlabr</b></dt>
+  <dd></dd>
+  <dt><b>-mliterals-after-br</b></dt>
+  <dd></dd>
+  <dt><b>-mno-labr</b></dt>
+  <dd></dd>
+  <dt><b>-mnoliterals-after-br</b></dt>
+  <dd>Enable/disable placement of literal pools after unconditional branches.
+      This option is enabled by default.</dd>
+  <dt><b>-mistack</b></dt>
+  <dd></dd>
+  <dt><b>-mno-istack</b></dt>
+  <dd>Enable/disable interrupt stack instructions. This option is enabled by
+      default on CK801, CK802, and CK802 processors.</dd>
+</dl>
+<p class="Pp">The following options explicitly enable certain optional
+    instructions. These features are also enabled implicitly by using
+    <span class="Li">&quot;-mcpu=&quot;</span> to specify a processor that
+    supports it.</p>
+<dl class="Bl-tag">
+  <dt><b>-mhard-float</b></dt>
+  <dd>Enable hard float instructions.</dd>
+  <dt><b>-mmp</b></dt>
+  <dd>Enable multiprocessor instructions.</dd>
+  <dt><b>-mcp</b></dt>
+  <dd>Enable coprocessor instructions.</dd>
+  <dt><b>-mcache</b></dt>
+  <dd>Enable cache prefetch instruction.</dd>
+  <dt><b>-msecurity</b></dt>
+  <dd>Enable C-SKY security instructions.</dd>
+  <dt><b>-mtrust</b></dt>
+  <dd>Enable C-SKY trust instructions.</dd>
+  <dt><b>-mdsp</b></dt>
+  <dd>Enable DSP instructions.</dd>
+  <dt><b>-medsp</b></dt>
+  <dd>Enable enhanced DSP instructions.</dd>
+  <dt><b>-mvdsp</b></dt>
+  <dd>Enable vector DSP instructions.</dd>
+</dl>
+<p class="Pp">The following options are available when as is configured for an
+    Epiphany processor.</p>
+<dl class="Bl-tag">
+  <dt><b>-mepiphany</b></dt>
+  <dd>Specifies that the both 32 and 16 bit instructions are allowed. This is
+      the default behavior.</dd>
+  <dt><b>-mepiphany16</b></dt>
+  <dd>Restricts the permitted instructions to just the 16 bit set.</dd>
+</dl>
+<p class="Pp">The following options are available when as is configured for an
+    H8/300 processor. <span class="Li">@chapter</span> H8/300 Dependent
+  Features</p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Options_2"><a class="permalink" href="#Options_2">Options</a></h2>
+The Renesas H8/300 version of <span class="Li">&quot;as&quot;</span> has one
+  machine-dependent option:
+<dl class="Bl-tag">
+  <dt><b>-h-tick-hex</b></dt>
+  <dd>Support H'00 style hex constants in addition to 0x00 style.</dd>
+  <dt><b>-mach=</b><i>name</i></dt>
+  <dd>Sets the H8300 machine variant. The following machine names are
+      recognised: <span class="Li">&quot;h8300h&quot;</span>,
+      <span class="Li">&quot;h8300hn&quot;</span>,
+      <span class="Li">&quot;h8300s&quot;</span>,
+      <span class="Li">&quot;h8300sn&quot;</span>,
+      <span class="Li">&quot;h8300sx&quot;</span> and
+      <span class="Li">&quot;h8300sxn&quot;</span>.</dd>
+</dl>
+<p class="Pp">The following options are available when as is configured for an
+    i386 processor.</p>
+<dl class="Bl-tag">
+  <dt><b>--32 | --x32 | --64</b></dt>
+  <dd>Select the word size, either 32 bits or 64 bits. <b>--32</b> implies Intel
+      i386 architecture, while <b>--x32</b> and <b>--64</b> imply AMD x86-64
+      architecture with 32-bit or 64-bit word-size respectively.
+    <p class="Pp">These options are only available with the ELF object file
+        format, and require that the necessary BFD support has been included (on
+        a 32-bit platform you have to add --enable-64-bit-bfd to configure
+        enable 64-bit usage and use x86-64 as target platform).</p>
+  </dd>
+  <dt><b>-n</b></dt>
+  <dd>By default, x86 GAS replaces multiple nop instructions used for alignment
+      within code sections with multi-byte nop instructions such as leal
+      0(%esi,1),%esi. This switch disables the optimization if a single byte nop
+      (0x90) is explicitly specified as the fill byte for alignment.</dd>
+  <dt><b>--divide</b></dt>
+  <dd>On SVR4-derived platforms, the character <b>/</b> is treated as a comment
+      character, which means that it cannot be used in expressions. The
+      <b>--divide</b> option turns <b>/</b> into a normal character. This does
+      not disable <b>/</b> at the beginning of a line starting a comment, or
+      affect using <b>#</b> for starting a comment.</dd>
+  <dt><b>-march=</b><i>CPU</i><b>[+</b><i>EXTENSION</i><b>...]</b></dt>
+  <dd>This option specifies the target processor. The assembler will issue an
+      error message if an attempt is made to assemble an instruction which will
+      not execute on the target processor. The following processor names are
+      recognized: <span class="Li">&quot;i8086&quot;</span>,
+      <span class="Li">&quot;i186&quot;</span>,
+      <span class="Li">&quot;i286&quot;</span>,
+      <span class="Li">&quot;i386&quot;</span>,
+      <span class="Li">&quot;i486&quot;</span>,
+      <span class="Li">&quot;i586&quot;</span>,
+      <span class="Li">&quot;i686&quot;</span>,
+      <span class="Li">&quot;pentium&quot;</span>,
+      <span class="Li">&quot;pentiumpro&quot;</span>,
+      <span class="Li">&quot;pentiumii&quot;</span>,
+      <span class="Li">&quot;pentiumiii&quot;</span>,
+      <span class="Li">&quot;pentium4&quot;</span>,
+      <span class="Li">&quot;prescott&quot;</span>,
+      <span class="Li">&quot;nocona&quot;</span>,
+      <span class="Li">&quot;core&quot;</span>,
+      <span class="Li">&quot;core2&quot;</span>,
+      <span class="Li">&quot;corei7&quot;</span>,
+      <span class="Li">&quot;l1om&quot;</span>,
+      <span class="Li">&quot;k1om&quot;</span>,
+      <span class="Li">&quot;iamcu&quot;</span>,
+      <span class="Li">&quot;k6&quot;</span>,
+      <span class="Li">&quot;k6_2&quot;</span>,
+      <span class="Li">&quot;athlon&quot;</span>,
+      <span class="Li">&quot;opteron&quot;</span>,
+      <span class="Li">&quot;k8&quot;</span>,
+      <span class="Li">&quot;amdfam10&quot;</span>,
+      <span class="Li">&quot;bdver1&quot;</span>,
+      <span class="Li">&quot;bdver2&quot;</span>,
+      <span class="Li">&quot;bdver3&quot;</span>,
+      <span class="Li">&quot;bdver4&quot;</span>,
+      <span class="Li">&quot;znver1&quot;</span>,
+      <span class="Li">&quot;znver2&quot;</span>,
+      <span class="Li">&quot;btver1&quot;</span>,
+      <span class="Li">&quot;btver2&quot;</span>,
+      <span class="Li">&quot;generic32&quot;</span> and
+      <span class="Li">&quot;generic64&quot;</span>.
+    <p class="Pp">In addition to the basic instruction set, the assembler can be
+        told to accept various extension mnemonics. For example,
+        <span class="Li">&quot;-march=i686+sse4+vmx&quot;</span> extends
+        <i>i686</i> with <i>sse4</i> and <i>vmx</i>. The following extensions
+        are currently supported: <span class="Li">8087</span>,
+        <span class="Li">287</span>, <span class="Li">387</span>,
+        <span class="Li">687</span>, <span class="Li">&quot;no87&quot;</span>,
+        <span class="Li">&quot;no287&quot;</span>,
+        <span class="Li">&quot;no387&quot;</span>,
+        <span class="Li">&quot;no687&quot;</span>,
+        <span class="Li">&quot;cmov&quot;</span>,
+        <span class="Li">&quot;nocmov&quot;</span>,
+        <span class="Li">&quot;fxsr&quot;</span>,
+        <span class="Li">&quot;nofxsr&quot;</span>,
+        <span class="Li">&quot;mmx&quot;</span>,
+        <span class="Li">&quot;nommx&quot;</span>,
+        <span class="Li">&quot;sse&quot;</span>,
+        <span class="Li">&quot;sse2&quot;</span>,
+        <span class="Li">&quot;sse3&quot;</span>,
+        <span class="Li">&quot;ssse3&quot;</span>,
+        <span class="Li">&quot;sse4.1&quot;</span>,
+        <span class="Li">&quot;sse4.2&quot;</span>,
+        <span class="Li">&quot;sse4&quot;</span>,
+        <span class="Li">&quot;nosse&quot;</span>,
+        <span class="Li">&quot;nosse2&quot;</span>,
+        <span class="Li">&quot;nosse3&quot;</span>,
+        <span class="Li">&quot;nossse3&quot;</span>,
+        <span class="Li">&quot;nosse4.1&quot;</span>,
+        <span class="Li">&quot;nosse4.2&quot;</span>,
+        <span class="Li">&quot;nosse4&quot;</span>,
+        <span class="Li">&quot;avx&quot;</span>,
+        <span class="Li">&quot;avx2&quot;</span>,
+        <span class="Li">&quot;noavx&quot;</span>,
+        <span class="Li">&quot;noavx2&quot;</span>,
+        <span class="Li">&quot;adx&quot;</span>,
+        <span class="Li">&quot;rdseed&quot;</span>,
+        <span class="Li">&quot;prfchw&quot;</span>,
+        <span class="Li">&quot;smap&quot;</span>,
+        <span class="Li">&quot;mpx&quot;</span>,
+        <span class="Li">&quot;sha&quot;</span>,
+        <span class="Li">&quot;rdpid&quot;</span>,
+        <span class="Li">&quot;ptwrite&quot;</span>,
+        <span class="Li">&quot;cet&quot;</span>,
+        <span class="Li">&quot;gfni&quot;</span>,
+        <span class="Li">&quot;vaes&quot;</span>,
+        <span class="Li">&quot;vpclmulqdq&quot;</span>,
+        <span class="Li">&quot;prefetchwt1&quot;</span>,
+        <span class="Li">&quot;clflushopt&quot;</span>,
+        <span class="Li">&quot;se1&quot;</span>,
+        <span class="Li">&quot;clwb&quot;</span>,
+        <span class="Li">&quot;movdiri&quot;</span>,
+        <span class="Li">&quot;movdir64b&quot;</span>,
+        <span class="Li">&quot;enqcmd&quot;</span>,
+        <span class="Li">&quot;avx512f&quot;</span>,
+        <span class="Li">&quot;avx512cd&quot;</span>,
+        <span class="Li">&quot;avx512er&quot;</span>,
+        <span class="Li">&quot;avx512pf&quot;</span>,
+        <span class="Li">&quot;avx512vl&quot;</span>,
+        <span class="Li">&quot;avx512bw&quot;</span>,
+        <span class="Li">&quot;avx512dq&quot;</span>,
+        <span class="Li">&quot;avx512ifma&quot;</span>,
+        <span class="Li">&quot;avx512vbmi&quot;</span>,
+        <span class="Li">&quot;avx512_4fmaps&quot;</span>,
+        <span class="Li">&quot;avx512_4vnniw&quot;</span>,
+        <span class="Li">&quot;avx512_vpopcntdq&quot;</span>,
+        <span class="Li">&quot;avx512_vbmi2&quot;</span>,
+        <span class="Li">&quot;avx512_vnni&quot;</span>,
+        <span class="Li">&quot;avx512_bitalg&quot;</span>,
+        <span class="Li">&quot;avx512_bf16&quot;</span>,
+        <span class="Li">&quot;noavx512f&quot;</span>,
+        <span class="Li">&quot;noavx512cd&quot;</span>,
+        <span class="Li">&quot;noavx512er&quot;</span>,
+        <span class="Li">&quot;noavx512pf&quot;</span>,
+        <span class="Li">&quot;noavx512vl&quot;</span>,
+        <span class="Li">&quot;noavx512bw&quot;</span>,
+        <span class="Li">&quot;noavx512dq&quot;</span>,
+        <span class="Li">&quot;noavx512ifma&quot;</span>,
+        <span class="Li">&quot;noavx512vbmi&quot;</span>,
+        <span class="Li">&quot;noavx512_4fmaps&quot;</span>,
+        <span class="Li">&quot;noavx512_4vnniw&quot;</span>,
+        <span class="Li">&quot;noavx512_vpopcntdq&quot;</span>,
+        <span class="Li">&quot;noavx512_vbmi2&quot;</span>,
+        <span class="Li">&quot;noavx512_vnni&quot;</span>,
+        <span class="Li">&quot;noavx512_bitalg&quot;</span>,
+        <span class="Li">&quot;noavx512_vp2intersect&quot;</span>,
+        <span class="Li">&quot;noavx512_bf16&quot;</span>,
+        <span class="Li">&quot;noenqcmd&quot;</span>,
+        <span class="Li">&quot;vmx&quot;</span>,
+        <span class="Li">&quot;vmfunc&quot;</span>,
+        <span class="Li">&quot;smx&quot;</span>,
+        <span class="Li">&quot;xsave&quot;</span>,
+        <span class="Li">&quot;xsaveopt&quot;</span>,
+        <span class="Li">&quot;xsavec&quot;</span>,
+        <span class="Li">&quot;xsaves&quot;</span>,
+        <span class="Li">&quot;aes&quot;</span>,
+        <span class="Li">&quot;pclmul&quot;</span>,
+        <span class="Li">&quot;fsgsbase&quot;</span>,
+        <span class="Li">&quot;rdrnd&quot;</span>,
+        <span class="Li">&quot;f16c&quot;</span>,
+        <span class="Li">&quot;bmi2&quot;</span>,
+        <span class="Li">&quot;fma&quot;</span>,
+        <span class="Li">&quot;movbe&quot;</span>,
+        <span class="Li">&quot;ept&quot;</span>,
+        <span class="Li">&quot;lzcnt&quot;</span>,
+        <span class="Li">&quot;hle&quot;</span>,
+        <span class="Li">&quot;rtm&quot;</span>,
+        <span class="Li">&quot;invpcid&quot;</span>,
+        <span class="Li">&quot;clflush&quot;</span>,
+        <span class="Li">&quot;mwaitx&quot;</span>,
+        <span class="Li">&quot;clzero&quot;</span>,
+        <span class="Li">&quot;wbnoinvd&quot;</span>,
+        <span class="Li">&quot;pconfig&quot;</span>,
+        <span class="Li">&quot;waitpkg&quot;</span>,
+        <span class="Li">&quot;cldemote&quot;</span>,
+        <span class="Li">&quot;rdpru&quot;</span>,
+        <span class="Li">&quot;mcommit&quot;</span>,
+        <span class="Li">&quot;lwp&quot;</span>,
+        <span class="Li">&quot;fma4&quot;</span>,
+        <span class="Li">&quot;xop&quot;</span>,
+        <span class="Li">&quot;cx16&quot;</span>,
+        <span class="Li">&quot;syscall&quot;</span>,
+        <span class="Li">&quot;rdtscp&quot;</span>,
+        <span class="Li">&quot;3dnow&quot;</span>,
+        <span class="Li">&quot;3dnowa&quot;</span>,
+        <span class="Li">&quot;sse4a&quot;</span>,
+        <span class="Li">&quot;sse5&quot;</span>,
+        <span class="Li">&quot;svme&quot;</span>,
+        <span class="Li">&quot;abm&quot;</span> and
+        <span class="Li">&quot;padlock&quot;</span>. Note that rather than
+        extending a basic instruction set, the extension mnemonics starting with
+        <span class="Li">&quot;no&quot;</span> revoke the respective
+        functionality.</p>
+    <p class="Pp">When the <span class="Li">&quot;.arch&quot;</span> directive
+        is used with <b>-march</b>, the
+        <span class="Li">&quot;.arch&quot;</span> directive will take
+      precedent.</p>
+  </dd>
+  <dt><b>-mtune=</b><i>CPU</i></dt>
+  <dd>This option specifies a processor to optimize for. When used in
+      conjunction with the <b>-march</b> option, only instructions of the
+      processor specified by the <b>-march</b> option will be generated.
+    <p class="Pp">Valid <i>CPU</i> values are identical to the processor list of
+        <b>-march=</b><i>CPU</i>.</p>
+  </dd>
+  <dt><b>-msse2avx</b></dt>
+  <dd>This option specifies that the assembler should encode SSE instructions
+      with VEX prefix.</dd>
+  <dt><b>-msse-check=</b><i>none</i></dt>
+  <dd></dd>
+  <dt><b>-msse-check=</b><i>warning</i></dt>
+  <dd></dd>
+  <dt><b>-msse-check=</b><i>error</i></dt>
+  <dd>These options control if the assembler should check SSE instructions.
+      <b>-msse-check=</b><i>none</i> will make the assembler not to check SSE
+      instructions, which is the default. <b>-msse-check=</b><i>warning</i> will
+      make the assembler issue a warning for any SSE instruction.
+      <b>-msse-check=</b><i>error</i> will make the assembler issue an error for
+      any SSE instruction.</dd>
+  <dt><b>-mavxscalar=</b><i>128</i></dt>
+  <dd></dd>
+  <dt><b>-mavxscalar=</b><i>256</i></dt>
+  <dd>These options control how the assembler should encode scalar AVX
+      instructions. <b>-mavxscalar=</b><i>128</i> will encode scalar AVX
+      instructions with 128bit vector length, which is the default.
+      <b>-mavxscalar=</b><i>256</i> will encode scalar AVX instructions with
+      256bit vector length.
+    <p class="Pp">WARNING: Don't use this for production code - due to CPU
+        errata the resulting code may not work on certain models.</p>
+  </dd>
+  <dt><b>-mvexwig=</b><i>0</i></dt>
+  <dd></dd>
+  <dt><b>-mvexwig=</b><i>1</i></dt>
+  <dd>These options control how the assembler should encode VEX.W-ignored (WIG)
+      VEX instructions. <b>-mvexwig=</b><i>0</i> will encode WIG VEX
+      instructions with vex.w = 0, which is the default.
+      <b>-mvexwig=</b><i>1</i> will encode WIG EVEX instructions with vex.w = 1.
+    <p class="Pp">WARNING: Don't use this for production code - due to CPU
+        errata the resulting code may not work on certain models.</p>
+  </dd>
+  <dt><b>-mevexlig=</b><i>128</i></dt>
+  <dd></dd>
+  <dt><b>-mevexlig=</b><i>256</i></dt>
+  <dd></dd>
+  <dt><b>-mevexlig=</b><i>512</i></dt>
+  <dd>These options control how the assembler should encode length-ignored (LIG)
+      EVEX instructions. <b>-mevexlig=</b><i>128</i> will encode LIG EVEX
+      instructions with 128bit vector length, which is the default.
+      <b>-mevexlig=</b><i>256</i> and <b>-mevexlig=</b><i>512</i> will encode
+      LIG EVEX instructions with 256bit and 512bit vector length,
+    respectively.</dd>
+  <dt><b>-mevexwig=</b><i>0</i></dt>
+  <dd></dd>
+  <dt><b>-mevexwig=</b><i>1</i></dt>
+  <dd>These options control how the assembler should encode w-ignored (WIG) EVEX
+      instructions. <b>-mevexwig=</b><i>0</i> will encode WIG EVEX instructions
+      with evex.w = 0, which is the default. <b>-mevexwig=</b><i>1</i> will
+      encode WIG EVEX instructions with evex.w = 1.</dd>
+  <dt><b>-mmnemonic=</b><i>att</i></dt>
+  <dd></dd>
+  <dt><b>-mmnemonic=</b><i>intel</i></dt>
+  <dd>This option specifies instruction mnemonic for matching instructions. The
+      <span class="Li">&quot;.att_mnemonic&quot;</span> and
+      <span class="Li">&quot;.intel_mnemonic&quot;</span> directives will take
+      precedent.</dd>
+  <dt><b>-msyntax=</b><i>att</i></dt>
+  <dd></dd>
+  <dt><b>-msyntax=</b><i>intel</i></dt>
+  <dd>This option specifies instruction syntax when processing instructions. The
+      <span class="Li">&quot;.att_syntax&quot;</span> and
+      <span class="Li">&quot;.intel_syntax&quot;</span> directives will take
+      precedent.</dd>
+  <dt><b>-mnaked-reg</b></dt>
+  <dd>This option specifies that registers don't require a <b>%</b> prefix. The
+      <span class="Li">&quot;.att_syntax&quot;</span> and
+      <span class="Li">&quot;.intel_syntax&quot;</span> directives will take
+      precedent.</dd>
+  <dt><b>-madd-bnd-prefix</b></dt>
+  <dd>This option forces the assembler to add BND prefix to all branches, even
+      if such prefix was not explicitly specified in the source code.</dd>
+  <dt><b>-mno-shared</b></dt>
+  <dd>On ELF target, the assembler normally optimizes out non-PLT relocations
+      against defined non-weak global branch targets with default visibility.
+      The <b>-mshared</b> option tells the assembler to generate code which may
+      go into a shared library where all non-weak global branch targets with
+      default visibility can be preempted. The resulting code is slightly
+      bigger. This option only affects the handling of branch instructions.</dd>
+  <dt><b>-mbig-obj</b></dt>
+  <dd>On x86-64 PE/COFF target this option forces the use of big object file
+      format, which allows more than 32768 sections.</dd>
+  <dt><b>-momit-lock-prefix=</b><i>no</i></dt>
+  <dd></dd>
+  <dt><b>-momit-lock-prefix=</b><i>yes</i></dt>
+  <dd>These options control how the assembler should encode lock prefix. This
+      option is intended as a workaround for processors, that fail on lock
+      prefix. This option can only be safely used with single-core,
+      single-thread computers <b>-momit-lock-prefix=</b><i>yes</i> will omit all
+      lock prefixes. <b>-momit-lock-prefix=</b><i>no</i> will encode lock prefix
+      as usual, which is the default.</dd>
+  <dt><b>-mfence-as-lock-add=</b><i>no</i></dt>
+  <dd></dd>
+  <dt><b>-mfence-as-lock-add=</b><i>yes</i></dt>
+  <dd>These options control how the assembler should encode lfence, mfence and
+      sfence. <b>-mfence-as-lock-add=</b><i>yes</i> will encode lfence, mfence
+      and sfence as <b>lock addl </b><b>$0x0</b><b>, (%rsp)</b> in 64-bit mode
+      and <b>lock addl </b><b>$0x0</b><b>, (%esp)</b> in 32-bit mode.
+      <b>-mfence-as-lock-add=</b><i>no</i> will encode lfence, mfence and sfence
+      as usual, which is the default.</dd>
+  <dt><b>-mrelax-relocations=</b><i>no</i></dt>
+  <dd></dd>
+  <dt><b>-mrelax-relocations=</b><i>yes</i></dt>
+  <dd>These options control whether the assembler should generate relax
+      relocations, R_386_GOT32X, in 32-bit mode, or R_X86_64_GOTPCRELX and
+      R_X86_64_REX_GOTPCRELX, in 64-bit mode.
+      <b>-mrelax-relocations=</b><i>yes</i> will generate relax relocations.
+      <b>-mrelax-relocations=</b><i>no</i> will not generate relax relocations.
+      The default can be controlled by a configure option
+      <b>--enable-x86-relax-relocations</b>.</dd>
+  <dt><b>-malign-branch-boundary=</b><i>NUM</i></dt>
+  <dd>This option controls how the assembler should align branches with segment
+      prefixes or NOP. <i>NUM</i> must be a power of 2. It should be 0 or no
+      less than 16. Branches will be aligned within <i>NUM</i> byte boundary.
+      <b>-malign-branch-boundary=0</b>, which is the default, doesn't align
+      branches.</dd>
+  <dt><b>-malign-branch=</b><i>TYPE</i><b>[+</b><i>TYPE</i><b>...]</b></dt>
+  <dd>This option specifies types of branches to align. <i>TYPE</i> is
+      combination of <b>jcc</b>, which aligns conditional jumps, <b>fused</b>,
+      which aligns fused conditional jumps, <b>jmp</b>, which aligns
+      unconditional jumps, <b>call</b> which aligns calls, <b>ret</b>, which
+      aligns rets, <b>indirect</b>, which aligns indirect jumps and calls. The
+      default is <b>-malign-branch=jcc+fused+jmp</b>.</dd>
+  <dt><b>-malign-branch-prefix-size=</b><i>NUM</i></dt>
+  <dd>This option specifies the maximum number of prefixes on an instruction to
+      align branches. <i>NUM</i> should be between 0 and 5. The default
+      <i>NUM</i> is 5.</dd>
+  <dt><b>-mbranches-within-32B-boundaries</b></dt>
+  <dd>This option aligns conditional jumps, fused conditional jumps and
+      unconditional jumps within 32 byte boundary with up to 5 segment prefixes
+      on an instruction. It is equivalent to <b>-malign-branch-boundary=32</b>
+      <b>-malign-branch=jcc+fused+jmp</b> <b>-malign-branch-prefix-size=5</b>.
+      The default doesn't align branches.</dd>
+  <dt><b>-mx86-used-note=</b><i>no</i></dt>
+  <dd></dd>
+  <dt><b>-mx86-used-note=</b><i>yes</i></dt>
+  <dd>These options control whether the assembler should generate
+      GNU_PROPERTY_X86_ISA_1_USED and GNU_PROPERTY_X86_FEATURE_2_USED GNU
+      property notes. The default can be controlled by the
+      <b>--enable-x86-used-note</b> configure option.</dd>
+  <dt><b>-mevexrcig=</b><i>rne</i></dt>
+  <dd></dd>
+  <dt><b>-mevexrcig=</b><i>rd</i></dt>
+  <dd></dd>
+  <dt><b>-mevexrcig=</b><i>ru</i></dt>
+  <dd></dd>
+  <dt><b>-mevexrcig=</b><i>rz</i></dt>
+  <dd>These options control how the assembler should encode SAE-only EVEX
+      instructions. <b>-mevexrcig=</b><i>rne</i> will encode RC bits of EVEX
+      instruction with 00, which is the default. <b>-mevexrcig=</b><i>rd</i>,
+      <b>-mevexrcig=</b><i>ru</i> and <b>-mevexrcig=</b><i>rz</i> will encode
+      SAE-only EVEX instructions with 01, 10 and 11 RC bits, respectively.</dd>
+  <dt><b>-mamd64</b></dt>
+  <dd></dd>
+  <dt><b>-mintel64</b></dt>
+  <dd>This option specifies that the assembler should accept only AMD64 or
+      Intel64 ISA in 64-bit mode. The default is to accept both.</dd>
+  <dt><b>-O0 | -O | -O1 | -O2 | -Os</b></dt>
+  <dd>Optimize instruction encoding with smaller instruction size. <b>-O</b> and
+      <b>-O1</b> encode 64-bit register load instructions with 64-bit immediate
+      as 32-bit register load instructions with 31-bit or 32-bits immediates,
+      encode 64-bit register clearing instructions with 32-bit register clearing
+      instructions, encode 256-bit/512-bit VEX/EVEX vector register clearing
+      instructions with 128-bit VEX vector register clearing instructions,
+      encode 128-bit/256-bit EVEX vector register load/store instructions with
+      VEX vector register load/store instructions, and encode 128-bit/256-bit
+      EVEX packed integer logical instructions with 128-bit/256-bit VEX packed
+      integer logical.
+    <p class="Pp"><b>-O2</b> includes <b>-O1</b> optimization plus encodes
+        256-bit/512-bit EVEX vector register clearing instructions with 128-bit
+        EVEX vector register clearing instructions. In 64-bit mode VEX encoded
+        instructions with commutative source operands will also have their
+        source operands swapped if this allows using the 2-byte VEX prefix form
+        instead of the 3-byte one. Certain forms of AND as well as OR with the
+        same (register) operand specified twice will also be changed to
+      TEST.</p>
+    <p class="Pp"><b>-Os</b> includes <b>-O2</b> optimization plus encodes
+        16-bit, 32-bit and 64-bit register tests with immediate as 8-bit
+        register test with immediate. <b>-O0</b> turns off this
+      optimization.</p>
+  </dd>
+</dl>
+<p class="Pp">The following options are available when as is configured for the
+    Ubicom IP2K series.</p>
+<dl class="Bl-tag">
+  <dt><b>-mip2022ext</b></dt>
+  <dd>Specifies that the extended IP2022 instructions are allowed.</dd>
+  <dt><b>-mip2022</b></dt>
+  <dd>Restores the default behaviour, which restricts the permitted instructions
+      to just the basic IP2022 ones.</dd>
+</dl>
+<p class="Pp">The following options are available when as is configured for the
+    Renesas M32C and M16C processors.</p>
+<dl class="Bl-tag">
+  <dt><b>-m32c</b></dt>
+  <dd>Assemble M32C instructions.</dd>
+  <dt><b>-m16c</b></dt>
+  <dd>Assemble M16C instructions (the default).</dd>
+  <dt><b>-relax</b></dt>
+  <dd>Enable support for link-time relaxations.</dd>
+  <dt><b>-h-tick-hex</b></dt>
+  <dd>Support H'00 style hex constants in addition to 0x00 style.</dd>
+</dl>
+<p class="Pp">The following options are available when as is configured for the
+    Renesas M32R (formerly Mitsubishi M32R) series.</p>
+<dl class="Bl-tag">
+  <dt><b>--m32rx</b></dt>
+  <dd>Specify which processor in the M32R family is the target. The default is
+      normally the M32R, but this option changes it to the M32RX.</dd>
+  <dt><b>--warn-explicit-parallel-conflicts or --Wp</b></dt>
+  <dd>Produce warning messages when questionable parallel constructs are
+      encountered.</dd>
+  <dt><b>--no-warn-explicit-parallel-conflicts or --Wnp</b></dt>
+  <dd>Do not produce warning messages when questionable parallel constructs are
+      encountered.</dd>
+</dl>
+<p class="Pp">The following options are available when as is configured for the
+    Motorola 68000 series.</p>
+<dl class="Bl-tag">
+  <dt><b>-l</b></dt>
+  <dd>Shorten references to undefined symbols, to one word instead of two.</dd>
+  <dt><b>-m68000 | -m68008 | -m68010 | -m68020 | -m68030</b></dt>
+  <dd></dd>
+  <dt><b>| -m68040 | -m68060 | -m68302 | -m68331 | -m68332</b></dt>
+  <dd></dd>
+  <dt><b>| -m68333 | -m68340 | -mcpu32 | -m5200</b></dt>
+  <dd>Specify what processor in the 68000 family is the target. The default is
+      normally the 68020, but this can be changed at configuration time.</dd>
+  <dt><b>-m68881 | -m68882 | -mno-68881 | -mno-68882</b></dt>
+  <dd>The target machine does (or does not) have a floating-point coprocessor.
+      The default is to assume a coprocessor for 68020, 68030, and cpu32.
+      Although the basic 68000 is not compatible with the 68881, a combination
+      of the two can be specified, since it's possible to do emulation of the
+      coprocessor instructions with the main processor.</dd>
+  <dt><b>-m68851 | -mno-68851</b></dt>
+  <dd>The target machine does (or does not) have a memory-management unit
+      coprocessor. The default is to assume an MMU for 68020 and up.</dd>
+</dl>
+<p class="Pp">The following options are available when as is configured for an
+    Altera Nios II processor.</p>
+<dl class="Bl-tag">
+  <dt><b>-relax-section</b></dt>
+  <dd>Replace identified out-of-range branches with PC-relative
+      <span class="Li">&quot;jmp&quot;</span> sequences when possible. The
+      generated code sequences are suitable for use in position-independent
+      code, but there is a practical limit on the extended branch range because
+      of the length of the sequences. This option is the default.</dd>
+  <dt><b>-relax-all</b></dt>
+  <dd>Replace branch instructions not determinable to be in range and all call
+      instructions with <span class="Li">&quot;jmp&quot;</span> and
+      <span class="Li">&quot;callr&quot;</span> sequences (respectively). This
+      option generates absolute relocations against the target symbols and is
+      not appropriate for position-independent code.</dd>
+  <dt><b>-no-relax</b></dt>
+  <dd>Do not replace any branches or calls.</dd>
+  <dt><b>-EB</b></dt>
+  <dd>Generate big-endian output.</dd>
+  <dt><b>-EL</b></dt>
+  <dd>Generate little-endian output. This is the default.</dd>
+  <dt><b>-march=</b><i>architecture</i></dt>
+  <dd>This option specifies the target architecture. The assembler issues an
+      error message if an attempt is made to assemble an instruction which will
+      not execute on the target architecture. The following architecture names
+      are recognized: <span class="Li">&quot;r1&quot;</span>,
+      <span class="Li">&quot;r2&quot;</span>. The default is
+      <span class="Li">&quot;r1&quot;</span>.</dd>
+</dl>
+<p class="Pp">The following options are available when as is configured for a
+    PRU processor.</p>
+<dl class="Bl-tag">
+  <dt><b>-mlink-relax</b></dt>
+  <dd>Assume that LD would optimize LDI32 instructions by checking the upper 16
+      bits of the <i>expression</i>. If they are all zeros, then LD would
+      shorten the LDI32 instruction to a single LDI. In such case
+      <span class="Li">&quot;as&quot;</span> will output DIFF relocations for
+      diff expressions.</dd>
+  <dt><b>-mno-link-relax</b></dt>
+  <dd>Assume that LD would not optimize LDI32 instructions. As a consequence,
+      DIFF relocations will not be emitted.</dd>
+  <dt><b>-mno-warn-regname-label</b></dt>
+  <dd>Do not warn if a label name matches a register name. Usually assembler
+      programmers will want this warning to be emitted. C compilers may want to
+      turn this off.</dd>
+</dl>
+<p class="Pp">The following options are available when as is configured for a
+    MIPS processor.</p>
+<dl class="Bl-tag">
+  <dt><b>-G</b> <i>num</i></dt>
+  <dd>This option sets the largest size of an object that can be referenced
+      implicitly with the <span class="Li">&quot;gp&quot;</span> register. It is
+      only accepted for targets that use ECOFF format, such as a DECstation
+      running Ultrix. The default value is 8.</dd>
+  <dt><b>-EB</b></dt>
+  <dd>Generate &quot;big endian&quot; format output.</dd>
+  <dt><b>-EL</b></dt>
+  <dd>Generate &quot;little endian&quot; format output.</dd>
+  <dt><b>-mips1</b></dt>
+  <dd></dd>
+  <dt><b>-mips2</b></dt>
+  <dd></dd>
+  <dt><b>-mips3</b></dt>
+  <dd></dd>
+  <dt><b>-mips4</b></dt>
+  <dd></dd>
+  <dt><b>-mips5</b></dt>
+  <dd></dd>
+  <dt><b>-mips32</b></dt>
+  <dd></dd>
+  <dt><b>-mips32r2</b></dt>
+  <dd></dd>
+  <dt><b>-mips32r3</b></dt>
+  <dd></dd>
+  <dt><b>-mips32r5</b></dt>
+  <dd></dd>
+  <dt><b>-mips32r6</b></dt>
+  <dd></dd>
+  <dt><b>-mips64</b></dt>
+  <dd></dd>
+  <dt><b>-mips64r2</b></dt>
+  <dd></dd>
+  <dt><b>-mips64r3</b></dt>
+  <dd></dd>
+  <dt><b>-mips64r5</b></dt>
+  <dd></dd>
+  <dt><b>-mips64r6</b></dt>
+  <dd>Generate code for a particular MIPS Instruction Set Architecture level.
+      <b>-mips1</b> is an alias for <b>-march=r3000</b>, <b>-mips2</b> is an
+      alias for <b>-march=r6000</b>, <b>-mips3</b> is an alias for
+      <b>-march=r4000</b> and <b>-mips4</b> is an alias for <b>-march=r8000</b>.
+      <b>-mips5</b>, <b>-mips32</b>, <b>-mips32r2</b>, <b>-mips32r3</b>,
+      <b>-mips32r5</b>, <b>-mips32r6</b>, <b>-mips64</b>, <b>-mips64r2</b>,
+      <b>-mips64r3</b>, <b>-mips64r5</b>, and <b>-mips64r6</b> correspond to
+      generic MIPS V, MIPS32, MIPS32 Release 2, MIPS32 Release 3, MIPS32 Release
+      5, MIPS32 Release 6, MIPS64, MIPS64 Release 2, MIPS64 Release 3, MIPS64
+      Release 5, and MIPS64 Release 6 ISA processors, respectively.</dd>
+  <dt><b>-march=</b><i>cpu</i></dt>
+  <dd>Generate code for a particular MIPS CPU.</dd>
+  <dt><b>-mtune=</b><i>cpu</i></dt>
+  <dd>Schedule and tune for a particular MIPS CPU.</dd>
+  <dt><b>-mfix7000</b></dt>
+  <dd></dd>
+  <dt><b>-mno-fix7000</b></dt>
+  <dd>Cause nops to be inserted if the read of the destination register of an
+      mfhi or mflo instruction occurs in the following two instructions.</dd>
+  <dt><b>-mfix-rm7000</b></dt>
+  <dd></dd>
+  <dt><b>-mno-fix-rm7000</b></dt>
+  <dd>Cause nops to be inserted if a dmult or dmultu instruction is followed by
+      a load instruction.</dd>
+  <dt><b>-mfix-r5900</b></dt>
+  <dd></dd>
+  <dt><b>-mno-fix-r5900</b></dt>
+  <dd>Do not attempt to schedule the preceding instruction into the delay slot
+      of a branch instruction placed at the end of a short loop of six
+      instructions or fewer and always schedule a
+      <span class="Li">&quot;nop&quot;</span> instruction there instead. The
+      short loop bug under certain conditions causes loops to execute only once
+      or twice, due to a hardware bug in the R5900 chip.</dd>
+  <dt><b>-mdebug</b></dt>
+  <dd></dd>
+  <dt><b>-no-mdebug</b></dt>
+  <dd>Cause stabs-style debugging output to go into an ECOFF-style .mdebug
+      section instead of the standard ELF .stabs sections.</dd>
+  <dt><b>-mpdr</b></dt>
+  <dd></dd>
+  <dt><b>-mno-pdr</b></dt>
+  <dd>Control generation of <span class="Li">&quot;.pdr&quot;</span>
+    sections.</dd>
+  <dt><b>-mgp32</b></dt>
+  <dd></dd>
+  <dt><b>-mfp32</b></dt>
+  <dd>The register sizes are normally inferred from the ISA and ABI, but these
+      flags force a certain group of registers to be treated as 32 bits wide at
+      all times. <b>-mgp32</b> controls the size of general-purpose registers
+      and <b>-mfp32</b> controls the size of floating-point registers.</dd>
+  <dt><b>-mgp64</b></dt>
+  <dd></dd>
+  <dt><b>-mfp64</b></dt>
+  <dd>The register sizes are normally inferred from the ISA and ABI, but these
+      flags force a certain group of registers to be treated as 64 bits wide at
+      all times. <b>-mgp64</b> controls the size of general-purpose registers
+      and <b>-mfp64</b> controls the size of floating-point registers.</dd>
+  <dt><b>-mfpxx</b></dt>
+  <dd>The register sizes are normally inferred from the ISA and ABI, but using
+      this flag in combination with <b>-mabi=32</b> enables an ABI variant which
+      will operate correctly with floating-point registers which are 32 or 64
+      bits wide.</dd>
+  <dt><b>-modd-spreg</b></dt>
+  <dd></dd>
+  <dt><b>-mno-odd-spreg</b></dt>
+  <dd>Enable use of floating-point operations on odd-numbered single-precision
+      registers when supported by the ISA. <b>-mfpxx</b> implies
+      <b>-mno-odd-spreg</b>, otherwise the default is <b>-modd-spreg</b>.</dd>
+  <dt><b>-mips16</b></dt>
+  <dd></dd>
+  <dt><b>-no-mips16</b></dt>
+  <dd>Generate code for the MIPS 16 processor. This is equivalent to putting
+      <span class="Li">&quot;.module mips16&quot;</span> at the start of the
+      assembly file. <b>-no-mips16</b> turns off this option.</dd>
+  <dt><b>-mmips16e2</b></dt>
+  <dd></dd>
+  <dt><b>-mno-mips16e2</b></dt>
+  <dd>Enable the use of MIPS16e2 instructions in MIPS16 mode. This is equivalent
+      to putting <span class="Li">&quot;.module mips16e2&quot;</span> at the
+      start of the assembly file. <b>-mno-mips16e2</b> turns off this
+    option.</dd>
+  <dt><b>-mmicromips</b></dt>
+  <dd></dd>
+  <dt><b>-mno-micromips</b></dt>
+  <dd>Generate code for the microMIPS processor. This is equivalent to putting
+      <span class="Li">&quot;.module micromips&quot;</span> at the start of the
+      assembly file. <b>-mno-micromips</b> turns off this option. This is
+      equivalent to putting <span class="Li">&quot;.module
+      nomicromips&quot;</span> at the start of the assembly file.</dd>
+  <dt><b>-msmartmips</b></dt>
+  <dd></dd>
+  <dt><b>-mno-smartmips</b></dt>
+  <dd>Enables the SmartMIPS extension to the MIPS32 instruction set. This is
+      equivalent to putting <span class="Li">&quot;.module
+      smartmips&quot;</span> at the start of the assembly file.
+      <b>-mno-smartmips</b> turns off this option.</dd>
+  <dt><b>-mips3d</b></dt>
+  <dd></dd>
+  <dt><b>-no-mips3d</b></dt>
+  <dd>Generate code for the MIPS-3D Application Specific Extension. This tells
+      the assembler to accept MIPS-3D instructions. <b>-no-mips3d</b> turns off
+      this option.</dd>
+  <dt><b>-mdmx</b></dt>
+  <dd></dd>
+  <dt><b>-no-mdmx</b></dt>
+  <dd>Generate code for the MDMX Application Specific Extension. This tells the
+      assembler to accept MDMX instructions. <b>-no-mdmx</b> turns off this
+      option.</dd>
+  <dt><b>-mdsp</b></dt>
+  <dd></dd>
+  <dt><b>-mno-dsp</b></dt>
+  <dd>Generate code for the DSP Release 1 Application Specific Extension. This
+      tells the assembler to accept DSP Release 1 instructions. <b>-mno-dsp</b>
+      turns off this option.</dd>
+  <dt><b>-mdspr2</b></dt>
+  <dd></dd>
+  <dt><b>-mno-dspr2</b></dt>
+  <dd>Generate code for the DSP Release 2 Application Specific Extension. This
+      option implies <b>-mdsp</b>. This tells the assembler to accept DSP
+      Release 2 instructions. <b>-mno-dspr2</b> turns off this option.</dd>
+  <dt><b>-mdspr3</b></dt>
+  <dd></dd>
+  <dt><b>-mno-dspr3</b></dt>
+  <dd>Generate code for the DSP Release 3 Application Specific Extension. This
+      option implies <b>-mdsp</b> and <b>-mdspr2</b>. This tells the assembler
+      to accept DSP Release 3 instructions. <b>-mno-dspr3</b> turns off this
+      option.</dd>
+  <dt><b>-mmsa</b></dt>
+  <dd></dd>
+  <dt><b>-mno-msa</b></dt>
+  <dd>Generate code for the MIPS SIMD Architecture Extension. This tells the
+      assembler to accept MSA instructions. <b>-mno-msa</b> turns off this
+      option.</dd>
+  <dt><b>-mxpa</b></dt>
+  <dd></dd>
+  <dt><b>-mno-xpa</b></dt>
+  <dd>Generate code for the MIPS eXtended Physical Address (XPA) Extension. This
+      tells the assembler to accept XPA instructions. <b>-mno-xpa</b> turns off
+      this option.</dd>
+  <dt><b>-mmt</b></dt>
+  <dd></dd>
+  <dt><b>-mno-mt</b></dt>
+  <dd>Generate code for the MT Application Specific Extension. This tells the
+      assembler to accept MT instructions. <b>-mno-mt</b> turns off this
+    option.</dd>
+  <dt><b>-mmcu</b></dt>
+  <dd></dd>
+  <dt><b>-mno-mcu</b></dt>
+  <dd>Generate code for the MCU Application Specific Extension. This tells the
+      assembler to accept MCU instructions. <b>-mno-mcu</b> turns off this
+      option.</dd>
+  <dt><b>-mcrc</b></dt>
+  <dd></dd>
+  <dt><b>-mno-crc</b></dt>
+  <dd>Generate code for the MIPS cyclic redundancy check (CRC) Application
+      Specific Extension. This tells the assembler to accept CRC instructions.
+      <b>-mno-crc</b> turns off this option.</dd>
+  <dt><b>-mginv</b></dt>
+  <dd></dd>
+  <dt><b>-mno-ginv</b></dt>
+  <dd>Generate code for the Global INValidate (GINV) Application Specific
+      Extension. This tells the assembler to accept GINV instructions.
+      <b>-mno-ginv</b> turns off this option.</dd>
+  <dt><b>-mloongson-mmi</b></dt>
+  <dd></dd>
+  <dt><b>-mno-loongson-mmi</b></dt>
+  <dd>Generate code for the Loongson MultiMedia extensions Instructions (MMI)
+      Application Specific Extension. This tells the assembler to accept MMI
+      instructions. <b>-mno-loongson-mmi</b> turns off this option.</dd>
+  <dt><b>-mloongson-cam</b></dt>
+  <dd></dd>
+  <dt><b>-mno-loongson-cam</b></dt>
+  <dd>Generate code for the Loongson Content Address Memory (CAM) instructions.
+      This tells the assembler to accept Loongson CAM instructions.
+      <b>-mno-loongson-cam</b> turns off this option.</dd>
+  <dt><b>-mloongson-ext</b></dt>
+  <dd></dd>
+  <dt><b>-mno-loongson-ext</b></dt>
+  <dd>Generate code for the Loongson EXTensions (EXT) instructions. This tells
+      the assembler to accept Loongson EXT instructions.
+      <b>-mno-loongson-ext</b> turns off this option.</dd>
+  <dt><b>-mloongson-ext2</b></dt>
+  <dd></dd>
+  <dt><b>-mno-loongson-ext2</b></dt>
+  <dd>Generate code for the Loongson EXTensions R2 (EXT2) instructions. This
+      option implies <b>-mloongson-ext</b>. This tells the assembler to accept
+      Loongson EXT2 instructions. <b>-mno-loongson-ext2</b> turns off this
+      option.</dd>
+  <dt><b>-minsn32</b></dt>
+  <dd></dd>
+  <dt><b>-mno-insn32</b></dt>
+  <dd>Only use 32-bit instruction encodings when generating code for the
+      microMIPS processor. This option inhibits the use of any 16-bit
+      instructions. This is equivalent to putting <span class="Li">&quot;.set
+      insn32&quot;</span> at the start of the assembly file. <b>-mno-insn32</b>
+      turns off this option. This is equivalent to putting
+      <span class="Li">&quot;.set noinsn32&quot;</span> at the start of the
+      assembly file. By default <b>-mno-insn32</b> is selected, allowing all
+      instructions to be used.</dd>
+  <dt><b>--construct-floats</b></dt>
+  <dd></dd>
+  <dt><b>--no-construct-floats</b></dt>
+  <dd>The <b>--no-construct-floats</b> option disables the construction of
+      double width floating point constants by loading the two halves of the
+      value into the two single width floating point registers that make up the
+      double width register. By default <b>--construct-floats</b> is selected,
+      allowing construction of these floating point constants.</dd>
+  <dt><b>--relax-branch</b></dt>
+  <dd></dd>
+  <dt><b>--no-relax-branch</b></dt>
+  <dd>The <b>--relax-branch</b> option enables the relaxation of out-of-range
+      branches. By default <b>--no-relax-branch</b> is selected, causing any
+      out-of-range branches to produce an error.</dd>
+  <dt><b>-mignore-branch-isa</b></dt>
+  <dd></dd>
+  <dt><b>-mno-ignore-branch-isa</b></dt>
+  <dd>Ignore branch checks for invalid transitions between ISA modes. The
+      semantics of branches does not provide for an ISA mode switch, so in most
+      cases the ISA mode a branch has been encoded for has to be the same as the
+      ISA mode of the branch's target label. Therefore GAS has checks
+      implemented that verify in branch assembly that the two ISA modes match.
+      <b>-mignore-branch-isa</b> disables these checks. By default
+      <b>-mno-ignore-branch-isa</b> is selected, causing any invalid branch
+      requiring a transition between ISA modes to produce an error.</dd>
+  <dt><b>-mnan=</b><i>encoding</i></dt>
+  <dd>Select between the IEEE 754-2008 (<b>-mnan=2008</b>) or the legacy
+      (<b>-mnan=legacy</b>) NaN encoding format. The latter is the default.</dd>
+  <dt><b>--emulation=</b><i>name</i></dt>
+  <dd>This option was formerly used to switch between ELF and ECOFF output on
+      targets like IRIX 5 that supported both. MIPS ECOFF support was removed in
+      GAS 2.24, so the option now serves little purpose. It is retained for
+      backwards compatibility.
+    <p class="Pp">The available configuration names are: <b>mipself</b>,
+        <b>mipslelf</b> and <b>mipsbelf</b>. Choosing <b>mipself</b> now has no
+        effect, since the output is always ELF. <b>mipslelf</b> and
+        <b>mipsbelf</b> select little- and big-endian output respectively, but
+        <b>-EL</b> and <b>-EB</b> are now the preferred options instead.</p>
+  </dd>
+  <dt><b>-nocpp</b></dt>
+  <dd><b>as</b> ignores this option. It is accepted for compatibility with the
+      native tools.</dd>
+  <dt><b>--trap</b></dt>
+  <dd></dd>
+  <dt><b>--no-trap</b></dt>
+  <dd></dd>
+  <dt><b>--break</b></dt>
+  <dd></dd>
+  <dt><b>--no-break</b></dt>
+  <dd>Control how to deal with multiplication overflow and division by zero.
+      <b>--trap</b> or <b>--no-break</b> (which are synonyms) take a trap
+      exception (and only work for Instruction Set Architecture level 2 and
+      higher); <b>--break</b> or <b>--no-trap</b> (also synonyms, and the
+      default) take a break exception.</dd>
+  <dt><b>-n</b></dt>
+  <dd>When this option is used, <b>as</b> will issue a warning every time it
+      generates a nop instruction from a macro.</dd>
+</dl>
+<p class="Pp">The following options are available when as is configured for a
+    Meta processor.</p>
+<dl class="Bl-tag">
+  <dt>&quot;-mcpu=metac11&quot;</dt>
+  <dd>Generate code for Meta 1.1.</dd>
+  <dt>&quot;-mcpu=metac12&quot;</dt>
+  <dd>Generate code for Meta 1.2.</dd>
+  <dt>&quot;-mcpu=metac21&quot;</dt>
+  <dd>Generate code for Meta 2.1.</dd>
+  <dt>&quot;-mfpu=metac21&quot;</dt>
+  <dd>Allow code to use FPU hardware of Meta 2.1.</dd>
+</dl>
+<p class="Pp">See the info pages for documentation of the MMIX-specific
+  options.</p>
+<p class="Pp">The following options are available when as is configured for a
+    NDS32 processor.</p>
+<dl class="Bl-tag">
+  <dt>&quot;-O1&quot;</dt>
+  <dd>Optimize for performance.</dd>
+  <dt>&quot;-Os&quot;</dt>
+  <dd>Optimize for space.</dd>
+  <dt>&quot;-EL&quot;</dt>
+  <dd>Produce little endian data output.</dd>
+  <dt>&quot;-EB&quot;</dt>
+  <dd>Produce little endian data output.</dd>
+  <dt>&quot;-mpic&quot;</dt>
+  <dd>Generate PIC.</dd>
+  <dt>&quot;-mno-fp-as-gp-relax&quot;</dt>
+  <dd>Suppress fp-as-gp relaxation for this file.</dd>
+  <dt>&quot;-mb2bb-relax&quot;</dt>
+  <dd>Back-to-back branch optimization.</dd>
+  <dt>&quot;-mno-all-relax&quot;</dt>
+  <dd>Suppress all relaxation for this file.</dd>
+  <dt>&quot;-march=&lt;arch name&gt;&quot;</dt>
+  <dd>Assemble for architecture &lt;arch name&gt; which could be v3, v3j, v3m,
+      v3f, v3s, v2, v2j, v2f, v2s.</dd>
+  <dt>&quot;-mbaseline=&lt;baseline&gt;&quot;</dt>
+  <dd>Assemble for baseline &lt;baseline&gt; which could be v2, v3, v3m.</dd>
+  <dt>&quot;-mfpu-freg=<i>FREG</i>&quot;</dt>
+  <dd>Specify a FPU configuration.</dd>
+</dl>
+<div class="Bd-indent">
+<dl class="Bl-tag">
+  <dt>&quot;0 8 SP / 4 DP registers&quot;</dt>
+  <dd></dd>
+  <dt>&quot;1 16 SP / 8 DP registers&quot;</dt>
+  <dd></dd>
+  <dt>&quot;2 32 SP / 16 DP registers&quot;</dt>
+  <dd></dd>
+  <dt>&quot;3 32 SP / 32 DP registers&quot;</dt>
+  <dd></dd>
+</dl>
+</div>
+<div class="Bd-indent"></div>
+<dl class="Bl-tag">
+  <dt>&quot;-mabi=<i>abi</i>&quot;</dt>
+  <dd>Specify a abi version &lt;abi&gt; could be v1, v2, v2fp, v2fpp.</dd>
+  <dt>&quot;-m[no-]mac&quot;</dt>
+  <dd>Enable/Disable Multiply instructions support.</dd>
+  <dt>&quot;-m[no-]div&quot;</dt>
+  <dd>Enable/Disable Divide instructions support.</dd>
+  <dt>&quot;-m[no-]16bit-ext&quot;</dt>
+  <dd>Enable/Disable 16-bit extension</dd>
+  <dt>&quot;-m[no-]dx-regs&quot;</dt>
+  <dd>Enable/Disable d0/d1 registers</dd>
+  <dt>&quot;-m[no-]perf-ext&quot;</dt>
+  <dd>Enable/Disable Performance extension</dd>
+  <dt>&quot;-m[no-]perf2-ext&quot;</dt>
+  <dd>Enable/Disable Performance extension 2</dd>
+  <dt>&quot;-m[no-]string-ext&quot;</dt>
+  <dd>Enable/Disable String extension</dd>
+  <dt>&quot;-m[no-]reduced-regs&quot;</dt>
+  <dd>Enable/Disable Reduced Register configuration (GPR16) option</dd>
+  <dt>&quot;-m[no-]audio-isa-ext&quot;</dt>
+  <dd>Enable/Disable AUDIO ISA extension</dd>
+  <dt>&quot;-m[no-]fpu-sp-ext&quot;</dt>
+  <dd>Enable/Disable FPU SP extension</dd>
+  <dt>&quot;-m[no-]fpu-dp-ext&quot;</dt>
+  <dd>Enable/Disable FPU DP extension</dd>
+  <dt>&quot;-m[no-]fpu-fma&quot;</dt>
+  <dd>Enable/Disable FPU fused-multiply-add instructions</dd>
+  <dt>&quot;-mall-ext&quot;</dt>
+  <dd>Turn on all extensions and instructions support</dd>
+</dl>
+<p class="Pp">The following options are available when as is configured for a
+    PowerPC processor.</p>
+<dl class="Bl-tag">
+  <dt><b>-a32</b></dt>
+  <dd>Generate ELF32 or XCOFF32.</dd>
+  <dt><b>-a64</b></dt>
+  <dd>Generate ELF64 or XCOFF64.</dd>
+  <dt><b>-K PIC</b></dt>
+  <dd>Set EF_PPC_RELOCATABLE_LIB in ELF flags.</dd>
+  <dt><b>-mpwrx | -mpwr2</b></dt>
+  <dd>Generate code for POWER/2 (RIOS2).</dd>
+  <dt><b>-mpwr</b></dt>
+  <dd>Generate code for POWER (RIOS1)</dd>
+  <dt><b>-m601</b></dt>
+  <dd>Generate code for PowerPC 601.</dd>
+  <dt><b>-mppc, -mppc32, -m603, -m604</b></dt>
+  <dd>Generate code for PowerPC 603/604.</dd>
+  <dt><b>-m403, -m405</b></dt>
+  <dd>Generate code for PowerPC 403/405.</dd>
+  <dt><b>-m440</b></dt>
+  <dd>Generate code for PowerPC 440. BookE and some 405 instructions.</dd>
+  <dt><b>-m464</b></dt>
+  <dd>Generate code for PowerPC 464.</dd>
+  <dt><b>-m476</b></dt>
+  <dd>Generate code for PowerPC 476.</dd>
+  <dt><b>-m7400, -m7410, -m7450, -m7455</b></dt>
+  <dd>Generate code for PowerPC 7400/7410/7450/7455.</dd>
+  <dt><b>-m750cl, -mgekko, -mbroadway</b></dt>
+  <dd>Generate code for PowerPC 750CL/Gekko/Broadway.</dd>
+  <dt><b>-m821, -m850, -m860</b></dt>
+  <dd>Generate code for PowerPC 821/850/860.</dd>
+  <dt><b>-mppc64, -m620</b></dt>
+  <dd>Generate code for PowerPC 620/625/630.</dd>
+  <dt><b>-me500, -me500x2</b></dt>
+  <dd>Generate code for Motorola e500 core complex.</dd>
+  <dt><b>-me500mc</b></dt>
+  <dd>Generate code for Freescale e500mc core complex.</dd>
+  <dt><b>-me500mc64</b></dt>
+  <dd>Generate code for Freescale e500mc64 core complex.</dd>
+  <dt><b>-me5500</b></dt>
+  <dd>Generate code for Freescale e5500 core complex.</dd>
+  <dt><b>-me6500</b></dt>
+  <dd>Generate code for Freescale e6500 core complex.</dd>
+  <dt><b>-mspe</b></dt>
+  <dd>Generate code for Motorola SPE instructions.</dd>
+  <dt><b>-mspe2</b></dt>
+  <dd>Generate code for Freescale SPE2 instructions.</dd>
+  <dt><b>-mtitan</b></dt>
+  <dd>Generate code for AppliedMicro Titan core complex.</dd>
+  <dt><b>-mppc64bridge</b></dt>
+  <dd>Generate code for PowerPC 64, including bridge insns.</dd>
+  <dt><b>-mbooke</b></dt>
+  <dd>Generate code for 32-bit BookE.</dd>
+  <dt><b>-ma2</b></dt>
+  <dd>Generate code for A2 architecture.</dd>
+  <dt><b>-me300</b></dt>
+  <dd>Generate code for PowerPC e300 family.</dd>
+  <dt><b>-maltivec</b></dt>
+  <dd>Generate code for processors with AltiVec instructions.</dd>
+  <dt><b>-mvle</b></dt>
+  <dd>Generate code for Freescale PowerPC VLE instructions.</dd>
+  <dt><b>-mvsx</b></dt>
+  <dd>Generate code for processors with Vector-Scalar (VSX) instructions.</dd>
+  <dt><b>-mhtm</b></dt>
+  <dd>Generate code for processors with Hardware Transactional Memory
+      instructions.</dd>
+  <dt><b>-mpower4, -mpwr4</b></dt>
+  <dd>Generate code for Power4 architecture.</dd>
+  <dt><b>-mpower5, -mpwr5, -mpwr5x</b></dt>
+  <dd>Generate code for Power5 architecture.</dd>
+  <dt><b>-mpower6, -mpwr6</b></dt>
+  <dd>Generate code for Power6 architecture.</dd>
+  <dt><b>-mpower7, -mpwr7</b></dt>
+  <dd>Generate code for Power7 architecture.</dd>
+  <dt><b>-mpower8, -mpwr8</b></dt>
+  <dd>Generate code for Power8 architecture.</dd>
+  <dt><b>-mpower9, -mpwr9</b></dt>
+  <dd>Generate code for Power9 architecture.</dd>
+  <dt><b>-mcell</b></dt>
+  <dd></dd>
+  <dt><b>-mcell</b></dt>
+  <dd>Generate code for Cell Broadband Engine architecture.</dd>
+  <dt><b>-mcom</b></dt>
+  <dd>Generate code Power/PowerPC common instructions.</dd>
+  <dt><b>-many</b></dt>
+  <dd>Generate code for any architecture (PWR/PWRX/PPC).</dd>
+  <dt><b>-mregnames</b></dt>
+  <dd>Allow symbolic names for registers.</dd>
+  <dt><b>-mno-regnames</b></dt>
+  <dd>Do not allow symbolic names for registers.</dd>
+  <dt><b>-mrelocatable</b></dt>
+  <dd>Support for GCC's -mrelocatable option.</dd>
+  <dt><b>-mrelocatable-lib</b></dt>
+  <dd>Support for GCC's -mrelocatable-lib option.</dd>
+  <dt><b>-memb</b></dt>
+  <dd>Set PPC_EMB bit in ELF flags.</dd>
+  <dt><b>-mlittle, -mlittle-endian, -le</b></dt>
+  <dd>Generate code for a little endian machine.</dd>
+  <dt><b>-mbig, -mbig-endian, -be</b></dt>
+  <dd>Generate code for a big endian machine.</dd>
+  <dt><b>-msolaris</b></dt>
+  <dd>Generate code for Solaris.</dd>
+  <dt><b>-mno-solaris</b></dt>
+  <dd>Do not generate code for Solaris.</dd>
+  <dt><b>-nops=</b><i>count</i></dt>
+  <dd>If an alignment directive inserts more than <i>count</i> nops, put a
+      branch at the beginning to skip execution of the nops.</dd>
+</dl>
+<p class="Pp">The following options are available when as is configured for a
+    RISC-V processor.</p>
+<dl class="Bl-tag">
+  <dt><b>-fpic</b></dt>
+  <dd></dd>
+  <dt><b>-fPIC</b></dt>
+  <dd>Generate position-independent code</dd>
+  <dt><b>-fno-pic</b></dt>
+  <dd>Don't generate position-independent code (default)</dd>
+  <dt><b>-march=ISA</b></dt>
+  <dd>Select the base isa, as specified by ISA. For example -march=rv32ima.</dd>
+  <dt><b>-mabi=ABI</b></dt>
+  <dd>Selects the ABI, which is either &quot;ilp32&quot; or &quot;lp64&quot;,
+      optionally followed by &quot;f&quot;, &quot;d&quot;, or &quot;q&quot; to
+      indicate single-precision, double-precision, or quad-precision
+      floating-point calling convention, or none to indicate the soft-float
+      calling convention. Also, &quot;ilp32&quot; can optionally be followed by
+      &quot;e&quot; to indicate the RVE ABI, which is always soft-float.</dd>
+  <dt><b>-mrelax</b></dt>
+  <dd>Take advantage of linker relaxations to reduce the number of instructions
+      required to materialize symbol addresses. (default)</dd>
+  <dt><b>-mno-relax</b></dt>
+  <dd>Don't do linker relaxations.</dd>
+</dl>
+<p class="Pp">See the info pages for documentation of the RX-specific
+  options.</p>
+<p class="Pp">The following options are available when as is configured for the
+    s390 processor family.</p>
+<dl class="Bl-tag">
+  <dt><b>-m31</b></dt>
+  <dd></dd>
+  <dt><b>-m64</b></dt>
+  <dd>Select the word size, either 31/32 bits or 64 bits.</dd>
+  <dt><b>-mesa</b></dt>
+  <dd></dd>
+  <dt><b>-mzarch</b></dt>
+  <dd>Select the architecture mode, either the Enterprise System Architecture
+      (esa) or the z/Architecture mode (zarch).</dd>
+  <dt><b>-march=</b><i>processor</i></dt>
+  <dd>Specify which s390 processor variant is the target, <b>g5</b> (or
+      <b>arch3</b>), <b>g6</b>, <b>z900</b> (or <b>arch5</b>), <b>z990</b> (or
+      <b>arch6</b>), <b>z9-109</b>, <b>z9-ec</b> (or <b>arch7</b>), <b>z10</b>
+      (or <b>arch8</b>), <b>z196</b> (or <b>arch9</b>), <b>zEC12</b> (or
+      <b>arch10</b>), <b>z13</b> (or <b>arch11</b>), <b>z14</b> (or
+      <b>arch12</b>), or <b>z15</b> (or <b>arch13</b>).</dd>
+  <dt><b>-mregnames</b></dt>
+  <dd></dd>
+  <dt><b>-mno-regnames</b></dt>
+  <dd>Allow or disallow symbolic names for registers.</dd>
+  <dt><b>-mwarn-areg-zero</b></dt>
+  <dd>Warn whenever the operand for a base or index register has been specified
+      but evaluates to zero.</dd>
+</dl>
+<p class="Pp">The following options are available when as is configured for a
+    TMS320C6000 processor.</p>
+<dl class="Bl-tag">
+  <dt><b>-march=</b><i>arch</i></dt>
+  <dd>Enable (only) instructions from architecture <i>arch</i>. By default, all
+      instructions are permitted.
+    <p class="Pp">The following values of <i>arch</i> are accepted:
+        <span class="Li">&quot;c62x&quot;</span>,
+        <span class="Li">&quot;c64x&quot;</span>,
+        <span class="Li">&quot;c64x+&quot;</span>,
+        <span class="Li">&quot;c67x&quot;</span>,
+        <span class="Li">&quot;c67x+&quot;</span>,
+        <span class="Li">&quot;c674x&quot;</span>.</p>
+  </dd>
+  <dt><b>-mdsbt</b></dt>
+  <dd></dd>
+  <dt><b>-mno-dsbt</b></dt>
+  <dd>The <b>-mdsbt</b> option causes the assembler to generate the
+      <span class="Li">&quot;Tag_ABI_DSBT&quot;</span> attribute with a value of
+      1, indicating that the code is using DSBT addressing. The <b>-mno-dsbt</b>
+      option, the default, causes the tag to have a value of 0, indicating that
+      the code does not use DSBT addressing. The linker will emit a warning if
+      objects of different type (DSBT and non-DSBT) are linked together.</dd>
+  <dt><b>-mpid=no</b></dt>
+  <dd></dd>
+  <dt><b>-mpid=near</b></dt>
+  <dd></dd>
+  <dt><b>-mpid=far</b></dt>
+  <dd>The <b>-mpid=</b> option causes the assembler to generate the
+      <span class="Li">&quot;Tag_ABI_PID&quot;</span> attribute with a value
+      indicating the form of data addressing used by the code. <b>-mpid=no</b>,
+      the default, indicates position-dependent data addressing,
+      <b>-mpid=near</b> indicates position-independent addressing with GOT
+      accesses using near DP addressing, and <b>-mpid=far</b> indicates
+      position-independent addressing with GOT accesses using far DP addressing.
+      The linker will emit a warning if objects built with different settings of
+      this option are linked together.</dd>
+  <dt><b>-mpic</b></dt>
+  <dd></dd>
+  <dt><b>-mno-pic</b></dt>
+  <dd>The <b>-mpic</b> option causes the assembler to generate the
+      <span class="Li">&quot;Tag_ABI_PIC&quot;</span> attribute with a value of
+      1, indicating that the code is using position-independent code addressing,
+      The <span class="Li">&quot;-mno-pic&quot;</span> option, the default,
+      causes the tag to have a value of 0, indicating position-dependent code
+      addressing. The linker will emit a warning if objects of different type
+      (position-dependent and position-independent) are linked together.</dd>
+  <dt><b>-mbig-endian</b></dt>
+  <dd></dd>
+  <dt><b>-mlittle-endian</b></dt>
+  <dd>Generate code for the specified endianness. The default is
+    little-endian.</dd>
+</dl>
+<p class="Pp">The following options are available when as is configured for a
+    TILE-Gx processor.</p>
+<dl class="Bl-tag">
+  <dt><b>-m32 | -m64</b></dt>
+  <dd>Select the word size, either 32 bits or 64 bits.</dd>
+  <dt><b>-EB | -EL</b></dt>
+  <dd>Select the endianness, either big-endian (-EB) or little-endian
+    (-EL).</dd>
+</dl>
+<p class="Pp">The following option is available when as is configured for a
+    Visium processor.</p>
+<dl class="Bl-tag">
+  <dt><b>-mtune=</b><i>arch</i></dt>
+  <dd>This option specifies the target architecture. If an attempt is made to
+      assemble an instruction that will not execute on the target architecture,
+      the assembler will issue an error message.
+    <p class="Pp">The following names are recognized:
+        <span class="Li">&quot;mcm24&quot;</span>
+        <span class="Li">&quot;mcm&quot;</span>
+        <span class="Li">&quot;gr5&quot;</span>
+        <span class="Li">&quot;gr6&quot;</span></p>
+  </dd>
+</dl>
+<p class="Pp">The following options are available when as is configured for an
+    Xtensa processor.</p>
+<dl class="Bl-tag">
+  <dt><b>--text-section-literals | --no-text-section-literals</b></dt>
+  <dd>Control the treatment of literal pools. The default is
+      <b>--no-text-section-literals</b>, which places literals in separate
+      sections in the output file. This allows the literal pool to be placed in
+      a data RAM/ROM. With <b>--text-section-literals</b>, the literals are
+      interspersed in the text section in order to keep them as close as
+      possible to their references. This may be necessary for large assembly
+      files, where the literals would otherwise be out of range of the
+      <span class="Li">&quot;L32R&quot;</span> instructions in the text section.
+      Literals are grouped into pools following
+      <span class="Li">&quot;.literal_position&quot;</span> directives or
+      preceding <span class="Li">&quot;ENTRY&quot;</span> instructions. These
+      options only affect literals referenced via PC-relative
+      <span class="Li">&quot;L32R&quot;</span> instructions; literals for
+      absolute mode <span class="Li">&quot;L32R&quot;</span> instructions are
+      handled separately.</dd>
+  <dt><b>--auto-litpools | --no-auto-litpools</b></dt>
+  <dd>Control the treatment of literal pools. The default is
+      <b>--no-auto-litpools</b>, which in the absence of
+      <b>--text-section-literals</b> places literals in separate sections in the
+      output file. This allows the literal pool to be placed in a data RAM/ROM.
+      With <b>--auto-litpools</b>, the literals are interspersed in the text
+      section in order to keep them as close as possible to their references,
+      explicit <span class="Li">&quot;.literal_position&quot;</span> directives
+      are not required. This may be necessary for very large functions, where
+      single literal pool at the beginning of the function may not be reachable
+      by <span class="Li">&quot;L32R&quot;</span> instructions at the end. These
+      options only affect literals referenced via PC-relative
+      <span class="Li">&quot;L32R&quot;</span> instructions; literals for
+      absolute mode <span class="Li">&quot;L32R&quot;</span> instructions are
+      handled separately. When used together with
+      <b>--text-section-literals</b>, <b>--auto-litpools</b> takes
+    precedence.</dd>
+  <dt><b>--absolute-literals | --no-absolute-literals</b></dt>
+  <dd>Indicate to the assembler whether <span class="Li">&quot;L32R&quot;</span>
+      instructions use absolute or PC-relative addressing. If the processor
+      includes the absolute addressing option, the default is to use absolute
+      <span class="Li">&quot;L32R&quot;</span> relocations. Otherwise, only the
+      PC-relative <span class="Li">&quot;L32R&quot;</span> relocations can be
+      used.</dd>
+  <dt><b>--target-align | --no-target-align</b></dt>
+  <dd>Enable or disable automatic alignment to reduce branch penalties at some
+      expense in code size. This optimization is enabled by default. Note that
+      the assembler will always align instructions like
+      <span class="Li">&quot;LOOP&quot;</span> that have fixed alignment
+      requirements.</dd>
+  <dt><b>--longcalls | --no-longcalls</b></dt>
+  <dd>Enable or disable transformation of call instructions to allow calls
+      across a greater range of addresses. This option should be used when call
+      targets can potentially be out of range. It may degrade both code size and
+      performance, but the linker can generally optimize away the unnecessary
+      overhead when a call ends up within range. The default is
+      <b>--no-longcalls</b>.</dd>
+  <dt><b>--transform | --no-transform</b></dt>
+  <dd>Enable or disable all assembler transformations of Xtensa instructions,
+      including both relaxation and optimization. The default is
+      <b>--transform</b>; <b>--no-transform</b> should only be used in the rare
+      cases when the instructions must be exactly as specified in the assembly
+      source. Using <b>--no-transform</b> causes out of range instruction
+      operands to be errors.</dd>
+  <dt><b>--rename-section</b> <i>oldname</i><b>=</b><i>newname</i></dt>
+  <dd>Rename the <i>oldname</i> section to <i>newname</i>. This option can be
+      used multiple times to rename multiple sections.</dd>
+  <dt><b>--trampolines | --no-trampolines</b></dt>
+  <dd>Enable or disable transformation of jump instructions to allow jumps
+      across a greater range of addresses. This option should be used when jump
+      targets can potentially be out of range. In the absence of such jumps this
+      option does not affect code size or performance. The default is
+      <b>--trampolines</b>.</dd>
+</dl>
+<p class="Pp">The following options are available when as is configured for an
+    Z80 processor.</p>
+<p class="Pp"><span class="Li">@chapter</span> Z80 Dependent Features</p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Command-line_Options"><a class="permalink" href="#Command-line_Options">Command-line
+  Options</a></h2>
+<dl class="Bl-tag">
+  <dt><b>-z80</b></dt>
+  <dd>Produce code for the Z80 processor. By default accepted undocumented
+      operations with halves of index registers
+      (<span class="Li">&quot;IXL&quot;</span>,
+      <span class="Li">&quot;IXH&quot;</span>,
+      <span class="Li">&quot;IYL&quot;</span>,
+      <span class="Li">&quot;IYH&quot;</span>) and instuction
+      <span class="Li">&quot;IN F,(C)&quot;</span>. Other useful undocumented
+      instructions produces warnings. Undocumented instructions may not work on
+      some CPUs, use them on your own risk.</dd>
+  <dt><b>-r800</b></dt>
+  <dd>Produce code for the R800 processor.</dd>
+  <dt><b>-z180</b></dt>
+  <dd>Produce code for the Z180 processor.</dd>
+  <dt><b>-ez80</b></dt>
+  <dd>Produce code for the eZ80 processor in Z80 memory mode by default.</dd>
+  <dt><b>-ez80-adl</b></dt>
+  <dd>Produce code for the eZ80 processor in ADL memory mode by default.</dd>
+  <dt><b>-local-prefix=</b><i>prefix</i></dt>
+  <dd>Mark all labels with specified prefix as local. But such label can be
+      marked global explicitly in the code. This option do not change default
+      local label prefix <span class="Li">&quot;.L&quot;</span>, it is just adds
+      new one.</dd>
+  <dt><b>-colonless</b></dt>
+  <dd>Accept colonless labels. All names at line begin are treated as
+    labels.</dd>
+  <dt><b>-sdcc</b></dt>
+  <dd>Accept assembler code produced by SDCC.</dd>
+  <dt><b>-fp-s=</b><i>FORMAT</i></dt>
+  <dd>Single precision floating point numbers format. Default: ieee754 (32
+    bit).</dd>
+  <dt><b>-fp-d=</b><i>FORMAT</i></dt>
+  <dd>Double precision floating point numbers format. Default: ieee754 (64
+    bit).</dd>
+  <dt><b>-strict</b></dt>
+  <dd>Accept documented instructions only.</dd>
+  <dt><b>-full</b></dt>
+  <dd>Accept all known Z80 instructions.</dd>
+  <dt><b>-with-inst=</b><i>INST</i><b>[,...]</b></dt>
+  <dd></dd>
+  <dt><b>-Wnins</b> <i>INST</i><b>[,...]</b></dt>
+  <dd>Enable specified undocumented instruction(s).</dd>
+  <dt><b>-without-inst=</b><i>INST</i><b>[,...]</b></dt>
+  <dd></dd>
+  <dt><b>-Fins</b> <i>INST</i><b>[,...]</b></dt>
+  <dd>Disable specified undocumented instruction(s).</dd>
+  <dt><b>-ignore-undocumented-instructions</b></dt>
+  <dd></dd>
+  <dt><b>-Wnud</b></dt>
+  <dd>Silently assemble undocumented Z80-instructions that have been adopted as
+      documented R800-instructions .</dd>
+  <dt><b>-ignore-unportable-instructions</b></dt>
+  <dd></dd>
+  <dt><b>-Wnup</b></dt>
+  <dd>Silently assemble all undocumented Z80-instructions.</dd>
+  <dt><b>-warn-undocumented-instructions</b></dt>
+  <dd></dd>
+  <dt><b>-Wud</b></dt>
+  <dd>Issue warnings for undocumented Z80-instructions that work on R800, do not
+      assemble other undocumented instructions without warning.</dd>
+  <dt><b>-warn-unportable-instructions</b></dt>
+  <dd></dd>
+  <dt><b>-Wup</b></dt>
+  <dd>Issue warnings for other undocumented Z80-instructions, do not treat any
+      undocumented instructions as errors.</dd>
+  <dt><b>-forbid-undocumented-instructions</b></dt>
+  <dd></dd>
+  <dt><b>-Fud</b></dt>
+  <dd>Treat all undocumented z80-instructions as errors.</dd>
+  <dt><b>-forbid-unportable-instructions</b></dt>
+  <dd></dd>
+  <dt><b>-Fup</b></dt>
+  <dd>Treat undocumented z80-instructions that do not work on R800 as
+    errors.</dd>
+</dl>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>gcc</b>(1), <b>ld</b>(1), and the Info entries for <i>binutils</i> and
+  <i>ld</i>.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COPYRIGHT"><a class="permalink" href="#COPYRIGHT">COPYRIGHT</a></h1>
+Copyright (c) 1991-2020 Free Software Foundation, Inc.
+<p class="Pp">Permission is granted to copy, distribute and/or modify this
+    document under the terms of the GNU Free Documentation License, Version 1.3
+    or any later version published by the Free Software Foundation; with no
+    Invariant Sections, with no Front-Cover Texts, and with no Back-Cover Texts.
+    A copy of the license is included in the section entitled &quot;GNU Free
+    Documentation License&quot;.</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2020-02-01</td>
+    <td class="foot-os">binutils-2.34</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

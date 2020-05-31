@@ -1,0 +1,84 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/nanddump.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">NANDDUMP(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">NANDDUMP(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+nanddump - manual page for nanddump 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>nanddump</b> [<i>-no</i>] [<i>--bb padbad|skipbad</i>] [<i>-s ADDR</i>]
+  [<i>-l LEN</i>] [<i>-f FILE</i>] <i>MTD_DEVICE</i>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">Dump MTD_DEVICE</p>
+<dl class="Bl-tag">
+  <dt><b>-n</b></dt>
+  <dd>Read without ecc</dd>
+  <dt><b>-o</b></dt>
+  <dd>Dump oob data</dd>
+</dl>
+<p class="Pp HP"><b>-s</b> ADDR Start address</p>
+<dl class="Bl-tag">
+  <dt><b>-l</b> LEN</dt>
+  <dd>Length</dd>
+</dl>
+<p class="Pp HP"><b>-f</b> FILE Dump to file ('-' for stdout)</p>
+<p class="Pp HP"><b>--bb</b> METHOD</p>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>skipbad: skip bad blocks padbad: substitute bad blocks by 0xff
+    (default)</dd>
+</dl>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

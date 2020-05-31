@@ -1,0 +1,136 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/socketpair.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">SOCKETPAIR(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">SOCKETPAIR(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+socketpair - create a pair of connected sockets
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>#include &lt;sys/types.h&gt;</b> /* See NOTES */
+<br/>
+<b>#include &lt;sys/socket.h&gt;</b>
+<p class="Pp"><b>int socketpair(int </b><i>domain</i><b>, int
+    </b><i>type</i><b>, int </b><i>protocol</i><b>, int
+    </b><i>sv</i><b>[2]);</b></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+The <b>socketpair</b>() call creates an unnamed pair of connected sockets in the
+  specified <i>domain</i>, of the specified <i>type</i>, and using the
+  optionally specified <i>protocol</i>. For further details of these arguments,
+  see <b>socket</b>(2).
+<p class="Pp">The file descriptors used in referencing the new sockets are
+    returned in <i>sv</i>[0] and <i>sv</i>[1]. The two sockets are
+    indistinguishable.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, zero is returned. On error, -1 is returned, <i>errno</i> is set
+  appropriately, and <i>sv</i> is left unchanged
+<p class="Pp">On Linux (and other systems), <b>socketpair</b>() does not modify
+    <i>sv</i> on failure. A requirement standardizing this behavior was added in
+    POSIX.1-2016.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EAFNOSUPPORT</b></dt>
+  <dd>The specified address family is not supported on this machine.</dd>
+  <dt><b>EFAULT</b></dt>
+  <dd>The address <i>sv</i> does not specify a valid part of the process address
+      space.</dd>
+  <dt><b>EMFILE</b></dt>
+  <dd>The per-process limit on the number of open file descriptors has been
+      reached.</dd>
+  <dt><b>ENFILE</b></dt>
+  <dd>The system-wide limit on the total number of open files has been
+    reached.</dd>
+  <dt><b>EOPNOTSUPP</b></dt>
+  <dd>The specified protocol does not support creation of socket pairs.</dd>
+  <dt><b>EPROTONOSUPPORT</b></dt>
+  <dd>The specified protocol is not supported on this machine.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+POSIX.1-2001, POSIX.1-2008, 4.4BSD. <b>socketpair</b>() first appeared in
+  4.2BSD. It is generally portable to/from non-BSD systems supporting clones of
+  the BSD socket layer (including System&#x00A0;V variants).
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+On Linux, the only supported domains for this call are <b>AF_UNIX</b> (or
+  synonymously, <b>AF_LOCAL</b>) and <b>AF_TIPC</b> (since Linux 4.12).
+<p class="Pp">Since Linux 2.6.27, <b>socketpair</b>() supports the
+    <b>SOCK_NONBLOCK</b> and <b>SOCK_CLOEXEC</b> flags in the <i>type</i>
+    argument, as described in <b>socket</b>(2).</p>
+<p class="Pp">POSIX.1 does not require the inclusion of
+    <i>&lt;sys/types.h&gt;</i>, and this header file is not required on Linux.
+    However, some historical (BSD) implementations required this header file,
+    and portable applications are probably wise to include it.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>pipe</b>(2), <b>read</b>(2), <b>socket</b>(2), <b>write</b>(2),
+  <b>socket</b>(7), <b>unix</b>(7)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-03-06</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

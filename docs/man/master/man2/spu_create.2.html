@@ -1,0 +1,241 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/spu_create.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">SPU_CREATE(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">SPU_CREATE(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+spu_create - create a new spu context
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>#include &lt;sys/types.h&gt;</b>
+<b>#include &lt;sys/spu.h&gt;</b>
+</pre>
+<pre>
+<b>int spu_create(const char *</b><i>pathname</i><b>, int </b><i>flags</i><b>, mode_t </b><i>mode</i><b>);</b>
+<b>int spu_create(const char *</b><i>pathname</i><b>, int </b><i>flags</i><b>, mode_t </b><i>mode</i><b>,</b>
+<b>               int </b><i>neighbor_fd</i><b>);</b>
+</pre>
+<p class="Pp"><i>Note</i>: There is no glibc wrapper for this system call; see
+    NOTES.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+The <b>spu_create</b>() system call is used on PowerPC machines that implement
+  the Cell Broadband Engine Architecture in order to access Synergistic
+  Processor Units (SPUs). It creates a new logical context for an SPU in
+  <i>pathname</i> and returns a file descriptor associated with it.
+  <i>pathname</i> must refer to a nonexistent directory in the mount point of
+  the SPU filesystem (<b>spufs</b>). If <b>spu_create</b>() is successful, a
+  directory is created at <i>pathname</i> and it is populated with the files
+  described in <b>spufs</b>(7).
+<p class="Pp">When a context is created, the returned file descriptor can only
+    be passed to <b>spu_run</b>(2), used as the <i>dirfd</i> argument to the
+    <b>*at</b> family of system calls (e.g., <b>openat</b>(2)), or closed; other
+    operations are not defined. A logical SPU context is destroyed (along with
+    all files created within the context's <i>pathname</i> directory) once the
+    last reference to the context has gone; this usually occurs when the file
+    descriptor returned by <b>spu_create</b>() is closed.</p>
+<p class="Pp">The <i>flags</i> argument can be zero or any bitwise OR-ed
+    combination of the following constants:</p>
+<dl class="Bl-tag">
+  <dt><b>SPU_CREATE_EVENTS_ENABLED</b></dt>
+  <dd>Rather than using signals for reporting DMA errors, use the <i>event</i>
+      argument to <b>spu_run</b>(2).</dd>
+  <dt><b>SPU_CREATE_GANG</b></dt>
+  <dd>Create an SPU gang instead of a context. (A gang is a group of SPU
+      contexts that are functionally related to each other and which share
+      common scheduling parameters&#x2014;priority and policy. In the future,
+      gang scheduling may be implemented causing the group to be switched in and
+      out as a single unit.)</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>A new directory will be created at the location specified by the
+      <i>pathname</i> argument. This gang may be used to hold other SPU
+      contexts, by providing a pathname that is within the gang directory to
+      further calls to <b>spu_create</b>().</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt><b>SPU_CREATE_NOSCHED</b></dt>
+  <dd>Create a context that is not affected by the SPU scheduler. Once the
+      context is run, it will not be scheduled out until it is destroyed by the
+      creating process.</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>Because the context cannot be removed from the SPU, some functionality is
+      disabled for <b>SPU_CREATE_NOSCHED</b> contexts. Only a subset of the
+      files will be available in this context directory in <b>spufs</b>.
+      Additionally, <b>SPU_CREATE_NOSCHED</b> contexts cannot dump a core file
+      when crashing.</dd>
+  <dt></dt>
+  <dd>Creating <b>SPU_CREATE_NOSCHED</b> contexts requires the
+      <b>CAP_SYS_NICE</b> capability.</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt><b>SPU_CREATE_ISOLATE</b></dt>
+  <dd>Create an isolated SPU context. Isolated contexts are protected from some
+      PPE (PowerPC Processing Element) operations, such as access to the SPU
+      local store and the NPC register.</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>Creating <b>SPU_CREATE_ISOLATE</b> contexts also requires the
+      <b>SPU_CREATE_NOSCHED</b> flag.</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt><b>SPU_CREATE_AFFINITY_SPU</b></dt>
+  <dd>Create a context with affinity to another SPU context. This affinity
+      information is used within the SPU scheduling algorithm. Using this flag
+      requires that a file descriptor referring to the other SPU context be
+      passed in the <i>neighbor_fd</i> argument.</dd>
+  <dt><b>SPU_CREATE_AFFINITY_MEM</b></dt>
+  <dd>Create a context with affinity to system memory. This affinity information
+      is used within the SPU scheduling algorithm.</dd>
+</dl>
+<p class="Pp">The <i>mode</i> argument (minus any bits set in the process's
+    <b>umask</b>(2)) specifies the permissions used for creating the new
+    directory in <b>spufs</b>. See <b>stat</b>(2) for a full list of the
+    possible <i>mode</i> values.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, <b>spu_create</b>() returns a new file descriptor. On error, -1 is
+  returned, and <i>errno</i> is set to one of the error codes listed below.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EACCES</b></dt>
+  <dd>The current user does not have write access to the <b>spufs</b>(7) mount
+      point.</dd>
+  <dt><b>EEXIST</b></dt>
+  <dd>An SPU context already exists at the given pathname.</dd>
+  <dt><b>EFAULT</b></dt>
+  <dd><i>pathname</i> is not a valid string pointer in the calling process's
+      address space.</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd><i>pathname</i> is not a directory in the <b>spufs</b>(7) mount point, or
+      invalid flags have been provided.</dd>
+  <dt><b>ELOOP</b></dt>
+  <dd>Too many symbolic links were found while resolving <i>pathname</i>.</dd>
+  <dt><b>EMFILE</b></dt>
+  <dd>The per-process limit on the number of open file descriptors has been
+      reached.</dd>
+  <dt><b>ENAMETOOLONG</b></dt>
+  <dd><i>pathname</i> is too long.</dd>
+  <dt><b>ENFILE</b></dt>
+  <dd>The system-wide limit on the total number of open files has been
+    reached.</dd>
+  <dt><b>ENODEV</b></dt>
+  <dd>An isolated context was requested, but the hardware does not support SPU
+      isolation.</dd>
+  <dt><b>ENOENT</b></dt>
+  <dd>Part of <i>pathname</i> could not be resolved.</dd>
+  <dt><b>ENOMEM</b></dt>
+  <dd>The kernel could not allocate all resources required.</dd>
+  <dt><b>ENOSPC</b></dt>
+  <dd>There are not enough SPU resources available to create a new context or
+      the user-specific limit for the number of SPU contexts has been
+    reached.</dd>
+  <dt><b>ENOSYS</b></dt>
+  <dd>The functionality is not provided by the current system, because either
+      the hardware does not provide SPUs or the spufs module is not loaded.</dd>
+  <dt><b>ENOTDIR</b></dt>
+  <dd>A part of <i>pathname</i> is not a directory.</dd>
+  <dt><b>EPERM</b></dt>
+  <dd>The <i>SPU_CREATE_NOSCHED</i> flag has been given, but the user does not
+      have the <b>CAP_SYS_NICE</b> capability.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="FILES"><a class="permalink" href="#FILES">FILES</a></h1>
+<i>pathname</i> must point to a location beneath the mount point of
+  <b>spufs</b>. By convention, it gets mounted in <i>/spu</i>.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="VERSIONS"><a class="permalink" href="#VERSIONS">VERSIONS</a></h1>
+The <b>spu_create</b>() system call was added to Linux in kernel 2.6.16.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+This call is Linux-specific and implemented only on the PowerPC architecture.
+  Programs using this system call are not portable.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+Glibc does not provide a wrapper for this system call; call it using
+  <b>syscall</b>(2). Note however, that <b>spu_create</b>() is meant to be used
+  from libraries that implement a more abstract interface to SPUs, not to be
+  used from regular applications. See
+  <a class="Lk" href="http://www.bsc.es/projects/deepcomputing/linuxoncell/">http://www.bsc.es/projects/deepcomputing/linuxoncell/</a>
+  for the recommended libraries.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXAMPLE"><a class="permalink" href="#EXAMPLE">EXAMPLE</a></h1>
+See <b>spu_run</b>(2) for an example of the use of <b>spu_create</b>()
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>close</b>(2), <b>spu_run</b>(2), <b>capabilities</b>(7), <b>spufs</b>(7)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2017-09-15</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

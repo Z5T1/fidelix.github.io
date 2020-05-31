@@ -1,0 +1,158 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/pldd.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">PLDD(1)</td>
+    <td class="head-vol">Linux User Manual</td>
+    <td class="head-rtitle">PLDD(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+pldd - display dynamic shared objects linked into a process
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>pldd </b><i>pid</i>
+<b>pldd</b><i> option</i>
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+The <b>pldd</b> command displays a list of the dynamic shared objects (DSOs)
+  that are linked into the process with the specified process ID (PID). The list
+  includes the libraries that have been dynamically loaded using
+  <b>dlopen</b>(3).
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>-?</b>, <b>--help</b></dt>
+  <dd>Display a help message and exit.</dd>
+  <dt><b>--usage</b></dt>
+  <dd>Display a short usage message and exit.</dd>
+  <dt><b>-V</b>, <b>--version</b></dt>
+  <dd>Display program version information and exit.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXIT_STATUS"><a class="permalink" href="#EXIT_STATUS">EXIT
+  STATUS</a></h1>
+On success, <b>pldd</b> exits with the status 0. If the specified process does
+  not exist, the user does not have permission to access its dynamic shared
+  object list, or no command-line arguments are supplied, <b>pldd</b> exists
+  with a status of 1. If given an invalid option, it exits with the status 64.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="VERSIONS"><a class="permalink" href="#VERSIONS">VERSIONS</a></h1>
+<b>pldd</b> is available since glibc 2.15.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+The <b>pldd</b> command is not specified by POSIX.1. Some other systems have a
+  similar command.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+The command
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+lsof -p PID
+
+</pre>
+<br/>
+<p class="Pp">also shows output that includes the dynamic shared objects that
+    are linked into a process.</p>
+<p class="Pp">The <b>gdb</b>(1) <i>info shared</i> command also shows the shared
+    libraries being used by a process, so that one can obtain similar output to
+    <b>pldd</b> using a command such as the following (to monitor the process
+    with the specified <i>pid</i>):</p>
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+$ <b>gdb -ex &quot;set confirm off&quot; -ex &quot;set height 0&quot; -ex &quot;info shared&quot; \</b>
+        <b>-ex &quot;quit&quot; -p $pid | grep '^0x.*0x'</b>
+
+</pre>
+<br/>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="BUGS"><a class="permalink" href="#BUGS">BUGS</a></h1>
+From glibc 2.19 to 2.29, <b>pldd</b> was broken: it just hung when executed.
+  This problem was fixed in glibc 2.30, and the fix has been backported to
+  earlier glibc versions in some distributions.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXAMPLE"><a class="permalink" href="#EXAMPLE">EXAMPLE</a></h1>
+<pre>
+$ <b>echo $$</b>               # Display PID of shell
+1143
+$ <b>pldd $$</b>               # Display DSOs linked into the shell
+1143:   /usr/bin/bash
+linux-vdso.so.1
+/lib64/libtinfo.so.5
+/lib64/libdl.so.2
+/lib64/libc.so.6
+/lib64/ld-linux-x86-64.so.2
+/lib64/libnss_files.so.2
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>ldd</b>(1), <b>lsof</b>(1), <b>dlopen</b>(3), <b>ld.so</b>(8)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-08-02</td>
+    <td class="foot-os">GNU</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

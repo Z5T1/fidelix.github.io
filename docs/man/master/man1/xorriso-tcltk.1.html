@@ -1,0 +1,169 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/xorriso-tcltk.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">XORRISO-TCLTK(1)</td>
+    <td class="head-vol">General Commands Manual</td>
+    <td class="head-rtitle">XORRISO-TCLTK(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+xorriso-tcltk - Educational GUI frontend for xorriso
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>xorriso-tcltk</b> [ options ]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>xorriso-tcltk</b> demonstrates xorriso use cases by a collection of GUI
+  components.
+<br/>
+<p class="Pp">It creates a window with buttons, editable text fields, and list
+    boxes. For exploration simply start <b>xorriso-tcltk</b> without any
+    options.
+  <br/>
+</p>
+<p class="Pp">Click on the &quot;Help&quot; button at the upper right edge to
+    get an overview help text in a separate window. It explains the three main
+    parts of the GUI window and it gives examples for a few main use cases of
+    xorriso.
+  <br/>
+</p>
+<p class="Pp">Click by the rightmost mouse button on any button, list box, or
+    text field, to get a specific help text in another window.
+  <br/>
+</p>
+<p class="Pp"><b>xorriso</b> is a program which copies file objects from POSIX
+    compliant filesystems into Rock Ridge enhanced ISO 9660 filesystems and
+    performs session-wise manipulation of such filesystems. It can load the
+    management information of existing ISO images and it writes the session
+    results to optical media or to filesystem objects.
+  <br/>
+  Vice versa <b>xorriso</b> is able to copy file objects out of ISO 9660
+    filesystems.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+<p class="Pp">Normally, no program options are needed when <b>xorriso-tcltk</b>
+    gets started. Some of the options are for demonstration of program
+    development. This man page lists only those options which may be helpful for
+    end users.</p>
+<dl class="Bl-tag">
+  <dt><b>--help</b></dt>
+  <dd>Print a help text with the complete list of start options and exit.</dd>
+  <dt><b>--no_extract</b></dt>
+  <dd>Do not allow extraction of files from ISO filesystem to hard disk. This is
+      not revokable during the program run.</dd>
+  <dt><b>--geometry</b> {+|-}X{+|-}Y</dt>
+  <dd>Set the position of the main window on the screen. +0X is the left edge,
+      -0X is the right edge, +0Y is the upper edge, -0Y is the lower edge.</dd>
+  <dt><b>--click_to_focus</b></dt>
+  <dd>Chooses that input fields and list boxes get the keyboard focus only when
+      being clicked by the mouse. This is the default.</dd>
+  <dt><b>--auto_focus</b></dt>
+  <dd>Chooses that the keyboard focus is where the mouse pointer is.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXAMPLES"><a class="permalink" href="#EXAMPLES">EXAMPLES</a></h1>
+Just run <b>xorriso-tcltk</b> in a shell terminal without any further arguments
+</section>
+<section class="Sh">
+<h1 class="Sh" id="FILES"><a class="permalink" href="#FILES">FILES</a></h1>
+<section class="Ss">
+<h2 class="Ss"><b>Startup files:</b></h2>
+When starting xorriso, its normal startup files get read and their text lines
+  get executed as commands. See section FILES in the man page of xorriso or
+  chapter Files in the info document of xorriso.
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<dl class="Bl-tag">
+  <dt><b>xorriso(1)</b></dt>
+  <dd></dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="BUGS"><a class="permalink" href="#BUGS">BUGS</a></h1>
+To report bugs, request help, or suggest enhancements for <b>xorriso</b> or
+  <b>xorriso-tcltk</b>, please send electronic mail to the public list
+  &lt;bug-xorriso@gnu.org&gt;. If more privacy is desired, mail to
+  &lt;scdbackup@gmx.net&gt;.
+<br/>
+Please describe what you expect the program to do, the program arguments, GUI
+  components, or dialog commands by which you tried to achieve it, the messages
+  of <b>xorriso</b>, and the undesirable outcome of your program run.
+<br/>
+Expect to get asked more questions before solutions can be proposed.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHOR"><a class="permalink" href="#AUTHOR">AUTHOR</a></h1>
+Thomas Schmitt &lt;scdbackup@gmx.net&gt;
+<br/>
+for libburnia-project.org
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COPYRIGHT"><a class="permalink" href="#COPYRIGHT">COPYRIGHT</a></h1>
+Copyright (c) 2011 - 2019 Thomas Schmitt
+<br/>
+Permission is granted to distribute this text freely. It shall only be modified
+  in sync with the technical properties of xorriso-tcltk. If you make use of the
+  license to derive modified versions of xorriso-tcltk then you are entitled to
+  modify this text under that same license.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CREDITS"><a class="permalink" href="#CREDITS">CREDITS</a></h1>
+<b>xorriso</b> is in part based on work by Vreixo Formoso who provides libisofs
+  together with Mario Danic who also leads the libburnia team. Thanks to Andy
+  Polyakov who invented emulated growing, to Derek Foreman and Ben Jansens who
+  once founded libburn.
+<br/>
+Compliments towards Joerg Schilling whose cdrtools served me for ten years.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">Version 1.5.2, Oct 26, 2019</td>
+    <td class="foot-os"></td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

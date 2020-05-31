@@ -1,0 +1,131 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/bdflush.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">BDFLUSH(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">BDFLUSH(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+bdflush - start, flush, or tune buffer-dirty-flush daemon
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>#include &lt;sys/kdaemon.h&gt;</b>
+</pre>
+<pre>
+<b>int bdflush(int </b><i>func</i><b>, long *</b><i>address</i><b>);</b>
+<b>int bdflush(int </b><i>func</i><b>, long </b><i>data</i><b>);</b>
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<i>Note</i>: Since Linux 2.6, this system call is deprecated and does nothing.
+  It is likely to disappear altogether in a future kernel release. Nowadays, the
+  task performed by <b>bdflush</b>() is handled by the kernel <i>pdflush</i>
+  thread.
+<p class="Pp"><b>bdflush</b>() starts, flushes, or tunes the buffer-dirty-flush
+    daemon. Only a privileged process (one with the <b>CAP_SYS_ADMIN</b>
+    capability) may call <b>bdflush</b>().</p>
+<p class="Pp">If <i>func</i> is negative or 0, and no daemon has been started,
+    then <b>bdflush</b>() enters the daemon code and never returns.</p>
+<p class="Pp">If <i>func</i> is 1, some dirty buffers are written to disk.</p>
+<p class="Pp">If <i>func</i> is 2 or more and is even (low bit is 0), then
+    <i>address</i> is the address of a long word, and the tuning parameter
+    numbered (<i>func</i>-2)/2 is returned to the caller in that address.</p>
+<p class="Pp">If <i>func</i> is 3 or more and is odd (low bit is 1), then
+    <i>data</i> is a long word, and the kernel sets tuning parameter numbered
+    (<i>func</i>-3)/2 to that value.</p>
+<p class="Pp">The set of parameters, their values, and their valid ranges are
+    defined in the Linux kernel source file <i>fs/buffer.c</i>.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+If <i>func</i> is negative or 0 and the daemon successfully starts,
+  <b>bdflush</b>() never returns. Otherwise, the return value is 0 on success
+  and -1 on failure, with <i>errno</i> set to indicate the error.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EBUSY</b></dt>
+  <dd>An attempt was made to enter the daemon code after another process has
+      already entered.</dd>
+  <dt><b>EFAULT</b></dt>
+  <dd><i>address</i> points outside your accessible address space.</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd>An attempt was made to read or write an invalid parameter number, or to
+      write an invalid value to a parameter.</dd>
+  <dt><b>EPERM</b></dt>
+  <dd>Caller does not have the <b>CAP_SYS_ADMIN</b> capability.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="VERSIONS"><a class="permalink" href="#VERSIONS">VERSIONS</a></h1>
+Since version 2.23, glibc no longer supports this obsolete system call.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+<b>bdflush</b>() is Linux-specific and should not be used in programs intended
+  to be portable.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>sync</b>(1), <b>fsync</b>(2), <b>sync</b>(2)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2016-10-08</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

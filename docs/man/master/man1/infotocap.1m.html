@@ -1,0 +1,109 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/infotocap.1m</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">infotocap(1M)</td>
+    <td class="head-vol"></td>
+    <td class="head-rtitle">infotocap(1M)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<b>infotocap</b> - convert a <i>terminfo</i> description into a <i>termcap</i>
+  description
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>infotocap</b> [<b>-v</b><i>n</i> <i>width</i>] [<b>-V</b>] [<b>-1</b>]
+  [<b>-w</b> <i>width</i>] <i>file</i> ...
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>infotocap</b> looks in each given text <i>file</i> for <b>terminfo</b>
+  descriptions. For each terminfo description found, an equivalent
+  <b>termcap</b> description is written to standard output. Terminfo <b>use</b>
+  capabilities are translated directly to termcap <b>tc</b> capabilities.
+<dl class="Bl-tag">
+  <dt><b>-v</b></dt>
+  <dd>print out tracing information on standard error as the program runs.</dd>
+  <dt><b>-V</b></dt>
+  <dd>print out the version of the program in use on standard error and
+    exit.</dd>
+  <dt><b>-1</b></dt>
+  <dd>cause the fields to print out one to a line. Otherwise, the fields will be
+      printed several to a line to a maximum width of 60 characters.</dd>
+  <dt><b>-w</b></dt>
+  <dd>change the output to <i>width</i> characters.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="FILES"><a class="permalink" href="#FILES">FILES</a></h1>
+<dl class="Bl-tag">
+  <dt>/usr/share/terminfo</dt>
+  <dd>Compiled terminal description database.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+This utility is actually a link to <b>tic</b>, running in <i>-C</i> mode. You
+  can use other <b>tic</b> options such as <b>-f</b> and <b>-x</b>.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="PORTABILITY"><a class="permalink" href="#PORTABILITY">PORTABILITY</a></h1>
+None of X/Open Curses, Issue 7 (2009), SVr4 or NetBSD document this application.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>curses</b>(3X), <b>tic</b>(1M), <b>infocmp</b>(1M), <b>terminfo</b>(5)
+<p class="Pp">This describes <b>ncurses</b> version 6.2 (patch 20200212).</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHOR"><a class="permalink" href="#AUTHOR">AUTHOR</a></h1>
+Eric S. Raymond &lt;esr@snark.thyrsus.com&gt; and
+<br/>
+Thomas E. Dickey &lt;dickey@invisible-island.net&gt;
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date"></td>
+    <td class="foot-os"></td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

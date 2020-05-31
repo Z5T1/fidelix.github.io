@@ -1,0 +1,90 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/arping.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">ARPING(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">ARPING(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+arping - manual page for arping 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>arping</b> [<i>-fqbDUA</i>] [<i>-c CNT</i>] [<i>-w TIMEOUT</i>] [<i>-I
+  IFACE</i>] [<i>-s SRC_IP</i>] <i>DST_IP</i>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">Send ARP requests/replies</p>
+<dl class="Bl-tag">
+  <dt><b>-f</b></dt>
+  <dd>Quit on first ARP reply</dd>
+  <dt><b>-q</b></dt>
+  <dd>Quiet</dd>
+  <dt><b>-b</b></dt>
+  <dd>Keep broadcasting, don't go unicast</dd>
+  <dt><b>-D</b></dt>
+  <dd>Exit with 1 if DST_IP replies</dd>
+  <dt><b>-U</b></dt>
+  <dd>Unsolicited ARP mode, update your neighbors</dd>
+  <dt><b>-A</b></dt>
+  <dd>ARP answer mode, update your neighbors</dd>
+  <dt><b>-c</b> N</dt>
+  <dd>Stop after sending N ARP requests</dd>
+  <dt><b>-w</b> TIMEOUT</dt>
+  <dd>Seconds to wait for ARP reply</dd>
+  <dt><b>-I</b> IFACE</dt>
+  <dd>Interface to use (default eth0)</dd>
+  <dt><b>-s</b> SRC_IP</dt>
+  <dd>Sender IP address</dd>
+  <dt>DST_IP</dt>
+  <dd>Target IP address</dd>
+</dl>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

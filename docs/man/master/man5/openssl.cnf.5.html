@@ -1,0 +1,393 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man5/openssl.cnf.5</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">OPENSSL.CNF(5)</td>
+    <td class="head-vol">File Formats Manual</td>
+    <td class="head-rtitle">OPENSSL.CNF(5)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<code class="Nm">openssl.cnf</code> &#x2014;
+<div class="Nd">OpenSSL configuration files</div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+The OpenSSL CONF library can be used to read configuration files; see
+  <a class="Xr" href="../man3/CONF_modules_load_file.3.html">CONF_modules_load_file(3)</a>.
+  It is used for the OpenSSL master configuration file
+  <span class="Pa">/etc/ssl/openssl.cnf</span> and in a few other places like
+  <b class="Sy">SPKAC</b> files and certificate extension files for the
+  <a class="Xr" href="../man1/openssl.1.html">openssl(1)</a>
+  <code class="Cm">x509</code> utility. OpenSSL applications can also use the
+  CONF library for their own purposes.
+<p class="Pp">A configuration file is divided into a number of sections. Each
+    section starts with a line [<var class="Ar">section_name</var>] and ends
+    when a new section is started or the end of the file is reached. A section
+    name can consist of alphanumeric characters and underscores.</p>
+<p class="Pp">The first section of a configuration file is special and is
+    referred to as the &#x201C;default section&#x201D;. It is usually unnamed
+    and extends from the start of file to the first named section. When a name
+    is being looked up, it is first looked up in a named section (if any) and
+    then in the default section.</p>
+<p class="Pp">The environment is mapped onto a section called
+    <code class="Ic">ENV</code>.</p>
+<p class="Pp">Comments can be included by preceding them with the
+    &#x2018;<code class="Li">#</code>&#x2019; character.</p>
+<p class="Pp">Each section in a configuration file consists of a number of name
+    and value pairs of the form
+    <var class="Ar">name</var>=<var class="Ar">value</var>.</p>
+<p class="Pp">The <var class="Ar">name</var> string can contain any alphanumeric
+    characters as well as a few punctuation symbols such as
+    &#x2018;<code class="Li">.</code>&#x2019;
+    &#x2018;<code class="Li">,</code>&#x2019;
+    &#x2018;<code class="Li">;</code>&#x2019; and
+    &#x2018;<code class="Li">_</code>&#x2019;.</p>
+<p class="Pp">The <var class="Ar">value</var> string consists of the string
+    following the &#x2018;<code class="Li">=</code>&#x2019; character until the
+    end of the line with any leading and trailing whitespace removed.</p>
+<p class="Pp">The value string undergoes variable expansion. This can be done by
+    including substrings of the form $<var class="Ar">name</var> or
+    ${<var class="Ar">name</var>}: this will substitute the value of the named
+    variable in the current section. It is also possible to substitute a value
+    from another section using the syntax
+    $<var class="Ar">section</var>::<var class="Ar">name</var> or
+    ${<var class="Ar">section</var>::<var class="Ar">name</var>}. By using the
+    form $<code class="Ic">ENV</code>::<var class="Ar">name</var>, environment
+    variables can be substituted. It is also possible to assign values to
+    environment variables by using the name
+    <code class="Ic">ENV</code>::<var class="Ar">name</var>. This will work if
+    the program looks up environment variables using the CONF library instead of
+    calling <a class="Xr" href="../man3/getenv.3.html">getenv(3)</a>
+  directly.</p>
+<p class="Pp">It is possible to escape certain characters by using any kind of
+    quote or the &#x2018;<code class="Li">\</code>&#x2019; character. By making
+    the last character of a line a &#x2018;<code class="Li">\</code>&#x2019;, a
+    <var class="Ar">value</var> string can be spread across multiple lines. In
+    addition the sequences &#x2018;<code class="Li">\n</code>&#x2019;,
+    &#x2018;<code class="Li">\r</code>&#x2019;,
+    &#x2018;<code class="Li">\b</code>&#x2019;, and
+    &#x2018;<code class="Li">\t</code>&#x2019; are recognized.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPENSSL_LIBRARY_CONFIGURATION"><a class="permalink" href="#OPENSSL_LIBRARY_CONFIGURATION">OPENSSL
+  LIBRARY CONFIGURATION</a></h1>
+Applications can automatically configure certain aspects of OpenSSL using the
+  master OpenSSL configuration file, or optionally an alternative configuration
+  file. The <a class="Xr" href="../man1/openssl.1.html">openssl(1)</a> utility
+  includes this functionality: any sub command uses the master OpenSSL
+  configuration file unless an option is used in the sub command to use an
+  alternative configuration file.
+<p class="Pp">To enable library configuration, the default section needs to
+    contain an appropriate line which points to the main configuration section.
+    The default name is <code class="Ic">openssl_conf</code>, which is used by
+    the <a class="Xr" href="../man1/openssl.1.html">openssl(1)</a> utility.
+    Other applications may use an alternative name such as
+    <b class="Sy">myapplication_conf</b>. All library configuration lines appear
+    in the default section at the start of the configuration file.</p>
+<p class="Pp">The configuration section should consist of a set of name value
+    pairs which contain specific module configuration information. The
+    <var class="Ar">name</var> represents the name of the configuration module.
+    The meaning of the <var class="Ar">value</var> is module specific: it may,
+    for example, represent a further configuration section containing
+    configuration module specific information. For example:</p>
+<div class="Bd Pp Bd-indent">
+<pre>
+# The following line must be in the default section.
+openssl_conf = openssl_init
+
+[openssl_init]
+oid_section = new_oids
+engines = engine_section
+
+[new_oids]
+... new oids here ...
+
+[engine_section]
+... engine stuff here ...
+</pre>
+</div>
+<p class="Pp">The features of each configuration module are described below.</p>
+<section class="Ss">
+<h2 class="Ss" id="ASN1_Object_Configuration_Module"><a class="permalink" href="#ASN1_Object_Configuration_Module">ASN1
+  Object Configuration Module</a></h2>
+This module has the name <code class="Ic">oid_section</code>. The value of this
+  variable points to a section containing name value pairs of OIDs: the name is
+  the OID short and long name, and the value is the numerical form of the OID.
+  Although some of the
+  <a class="Xr" href="../man1/openssl.1.html">openssl(1)</a> utility subcommands
+  already have their own ASN1 OBJECT section functionality, not all do. By using
+  the ASN1 OBJECT configuration module, all the
+  <a class="Xr" href="../man1/openssl.1.html">openssl(1)</a> utility subcommands
+  can see the new objects as well as any compliant applications. For example:
+<div class="Bd Pp Bd-indent">
+<pre>
+[new_oids]
+some_new_oid = 1.2.3.4
+some_other_oid = 1.2.3.5
+</pre>
+</div>
+<p class="Pp">It is also possible to set the value to the long name followed by
+    a comma and the numerical OID form. For example:</p>
+<p class="Pp"></p>
+<div class="Bd Bd-indent"><code class="Li">shortName = some object long name,
+  1.2.3.4</code></div>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Engine_Configuration_Module"><a class="permalink" href="#Engine_Configuration_Module">Engine
+  Configuration Module</a></h2>
+This ENGINE configuration module has the name <code class="Ic">engines</code>.
+  The value of this variable points to a section containing further ENGINE
+  configuration information.
+<p class="Pp">The section pointed to by <code class="Ic">engines</code> is a
+    table of engine names (though see <code class="Ic">engine_id</code> below)
+    and further sections containing configuration information specific to each
+    ENGINE.</p>
+<p class="Pp">Each ENGINE specific section is used to set default algorithms,
+    load dynamic ENGINEs, perform initialization and send ctrls. The actual
+    operation performed depends on the command name which is the name of the
+    name value pair. The currently supported commands are listed below.</p>
+<p class="Pp">For example:</p>
+<div class="Bd Pp Bd-indent">
+<pre>
+[engine_section]
+# Configure ENGINE named &quot;foo&quot;
+foo = foo_section
+# Configure ENGINE named &quot;bar&quot;
+bar = bar_section
+
+[foo_section]
+... foo ENGINE specific commands ...
+
+[bar_section]
+... &quot;bar&quot; ENGINE specific commands ...
+</pre>
+</div>
+<p class="Pp">The command <code class="Ic">engine_id</code> is used to give the
+    ENGINE name. If used this command must be first. For example:</p>
+<div class="Bd Pp Bd-indent">
+<pre>
+[engine_section]
+# This would normally handle an ENGINE named &quot;foo&quot;
+foo = foo_section
+
+[foo_section]
+# Override default name and use &quot;myfoo&quot; instead.
+engine_id = myfoo
+</pre>
+</div>
+<p class="Pp">The command <code class="Ic">dynamic_path</code> loads and adds an
+    ENGINE from the given path. It is equivalent to sending the ctrls
+    <b class="Sy">SO_PATH</b> with the path argument followed by
+    <b class="Sy">LIST_ADD</b> with value 2 and <b class="Sy">LOAD</b> to the
+    dynamic ENGINE. If this is not the required behaviour then alternative ctrls
+    can be sent directly to the dynamic ENGINE using ctrl commands.</p>
+<p class="Pp">The command <code class="Ic">init</code> determines whether to
+    initialize the ENGINE. If the value is 0, the ENGINE will not be
+    initialized. If it is 1, an attempt is made to initialized the ENGINE
+    immediately. If the <code class="Ic">init</code> command is not present,
+    then an attempt will be made to initialize the ENGINE after all commands in
+    its section have been processed.</p>
+<p class="Pp">The command <code class="Ic">default_algorithms</code> sets the
+    default algorithms an ENGINE will supply using the functions
+    <a class="Xr" href="../man3/ENGINE_set_default_string.3.html">ENGINE_set_default_string(3)</a>.</p>
+<p class="Pp">If the name matches none of the above command names it is assumed
+    to be a ctrl command which is sent to the ENGINE. The value of the command
+    is the argument to the ctrl command. If the value is the string
+    <code class="Cm">EMPTY</code>, then no value is sent to the command.</p>
+<p class="Pp">For example:</p>
+<div class="Bd Pp Bd-indent">
+<pre>
+[engine_section]
+# Configure ENGINE named &quot;foo&quot;
+foo = foo_section
+
+[foo_section]
+# Load engine from DSO
+dynamic_path = /some/path/fooengine.so
+# A foo specific ctrl.
+some_ctrl = some_value
+# Another ctrl that doesn't take a value.
+other_ctrl = EMPTY
+# Supply all default algorithms
+default_algorithms = ALL
+</pre>
+</div>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="FILES"><a class="permalink" href="#FILES">FILES</a></h1>
+<dl class="Bl-tag Bl-compact">
+  <dt><span class="Pa">/etc/ssl/openssl.cnf</span></dt>
+  <dd>standard configuration file</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXAMPLES"><a class="permalink" href="#EXAMPLES">EXAMPLES</a></h1>
+Here is a sample configuration file using some of the features mentioned above:
+<div class="Bd Pp Bd-indent">
+<pre>
+# This is the default section.
+HOME=/temp
+RANDFILE= ${ENV::HOME}/.rnd
+configdir=$ENV::HOME/config
+
+[ section_one ]
+# We are now in section one.
+
+# Quotes permit leading and trailing whitespace
+any = &quot; any variable name &quot;
+
+other = A string that can \
+cover several lines \
+by including \\ characters
+
+message = Hello World\n
+
+[ section_two ]
+greeting = $section_one::message
+</pre>
+</div>
+<p class="Pp">This next example shows how to expand environment variables
+    safely.</p>
+<p class="Pp">Suppose you want a variable called <b class="Sy">tmpfile</b> to
+    refer to a temporary filename. The directory it is placed in can determined
+    by the <code class="Ev">TEMP</code> or <code class="Ev">TMP</code>
+    environment variables but they may not be set to any value at all. If you
+    just include the environment variable names and the variable doesn't exist
+    then this will cause an error when an attempt is made to load the
+    configuration file. By making use of the default section both values can be
+    looked up with <code class="Ev">TEMP</code> taking priority and
+    <span class="Pa">/tmp</span> used if neither is defined:</p>
+<div class="Bd Pp Bd-indent">
+<pre>
+TMP=/tmp
+# The above value is used if TMP isn't in the environment
+TEMP=$ENV::TMP
+# The above value is used if TEMP isn't in the environment
+tmpfile=${ENV::TEMP}/tmp.filename
+</pre>
+</div>
+<p class="Pp">More complex OpenSSL library configuration. Add OID:</p>
+<div class="Bd Pp Bd-indent">
+<pre>
+# Default appname: should match &quot;appname&quot; parameter (if any)
+# supplied to CONF_modules_load_file et al.
+openssl_conf = openssl_conf_section
+
+[openssl_conf_section]
+# Configuration module list
+alg_section = evp_sect
+oid_section = new_oids
+
+[new_oids]
+# New OID, just short name
+newoid1 = 1.2.3.4.1
+# New OID shortname and long name
+newoid2 = New OID 2 long name, 1.2.3.4.2
+</pre>
+</div>
+<p class="Pp">The above examples can be used with any application supporting
+    library configuration if &quot;openssl_conf&quot; is modified to match the
+    appropriate &quot;appname&quot;.</p>
+<p class="Pp">For example if the second sample file above is saved to
+    &quot;example.cnf&quot; then the command line:</p>
+<p class="Pp"></p>
+<div class="Bd Bd-indent"><code class="Li">OPENSSL_CONF=example.cnf openssl
+  asn1parse -genstr OID:1.2.3.4.1</code></div>
+<p class="Pp">will output:</p>
+<div class="Bd Bd-indent"><code class="Li">0:d=0 hl=2 l= 4 prim: OBJECT
+  :newoid1</code></div>
+<p class="Pp">showing that the OID &quot;newoid1&quot; has been added as
+    &quot;1.2.3.4.1&quot;.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<a class="Xr" href="../man1/openssl.1.html">openssl(1)</a>,
+  <a class="Xr" href="../man3/CONF_modules_load_file.3.html">CONF_modules_load_file(3)</a>,
+  <a class="Xr" href="../man3/OPENSSL_config.3.html">OPENSSL_config(3)</a>,
+  <a class="Xr" href="../man5/x509v3.cnf.5.html">x509v3.cnf(5)</a>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CAVEATS"><a class="permalink" href="#CAVEATS">CAVEATS</a></h1>
+If a configuration file attempts to expand a variable that doesn't exist, then
+  an error is flagged and the file will not load. This can also happen if an
+  attempt is made to expand an environment variable that doesn't exist. For
+  example, in a previous version of OpenSSL the default OpenSSL master
+  configuration file used the value of <code class="Ev">HOME</code> which may
+  not be defined on non Unix systems and would cause an error.
+<p class="Pp">This can be worked around by including a default section to
+    provide a default value: then if the environment lookup fails, the default
+    value will be used instead. For this to work properly, the default value
+    must be defined earlier in the configuration file than the expansion. See
+    the <a class="Sx" href="#EXAMPLES">EXAMPLES</a> section for an example of
+    how to do this.</p>
+<p class="Pp">If the same variable is defined more than once in the same
+    section, then all but the last value will be silently ignored. In certain
+    circumstances such as with DNs, the same field may occur multiple times.
+    This is usually worked around by ignoring any characters before an initial
+    &#x2018;<code class="Li">.</code>&#x2019;, for example:</p>
+<div class="Bd Pp Bd-indent">
+<pre>
+1.OU=&quot;My first OU&quot;
+2.OU=&quot;My Second OU&quot;
+</pre>
+</div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="BUGS"><a class="permalink" href="#BUGS">BUGS</a></h1>
+Currently there is no way to include characters using the octal
+  \<var class="Ar">nnn</var> form. Strings are all NUL terminated, so NUL bytes
+  cannot form part of the value.
+<p class="Pp">The escaping isn't quite right: if you want to use sequences like
+    &#x2018;<code class="Li">\n</code>&#x2019;, you can't use any quote escaping
+    on the same line.</p>
+<p class="Pp">Files are loaded in a single pass. This means that a variable
+    expansion will only work if the variables referenced are defined earlier in
+    the file.</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">June 6, 2019</td>
+    <td class="foot-os">Fidelix 0.1</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

@@ -1,0 +1,91 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/getty.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">GETTY(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">GETTY(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+getty - manual page for getty 1.31.1
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>getty</b> [<i>OPTIONS</i>] <i>BAUD_RATE</i>[<i>,BAUD_RATE</i>]... <i>TTY
+  </i>[<i>TERMTYPE</i>]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
+<p class="Pp">Open TTY, prompt for login name, then invoke <i>/bin/login</i></p>
+<dl class="Bl-tag">
+  <dt><b>-h</b></dt>
+  <dd>Enable hardware RTS/CTS flow control</dd>
+  <dt><b>-L</b></dt>
+  <dd>Set CLOCAL (ignore Carrier Detect state)</dd>
+  <dt><b>-m</b></dt>
+  <dd>Get baud rate from modem's CONNECT status message</dd>
+  <dt><b>-n</b></dt>
+  <dd>Don't prompt for login name</dd>
+  <dt><b>-w</b></dt>
+  <dd>Wait for CR or LF before sending <i>/etc/issue</i></dd>
+  <dt><b>-i</b></dt>
+  <dd>Don't display <i>/etc/issue</i></dd>
+  <dt><b>-f</b> ISSUE_FILE</dt>
+  <dd>Display ISSUE_FILE instead of <i>/etc/issue</i></dd>
+  <dt><b>-l</b> LOGIN</dt>
+  <dd>Invoke LOGIN instead of <i>/bin/login</i></dd>
+  <dt><b>-t</b> SEC</dt>
+  <dd>Terminate after SEC if no login name is read</dd>
+  <dt><b>-I</b> INITSTR</dt>
+  <dd>Send INITSTR before anything else</dd>
+  <dt><b>-H</b> HOST</dt>
+  <dd>Log HOST into the utmp file as the hostname</dd>
+</dl>
+<p class="Pp">BAUD_RATE of 0 leaves it unchanged</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">April 2020</td>
+    <td class="foot-os">Fidelix 1.0</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

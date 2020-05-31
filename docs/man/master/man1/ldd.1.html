@@ -1,0 +1,156 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/ldd.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">LDD(1)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">LDD(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+ldd - print shared object dependencies
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>ldd</b> [<i>option</i>]... <i>file</i>...
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>ldd</b> prints the shared objects (shared libraries) required by each program
+  or shared object specified on the command line. An example of its use and
+  output is the following:
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+$ <b>ldd /bin/ls</b>
+        linux-vdso.so.1 (0x00007ffcc3563000)
+        libselinux.so.1 =&gt; /lib64/libselinux.so.1 (0x00007f87e5459000)
+        libcap.so.2 =&gt; /lib64/libcap.so.2 (0x00007f87e5254000)
+        libc.so.6 =&gt; /lib64/libc.so.6 (0x00007f87e4e92000)
+        libpcre.so.1 =&gt; /lib64/libpcre.so.1 (0x00007f87e4c22000)
+        libdl.so.2 =&gt; /lib64/libdl.so.2 (0x00007f87e4a1e000)
+        /lib64/ld-linux-x86-64.so.2 (0x00005574bf12e000)
+        libattr.so.1 =&gt; /lib64/libattr.so.1 (0x00007f87e4817000)
+        libpthread.so.0 =&gt; /lib64/libpthread.so.0 (0x00007f87e45fa000)
+
+</pre>
+<br/>
+<p class="Pp">In the usual case, <b>ldd</b> invokes the standard dynamic linker
+    (see <b>ld.so</b>(8)) with the <b>LD_TRACE_LOADED_OBJECTS</b> environment
+    variable set to 1. This causes the dynamic linker to inspect the program's
+    dynamic dependencies, and find (according to the rules described in
+    <b>ld.so</b>(8)) and load the objects that satisfy those dependencies. For
+    each dependency, <b>ldd</b> displays the location of the matching object and
+    the (hexadecimal) address at which it is loaded. (The <i>linux-vdso</i> and
+    <i>ld-linux</i> shared dependencies are special; see <b>vdso</b>(7) and
+    <b>ld.so</b>(8).)</p>
+<section class="Ss">
+<h2 class="Ss" id="Security"><a class="permalink" href="#Security">Security</a></h2>
+Be aware that in some circumstances (e.g., where the program specifies an ELF
+  interpreter other than <i>ld-linux.so</i>), some versions of <b>ldd</b> may
+  attempt to obtain the dependency information by attempting to directly execute
+  the program, which may lead to the execution of whatever code is defined in
+  the program's ELF interpreter, and perhaps to execution of the program itself.
+  (In glibc versions before 2.27, the upstream <b>ldd</b> implementation did
+  this for example, although most distributions provided a modified version that
+  did not.)
+<p class="Pp">Thus, you should <i>never</i> employ <b>ldd</b> on an untrusted
+    executable, since this may result in the execution of arbitrary code. A
+    safer alternative when dealing with untrusted executables is:</p>
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+$ <b>objdump -p /path/to/program | grep NEEDED</b>
+
+</pre>
+<br/>
+<p class="Pp">Note, however, that this alternative shows only the direct
+    dependencies of the executable, while <b>ldd</b> shows the entire dependency
+    tree of the executable.</p>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>--version</b></dt>
+  <dd>Print the version number of <b>ldd</b>.</dd>
+  <dt><b>-v</b>, <b>--verbose</b></dt>
+  <dd>Print all information, including, for example, symbol versioning
+      information.</dd>
+  <dt><b>-u</b>, <b>--unused</b></dt>
+  <dd>Print unused direct dependencies. (Since glibc 2.3.4.)</dd>
+  <dt><b>-d</b>, <b>--data-relocs</b></dt>
+  <dd>Perform relocations and report any missing objects (ELF only).</dd>
+  <dt><b>-r</b>, <b>--function-relocs</b></dt>
+  <dd>Perform relocations for both data objects and functions, and report any
+      missing objects or functions (ELF only).</dd>
+  <dt><b>--help</b></dt>
+  <dd>Usage information.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="BUGS"><a class="permalink" href="#BUGS">BUGS</a></h1>
+<b>ldd</b> does not work on a.out shared libraries.
+<p class="Pp"><b>ldd</b> does not work with some extremely old a.out programs
+    which were built before <b>ldd</b> support was added to the compiler
+    releases. If you use <b>ldd</b> on one of these programs, the program will
+    attempt to run with <i>argc</i> = 0 and the results will be
+  unpredictable.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>pldd</b>(1), <b>sprof</b>(1), <b>ld.so</b>(8), <b>ldconfig</b>(8)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-03-06</td>
+    <td class="foot-os"></td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

@@ -1,0 +1,140 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/readdir.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">READDIR(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">READDIR(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+readdir - read directory entry
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>int readdir(unsigned int </b><i>fd</i><b>, struct old_linux_dirent *</b><i>dirp</i><b>,</b>
+<b>            unsigned int </b><i>count</i><b>);</b>
+</pre>
+<p class="Pp"><i>Note</i>: There is no glibc wrapper for this system call; see
+    NOTES.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+This is not the function you are interested in. Look at <b>readdir</b>(3) for
+  the POSIX conforming C library interface. This page documents the bare kernel
+  system call interface, which is superseded by <b>getdents</b>(2).
+<p class="Pp"><b>readdir</b>() reads one <i>old_linux_dirent</i> structure from
+    the directory referred to by the file descriptor <i>fd</i> into the buffer
+    pointed to by <i>dirp</i>. The argument <i>count</i> is ignored; at most one
+    <i>old_linux_dirent</i> structure is read.</p>
+<p class="Pp">The <i>old_linux_dirent</i> structure is declared (privately in
+    Linux kernel file <b>fs/readdir.c</b>) as follows:</p>
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+struct old_linux_dirent {
+    unsigned long d_ino;     /* inode number */
+    unsigned long d_offset;  /* offset to this <i>old_linux_dirent</i> */
+    unsigned short d_namlen; /* length of this <i>d_name</i> */
+    char  d_name[1];         /* filename (null-terminated) */
+}
+
+</pre>
+<br/>
+<p class="Pp"><i>d_ino</i> is an inode number. <i>d_offset</i> is the distance
+    from the start of the directory to this <i>old_linux_dirent</i>.
+    <i>d_reclen</i> is the size of <i>d_name</i>, not counting the terminating
+    null byte ('\0'). <i>d_name</i> is a null-terminated filename.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, 1 is returned. On end of directory, 0 is returned. On error, -1 is
+  returned, and <i>errno</i> is set appropriately.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EBADF</b></dt>
+  <dd>Invalid file descriptor <i>fd</i>.</dd>
+  <dt><b>EFAULT</b></dt>
+  <dd>Argument points outside the calling process's address space.</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd>Result buffer is too small.</dd>
+  <dt><b>ENOENT</b></dt>
+  <dd>No such directory.</dd>
+  <dt><b>ENOTDIR</b></dt>
+  <dd>File descriptor does not refer to a directory.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+This system call is Linux-specific.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+Glibc does not provide a wrapper for this system call; call it using
+  <b>syscall</b>(2). You will need to define the <i>old_linux_dirent</i>
+  structure yourself. However, probably you should use <b>readdir</b>(3)
+  instead.
+<p class="Pp">This system call does not exist on x86-64.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>getdents</b>(2), <b>readdir</b>(3)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-03-06</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

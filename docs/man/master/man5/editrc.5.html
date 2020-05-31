@@ -1,0 +1,219 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man5/editrc.5</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">EDITRC(5)</td>
+    <td class="head-vol">File Formats Manual</td>
+    <td class="head-rtitle">EDITRC(5)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<b>editrc</b> - configuration file for editline library
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>editrc</b>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+The <b>editrc</b> file defines various settings to be used by the
+  <b>editline</b>(3) library.
+<p class="Pp">The format of each line is:</p>
+<p class="Pp">[prog:]command [arg ...]</p>
+<p class="Pp"><i>command</i> is one of the <b>editline</b>(3) builtin commands.
+    Refer to <b>BUILTIN COMMANDS</b> for more information.</p>
+<p class="Pp"><i>prog</i> is the program name string that a program defines when
+    it calls <b>el_init</b>(3) to set up <b>editline</b>(3), which is usually
+    <i>argv[0]</i>. <i>command</i> will be executed for any program which
+    matches <i>prog</i>.</p>
+<p class="Pp"><i>prog</i> may also be a <b>regex</b>(3) style regular
+    expression, in which case <i>command</i> will be executed for any program
+    that matches the regular expression.</p>
+<p class="Pp">If <i>prog</i> is absent, <i>command</i> is executed for all
+    programs.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="BUILTIN_COMMANDS"><a class="permalink" href="#BUILTIN_COMMANDS">BUILTIN
+  COMMANDS</a></h1>
+The <b>editline</b> library has some builtin commands, which affect the way that
+  the line editing and history functions operate. These are based on similar
+  named builtins present in the <b>tcsh</b>(1) shell.
+<p class="Pp">The following builtin commands are available:</p>
+<dl class="Bl-tag">
+  <dt><b>bind Oo Fl aeklrsv Oc [</b><i>key</i><b>
+    [</b><i>command]]</i><b></b><i></i></dt>
+  <dd>Without options and arguments, list all bound keys and macros, and the
+      editor command or input string to which each one is bound. If only
+      <i>key</i> is supplied, show the binding for that key or macro. If
+      <i>key</i> command is supplied, bind the editor <i>command</i> to that key
+      or macro.
+    <p class="Pp">The options are as follows:</p>
+  </dd>
+</dl>
+<div class="Bd-indent">
+<dl class="Bl-tag">
+  <dt><b>-a</b></dt>
+  <dd>List or change key bindings in the <b>vi</b>(1) mode alternate (command
+      mode) key map.</dd>
+  <dt><b>-e</b></dt>
+  <dd>Bind all keys to the standard GNU Emacs-like bindings.</dd>
+  <dt><b>-k</b></dt>
+  <dd><i>key</i> is interpreted as a symbolic arrow key name, which may be one
+      of `up', `down', `left' or `right'.</dd>
+  <dt><b>-l</b></dt>
+  <dd>List all editor commands and a short description of each.</dd>
+  <dt><b>-r</b></dt>
+  <dd>Remove the binding of the key or macro <i>key</i>.</dd>
+  <dt><b>-s</b></dt>
+  <dd>Define a keyboard macro rather than a key binding or command macro:
+      <i>command</i> is taken as a literal string and appended to the input
+      queue whenever <i>key</i> is typed. Bound keys and macros in
+      <i>command</i> are themselves reinterpreted, and this continues for ten
+      levels of interpretation.</dd>
+  <dt><b>-v</b></dt>
+  <dd>Bind all keys to the standard <b>vi</b>(1) -like bindings.</dd>
+</dl>
+</div>
+<p class="Pp">The <b>editline</b>(7) manual documents all editor commands and
+    contains more information about macros and the input queue.</p>
+<p class="Pp"><i>key</i> and <i>command</i> can contain control characters of
+    the form `No'^<i>character</i> ( e.g. `^A' ), and the following backslashed
+    escape sequences:</p>
+<p class="Pp"></p>
+<div class="Bd-indent">
+<dl class="Bl-tag">
+  <dt><b>\a</b></dt>
+  <dd>Bell</dd>
+  <dt><b>\b</b></dt>
+  <dd>Backspace</dd>
+  <dt><b>\e</b></dt>
+  <dd>Escape</dd>
+  <dt><b>\f</b></dt>
+  <dd>Formfeed</dd>
+  <dt><b>\n</b></dt>
+  <dd>Newline</dd>
+  <dt><b>\r</b></dt>
+  <dd>Carriage return</dd>
+  <dt><b>\t</b></dt>
+  <dd>Horizontal tab</dd>
+  <dt><b>\v</b></dt>
+  <dd>Vertical tab</dd>
+  <dt><b>\ Ar nnn</b></dt>
+  <dd>The ASCII character corresponding to the octal number <i>nnn</i>.</dd>
+</dl>
+</div>
+<p class="Pp">`\' nullifies the special meaning of the following character, if
+    it has any, notably `\' and `^'.</p>
+<dl class="Bl-tag">
+  <dt><b>echotc Oo Fl sv Oc </b><i>arg</i><b> </b><i>...</i><b></b><i></i></dt>
+  <dd>Exercise terminal capabilities given in <i>arg</i>... . If <i>arg</i> is
+      `baud', `cols', `lines', `rows', `meta', or `tabs', the value of that
+      capability is printed, with ``yes'' or ``no'' indicating that the terminal
+      does or does not have that capability.
+    <p class="Pp"><b>-s</b> returns an empty string for non-existent
+        capabilities, rather than causing an error. <b>-v</b> causes messages to
+        be verbose.</p>
+  </dd>
+  <dt><b>edit [Li on | Li off]</b></dt>
+  <dd>Enable or disable the <b>editline</b> functionality in a program.</dd>
+  <dt><b>history </b><i>list</i><b> | </b><i>size</i><b> Dv n |
+    </b><i>unique</i> <b> Dv n</b><i></i></dt>
+  <dd>The <i>list</i> command lists all entries in the history. The <i>size</i>
+      command sets the history size to n entries. The <i>unique</i> command
+      controls if history should keep duplicate entries. If n is non zero, only
+      keep unique history entries. If n is zero, then keep all entries (the
+      default).</dd>
+  <dt><b>settc </b><i>cap</i><b> </b><i>val</i><b></b><i></i></dt>
+  <dd>Set the terminal capability <i>cap</i> to <i>val</i>, as defined in
+      <b>termcap</b>(5). No sanity checking is done.</dd>
+  <dt><b>setty Oo Fl a Oc Oo Fl d Oc Oo Fl q Oc Oo Fl x Oc Oo
+    </b><i>+mode</i><b> Oc \fP</b></dt>
+  <dd>Oo Ar -mode Oc Oo Ar mode Oc Oo Ar char=c Oc Control which tty modes that
+      <b>editrc</b> won't allow the user to change. <b>-d</b>, <b>-q</b> or
+      <b>-x</b> tells <b>setty</b> to act on the `edit', `quote' or `execute'
+      set of tty modes respectively; defaulting to <b>-x</b>.
+    <p class="Pp">Without other arguments, <b>setty</b> lists the modes in the
+        chosen set which are fixed on ( `+mode' ) or off ( `-mode' ). <b>-a</b>
+        lists all tty modes in the chosen set regardless of the setting. With
+        <i>+mode</i>, <i>-mode</i> or <i>mode</i>, fixes <i>mode</i> on or off
+        or removes control of <i>mode</i> in the chosen set.</p>
+    <p class="Pp"><b>Setty</b> can also be used to set tty characters to
+        particular values using <i>char=value</i>. If <i>value</i> is empty then
+        the character is set to _POSIX_VDISABLE .</p>
+  </dd>
+  <dt><b>telltc</b></dt>
+  <dd>List the values of all the terminal capabilities (see <b>termcap</b>(5))
+    .</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ENVIRONMENT"><a class="permalink" href="#ENVIRONMENT">ENVIRONMENT</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EDITRC</b></dt>
+  <dd>Names the default configuration file for the <b>editline</b>(3)
+    library.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="FILES"><a class="permalink" href="#FILES">FILES</a></h1>
+<dl class="Bl-tag">
+  <dt><b>~/.editrc</b></dt>
+  <dd>Last resort, if no other file is specified, user configuration file for
+      the <b>editline</b>(3) library.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>editline</b>(3), <b>regex</b>(3), <b>termcap</b>(5), <b>editline</b>(7)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHORS"><a class="permalink" href="#AUTHORS">AUTHORS</a></h1>
+-nosplit The <b>editline</b> library was written by
+<p class="Pp">Christos Zoulas , and this manual was written by</p>
+<p class="Pp">Luke Mewburn , with some sections inspired by <b>tcsh</b>(1).</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">May 22, 2016</td>
+    <td class="foot-os"></td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

@@ -1,0 +1,156 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/epoll_create.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">EPOLL_CREATE(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">EPOLL_CREATE(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+epoll_create, epoll_create1 - open an epoll file descriptor
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>#include &lt;sys/epoll.h&gt;</b>
+</pre>
+<pre>
+<b>int epoll_create(int </b><i>size</i><b>);</b>
+<b>int epoll_create1(int </b><i>flags</i><b>);</b>
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>epoll_create</b>() creates a new <b>epoll</b>(7) instance. Since Linux 2.6.8,
+  the <i>size</i> argument is ignored, but must be greater than zero; see NOTES
+  below.
+<p class="Pp"><b>epoll_create</b>() returns a file descriptor referring to the
+    new epoll instance. This file descriptor is used for all the subsequent
+    calls to the <b>epoll</b> interface. When no longer required, the file
+    descriptor returned by <b>epoll_create</b>() should be closed by using
+    <b>close</b>(2). When all file descriptors referring to an epoll instance
+    have been closed, the kernel destroys the instance and releases the
+    associated resources for reuse.</p>
+<section class="Ss">
+<h2 class="Ss" id="epoll_create1()"><a class="permalink" href="#epoll_create1()">epoll_create1()</a></h2>
+If <i>flags</i> is 0, then, other than the fact that the obsolete <i>size</i>
+  argument is dropped, <b>epoll_create1</b>() is the same as
+  <b>epoll_create</b>(). The following value can be included in <i>flags</i> to
+  obtain different behavior:
+<dl class="Bl-tag">
+  <dt><b>EPOLL_CLOEXEC</b></dt>
+  <dd>Set the close-on-exec (<b>FD_CLOEXEC</b>) flag on the new file descriptor.
+      See the description of the <b>O_CLOEXEC</b> flag in <b>open</b>(2) for
+      reasons why this may be useful.</dd>
+</dl>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, these system calls return a nonnegative file descriptor. On error,
+  -1 is returned, and <i>errno</i> is set to indicate the error.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>EINVAL</b></dt>
+  <dd><i>size</i> is not positive.</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd>(<b>epoll_create1</b>()) Invalid value specified in <i>flags</i>.</dd>
+  <dt><b>EMFILE</b></dt>
+  <dd>The per-user limit on the number of epoll instances imposed by
+      <i>/proc/sys/fs/epoll/max_user_instances</i> was encountered. See
+      <b>epoll</b>(7) for further details.</dd>
+  <dt><b>EMFILE</b></dt>
+  <dd>The per-process limit on the number of open file descriptors has been
+      reached.</dd>
+  <dt><b>ENFILE</b></dt>
+  <dd>The system-wide limit on the total number of open files has been
+    reached.</dd>
+  <dt><b>ENOMEM</b></dt>
+  <dd>There was insufficient memory to create the kernel object.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="VERSIONS"><a class="permalink" href="#VERSIONS">VERSIONS</a></h1>
+<b>epoll_create</b>() was added to the kernel in version 2.6. Library support is
+  provided in glibc starting with version 2.3.2.
+<p class="Pp"><b>epoll_create1</b>() was added to the kernel in version 2.6.27.
+    Library support is provided in glibc starting with version 2.9.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+<b>epoll_create</b>() is Linux-specific.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+In the initial <b>epoll_create</b>() implementation, the <i>size</i> argument
+  informed the kernel of the number of file descriptors that the caller expected
+  to add to the <b>epoll</b> instance. The kernel used this information as a
+  hint for the amount of space to initially allocate in internal data structures
+  describing events. (If necessary, the kernel would allocate more space if the
+  caller's usage exceeded the hint given in <i>size</i>.) Nowadays, this hint is
+  no longer required (the kernel dynamically sizes the required data structures
+  without needing the hint), but <i>size</i> must still be greater than zero, in
+  order to ensure backward compatibility when new <b>epoll</b> applications are
+  run on older kernels.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>close</b>(2), <b>epoll_ctl</b>(2), <b>epoll_wait</b>(2), <b>epoll</b>(7)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2017-09-15</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

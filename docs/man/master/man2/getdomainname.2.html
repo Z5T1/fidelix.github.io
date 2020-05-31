@@ -1,0 +1,147 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/getdomainname.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">GETDOMAINNAME(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">GETDOMAINNAME(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+getdomainname, setdomainname - get/set NIS domain name
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>#include &lt;unistd.h&gt;</b>
+<p class="Pp"><b>int getdomainname(char *</b><i>name</i><b>, size_t
+    </b><i>len</i><b>);</b>
+  <br/>
+  <b>int setdomainname(const char *</b><i>name</i><b>, size_t
+    </b><i>len</i><b>);</b></p>
+<p class="Pp">
+  <br/>
+  Feature Test Macro Requirements for glibc (see <b>feature_test_macros</b>(7)):
+  <br/>
+</p>
+<p class="Pp"><b>getdomainname</b>(), <b>setdomainname</b>():</p>
+<pre>
+    Since glibc 2.21:
+        _DEFAULT_SOURCE
+    In glibc 2.19 and 2.20:
+        _DEFAULT_SOURCE || (_XOPEN_SOURCE &amp;&amp; _XOPEN_SOURCE&#x00A0;&lt;&#x00A0;500)
+    Up to and including glibc 2.19:
+        _BSD_SOURCE || (_XOPEN_SOURCE &amp;&amp; _XOPEN_SOURCE&#x00A0;&lt;&#x00A0;500)
+</pre>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+These functions are used to access or to change the NIS domain name of the host
+  system. More precisely, they operate on the NIS domain name associated with
+  the calling process's UTS namespace.
+<p class="Pp"><b>setdomainname</b>() sets the domain name to the value given in
+    the character array <i>name</i>. The <i>len</i> argument specifies the
+    number of bytes in <i>name</i>. (Thus, <i>name</i> does not require a
+    terminating null byte.)</p>
+<p class="Pp"><b>getdomainname</b>() returns the null-terminated domain name in
+    the character array <i>name</i>, which has a length of <i>len</i> bytes. If
+    the null-terminated domain name requires more than <i>len</i> bytes,
+    <b>getdomainname</b>() returns the first <i>len</i> bytes (glibc) or gives
+    an error (libc).</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+On success, zero is returned. On error, -1 is returned, and <i>errno</i> is set
+  appropriately.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+<b>setdomainname</b>() can fail with the following errors:
+<dl class="Bl-tag">
+  <dt><b>EFAULT</b></dt>
+  <dd><i>name</i> pointed outside of user address space.</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd><i>len</i> was negative or too large.</dd>
+  <dt><b>EPERM</b></dt>
+  <dd>The caller did not have the <b>CAP_SYS_ADMIN</b> capability in the user
+      namespace associated with its UTS namespace (see
+    <b>namespaces</b>(7)).</dd>
+</dl>
+<p class="Pp"><b>getdomainname</b>() can fail with the following errors:</p>
+<dl class="Bl-tag">
+  <dt><b>EINVAL</b></dt>
+  <dd>For <b>getdomainname</b>() under libc: <i>name</i> is NULL or <i>name</i>
+      is longer than <i>len</i> bytes.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+POSIX does not specify these calls.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+Since Linux 1.0, the limit on the length of a domain name, including the
+  terminating null byte, is 64 bytes. In older kernels, it was 8 bytes.
+<p class="Pp">On most Linux architectures (including x86), there is no
+    <b>getdomainname</b>() system call; instead, glibc implements
+    <b>getdomainname</b>() as a library function that returns a copy of the
+    <i>domainname</i> field returned from a call to <b>uname</b>(2).</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>gethostname</b>(2), <b>sethostname</b>(2), <b>uname</b>(2),
+  <b>uts_namespaces</b>(7)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-10-10</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

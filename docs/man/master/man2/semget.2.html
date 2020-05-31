@@ -1,0 +1,225 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man2/semget.2</title>
+	<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=/download.html>Download</a></li>
+		<div class=dropdown>
+			<li><a href=/documentation.html>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=/development.html>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">SEMGET(2)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">SEMGET(2)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+semget - get a System V semaphore set identifier
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<pre>
+<b>#include &lt;sys/types.h&gt;</b>
+<b>#include &lt;sys/ipc.h&gt;</b>
+<b>#include &lt;sys/sem.h&gt;</b>
+</pre>
+<p class="Pp"><b>int semget(key_t </b><i>key</i><b>,</b> <b>int
+    </b><i>nsems</i><b>,</b> <b>int </b><i>semflg</i><b>);</b></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+The <b>semget</b>() system call returns the System&#x00A0;V semaphore set
+  identifier associated with the argument <i>key</i>. It may be used either to
+  obtain the identifier of a previously created semaphore set (when
+  <i>semflg</i> is zero and <i>key</i> does not have the value
+  <b>IPC_PRIVATE</b>), or to create a new set.
+<p class="Pp">A new set of <i>nsems</i> semaphores is created if <i>key</i> has
+    the value <b>IPC_PRIVATE</b> or if no existing semaphore set is associated
+    with <i>key</i> and <b>IPC_CREAT</b> is specified in <i>semflg</i>.</p>
+<p class="Pp">If <i>semflg</i> specifies both <b>IPC_CREAT</b> and
+    <b>IPC_EXCL</b> and a semaphore set already exists for <i>key</i>, then
+    <b>semget</b>() fails with <i>errno</i> set to <b>EEXIST</b>. (This is
+    analogous to the effect of the combination <b>O_CREAT | O_EXCL</b> for
+    <b>open</b>(2).)</p>
+<p class="Pp">Upon creation, the least significant 9 bits of the argument
+    <i>semflg</i> define the permissions (for owner, group and others) for the
+    semaphore set. These bits have the same format, and the same meaning, as the
+    <i>mode</i> argument of <b>open</b>(2) (though the execute permissions are
+    not meaningful for semaphores, and write permissions mean permission to
+    alter semaphore values).</p>
+<p class="Pp">When creating a new semaphore set, <b>semget</b>() initializes the
+    set's associated data structure, <i>semid_ds</i> (see <b>semctl</b>(2)), as
+    follows:</p>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd><i>sem_perm.cuid</i> and <i>sem_perm.uid</i> are set to the effective user
+      ID of the calling process.</dd>
+  <dt></dt>
+  <dd><i>sem_perm.cgid</i> and <i>sem_perm.gid</i> are set to the effective
+      group ID of the calling process.</dd>
+  <dt></dt>
+  <dd>The least significant 9 bits of <i>sem_perm.mode</i> are set to the least
+      significant 9 bits of <i>semflg</i>.</dd>
+  <dt></dt>
+  <dd><i>sem_nsems</i> is set to the value of <i>nsems</i>.</dd>
+  <dt></dt>
+  <dd><i>sem_otime</i> is set to 0.</dd>
+  <dt></dt>
+  <dd><i>sem_ctime</i> is set to the current time.</dd>
+</dl>
+<p class="Pp">The argument <i>nsems</i> can be 0 (a don't care) when a semaphore
+    set is not being created. Otherwise, <i>nsems</i> must be greater than 0 and
+    less than or equal to the maximum number of semaphores per semaphore set
+    (<b>SEMMSL</b>).</p>
+<p class="Pp">If the semaphore set already exists, the permissions are
+  verified.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="RETURN_VALUE"><a class="permalink" href="#RETURN_VALUE">RETURN
+  VALUE</a></h1>
+If successful, the return value will be the semaphore set identifier (a
+  nonnegative integer), otherwise, -1 is returned, with <i>errno</i> indicating
+  the error.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERRORS"><a class="permalink" href="#ERRORS">ERRORS</a></h1>
+On failure, <i>errno</i> will be set to one of the following:
+<dl class="Bl-tag">
+  <dt><b>EACCES</b></dt>
+  <dd>A semaphore set exists for <i>key</i>, but the calling process does not
+      have permission to access the set, and does not have the
+      <b>CAP_IPC_OWNER</b> capability in the user namespace that governs its IPC
+      namespace.</dd>
+  <dt><b>EEXIST</b></dt>
+  <dd><b>IPC_CREAT</b> and <b>IPC_EXCL</b> were specified in <i>semflg</i>, but
+      a semaphore set already exists for <i>key</i>.</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd><i>nsems</i> is less than 0 or greater than the limit on the number of
+      semaphores per semaphore set (<b>SEMMSL</b>).</dd>
+  <dt><b>EINVAL</b></dt>
+  <dd>A semaphore set corresponding to <i>key</i> already exists, but
+      <i>nsems</i> is larger than the number of semaphores in that set.</dd>
+  <dt><b>ENOENT</b></dt>
+  <dd>No semaphore set exists for <i>key</i> and <i>semflg</i> did not specify
+      <b>IPC_CREAT</b>.</dd>
+  <dt><b>ENOMEM</b></dt>
+  <dd>A semaphore set has to be created but the system does not have enough
+      memory for the new data structure.</dd>
+  <dt><b>ENOSPC</b></dt>
+  <dd>A semaphore set has to be created but the system limit for the maximum
+      number of semaphore sets (<b>SEMMNI</b>), or the system wide maximum
+      number of semaphores (<b>SEMMNS</b>), would be exceeded.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONFORMING_TO"><a class="permalink" href="#CONFORMING_TO">CONFORMING
+  TO</a></h1>
+SVr4, POSIX.1-2001.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="NOTES"><a class="permalink" href="#NOTES">NOTES</a></h1>
+The inclusion of <i>&lt;sys/types.h&gt;</i> and <i>&lt;sys/ipc.h&gt;</i> isn't
+  required on Linux or by any version of POSIX. However, some old
+  implementations required the inclusion of these header files, and the SVID
+  also documented their inclusion. Applications intended to be portable to such
+  old systems may need to include these header files.
+<p class="Pp"><b>IPC_PRIVATE</b> isn't a flag field but a <i>key_t</i> type. If
+    this special value is used for <i>key</i>, the system call ignores all but
+    the least significant 9 bits of <i>semflg</i> and creates a new semaphore
+    set (on success).</p>
+<section class="Ss">
+<h2 class="Ss" id="Semaphore_initialization"><a class="permalink" href="#Semaphore_initialization">Semaphore
+  initialization</a></h2>
+The values of the semaphores in a newly created set are indeterminate.
+  (POSIX.1-2001 and POSIX.1-2008 are explicit on this point, although
+  POSIX.1-2008 notes that a future version of the standard may require an
+  implementation to initialize the semaphores to 0.) Although Linux, like many
+  other implementations, initializes the semaphore values to 0, a portable
+  application cannot rely on this: it should explicitly initialize the
+  semaphores to the desired values.
+<p class="Pp">Initialization can be done using <b>semctl</b>(2) <b>SETVAL</b> or
+    <b>SETALL</b> operation. Where multiple peers do not know who will be the
+    first to initialize the set, checking for a nonzero <i>sem_otime</i> in the
+    associated data structure retrieved by a <b>semctl</b>(2) <b>IPC_STAT</b>
+    operation can be used to avoid races.</p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Semaphore_limits"><a class="permalink" href="#Semaphore_limits">Semaphore
+  limits</a></h2>
+The following limits on semaphore set resources affect the <b>semget</b>() call:
+<dl class="Bl-tag">
+  <dt><b>SEMMNI</b></dt>
+  <dd>System-wide limit on the number of semaphore sets. On Linux systems before
+      version 3.19, the default value for this limit was 128. Since Linux 3.19,
+      the default value is 32,000. On Linux, this limit can be read and modified
+      via the fourth field of <i>/proc/sys/kernel/sem</i>.</dd>
+  <dt><b>SEMMSL</b></dt>
+  <dd>Maximum number of semaphores per semaphore ID. On Linux systems before
+      version 3.19, the default value for this limit was 250. Since Linux 3.19,
+      the default value is 32,000. On Linux, this limit can be read and modified
+      via the first field of <i>/proc/sys/kernel/sem</i>.</dd>
+  <dt><b>SEMMNS</b></dt>
+  <dd>System-wide limit on the number of semaphores: policy dependent (on Linux,
+      this limit can be read and modified via the second field of
+      <i>/proc/sys/kernel/sem</i>). Note that the number of semaphores
+      system-wide is also limited by the product of <b>SEMMSL</b> and
+      <b>SEMMNI</b>.</dd>
+</dl>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="BUGS"><a class="permalink" href="#BUGS">BUGS</a></h1>
+The name choice <b>IPC_PRIVATE</b> was perhaps unfortunate, <b>IPC_NEW</b> would
+  more clearly show its function.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>semctl</b>(2), <b>semop</b>(2), <b>ftok</b>(3), <b>capabilities</b>(7),
+  <b>sem_overview</b>(7), <b>sysvipc</b>(7)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-08-02</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

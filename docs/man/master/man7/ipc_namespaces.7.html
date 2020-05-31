@@ -1,0 +1,94 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man7/ipc_namespaces.7</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<li><a href=https://github.com/Z5T1/fidelix/releases>Download</a></li>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+<table class="head">
+  <tr>
+    <td class="head-ltitle">IPC_NAMESPACES(7)</td>
+    <td class="head-vol">Linux Programmer's Manual</td>
+    <td class="head-rtitle">IPC_NAMESPACES(7)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+ipc_namespaces - overview of Linux IPC namespaces
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+IPC namespaces isolate certain IPC resources, namely, System V IPC objects (see
+  <b>sysvipc</b>(7)) and (since Linux 2.6.30) POSIX message queues (see
+  <b>mq_overview</b>(7)). The common characteristic of these IPC mechanisms is
+  that IPC objects are identified by mechanisms other than filesystem pathnames.
+<p class="Pp">Each IPC namespace has its own set of System V IPC identifiers and
+    its own POSIX message queue filesystem. Objects created in an IPC namespace
+    are visible to all other processes that are members of that namespace, but
+    are not visible to processes in other IPC namespaces.</p>
+<p class="Pp">The following <i>/proc</i> interfaces are distinct in each IPC
+    namespace:</p>
+<ul class="Bl-bullet">
+  <li>The POSIX message queue interfaces in <i>/proc/sys/fs/mqueue</i>.</li>
+  <li>The System V IPC interfaces in <i>/proc/sys/kernel</i>, namely:
+      <i>msgmax</i>, <i>msgmnb</i>, <i>msgmni</i>, <i>sem</i>, <i>shmall</i>,
+      <i>shmmax</i>, <i>shmmni</i>, and <i>shm_rmid_forced</i>.</li>
+  <li>The System V IPC interfaces in <i>/proc/sysvipc</i>.</li>
+</ul>
+<p class="Pp">When an IPC namespace is destroyed (i.e., when the last process
+    that is a member of the namespace terminates), all IPC objects in the
+    namespace are automatically destroyed.</p>
+<p class="Pp">Use of IPC namespaces requires a kernel that is configured with
+    the <b>CONFIG_IPC_NS</b> option.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>nsenter</b>(1), <b>unshare</b>(1), <b>clone</b>(2), <b>setns</b>(2),
+  <b>unshare</b>(2), <b>mq_overview</b>(7), <b>namespaces</b>(7),
+  <b>sysvipc</b>(7)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COLOPHON"><a class="permalink" href="#COLOPHON">COLOPHON</a></h1>
+This page is part of release 5.05 of the Linux <i>man-pages</i> project. A
+  description of the project, information about reporting bugs, and the latest
+  version of this page, can be found at https://www.kernel.org/doc/man-pages/.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">2019-08-02</td>
+    <td class="foot-os">Linux</td>
+  </tr>
+</table>
+
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>
