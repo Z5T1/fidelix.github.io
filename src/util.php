@@ -18,10 +18,13 @@ function do_header($title, $man=FALSE) {
 	</div>
 ");
 	include("menubar.php");
+	print("
+	<div class=body>");
 }
 
 function do_footer() {
 	print('
+	</div>
 	<div class=footer>
 		<p>Copyright 2020 Scott Court</p>
 	</div>
