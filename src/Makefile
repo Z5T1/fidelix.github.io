@@ -2,9 +2,10 @@ DOCDIR=$(CURDIR)/../docs
 MANDIR=$(DOCDIR)/man/master
 PHP=php
 
-PAGES=index.html about.html man/index.html handbook/index.html download
+PAGES=index.html about.html man/index.html handbook/index.html \
+	download download/index.html download/all.html
 MAN=man1 man2 man4 man5 man6 man7 man8
-INCLUDES=menubar.php util.php
+INCLUDES=menubar.php util.php download/util.php download/version_table.php
 
 DOWNLOAD_VERSIONS= \
 	0.1.0
@@ -14,6 +15,12 @@ build: $(addprefix $(DOCDIR)/,$(PAGES)) $(MAN)
 clean:
 	rm -f $(addprefix $(DOCDIR)/,$(PAGES))
 	rm -f $(DOCDIR)/man/man1/*
+
+$(DOCDIR)/download/index.html: download/index.php $(INCLUDES)
+	$(PHP) download/index.php > $@
+
+$(DOCDIR)/download/all.html: download/all.php $(INCLUDES)
+	$(PHP) $< > $@
 
 $(DOCDIR)/%.html: %.php $(INCLUDES)
 	$(PHP) $< > $@
