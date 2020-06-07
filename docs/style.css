@@ -109,6 +109,26 @@ body {
 	padding: 10px;
 }
 
+table {
+	border-collapse: collapse;
+	align: center;
+	margin-left: 10%;
+	margin-right: 10%;
+	width: 80%;
+}
+
+th, tr, td {
+	padding: 10px;
+	border-top: 1px solid;
+	border-bottom: 1px solid;
+	border-color: #146cca;
+	text-align: center;
+}
+
+th {
+	font-weight: bold;
+}
+
 h1, h2, h3, h4, h5, h6 {
 	color: #102a6f;
 	padding: 10px;
@@ -146,6 +166,20 @@ p {
 
 a {
 	display: inline;
+}
+
+.downloadlink a {
+	background-color: #007f00;
+	color: #ffffff;
+	font-weight: bold;
+	font-size: 24px;
+}
+
+.nodownloadlink a {
+	background-color: #cf0000;
+	color: #ffffff;
+	font-weight: bold;
+	font-size: 24px;
 }
 
 * {
