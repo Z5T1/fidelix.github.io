@@ -34,6 +34,12 @@
 				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
 			</ul>
 		</div>
+		<div class=dropdown>
+			<li><a href=#>Community</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://discord.com/invite/Yz8DeUr>Discord</a></li>
+			</ul>
+		</div>
 	</ul>
 </div>
 
@@ -141,7 +147,7 @@ Before you start, you should glance through the README file found in the
       dmakes, in parallel mode, have very high CPU usage and pound the
       disk/filing system with duplicate I/O calls in an aggressive polling loop.
     <p class="Pp">A port of dmake for Windows is available from:</p>
-    <p class="Pp">&lt;http://search.cpan.org/dist/dmake/&gt;</p>
+    <p class="Pp">&lt;https://metacpan.org/release/dmake&gt;</p>
     <p class="Pp">Fetch and install dmake somewhere on your path.</p>
   </dd>
   <dt>Command Shell</dt>
@@ -723,7 +729,8 @@ Type &quot;dmake install&quot; (or &quot;gmake install&quot;, &quot;nmake
     <p class="Pp">If a module does not build for some reason, look carefully for
         why it failed, and report problems to the module author. If it looks
         like the extension building support is at fault, report that with full
-        details of how the build failed using the perlbug utility.</p>
+        details of how the build failed using the GitHub issue tracker at
+        &lt;https://github.com/Perl/perl5/issues&gt;.</p>
   </dd>
   <dt>Command-line Wildcard Expansion</dt>
   <dd>The default command shells on DOS descendant operating systems (such as
@@ -892,10 +899,8 @@ A full set of HTML documentation is installed, so you should be able to use it
     <span class="Li">&quot;perl&quot;</span> on Windows, except that options
     like <span class="Li">&quot;-h&quot;</span> don't work (since they need a
     command-line window to print to).</p>
-<p class="Pp">If you find bugs in perl, you can run
-    <span class="Li">&quot;perlbug&quot;</span> to create a bug report (you may
-    have to send it manually if <span class="Li">&quot;perlbug&quot;</span>
-    cannot find a mailer on your system).</p>
+<p class="Pp">If you find bugs in perl, you can report them to
+    &lt;https://github.com/Perl/perl5/issues&gt;.</p>
 </section>
 </section>
 <section class="Sh">
@@ -945,8 +950,9 @@ Norton AntiVirus interferes with the build process, particularly if set to
     variable in the handler. Using signals under this port should currently be
     considered unsupported.</p>
 <p class="Pp">Please send detailed descriptions of any problems and solutions
-    that you may find to &lt;<i>perlbug@perl.org</i>&gt;, along with the output
-    produced by <span class="Li">&quot;perl -V&quot;</span>.</p>
+    that you may find to &lt;&lt;https://github.com/Perl/perl5/issues&gt;&gt;,
+    along with the output produced by <span class="Li">&quot;perl
+    -V&quot;</span>.</p>
 </section>
 <section class="Sh">
 <h1 class="Sh" id="ACKNOWLEDGEMENTS"><a class="permalink" href="#ACKNOWLEDGEMENTS">ACKNOWLEDGEMENTS</a></h1>
@@ -991,8 +997,8 @@ This port was originally contributed by Gary Ng around 5.003_24, and borrowed
 </div>
 <table class="foot">
   <tr>
-    <td class="foot-date">2019-10-24</td>
-    <td class="foot-os">perl v5.30.1</td>
+    <td class="foot-date">2020-02-11</td>
+    <td class="foot-os">perl v5.30.3</td>
   </tr>
 </table>
 

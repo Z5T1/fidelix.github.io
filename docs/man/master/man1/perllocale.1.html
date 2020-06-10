@@ -34,6 +34,12 @@
 				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
 			</ul>
 		</div>
+		<div class=dropdown>
+			<li><a href=#>Community</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://discord.com/invite/Yz8DeUr>Discord</a></li>
+			</ul>
+		</div>
 	</ul>
 </div>
 
@@ -1794,11 +1800,12 @@ XS code or C-language libraries called from it that use the system
   <li>It becomes more important for perl to know about all the possible locale
       categories on the platform, even if they aren't apparently used in your
       program. Perl knows all of the Linux ones. If your platform has others,
-      you can send email to &lt;mailto:perlbug@perl.org&gt; for inclusion of it
-      in the next release. In the meantime, it is possible to edit the Perl
-      source to teach it about the category, and then recompile. Search for
-      instances of, say, <span class="Li">&quot;LC_PAPER&quot;</span> in the
-      source, and use that as a template to add the omitted one.</li>
+      you can submit an issue at &lt;https://github.com/Perl/perl5/issues&gt;
+      for inclusion of it in the next release. In the meantime, it is possible
+      to edit the Perl source to teach it about the category, and then
+      recompile. Search for instances of, say,
+      <span class="Li">&quot;LC_PAPER&quot;</span> in the source, and use that
+      as a template to add the omitted one.</li>
   <li>It is possible, though hard to do, to call
       <span class="Li">&quot;POSIX::setlocale&quot;</span> with a locale that it
       doesn't recognize as syntactically legal, but actually is legal on that
@@ -1813,11 +1820,12 @@ In certain systems, the operating system's locale support is broken and cannot
   be fixed or used by Perl. Such deficiencies can and will result in mysterious
   hangs and/or Perl core dumps when <span class="Li">&quot;use
   locale&quot;</span> is in effect. When confronted with such a system, please
-  report in excruciating detail to &lt;<i>perlbug@perl.org</i>&gt;, and also
-  contact your vendor: bug fixes may exist for these problems in your operating
-  system. Sometimes such bug fixes are called an operating system upgrade. If
-  you have the source for Perl, include in the perlbug email the output of the
-  test described above in &quot;Testing for broken locales&quot;.
+  report in excruciating detail to
+  &lt;&lt;https://github.com/Perl/perl5/issues&gt;&gt;, and also contact your
+  vendor: bug fixes may exist for these problems in your operating system.
+  Sometimes such bug fixes are called an operating system upgrade. If you have
+  the source for Perl, include in the bug report the output of the test
+  described above in &quot;Testing for broken locales&quot;.
 </section>
 </section>
 <section class="Sh">
@@ -1839,8 +1847,8 @@ Jarkko Hietaniemi's original <i>perli18n.pod</i> heavily hacked by Dominic
 </div>
 <table class="foot">
   <tr>
-    <td class="foot-date">2019-10-24</td>
-    <td class="foot-os">perl v5.30.1</td>
+    <td class="foot-date">2020-02-11</td>
+    <td class="foot-os">perl v5.30.3</td>
   </tr>
 </table>
 

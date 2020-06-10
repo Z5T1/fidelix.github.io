@@ -34,6 +34,12 @@
 				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
 			</ul>
 		</div>
+		<div class=dropdown>
+			<li><a href=#>Community</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://discord.com/invite/Yz8DeUr>Discord</a></li>
+			</ul>
+		</div>
 	</ul>
 </div>
 
@@ -49,21 +55,66 @@
 <br/>
 <section class="Sh">
 <h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
-perldelta - what is new for perl v5.30.1
+perldelta - what is new for perl v5.30.3
 </section>
 <section class="Sh">
 <h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
-This document describes differences between the 5.30.0 release and the 5.30.1
+This document describes differences between the 5.30.2 release and the 5.30.3
   release.
-<p class="Pp">If you are upgrading from an earlier release such as 5.29.0, first
-    read perl5300delta, which describes differences between 5.29.0 and
-  5.30.0.</p>
+<p class="Pp">If you are upgrading from an earlier release such as 5.30.1, first
+    read perl5302delta, which describes differences between 5.30.1 and
+  5.30.2.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="Security"><a class="permalink" href="#Security">Security</a></h1>
+<section class="Ss">
+<h2 class="Ss" id="__s-1CVE_-2020_-10543_s0__Buffer_overflow_caused_by_a_crafted_regular_expression"><a class="permalink" href="#__s-1CVE_-2020_-10543_s0__Buffer_overflow_caused_by_a_crafted_regular_expression">[CVE-2020-10543]
+  Buffer overflow caused by a crafted regular expression</a></h2>
+A signed <span class="Li">&quot;size_t&quot;</span> integer overflow in the
+  storage space calculations for nested regular expression quantifiers could
+  cause a heap buffer overflow in Perl's regular expression compiler that
+  overwrites memory allocated after the regular expression storage space with
+  attacker supplied data.
+<p class="Pp">The target system needs a sufficient amount of memory to allocate
+    partial expansions of the nested quantifiers prior to the overflow
+    occurring. This requirement is unlikely to be met on 64-bit systems.</p>
+<p class="Pp">Discovered by: ManhND of The Tarantula Team, VinCSS (a member of
+    Vingroup).</p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="__s-1CVE_-2020_-10878_s0__Integer_overflow_via_malformed_bytecode_produced_by_a_crafted_regular_expression"><a class="permalink" href="#__s-1CVE_-2020_-10878_s0__Integer_overflow_via_malformed_bytecode_produced_by_a_crafted_regular_expression">[CVE-2020-10878]
+  Integer overflow via malformed bytecode produced by a crafted regular
+  expression</a></h2>
+Integer overflows in the calculation of offsets between instructions for the
+  regular expression engine could cause corruption of the intermediate language
+  state of a compiled regular expression. An attacker could abuse this behaviour
+  to insert instructions into the compiled form of a Perl regular expression.
+<p class="Pp">Discovered by: Hugo van der Sanden and Slaven Rezic.</p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="__s-1CVE_-2020_-12723_s0__Buffer_overflow_caused_by_a_crafted_regular_expression"><a class="permalink" href="#__s-1CVE_-2020_-12723_s0__Buffer_overflow_caused_by_a_crafted_regular_expression">[CVE-2020-12723]
+  Buffer overflow caused by a crafted regular expression</a></h2>
+Recursive calls to <span class="Li">&quot;S_study_chunk()&quot;</span> by Perl's
+  regular expression compiler to optimize the intermediate language
+  representation of a regular expression could cause corruption of the
+  intermediate language state of a compiled regular expression.
+<p class="Pp">Discovered by: Sergey Aleynikov.</p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Additional_Note"><a class="permalink" href="#Additional_Note">Additional
+  Note</a></h2>
+An application written in Perl would only be vulnerable to any of the above
+  flaws if it evaluates regular expressions supplied by the attacker. Evaluating
+  regular expressions in this fashion is known to be dangerous since the regular
+  expression engine does not protect against denial of service attacks in this
+  usage scenario.
+</section>
 </section>
 <section class="Sh">
 <h1 class="Sh" id="Incompatible_Changes"><a class="permalink" href="#Incompatible_Changes">Incompatible
   Changes</a></h1>
-There are no changes intentionally incompatible with 5.30.1. If any exist, they
-  are bugs, and we request that you submit a report. See &quot;Reporting
+There are no changes intentionally incompatible with Perl 5.30.2. If any exist,
+  they are bugs, and we request that you submit a report. See &quot;Reporting
   Bugs&quot; below.
 </section>
 <section class="Sh">
@@ -74,36 +125,10 @@ There are no changes intentionally incompatible with 5.30.1. If any exist, they
   Modules and Pragmata</a></h2>
 <dl class="Bl-tag">
   <dt>&#x2022;</dt>
-  <dd>Module::CoreList has been upgraded from version 5.20190522 to
-    5.20191110.</dd>
+  <dd>Module::CoreList has been upgraded from version 5.20200314 to
+      5.20200601_30.</dd>
 </dl>
 </section>
-</section>
-<section class="Sh">
-<h1 class="Sh" id="Documentation"><a class="permalink" href="#Documentation">Documentation</a></h1>
-<section class="Ss">
-<h2 class="Ss" id="Changes_to_Existing_Documentation"><a class="permalink" href="#Changes_to_Existing_Documentation">Changes
-  to Existing Documentation</a></h2>
-We have attempted to update the documentation to reflect the changes listed in
-  this document. If you find any we have missed, send email to perlbug@perl.org
-  &lt;mailto:perlbug@perl.org&gt;.
-<p class="Pp">Additionally, documentation has been updated to reference GitHub
-    as the new canonical repository and to describe the new GitHub pull request
-    workflow.</p>
-</section>
-</section>
-<section class="Sh">
-<h1 class="Sh" id="Configuration_and_Compilation"><a class="permalink" href="#Configuration_and_Compilation">Configuration
-  and Compilation</a></h1>
-<dl class="Bl-tag">
-  <dt>&#x2022;</dt>
-  <dd>The <span class="Li">&quot;ECHO&quot;</span> macro is now defined. This is
-      used in a <span class="Li">&quot;dtrace&quot;</span> rule that was
-      originally changed for FreeBSD, and the FreeBSD make apparently predefines
-      it. The Solaris make does not predefine
-      <span class="Li">&quot;ECHO&quot;</span> which broke this rule on Solaris.
-      [perl #17057] &lt;https://github.com/perl/perl5/issues/17057&gt;</dd>
-</dl>
 </section>
 <section class="Sh">
 <h1 class="Sh" id="Testing"><a class="permalink" href="#Testing">Testing</a></h1>
@@ -111,67 +136,18 @@ Tests were added and changed to reflect the other additions and changes in this
   release.
 </section>
 <section class="Sh">
-<h1 class="Sh" id="Platform_Support"><a class="permalink" href="#Platform_Support">Platform
-  Support</a></h1>
-<section class="Ss">
-<h2 class="Ss" id="Platform-Specific_Notes"><a class="permalink" href="#Platform-Specific_Notes">Platform-Specific
-  Notes</a></h2>
-<dl class="Bl-tag">
-  <dt>Win32</dt>
-  <dd>The locale tests could crash on Win32 due to a Windows bug, and separately
-      due to the CRT throwing an exception if the locale name wasn't validly
-      encoded in the current code page.
-    <p class="Pp">For the second we now decode the locale name ourselves, and
-        always decode it as UTF-8.</p>
-    <p class="Pp">[perl #16922]
-        &lt;https://github.com/perl/perl5/issues/16922&gt;</p>
-  </dd>
-</dl>
-</section>
-</section>
-<section class="Sh">
-<h1 class="Sh" id="Selected_Bug_Fixes"><a class="permalink" href="#Selected_Bug_Fixes">Selected
-  Bug Fixes</a></h1>
-<ul class="Bl-bullet">
-  <li>Setting <span class="Li">$)</span> now properly sets supplementary group
-      ids, if you have the necessary privileges. [perl #17031]
-      &lt;https://github.com/perl/perl5/issues/17031&gt;</li>
-  <li><span class="Li">&quot;readline @foo&quot;</span> now evaluates
-      <span class="Li">@foo</span> in scalar context. Previously, it would be
-      evaluated in list context, and since <b>readline()</b> pops only one
-      argument from the stack, the stack could underflow, or be left with
-      unexpected values on it. [perl #16929]
-      &lt;https://github.com/perl/perl5/issues/16929&gt;</li>
-  <li><b>sv_gets()</b> now recovers better if the target SV is modified by a
-      signal handler. [perl #16960]
-      &lt;https://github.com/perl/perl5/issues/16960&gt;</li>
-  <li>Matching a non-<span class="Li">&quot;SVf_UTF8&quot;</span> string against
-      a regular expression containing Unicode literals could leak an SV on each
-      match attempt. [perl #17140]
-      &lt;https://github.com/perl/perl5/issues/17140&gt;</li>
-  <li><span class="Li">&quot;sprintf(&quot;%.*a&quot;, -10000, $x)&quot;</span>
-      would cause a buffer overflow due to mishandling of the negative precision
-      value. [perl #16942]
-    &lt;https://github.com/perl/perl5/issues/16942&gt;</li>
-  <li><span class="Li">&quot;scalar()&quot;</span> on a reference could cause an
-      erroneous assertion failure during compilation. [perl #16969]
-      &lt;https://github.com/perl/perl5/issues/16969&gt;</li>
-</ul>
-</section>
-<section class="Sh">
 <h1 class="Sh" id="Acknowledgements"><a class="permalink" href="#Acknowledgements">Acknowledgements</a></h1>
-Perl 5.30.1 represents approximately 6 months of development since Perl 5.30.0
-  and contains approximately 4,700 lines of changes across 67 files from 14
+Perl 5.30.3 represents approximately 3 months of development since Perl 5.30.2
+  and contains approximately 1,100 lines of changes across 42 files from 7
   authors.
 <p class="Pp">Excluding auto-generated files, documentation and release tools,
-    there were approximately 910 lines of changes to 20 .pm, .t, .c and .h
-    files.</p>
+    there were approximately 350 lines of changes to 8 .pm, .t, .c and .h
+  files.</p>
 <p class="Pp">Perl continues to flourish into its fourth decade thanks to a
     vibrant community of users and developers. The following people are known to
-    have contributed the improvements that became Perl 5.30.1:</p>
-<p class="Pp">Chris 'BinGOs' Williams, Dan Book, David Mitchell, Hugo van der
-    Sanden, James E Keenan, Karen Etheridge, Karl Williamson, Manuel Mausz, Max
-    Maischein, Nicolas R., Sawyer X, Steve Hay, Tom Hukins, Tony Cook.</p>
+    have contributed the improvements that became Perl 5.30.3:</p>
+<p class="Pp">Chris 'BinGOs' Williams, Hugo van der Sanden, John Lightsey, Karl
+    Williamson, Nicolas R., Sawyer X, Steve Hay.</p>
 <p class="Pp">The list above is almost certainly incomplete as it is
     automatically generated from version control history. In particular, it does
     not include the names of the (very much appreciated) contributors who
@@ -186,17 +162,15 @@ Perl 5.30.1 represents approximately 6 months of development since Perl 5.30.0
 <h1 class="Sh" id="Reporting_Bugs"><a class="permalink" href="#Reporting_Bugs">Reporting
   Bugs</a></h1>
 If you find what you think is a bug, you might check the perl bug database at
-  &lt;https://rt.perl.org/&gt;. There may also be information at
-  &lt;http://www.perl.org/&gt;, the Perl Home Page.
-<p class="Pp">If you believe you have an unreported bug, please run the perlbug
-    program included with your release. Be sure to trim your bug down to a tiny
-    but sufficient test case. Your bug report, along with the output of
-    <span class="Li">&quot;perl -V&quot;</span>, will be sent off to
-    perlbug@perl.org to be analysed by the Perl porting team.</p>
+  &lt;https://github.com/Perl/perl5/issues&gt;. There may also be information at
+  &lt;https://www.perl.org/&gt;, the Perl Home Page.
+<p class="Pp">If you believe you have an unreported bug, please open an issue at
+    &lt;https://github.com/Perl/perl5/issues&gt;. Be sure to trim your bug down
+    to a tiny but sufficient test case.</p>
 <p class="Pp">If the bug you are reporting has security implications which make
-    it inappropriate to send to a publicly archived mailing list, then see
-    &quot;SECURITY VULNERABILITY CONTACT INFORMATION&quot; in perlsec for
-    details of how to report the issue.</p>
+    it inappropriate to send to a public issue tracker, then see &quot;SECURITY
+    VULNERABILITY CONTACT INFORMATION&quot; in perlsec for details of how to
+    report the issue.</p>
 </section>
 <section class="Sh">
 <h1 class="Sh" id="Give_Thanks"><a class="permalink" href="#Give_Thanks">Give
@@ -224,8 +198,8 @@ The <i>Changes</i> file for an explanation of how to view exhaustive details on
 </div>
 <table class="foot">
   <tr>
-    <td class="foot-date">2019-11-10</td>
-    <td class="foot-os">perl v5.30.1</td>
+    <td class="foot-date">2020-05-29</td>
+    <td class="foot-os">perl v5.30.3</td>
   </tr>
 </table>
 
