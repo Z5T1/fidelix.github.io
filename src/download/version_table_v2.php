@@ -23,7 +23,7 @@ function print_download_link($arch, $format) {
 <table>
 	<tr>
 		<td><a href=<?php print(get_github_url()."/archive/".$version.".tar.gz"); ?>>Source</a></td>
-		<td><a href=<?php print(get_github_url()."/blob/".$version."/INSTALL.md"); ?>>Installation Guide</a></td>
+		<td><a href=<?php print(get_github_url()."/blob/".$version."/doc/install.md"); ?>>Installation Guide</a></td>
 		<td><a href=<?php print(get_github_url()."/releases/tag/".$version); ?>>Release on GitHub</a></td>
 		<td><a href="hashes/<?php print($version); ?>-sha256sums">SHA256 Hashes</a></td>
 	</tr>
