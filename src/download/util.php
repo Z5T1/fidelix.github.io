@@ -10,8 +10,11 @@ $version_dates = array(
 	"0.1.0" => mktime(0, 0, 0, 5, 6, 2020)
 );
 
+/* The root github project URL */
+$github_url = "https://github.com/z5t1/fidelix/";
+
 /* The root of the github tree to download from */
-$download_site_url = "https://github.com/z5t1/fidelix/releases/download/";
+$download_site_url = $github_url."releases/download/";
 
 function print_release_date($version) {
 	print(get_release_date($version));

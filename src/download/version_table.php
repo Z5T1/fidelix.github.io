@@ -10,10 +10,23 @@ function get_download_url($arch, $format) {
 	return $download_site_url.$version."/fidelix-".$version."-".$arch."-".$codename.$format;
 }
 
+function get_github_url() {
+	global $github_url;
+	return $github_url;
+}
+
 function print_download_link($arch, $format) {
 	print("<div class=downloadlink><a href=\"".get_download_url($arch, $format)."\">&nbsp;&#x21e9;&nbsp;</a></div>\n");
 }
 ?>
+
+<table>
+	<tr>
+		<td><a href=<?php print(get_github_url()."/archive/".$version.".tar.gz"); ?>>Source</a></td>
+		<td><a href=<?php print(get_github_url()."/blob/".$version."/INSTALL.md"); ?>>Installation Guide</a></td>
+		<td><a href=<?php print(get_github_url()."/releases/tag/".$version); ?>>Release on GitHub</a></td>
+	</tr>
+</table>
 
 <table>
 	<tr>
