@@ -12,7 +12,8 @@ INCLUDES=menubar.php util.php download/util.php \
 
 DOWNLOAD_VERSIONS= \
 	0.1.0 \
-	0.1.3
+	0.1.3 \
+	0.2.0
 
 .PHONY: build clean
 build: $(addprefix $(DOCDIR)/,$(PAGES)) $(MAN)

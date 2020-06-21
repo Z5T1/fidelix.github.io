@@ -3,7 +3,7 @@
 include "util.php";
 include "download/util.php";
 
-$d_version = "0.1.3";
+$d_version = "0.2.0";
 $d_codename = $version_codenames[$d_version];
 $d_prettyname = $d_version . " (" . ucfirst($d_codename) . ")";
 
