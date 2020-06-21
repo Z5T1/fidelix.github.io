@@ -3,7 +3,8 @@ MANDIR=$(DOCDIR)/man/master
 PHP=php
 
 PAGES=index.html about.html man/index.html handbook/index.html \
-	download download/index.html download/all.html
+	download download/index.html download/all.html get-involved.html \
+	contact.html
 MAN=man1 man2 man4 man5 man6 man7 man8
 INCLUDES=menubar.php util.php download/util.php \
 	 download/version_table_v1.php \

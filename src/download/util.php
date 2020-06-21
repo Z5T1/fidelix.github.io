@@ -19,7 +19,7 @@ $version_tables = array(
 );
 
 /* The root github project URL */
-$github_url = "https://github.com/z5t1/fidelix/";
+$github_url = "https://github.com/fidelix-project/fidelix/";
 
 /* The root of the github tree to download from */
 $download_site_url = $github_url."releases/download/";
