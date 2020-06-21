@@ -1,0 +1,145 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/iptables-xml.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<div class=header>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+	</div>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<div class=dropdown>
+			<li><a href=/download>Download</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/download/>Latest Downloads</a></li>
+				<li><a href=/download/all.html>All Downloads</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/fidelix-project/fidelix/blob/master/doc/README.md>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/fidelix-project>GitHub</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Community</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://discord.com/invite/Yz8DeUr>Discord</a></li>
+				<li><a href=/get-involved.html>Get Involved</a></li>
+				<li><a href=/contact.html>Contact Us</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+
+	<div class=body><table class="head">
+  <tr>
+    <td class="head-ltitle">IPTABLES-XML(1)</td>
+    <td class="head-vol">iptables 1.8.4</td>
+    <td class="head-rtitle">IPTABLES-XML(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+iptables-xml &#x2014; Convert iptables-save format to XML
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>iptables-xml</b> [<b>-c</b>] [<b>-v</b>]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>iptables-xml</b> is used to convert the output of iptables-save into an
+  easily manipulatable XML format to STDOUT. Use I/O-redirection provided by
+  your shell to write to a file.
+<dl class="Bl-tag">
+  <dt><b>-c</b>, <b>--combine</b></dt>
+  <dd>combine consecutive rules with the same matches but different targets.
+      iptables does not currently support more than one target per match, so
+      this simulates that by collecting the targets from consecutive iptables
+      rules into one action tag, but only when the rule matches are identical.
+      Terminating actions like RETURN, DROP, ACCEPT and QUEUE are not combined
+      with subsequent targets.</dd>
+  <dt><b>-v</b>, <b>--verbose</b></dt>
+  <dd>Output xml comments containing the iptables line from which the XML is
+      derived
+    <p class="Pp"></p>
+  </dd>
+</dl>
+<p class="Pp">iptables-xml does a mechanistic conversion to a very expressive
+    xml format; the only semantic considerations are for -g and -j targets in
+    order to discriminate between &lt;call&gt; &lt;goto&gt; and
+    &lt;nane-of-target&gt; as it helps xml processing scripts if they can tell
+    the difference between a target like SNAT and another chain.</p>
+<p class="Pp">Some sample output is:</p>
+<p class="Pp">&lt;iptables-rules&gt;
+   &lt;table name=&quot;mangle&quot;&gt;
+   &lt;chain name=&quot;PREROUTING&quot; policy=&quot;ACCEPT&quot;
+    packet-count=&quot;63436&quot; byte-count=&quot;7137573&quot;&gt;
+   &lt;rule&gt;
+   &lt;conditions&gt;
+   &lt;match&gt;
+   &lt;p&gt;tcp&lt;/p&gt;
+   &lt;/match&gt;
+   &lt;tcp&gt;
+   &lt;sport&gt;8443&lt;/sport&gt;
+   &lt;/tcp&gt;
+   &lt;/conditions&gt;
+   &lt;actions&gt;
+   &lt;call&gt;
+   &lt;check_ip/&gt;
+   &lt;/call&gt;
+   &lt;ACCEPT/&gt;
+   &lt;/actions&gt;
+   &lt;/rule&gt;
+   &lt;/chain&gt;
+   &lt;/table&gt; &lt;/iptables-rules&gt;</p>
+<p class="Pp"></p>
+<p class="Pp">Conversion from XML to iptables-save format may be done using the
+    iptables.xslt script and xsltproc, or a custom program using libxsltproc or
+    similar; in this fashion:</p>
+<p class="Pp">xsltproc iptables.xslt my-iptables.xml | iptables-restore</p>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="BUGS"><a class="permalink" href="#BUGS">BUGS</a></h1>
+None known as of iptables-1.3.7 release
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHOR"><a class="permalink" href="#AUTHOR">AUTHOR</a></h1>
+Sam Liddicott &lt;azez@ufomechanic.net&gt;
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>iptables-save</b>(8), <b>iptables-restore</b>(8), <b>iptables</b>(8)
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date"></td>
+    <td class="foot-os">iptables 1.8.4</td>
+  </tr>
+</table>
+
+	</div>
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

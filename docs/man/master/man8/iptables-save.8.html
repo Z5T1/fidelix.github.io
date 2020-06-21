@@ -1,0 +1,125 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man8/iptables-save.8</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<div class=header>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+	</div>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<div class=dropdown>
+			<li><a href=/download>Download</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/download/>Latest Downloads</a></li>
+				<li><a href=/download/all.html>All Downloads</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/fidelix-project/fidelix/blob/master/doc/README.md>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/fidelix-project>GitHub</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Community</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://discord.com/invite/Yz8DeUr>Discord</a></li>
+				<li><a href=/get-involved.html>Get Involved</a></li>
+				<li><a href=/contact.html>Contact Us</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+
+	<div class=body><table class="head">
+  <tr>
+    <td class="head-ltitle">IPTABLES-SAVE(8)</td>
+    <td class="head-vol">iptables 1.8.4</td>
+    <td class="head-rtitle">IPTABLES-SAVE(8)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+iptables-save &#x2014; dump iptables rules
+<p class="Pp">ip6tables-save &#x2014; dump iptables rules</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>iptables-save</b> [<b>-M</b> <i>modprobe</i>] [<b>-c</b>] [<b>-t</b>
+  <i>table</i>] [<b>-f</b> <i>filename</i>]
+<p class="Pp"><b>ip6tables-save</b> [<b>-M</b> <i>modprobe</i>] [<b>-c</b>]
+    [<b>-t</b> <i>table</i>] [<b>-f</b> <i>filename</i>]</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>iptables-save</b> and <b>ip6tables-save</b> are used to dump the contents of
+  IP or IPv6 Table in easily parseable format either to STDOUT or to a specified
+  file.
+<dl class="Bl-tag">
+  <dt><b>-M</b>, <b>--modprobe</b> <i>modprobe_program</i></dt>
+  <dd>Specify the path to the modprobe program. By default, iptables-save will
+      inspect /proc/sys/kernel/modprobe to determine the executable's path.</dd>
+  <dt><b>-f</b>, <b>--file</b> <i>filename</i></dt>
+  <dd>Specify a filename to log the output to. If not specified, iptables-save
+      will log to STDOUT.</dd>
+  <dt><b>-c</b>, <b>--counters</b></dt>
+  <dd>include the current values of all packet and byte counters in the
+    output</dd>
+  <dt><b>-t</b>, <b>--table</b> <i>tablename</i></dt>
+  <dd>restrict output to only one table. If the kernel is configured with
+      automatic module loading, an attempt will be made to load the appropriate
+      module for that table if it is not already there.
+    <br/>
+    If not specified, output includes all available tables.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="BUGS"><a class="permalink" href="#BUGS">BUGS</a></h1>
+None known as of iptables-1.2.1 release
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHORS"><a class="permalink" href="#AUTHORS">AUTHORS</a></h1>
+Harald Welte &lt;laforge@gnumonks.org&gt;
+<br/>
+Rusty Russell &lt;rusty@rustcorp.com.au&gt;
+<br/>
+Andras Kis-Szabo &lt;kisza@sch.bme.hu&gt; contributed ip6tables-save.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>iptables-restore</b>(8), <b>iptables</b>(8)
+<p class="Pp">The iptables-HOWTO, which details more iptables usage, the
+    NAT-HOWTO, which details NAT, and the netfilter-hacking-HOWTO which details
+    the internals.</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date"></td>
+    <td class="foot-os">iptables 1.8.4</td>
+  </tr>
+</table>
+
+	</div>
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

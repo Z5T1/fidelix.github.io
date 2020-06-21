@@ -1,0 +1,171 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/info.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<div class=header>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+	</div>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<div class=dropdown>
+			<li><a href=/download>Download</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/download/>Latest Downloads</a></li>
+				<li><a href=/download/all.html>All Downloads</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/fidelix-project/fidelix/blob/master/doc/README.md>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/fidelix-project>GitHub</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Community</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://discord.com/invite/Yz8DeUr>Discord</a></li>
+				<li><a href=/get-involved.html>Get Involved</a></li>
+				<li><a href=/contact.html>Contact Us</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+
+	<div class=body><table class="head">
+  <tr>
+    <td class="head-ltitle">INFO(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">INFO(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+info - read Info documents
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>info</b> [<i>OPTION</i>]... [<i>MENU-ITEM</i>...]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+Read documentation in Info format.
+<section class="Ss">
+<h2 class="Ss" id="Frequently-used_options:"><a class="permalink" href="#Frequently-used_options:">Frequently-used
+  options:</a></h2>
+<dl class="Bl-tag">
+  <dt><b>-a</b>, <b>--all</b></dt>
+  <dd>use all matching manuals</dd>
+  <dt><b>-k</b>, <b>--apropos</b>=<i>STRING</i></dt>
+  <dd>look up STRING in all indices of all manuals</dd>
+  <dt><b>-d</b>, <b>--directory</b>=<i>DIR</i></dt>
+  <dd>add DIR to INFOPATH</dd>
+  <dt><b>-f</b>, <b>--file</b>=<i>MANUAL</i></dt>
+  <dd>specify Info manual to visit</dd>
+  <dt><b>-h</b>, <b>--help</b></dt>
+  <dd>display this help and exit</dd>
+  <dt><b>--index-search</b>=<i>STRING</i></dt>
+  <dd>go to node pointed by index entry STRING</dd>
+  <dt><b>-n</b>, <b>--node</b>=<i>NODENAME</i></dt>
+  <dd>specify nodes in first visited Info file</dd>
+  <dt><b>-o</b>, <b>--output</b>=<i>FILE</i></dt>
+  <dd>output selected nodes to FILE</dd>
+  <dt><b>-O</b>, <b>--show-options</b>, <b>--usage</b></dt>
+  <dd>go to command-line options node</dd>
+  <dt><b>--subnodes</b></dt>
+  <dd>recursively output menu items</dd>
+  <dt><b>-v</b>, <b>--variable</b> VAR=VALUE</dt>
+  <dd>assign VALUE to Info variable VAR</dd>
+  <dt><b>--version</b></dt>
+  <dd>display version information and exit</dd>
+  <dt><b>-w</b>, <b>--where</b>, <b>--location</b></dt>
+  <dd>print physical location of Info file</dd>
+</dl>
+<p class="Pp">The first non-option argument, if present, is the menu entry to
+    start from; it is searched for in all 'dir' files along INFOPATH. If it is
+    not present, info merges all 'dir' files and shows the result. Any remaining
+    arguments are treated as the names of menu items relative to the initial
+    node visited.</p>
+<p class="Pp">For a summary of key bindings, type H within Info.</p>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXAMPLES"><a class="permalink" href="#EXAMPLES">EXAMPLES</a></h1>
+<dl class="Bl-tag">
+  <dt>info</dt>
+  <dd>show top-level dir menu</dd>
+  <dt>info info-stnd</dt>
+  <dd>show the manual for this Info program</dd>
+  <dt>info emacs</dt>
+  <dd>start at emacs node from top-level dir</dd>
+  <dt>info emacs buffers</dt>
+  <dd>select buffers menu entry in emacs manual</dd>
+  <dt>info emacs -n Files</dt>
+  <dd>start at Files node within emacs manual</dd>
+  <dt>info '(emacs)Files'</dt>
+  <dd>alternative way to start at Files node</dd>
+  <dt>info --show-options emacs</dt>
+  <dd>start at node with emacs' command line options</dd>
+  <dt>info --subnodes -o out.txt emacs</dt>
+  <dd>dump entire emacs manual to out.txt</dd>
+  <dt>info -f ./foo.info</dt>
+  <dd>show file ./foo.info, not searching dir</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="REPORTING_BUGS"><a class="permalink" href="#REPORTING_BUGS">REPORTING
+  BUGS</a></h1>
+Email bug reports to bug-texinfo@gnu.org, general questions and discussion to
+  help-texinfo@gnu.org.
+<br/>
+Texinfo home page: http://www.gnu.org/software/texinfo/
+</section>
+<section class="Sh">
+<h1 class="Sh" id="COPYRIGHT"><a class="permalink" href="#COPYRIGHT">COPYRIGHT</a></h1>
+Copyright &#x00A9; 2019 Free Software Foundation, Inc. License GPLv3+: GNU GPL
+  version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;
+<br/>
+This is free software: you are free to change and redistribute it. There is NO
+  WARRANTY, to the extent permitted by law.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+The full documentation for <b>info</b> is maintained as a Texinfo manual. If the
+  <b>info</b> program is properly installed at your site, the command
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd><b>info info</b></dd>
+</dl>
+<p class="Pp">should give you access to the complete manual. (Or, if you have
+    Emacs, M-x info will lead to the manual.)</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">September 2019</td>
+    <td class="foot-os">info 6.7</td>
+  </tr>
+</table>
+
+	</div>
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

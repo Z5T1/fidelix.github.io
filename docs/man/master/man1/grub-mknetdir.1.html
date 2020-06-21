@@ -1,0 +1,142 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/grub-mknetdir.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<div class=header>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+	</div>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<div class=dropdown>
+			<li><a href=/download>Download</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/download/>Latest Downloads</a></li>
+				<li><a href=/download/all.html>All Downloads</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/fidelix-project/fidelix/blob/master/doc/README.md>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/fidelix-project>GitHub</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Community</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://discord.com/invite/Yz8DeUr>Discord</a></li>
+				<li><a href=/get-involved.html>Get Involved</a></li>
+				<li><a href=/contact.html>Contact Us</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+
+	<div class=body><table class="head">
+  <tr>
+    <td class="head-ltitle">GRUB-MKNETDIR(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">GRUB-MKNETDIR(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+grub-mknetdir - prepare a GRUB netboot directory.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>grub-mknetdir</b> [<i>OPTION</i>...]
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+?Prepares GRUB network boot images at net_directory/subdir assuming
+  net_directory being TFTP root.
+<dl class="Bl-tag">
+  <dt><b>--compress</b>=<i>no</i>|xz|gz|lzo</dt>
+  <dd>compress GRUB files [optional]</dd>
+  <dt><b>-d</b>, <b>--directory</b>=<i>DIR</i></dt>
+  <dd>use images and modules under DIR
+    [default=/usr/lib/grub/&lt;platform&gt;]</dd>
+  <dt><b>--dtb</b>=<i>FILE</i></dt>
+  <dd>embed a specific DTB</dd>
+  <dt><b>--fonts</b>=<i>FONTS</i></dt>
+  <dd>install FONTS [default=unicode]</dd>
+  <dt><b>--install-modules</b>=<i>MODULES</i></dt>
+  <dd>install only MODULES and their dependencies [default=all]</dd>
+  <dt><b>-k</b>, <b>--pubkey</b>=<i>FILE</i></dt>
+  <dd>embed FILE as public key for signature checking</dd>
+  <dt><b>--locale-directory</b>=<i>DIR</i> use translations under DIR</dt>
+  <dd>[default=/usr/share/locale]</dd>
+  <dt><b>--locales</b>=<i>LOCALES</i></dt>
+  <dd>install only LOCALES [default=all]</dd>
+  <dt><b>--modules</b>=<i>MODULES</i></dt>
+  <dd>pre-load specified modules MODULES</dd>
+  <dt><b>--themes</b>=<i>THEMES</i></dt>
+  <dd>install THEMES [default=starfield]</dd>
+  <dt><b>-v</b>, <b>--verbose</b></dt>
+  <dd>print verbose messages.</dd>
+  <dt><b>--core-compress</b>=<i>xz</i>|none|auto</dt>
+  <dd>choose the compression to use for core image</dd>
+  <dt><b>--net-directory</b>=<i>DIR</i></dt>
+  <dd>root directory of TFTP server</dd>
+  <dt><b>--subdir</b>=<i>DIR</i></dt>
+  <dd>relative subdirectory on network server</dd>
+  <dt>-?, <b>--help</b></dt>
+  <dd>give this help list</dd>
+  <dt><b>--usage</b></dt>
+  <dd>give a short usage message</dd>
+  <dt><b>-V</b>, <b>--version</b></dt>
+  <dd>print program version</dd>
+</dl>
+<p class="Pp">Mandatory or optional arguments to long options are also mandatory
+    or optional for any corresponding short options.</p>
+<p class="Pp">Prepares GRUB network boot images at net_directory/subdir assuming
+    net_directory being TFTP root.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="REPORTING_BUGS"><a class="permalink" href="#REPORTING_BUGS">REPORTING
+  BUGS</a></h1>
+Report bugs to &lt;bug-grub@gnu.org&gt;.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>grub-mkimage</b>(1)
+<p class="Pp">The full documentation for <b>grub-mknetdir</b> is maintained as a
+    Texinfo manual. If the <b>info</b> and <b>grub-mknetdir</b> programs are
+    properly installed at your site, the command</p>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd><b>info grub-mknetdir</b></dd>
+</dl>
+<p class="Pp">should give you access to the complete manual.</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">June 2020</td>
+    <td class="foot-os">grub-mknetdir 2.04</td>
+  </tr>
+</table>
+
+	</div>
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

@@ -1,0 +1,145 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man8/iptables-restore.8</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<div class=header>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+	</div>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<div class=dropdown>
+			<li><a href=/download>Download</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/download/>Latest Downloads</a></li>
+				<li><a href=/download/all.html>All Downloads</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/fidelix-project/fidelix/blob/master/doc/README.md>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/fidelix-project>GitHub</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Community</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://discord.com/invite/Yz8DeUr>Discord</a></li>
+				<li><a href=/get-involved.html>Get Involved</a></li>
+				<li><a href=/contact.html>Contact Us</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+
+	<div class=body><table class="head">
+  <tr>
+    <td class="head-ltitle">IPTABLES-RESTORE(8)</td>
+    <td class="head-vol">iptables 1.8.4</td>
+    <td class="head-rtitle">IPTABLES-RESTORE(8)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+iptables-restore &#x2014; Restore IP Tables
+<p class="Pp">ip6tables-restore &#x2014; Restore IPv6 Tables</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>iptables-restore</b> [<b>-chntvV</b>] [<b>-w</b> <i>secs</i>] [<b>-W</b>
+  <i>usecs</i>] [<b>-M</b> <i>modprobe</i>] [<b>-T</b> <i>name</i>]
+  [<b>file</b>]
+<p class="Pp"><b>ip6tables-restore</b> [<b>-chntvV</b>] [<b>-w</b> <i>secs</i>]
+    [<b>-W</b> <i>usecs</i>] [<b>-M</b> <i>modprobe</i>] [<b>-T</b> <i>name</i>]
+    [<b>file</b>]</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<b>iptables-restore</b> and <b>ip6tables-restore</b> are used to restore IP and
+  IPv6 Tables from data specified on STDIN or in <i>file</i>. Use I/O
+  redirection provided by your shell to read from a file or specify <i>file</i>
+  as an argument.
+<dl class="Bl-tag">
+  <dt><b>-c</b>, <b>--counters</b></dt>
+  <dd>restore the values of all packet and byte counters</dd>
+  <dt><b>-h</b>, <b>--help</b></dt>
+  <dd>Print a short option summary.</dd>
+  <dt><b>-n</b>, <b>--noflush</b></dt>
+  <dd>don't flush the previous contents of the table. If not specified, both
+      commands flush (delete) all previous contents of the respective
+    table.</dd>
+  <dt><b>-t</b>, <b>--test</b></dt>
+  <dd>Only parse and construct the ruleset, but do not commit it.</dd>
+  <dt><b>-v</b>, <b>--verbose</b></dt>
+  <dd>Print additional debug info during ruleset processing.</dd>
+  <dt><b>-V</b>, <b>--version</b></dt>
+  <dd>Print the program version number.</dd>
+  <dt><b>-w</b>, <b>--wait</b> [<i>seconds</i>]</dt>
+  <dd>Wait for the xtables lock. To prevent multiple instances of the program
+      from running concurrently, an attempt will be made to obtain an exclusive
+      lock at launch. By default, the program will exit if the lock cannot be
+      obtained. This option will make the program wait (indefinitely or for
+      optional <i>seconds</i>) until the exclusive lock can be obtained.</dd>
+  <dt><b>-W</b>, <b>--wait-interval</b> <i>microseconds</i></dt>
+  <dd>Interval to wait per each iteration. When running latency sensitive
+      applications, waiting for the xtables lock for extended durations may not
+      be acceptable. This option will make each iteration take the amount of
+      time specified. The default interval is 1 second. This option only works
+      with <b>-w</b>.</dd>
+  <dt><b>-M</b>, <b>--modprobe</b> <i>modprobe_program</i></dt>
+  <dd>Specify the path to the modprobe program. By default, iptables-restore
+      will inspect /proc/sys/kernel/modprobe to determine the executable's
+    path.</dd>
+  <dt><b>-T</b>, <b>--table</b> <i>name</i></dt>
+  <dd>Restore only the named table even if the input stream contains other
+    ones.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="BUGS"><a class="permalink" href="#BUGS">BUGS</a></h1>
+None known as of iptables-1.2.1 release
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHORS"><a class="permalink" href="#AUTHORS">AUTHORS</a></h1>
+Harald Welte &lt;laforge@gnumonks.org&gt; wrote iptables-restore based on code
+  from Rusty Russell.
+<br/>
+Andras Kis-Szabo &lt;kisza@sch.bme.hu&gt; contributed ip6tables-restore.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>iptables-save</b>(8), <b>iptables</b>(8)
+<p class="Pp">The iptables-HOWTO, which details more iptables usage, the
+    NAT-HOWTO, which details NAT, and the netfilter-hacking-HOWTO which details
+    the internals.</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date"></td>
+    <td class="foot-os">iptables 1.8.4</td>
+  </tr>
+</table>
+
+	</div>
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

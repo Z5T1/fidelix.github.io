@@ -24,20 +24,22 @@
 		<div class=dropdown>
 			<li><a href=#>Documentation</a></li>
 			<ul class=dropdown-content>
-				<li><a href=/handbook/>Handbook</a></li>
+				<li><a href=https://github.com/fidelix-project/fidelix/blob/master/doc/README.md>Handbook</a></li>
 				<li><a href=/man/>Manual Pages</a></li>
 			</ul>
 		</div>
 		<div class=dropdown>
 			<li><a href=#>Development</a></li>
 			<ul class=dropdown-content>
-				<li><a href=https://github.com/Z5T1/fidelix>GitHub</a></li>
+				<li><a href=https://github.com/fidelix-project>GitHub</a></li>
 			</ul>
 		</div>
 		<div class=dropdown>
 			<li><a href=#>Community</a></li>
 			<ul class=dropdown-content>
 				<li><a href=https://discord.com/invite/Yz8DeUr>Discord</a></li>
+				<li><a href=/get-involved.html>Get Involved</a></li>
+				<li><a href=/contact.html>Contact Us</a></li>
 			</ul>
 		</div>
 	</ul>
@@ -46,31 +48,142 @@
 
 	<div class=body><table class="head">
   <tr>
-    <td class="head-ltitle">CLEAR(1)</td>
-    <td class="head-vol">User Commands</td>
-    <td class="head-rtitle">CLEAR(1)</td>
+    <td class="head-ltitle">clear(1)</td>
+    <td class="head-vol">General Commands Manual</td>
+    <td class="head-rtitle">clear(1)</td>
   </tr>
 </table>
 <div class="manual-text">
 <section class="Sh">
 <h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
-clear - manual page for clear 1.31.1
+<b>clear</b> - clear the terminal screen
 </section>
 <section class="Sh">
 <h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
-<b>clear</b>
-<p class="Pp"></p>
+<b>clear</b> [<b>-T</b><i>type</i>] [<b>-V</b>] [<b>-x</b>]
 </section>
 <section class="Sh">
 <h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
-BusyBox v1.31.1 (2020-04-30 13:38:01 EDT) multi-call binary.
-<p class="Pp">Clear screen</p>
+<b>clear</b> clears your screen if this is possible, including its scrollback
+  buffer (if the extended &#x201C;E3&#x201D; capability is defined).
+  <b>clear</b> looks in the environment for the terminal type given by the
+  environment variable <b>TERM</b>, and then in the <b>terminfo</b> database to
+  determine how to clear the screen.
+<p class="Pp"><b>clear</b> writes to the standard output. You can redirect the
+    standard output to a file (which prevents <b>clear</b> from actually
+    clearing the screen), and later <b>cat</b> the file to the screen, clearing
+    it at that point.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+<dl class="Bl-tag">
+  <dt><b>-T <i>type</i></b></dt>
+  <dd>indicates the <i>type</i> of terminal. Normally this option is
+      unnecessary, because the default is taken from the environment variable
+      <b>TERM</b>. If <b>-T</b> is specified, then the shell variables
+      <b>LINES</b> and <b>COLUMNS</b> will also be ignored.</dd>
+  <dt><b>-V</b></dt>
+  <dd>reports the version of ncurses which was used in this program, and exits.
+      The options are as follows:</dd>
+  <dt><b>-x</b></dt>
+  <dd>do not attempt to clear the terminal's scrollback buffer using the
+      extended &#x201C;E3&#x201D; capability.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="HISTORY"><a class="permalink" href="#HISTORY">HISTORY</a></h1>
+A <b>clear</b> command appeared in 2.79BSD dated February 24, 1979. Later that
+  was provided in Unix 8th edition (1985).
+<p class="Pp">AT&amp;T adapted a different BSD program (<b>tset</b>) to make a
+    new command (<b>tput</b>), and used this to replace the <b>clear</b> command
+    with a shell script which calls <b>tput clear</b>, e.g.,</p>
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+/usr/bin/tput ${1:+-T$1} clear 2&gt; /dev/null
+exit
+</pre>
+<br/>
+<p class="Pp">In 1989, when Keith Bostic revised the BSD <b>tput</b> command to
+    make it similar to the AT&amp;T <b>tput</b>, he added a shell script for the
+    <b>clear</b> command:</p>
+<p class="Pp">
+  <br/>
+</p>
+<pre>
+exec tput clear
+</pre>
+<br/>
+<p class="Pp">The remainder of the script in each case is a copyright
+  notice.</p>
+<p class="Pp">The ncurses <b>clear</b> command began in 1995 by adapting the
+    original BSD <b>clear</b> command (with terminfo, of course).</p>
+<p class="Pp">The <b>E3</b> extension came later:</p>
+<dl class="Bl-tag">
+  <dt>&#x2022;</dt>
+  <dd>In June 1999, xterm provided an extension to the standard control sequence
+      for clearing the screen. Rather than clearing just the visible part of the
+      screen using
+    <p class="Pp">
+      <br/>
+    </p>
+    <pre>
+printf '\033[2J'
+    </pre>
+    <br/>
+  </dd>
+</dl>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>one could clear the <i>scrollback</i> using
+    <p class="Pp">
+      <br/>
+    </p>
+    <pre>
+printf '\033[<b>3</b>J'
+    </pre>
+    <br/>
+  </dd>
+  <dt></dt>
+  <dd>This is documented in <i>XTerm Control Sequences</i> as a feature
+      originating with xterm.</dd>
+</dl>
+<ul class="Bl-bullet">
+  <li>A few other terminal developers adopted the feature, e.g., PuTTY in
+    2006.</li>
+  <li>In April 2011, a Red Hat developer submitted a patch to the Linux kernel,
+      modifying its console driver to do the same thing. The Linux change, part
+      of the 3.0 release, did not mention xterm, although it was cited in the
+      Red Hat bug report (#683733) which led to the change.</li>
+  <li>Again, a few other terminal developers adopted the feature. But the next
+      relevant step was a change to the <b>clear</b> program in 2013 to
+      incorporate this extension.</li>
+  <li>In 2013, the <b>E3</b> extension was overlooked in <b>tput</b> with the
+      &#x201C;clear&#x201D; parameter. That was addressed in 2016 by
+      reorganizing <b>tput</b> to share its logic with <b>clear</b> and
+      <b>tset</b>.</li>
+</ul>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="PORTABILITY"><a class="permalink" href="#PORTABILITY">PORTABILITY</a></h1>
+Neither IEEE Std 1003.1/The Open Group Base Specifications Issue 7
+  (POSIX.1-2008) nor X/Open Curses Issue 7 documents tset or reset.
+<p class="Pp">The latter documents <b>tput</b>, which could be used to replace
+    this utility either via a shell script or by an alias (such as a symbolic
+    link) to run <b>tput</b> as <b>clear</b>.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>tput</b>(1), <b>terminfo</b>(5)
+<p class="Pp">This describes <b>ncurses</b> version 6.2 (patch 20200212).</p>
 </section>
 </div>
 <table class="foot">
   <tr>
-    <td class="foot-date">April 2020</td>
-    <td class="foot-os">Fidelix 1.0</td>
+    <td class="foot-date"></td>
+    <td class="foot-os"></td>
   </tr>
 </table>
 

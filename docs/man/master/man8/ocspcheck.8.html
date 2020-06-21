@@ -1,0 +1,165 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man8/ocspcheck.8</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<div class=header>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+	</div>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<div class=dropdown>
+			<li><a href=/download>Download</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/download/>Latest Downloads</a></li>
+				<li><a href=/download/all.html>All Downloads</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/fidelix-project/fidelix/blob/master/doc/README.md>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/fidelix-project>GitHub</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Community</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://discord.com/invite/Yz8DeUr>Discord</a></li>
+				<li><a href=/get-involved.html>Get Involved</a></li>
+				<li><a href=/contact.html>Contact Us</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+
+	<div class=body><table class="head">
+  <tr>
+    <td class="head-ltitle">OCSPCHECK(8)</td>
+    <td class="head-vol">System Manager's Manual</td>
+    <td class="head-rtitle">OCSPCHECK(8)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<code class="Nm">ocspcheck</code> &#x2014;
+<div class="Nd">check a certificate for validity against its OCSP
+  responder</div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<table class="Nm">
+  <tr>
+    <td><code class="Nm">ocspcheck</code></td>
+    <td>[<code class="Fl">-Nv</code>] [<code class="Fl">-C</code>
+      <var class="Ar">CAfile</var>] [<code class="Fl">-i</code>
+      <var class="Ar">staplefile</var>] [<code class="Fl">-o</code>
+      <var class="Ar">staplefile</var>] <var class="Ar">file</var></td>
+  </tr>
+</table>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+The <code class="Nm">ocspcheck</code> utility validates a PEM format certificate
+  against the OCSP responder encoded in the certificate specified by the
+  <var class="Ar">file</var> argument. Normally it should be used for checking
+  server certificates and maintaining saved OCSP responses to be used for OCSP
+  stapling.
+<p class="Pp">The options are as follows:</p>
+<dl class="Bl-tag">
+  <dt><a class="permalink" href="#C"><code class="Fl" id="C">-C</code></a>
+    <var class="Ar">CAfile</var></dt>
+  <dd>Specify a PEM format root certificate bundle to use for the validation of
+      requests. By default no certificates are used beyond those in the
+      certificate chain provided by the <var class="Ar">file</var>
+    argument.</dd>
+  <dt><a class="permalink" href="#i"><code class="Fl" id="i">-i</code></a>
+    <var class="Ar">staplefile</var></dt>
+  <dd>Specify an input filename from which a DER-encoded OCSP response will be
+      read instead of fetching it from the OCSP server. A filename of
+      &#x2018;-&#x2019; will read the response from standard input.</dd>
+  <dt><a class="permalink" href="#N"><code class="Fl" id="N">-N</code></a></dt>
+  <dd>Do not use a nonce value in the OCSP request, or validate that the nonce
+      was returned in the OCSP response. By default a nonce is always used and
+      validated when retrieving a response from an OCSP server. The use of this
+      flag is a security risk as it will allow OCSP responses to be replayed. It
+      should not be used unless the OCSP server does not support the use of OCSP
+      nonces.</dd>
+  <dt><a class="permalink" href="#o"><code class="Fl" id="o">-o</code></a>
+    <var class="Ar">staplefile</var></dt>
+  <dd>Specify an output filename where the DER encoded response from the OCSP
+      server will be written, if the OCSP response validates. A filename of
+      &#x2018;-&#x2019; will write the response to standard output. By default
+      the response is not saved.</dd>
+  <dt><a class="permalink" href="#v"><code class="Fl" id="v">-v</code></a></dt>
+  <dd>Increase verbosity. This flag may be specified multiple times to get more
+      verbose output. The default behaviour is to be silent unless something
+      goes wrong.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXIT_STATUS"><a class="permalink" href="#EXIT_STATUS">EXIT
+  STATUS</a></h1>
+The <code class="Nm">ocspcheck</code> utility exits 0 if the OCSP response
+  validates for the certificate in <var class="Ar">file</var> and all output is
+  successfully written out. <code class="Nm">ocspcheck</code> exits &gt;0 if an
+  error occurs or the OCSP response fails to validate.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<a class="Xr" href="../man1/nc.1.html">nc(1)</a>,
+  <a class="Xr" href="../man3/tls_config_set_ocsp_staple_file.3.html">tls_config_set_ocsp_staple_file(3)</a>,
+  <a class="Xr" href="../man3/tls_config_set_ocsp_staple_mem.3.html">tls_config_set_ocsp_staple_mem(3)</a>,
+  <a class="Xr" href="../man8/httpd.8.html">httpd(8)</a>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="HISTORY"><a class="permalink" href="#HISTORY">HISTORY</a></h1>
+The <code class="Nm">ocspcheck</code> utility first appeared in
+  <span class="Ux">OpenBSD 6.1</span>.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHORS"><a class="permalink" href="#AUTHORS">AUTHORS</a></h1>
+<code class="Nm">ocspcheck</code> was written by <span class="An">Bob
+  Beck</span>.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CAVEATS"><a class="permalink" href="#CAVEATS">CAVEATS</a></h1>
+While <code class="Nm">ocspcheck</code> could possibly be used in scripts to
+  query responders for server certificates seen on client connections, this is
+  almost always a bad idea. God kills a kitten every time you make an OCSP query
+  from the client side of a TLS connection.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="BUGS"><a class="permalink" href="#BUGS">BUGS</a></h1>
+<code class="Nm">ocspcheck</code> will create the output file if it does not
+  exist. On failure a newly created output file will not be removed.
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">November 29, 2017</td>
+    <td class="foot-os">Fidelix 0.2</td>
+  </tr>
+</table>
+
+	</div>
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

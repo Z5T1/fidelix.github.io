@@ -1,0 +1,119 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man8/grub-reboot.8</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<div class=header>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+	</div>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<div class=dropdown>
+			<li><a href=/download>Download</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/download/>Latest Downloads</a></li>
+				<li><a href=/download/all.html>All Downloads</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/fidelix-project/fidelix/blob/master/doc/README.md>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/fidelix-project>GitHub</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Community</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://discord.com/invite/Yz8DeUr>Discord</a></li>
+				<li><a href=/get-involved.html>Get Involved</a></li>
+				<li><a href=/contact.html>Contact Us</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+
+	<div class=body><table class="head">
+  <tr>
+    <td class="head-ltitle">GRUB-REBOOT(8)</td>
+    <td class="head-vol">System Administration Utilities</td>
+    <td class="head-rtitle">GRUB-REBOOT(8)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+grub-reboot - set the default boot entry for GRUB, for the next boot only
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>grub-reboot</b> [<i>OPTION</i>] <i>MENU_ENTRY</i>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+Set the default boot menu entry for GRUB, for the next boot only.
+<dl class="Bl-tag">
+  <dt><b>-h</b>, <b>--help</b></dt>
+  <dd>print this message and exit</dd>
+  <dt><b>-V</b>, <b>--version</b></dt>
+  <dd>print the version information and exit</dd>
+  <dt><b>--boot-directory</b>=<i>DIR</i></dt>
+  <dd>expect GRUB images under the directory DIR/grub instead of the
+      <i>/boot/grub</i> directory</dd>
+</dl>
+<p class="Pp">MENU_ENTRY is a number, a menu item title or a menu item
+    identifier. Please note that menu items in submenus or sub-submenus require
+    specifying the submenu components and then the menu item component. The
+    titles should be separated using the greater-than character (&gt;) with no
+    extra spaces. Depending on your shell some characters including &gt; may
+    need escaping. More information about this is available in the GRUB Manual
+    in the section about the 'default' command.</p>
+<p class="Pp">NOTE: In cases where GRUB cannot write to the environment block,
+    such as when it is stored on an MDRAID or LVM device, the chosen boot menu
+    entry will remain the default even after reboot.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="REPORTING_BUGS"><a class="permalink" href="#REPORTING_BUGS">REPORTING
+  BUGS</a></h1>
+Report bugs to &lt;bug-grub@gnu.org&gt;.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>grub-set-default</b>(8), <b>grub-editenv</b>(1)
+<p class="Pp">The full documentation for <b>grub-reboot</b> is maintained as a
+    Texinfo manual. If the <b>info</b> and <b>grub-reboot</b> programs are
+    properly installed at your site, the command</p>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd><b>info grub-reboot</b></dd>
+</dl>
+<p class="Pp">should give you access to the complete manual.</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">June 2020</td>
+    <td class="foot-os">grub-reboot 2.04</td>
+  </tr>
+</table>
+
+	</div>
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>

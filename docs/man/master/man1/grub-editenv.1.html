@@ -1,0 +1,132 @@
+
+<!DOCTYPE HTML>
+<head>
+	<title>/usr/share/man/man1/grub-editenv.1</title>		<link rel='stylesheet' href='/mandoc.css' />
+	<link rel='stylesheet' href='/style.css' />
+</head>
+<body>
+	<div class=contents>
+	<div class=header>
+	<h1>The Fidelix Linux Distribution</h1>
+	<h2>Simple, Stable, and Secure</h2>
+	</div>
+<div class=menubar>
+	<ul>
+		<li><a href=/>News</a></li>
+		<li><a href=/about.html>About</a></li>
+		<div class=dropdown>
+			<li><a href=/download>Download</a></li>
+			<ul class=dropdown-content>
+				<li><a href=/download/>Latest Downloads</a></li>
+				<li><a href=/download/all.html>All Downloads</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Documentation</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/fidelix-project/fidelix/blob/master/doc/README.md>Handbook</a></li>
+				<li><a href=/man/>Manual Pages</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Development</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://github.com/fidelix-project>GitHub</a></li>
+			</ul>
+		</div>
+		<div class=dropdown>
+			<li><a href=#>Community</a></li>
+			<ul class=dropdown-content>
+				<li><a href=https://discord.com/invite/Yz8DeUr>Discord</a></li>
+				<li><a href=/get-involved.html>Get Involved</a></li>
+				<li><a href=/contact.html>Contact Us</a></li>
+			</ul>
+		</div>
+	</ul>
+</div>
+
+
+	<div class=body><table class="head">
+  <tr>
+    <td class="head-ltitle">GRUB-EDITENV(1)</td>
+    <td class="head-vol">User Commands</td>
+    <td class="head-rtitle">GRUB-EDITENV(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+grub-editenv - edit GRUB environment block
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<b>grub-editenv</b> [<i>OPTION</i>...] <i>FILENAME COMMAND</i>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+Tool to edit environment block.
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>Commands:</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt>create</dt>
+  <dd>Create a blank environment block file.</dd>
+  <dt>list</dt>
+  <dd>List the current variables.</dd>
+  <dt>set [NAME=VALUE ...]</dt>
+  <dd>Set variables.</dd>
+  <dt>unset [NAME ...]</dt>
+  <dd>Delete variables.</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>Options:</dd>
+</dl>
+<dl class="Bl-tag">
+  <dt>-?, <b>--help</b></dt>
+  <dd>give this help list</dd>
+  <dt><b>--usage</b></dt>
+  <dd>give a short usage message</dd>
+  <dt><b>-v</b>, <b>--verbose</b></dt>
+  <dd>print verbose messages.</dd>
+  <dt><b>-V</b>, <b>--version</b></dt>
+  <dd>print program version</dd>
+</dl>
+<p class="Pp">If FILENAME is `-', the default value <i>/boot/grub/grubenv</i> is
+    used.</p>
+<p class="Pp">There is no `delete' command; if you want to delete the whole
+    environment block, use `rm /boot/grub/grubenv'.</p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="REPORTING_BUGS"><a class="permalink" href="#REPORTING_BUGS">REPORTING
+  BUGS</a></h1>
+Report bugs to &lt;bug-grub@gnu.org&gt;.
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<b>grub-reboot</b>(8), <b>grub-set-default</b>(8)
+<p class="Pp">The full documentation for <b>grub-editenv</b> is maintained as a
+    Texinfo manual. If the <b>info</b> and <b>grub-editenv</b> programs are
+    properly installed at your site, the command</p>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd><b>info grub-editenv</b></dd>
+</dl>
+<p class="Pp">should give you access to the complete manual.</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">June 2020</td>
+    <td class="foot-os">grub-editenv 2.04</td>
+  </tr>
+</table>
+
+	</div>
+	<div class=footer>
+		<p>Copyright 2020 Scott Court</p>
+	</div>
+	</div>
+</body>
