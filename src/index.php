@@ -5,6 +5,35 @@ do_header("Fidelix Linux");
 
 <div class=post>
 
+<h1>2020-06-28: Fidelix 0.2.0 has been released</h1>
+
+<p>
+Fidelix 0.2.0 is now <a href=download/0.2.0.html>available for download</a>.
+Here is a list of notable changes since Fidelix 0.1.3 (this list is not
+exhaustive):
+</p>
+
+<ul>
+	<li>aarch64 port</li>
+	<li>OpenNTPD 6.3p1</li>
+	<li>LibreSSL 3.1.3</li>
+	<li>Slightly better pkgsrc support</li>
+	<li>Many miscellaneous bug fixes</li>
+	<li>Binary package tree moved out of /usr/src to /var/packages</li>
+	<li>Separate source and package tarball downloads</li>
+	<li>Rootfs and Minirootfs tarball downloads</li>
+</ul>
+
+<p>Breakage Notices:</p>
+
+<ul>
+	<li>LibreSSL 3.0.2 -&gt; 3.1.3 has an ABI breakage. Any third party binaries linked against LibreSSL will need to be recompiled. If you cannot recompile them easily, then the recommended course of action is to keep the libressl-3.0.2 package installed along side libressl-3.1.3.</li>
+</ul>
+
+</div>
+
+<div class=post>
+
 <h1>2020-06-13: Fidelix 0.1.3 has been released</h1>
 
 <p>

@@ -66,7 +66,7 @@ function print_no_link() {
 		<td><?php print_download_link("x86_64", "-rootfs.tar.gz"); ?></td>
 	</tr>
 	<tr>
-		<td title="A tar archive containing a minimal root filesystem (only essential packages; no kernel or bootloader). Useful for small chroot environments and containers. Also useful for installing to systems that already have a bootloader and kernel and have limited disk space (such as embedded platforms). Supports installing binary packages, but not building from source. Do NOT extract with GNU tar or BusyBox tar; use BSD tar.">Minimal Root Filesystem (rootfs.tar.gz)</td>
+		<td title="A tar archive containing a minimal root filesystem (only essential packages; no kernel or bootloader). Useful for small chroot environments and containers. Also useful for installing to systems that already have a bootloader and kernel and have limited disk space (such as embedded platforms). Supports installing binary packages, but not building from source. Do NOT extract with GNU tar or BusyBox tar; use BSD tar.">Minimal Root Filesystem (minirootfs.tar.gz)</td>
 		<td><?php print_download_link("aarch64", "-minirootfs.tar.gz"); ?></td>
 		<td><?php print_download_link("i686", "-minirootfs.tar.gz"); ?></td>
 		<td><?php print_download_link("x86_64", "-minirootfs.tar.gz"); ?></td>
